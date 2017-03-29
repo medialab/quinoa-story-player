@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i');
-
 $gutter-small: .5em;
 $gutter-medium: $gutter-small * 1.666;
-
+$gutter-lateral-large-screens: 25%;
 $color-primary: #333;
 $color-background: white;
 $color-secondary-background: #e5e7e6;
@@ -11,7 +10,6 @@ $color-strokes: #dddbd9;
 
 $font-size-1: $gutter-small * 1.666;
 $font-size-2: $font-size-1 * 1.66;
-
 
 // abstract classes
 .interactive-item-intent
@@ -55,4 +53,67 @@ $font-size-2: $font-size-1 * 1.66;
 
     flex-flow: column nowrap;
     align-items: stretch;
+    .wrapper
+    {
+
+        width: 100%;
+        height: 200%;
+
+        overflow: auto;
+
+        .header
+        {
+                cursor: pointer;
+            position: relative;
+            top: 0;
+            left: 0;
+
+            display: flex;
+
+            width: 100%;
+            height: 100%;
+
+            background: $color-secondary-background;
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            flex-flow: row nowrap;
+            align-items: center;
+            .header-content
+            {
+                width: 100% - $gutter-lateral-large-screens * 2;
+                margin-right: $gutter-lateral-large-screens;
+                margin-left: $gutter-lateral-large-screens;
+                padding: $gutter-medium;
+
+                background: $color-secondary-background;
+
+                background-opacity: .9;
+            }
+        }
+    }
+
+    .body-wrapper{
+        height: 100%;
+        position: relative;
+        left: 0;
+        width: 100%;
+
+        .contents-wrapper
+        {
+            overflow-y: auto;
+            padding-right: $gutter-lateral-large-screens;
+            padding-left: $gutter-lateral-large-screens;
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+        }
+
+        .nav{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    }
 }

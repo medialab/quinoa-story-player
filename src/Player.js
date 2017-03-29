@@ -27,14 +27,10 @@ class QuinoaStoryPlayer extends Component {
   }
 
   renderComponent () {
-    const {
-      options = {}
-    } = this.props;
     if (this.state.story && this.state.status === 'loaded') {
       return (
         <StoryLayout
-          story={this.state.story}
-         />
+          story={this.state.story} />
       );
     }
     else if (this.status === 'error') {
