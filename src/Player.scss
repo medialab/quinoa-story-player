@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i');
+
+$gutter-small: .5em;
+$gutter-medium: $gutter-small * 1.666;
+
+$color-primary: #333;
+$color-background: white;
+$color-secondary-background: #e5e7e6;
+$color-primary-background: #f4f4f4;
+$color-strokes: #dddbd9;
+
+$font-size-1: $gutter-small * 1.666;
+$font-size-2: $font-size-1 * 1.66;
+
+
+// abstract classes
+.interactive-item-intent
+{
+    color: $color-primary;
+    background: $color-strokes;
+}
+
+.interactive-item-active
+{
+    color: #333;
+    background: #d6cfc4;
+}
+
+.interactive-item-active-intent
+{
+    color: #333;
+    background: #c3baac;
+}
+
+.quinoa-story-player
+{
+    // default styling
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: $font-size-1;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    overflow: hidden;
+
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    color: $color-primary;
+    background: $color-background;
+
+    flex-flow: column nowrap;
+    align-items: stretch;
+}
