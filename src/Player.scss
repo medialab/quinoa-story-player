@@ -112,15 +112,17 @@ $font-size-2: $font-size-1 * 1.66;
             left: 0;
             top: 0;
             padding: $gutter-medium;
+            width: $gutter-lateral-large-screens;
         }
     }
 
     .table-of-contents
     {
         padding : 0;
-        li{
+            li{
             list-style: none;
             padding: 0;
+            margin-bottom: $gutter-medium;
             &.level-1{
                 padding-left: 0;
             }
