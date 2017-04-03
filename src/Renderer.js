@@ -42,14 +42,14 @@ const renderers = {
    * Note that children are an array of blocks with same styling,
    */
   blocks: {
-    'unstyled': (children) => children.map(child => <p>{child}</p>),
-    'blockquote': (children) => <blockquote >{addBreaklines(children)}</blockquote>,
-    'header-one': (children, {keys}) => children.map((child, index) => <h1 id={keys[index]}>{child}</h1>),
-    'header-two': (children, {keys}) => children.map((child, index) => <h2 id={keys[index]}>{child}</h2>),
-    'header-three': (children, {keys}) => children.map((child, index) => <h3 id={keys[index]}>{child}</h3>),
-    'header-four': (children, {keys}) => children.map((child, index) => <h4 id={keys[index]}>{child}</h4>),
-    'header-five': (children, {keys}) => children.map((child, index) => <h5 id={keys[index]}>{child}</h5>),
-    'header-six': (children, {keys}) => children.map((child, index) => <h6 id={keys[index]}>{child}</h6>),
+    'unstyled': (children) => children.map((child, index) => <p key={index}>{child}</p>),
+    'blockquote': (children, index) => <blockquote key={index} >{addBreaklines(children)}</blockquote>,
+    'header-one': (children, {keys}) => children.map((child, index) => <h1 key={keys[index]} id={keys[index]}>{child}</h1>),
+    'header-two': (children, {keys}) => children.map((child, index) => <h2 key={keys[index]} id={keys[index]}>{child}</h2>),
+    'header-three': (children, {keys}) => children.map((child, index) => <h3 key={keys[index]} id={keys[index]}>{child}</h3>),
+    'header-four': (children, {keys}) => children.map((child, index) => <h4 key={keys[index]} id={keys[index]}>{child}</h4>),
+    'header-five': (children, {keys}) => children.map((child, index) => <h5 key={keys[index]} id={keys[index]}>{child}</h5>),
+    'header-six': (children, {keys}) => children.map((child, index) => <h6 key={keys[index]} id={keys[index]}>{child}</h6>),
     // You can also access the original keys of the blocks
     'code-block': (children, {keys}) => <pre style={styles.codeBlock} key={keys[0]} >{addBreaklines(children)}</pre>,
     // or depth for nested lists
