@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {SpringSystem, MathUtil} from 'rebound';
 
-
 import Renderer from './Renderer';
 
 class PresentationLayout extends Component {
@@ -14,6 +13,8 @@ class PresentationLayout extends Component {
     this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
     this.onScrollUpdate = this.onScrollUpdate.bind(this);
+    this.buildTOC = this.buildTOC.bind(this);
+    this.scrollToTitle = this.scrollToTitle.bind(this);
 
     this.state = {
       inCover: true
@@ -54,13 +55,55 @@ class PresentationLayout extends Component {
   }
 
   scrollTop(top) {
-        const scrollbars = this.globalScrollbar;
-        const scrollTop = scrollbars.getScrollTop();
-        const scrollHeight = scrollbars.getScrollHeight();
-        const val = MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
-        this.spring.setCurrentValue(scrollTop).setAtRest();
-        this.spring.setEndValue(val);
-    }
+      const scrollbars = this.globalScrollbar;
+      const scrollTop = scrollbars.getScrollTop();
+      const scrollHeight = scrollbars.getScrollHeight();
+      const val = MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
+      this.spring.setCurrentValue(scrollTop).setAtRest();
+      this.spring.setEndValue(val);
+  }
+
+  buildTOC (content) {
+    return content.blocks
+    .filter(block => block.type.indexOf('header') === 0)
+    .map(block => {
+      const {type, text, key} = block;
+      const levelStr = type.split('header-').pop();
+      let level;
+      switch (levelStr) {
+        case 'one':
+          level = 1;
+          break;
+        case 'two':
+          level = 2;
+          break;
+        case 'three':
+          level = 3;
+          break;
+        case 'four':
+          level = 4;
+          break;
+        case 'five':
+          level = 5;
+          break;
+        case 'six':
+        default:
+          level = 6;
+          break;
+      }
+
+      return {
+        level,
+        text,
+        key
+      };
+    });
+  }
+
+  scrollToTitle (id) {
+    const title = document.getElementById(id);
+    this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+  }
 
   handleSpringUpdate(spring) {
     const val = spring.getCurrentValue();
@@ -82,6 +125,8 @@ class PresentationLayout extends Component {
     const bindHeaderRef = header => {
       this.header = header;
     };
+
+    const toc = this.buildTOC(content);
     return (
       <section className="wrapper">
         <Scrollbars
@@ -124,6 +169,27 @@ class PresentationLayout extends Component {
                 position: inCover ? 'relative' : 'fixed'
               }}>
               <h2 onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
+              <ul className="table-of-contents">
+                {
+                  toc.map((item, index) => {
+                    const onClick = (e) => {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      this.scrollToTitle(item.key);
+                    };
+                    return (
+                      <li
+                        key={index}
+                        className={'level-' + item.level}>
+                        <a href={'#' + item.key}
+                          onClick={onClick}>
+                          {item.text}
+                        </a>
+                      </li>
+                  );
+})
+                }
+              </ul>
             </nav>
           </section>
         </Scrollbars>

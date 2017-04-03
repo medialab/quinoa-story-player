@@ -113,4 +113,31 @@ $font-size-2: $font-size-1 * 1.66;
             top: 0;
         }
     }
+
+    .table-of-contents
+    {
+        padding : 0;
+        li{
+            list-style: none;
+            padding: 0;
+            &.level-1{
+                padding-left: 0;
+            }
+            &.level-2{
+                padding-left: .2rem;
+            }
+            &.level-3{
+                padding-left: .4rem;
+            }
+            &.level-4{
+                padding-left: .6rem;
+            }
+            &.level-5{
+                padding-left: .8rem;
+            }
+            &.level-6{
+                padding-left: 1rem;
+            }
+        }
+    }
 }
