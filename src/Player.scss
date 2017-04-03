@@ -57,7 +57,7 @@ $font-size-2: $font-size-1 * 1.66;
     {
 
         width: 100%;
-        height: 200%;
+        height: 100%;
 
         overflow: auto;
 
@@ -94,14 +94,11 @@ $font-size-2: $font-size-1 * 1.66;
     }
 
     .body-wrapper{
-        height: 100%;
         position: relative;
-        left: 0;
         width: 100%;
 
         .contents-wrapper
         {
-            overflow-y: auto;
             padding-right: $gutter-lateral-large-screens;
             padding-left: $gutter-lateral-large-screens;
             position: absolute;
