@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+/* eslint react/jsx-key : 0 */
+import React, {Component} from 'react';
 import redraft from 'redraft';
 
 /**
@@ -51,7 +52,7 @@ const renderers = {
     'unordered-list-item': (children, {depth, keys}) => <ul key={keys[keys.length - 1]} className={`ul-level-${depth}`}>{children.map(child => <li>{child}</li>)}</ul>,
     'ordered-list-item': (children, {depth, keys}) => <ol key={keys.join('|')} className={`ol-level-${depth}`}>{children.map((child, index) => <li key={keys[index]}>{child}</li>)}</ol>,
     // If your blocks use meta data it can also be accessed like keys
-    'atomic': (children, {keys, data}) => children.map((child, i) => <Atomic key={keys[i]} {...data[i]} />),
+    // 'atomic': (children, {keys, data}) => children.map((child, i) => <Atomic key={keys[i]} {...data[i]} />),
   },
   // /**
   //  * Entities receive children and the entity data
@@ -66,6 +67,10 @@ class Renderer extends Component {
 
   constructor (props) {
     super(props);
+  }
+
+  shouldComponentUpdate() {
+    return true;
   }
   renderWarning() {
     return <div>Nothing to render.</div>;
@@ -90,7 +95,7 @@ class Renderer extends Component {
 }
 
 Renderer.propTypes = {
-  raw: PropTypes.object
+  // raw: PropTypes.object
 };
 
 export default Renderer;
