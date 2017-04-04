@@ -141,6 +141,15 @@ $font-size-2: $font-size-1 * 1.66;
             &.level-6{
                 padding-left: 1rem;
             }
+
+            a{
+                text-decoration: none;
+            }
+
+            &.active
+            {
+                text-decoration: underline;
+            }
         }
     }
 }

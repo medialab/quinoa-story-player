@@ -17,7 +17,9 @@ class PresentationLayout extends Component {
     this.scrollToTitle = this.scrollToTitle.bind(this);
 
     this.state = {
-      inCover: true
+      inCover: true,
+      toc: [],
+      scrollTop: 0
     };
   }
 
@@ -47,9 +49,17 @@ class PresentationLayout extends Component {
         inCover: true
       });
     }
- else if (scrollTop > headerHeight && this.state.inCover) {
+    else if (scrollTop > headerHeight && this.state.inCover) {
       this.setState({
         inCover: false
+      });
+    }
+
+    if (scrollTop !== this.state.scrollTop) {
+      const toc = this.buildTOC(this.props.story.content, scrollTop);
+      this.setState({
+        toc,
+        scrollTop
       });
     }
   }
@@ -63,10 +73,11 @@ class PresentationLayout extends Component {
       this.spring.setEndValue(val);
   }
 
-  buildTOC (content) {
-    return content.blocks
-    .filter(block => block.type.indexOf('header') === 0)
-    .map(block => {
+  buildTOC (content, scrollTop) {
+    const headers = content.blocks
+    .filter(block => block.type.indexOf('header') === 0);
+    return headers
+    .map((block, index) => {
       const {type, text, key} = block;
       const levelStr = type.split('header-').pop();
       let level;
@@ -92,10 +103,25 @@ class PresentationLayout extends Component {
           break;
       }
 
+      const title = document.getElementById(key);
+      const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      let nextTitleOffsetTop;
+      if (index < headers.length - 1) {
+        const next = headers[index + 1];
+        const nextTitle = document.getElementById(next.key);
+        nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      }
+      let active;
+      if (titleOffsetTop <= scrollTop &&
+          (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)
+        ) {
+        active = true;
+      }
       return {
         level,
         text,
-        key
+        key,
+        active
       };
     });
   }
@@ -109,6 +135,7 @@ class PresentationLayout extends Component {
     const val = spring.getCurrentValue();
     this.globalScrollbar.scrollTop(val);
   }
+
   render() {
     const {
       story: {
@@ -117,7 +144,8 @@ class PresentationLayout extends Component {
       }
     } = this.props;
     const {
-      inCover
+      inCover,
+      toc
     } = this.state;
     const bindGlobalScrollbarRef = scrollbar => {
       this.globalScrollbar = scrollbar;
@@ -126,7 +154,6 @@ class PresentationLayout extends Component {
       this.header = header;
     };
 
-    const toc = this.buildTOC(content);
     return (
       <section className="wrapper">
         <Scrollbars
@@ -180,7 +207,7 @@ class PresentationLayout extends Component {
                     return (
                       <li
                         key={index}
-                        className={'level-' + item.level}>
+                        className={'level-' + item.level + (item.active ? ' active' : '')}>
                         <a href={'#' + item.key}
                           onClick={onClick}>
                           {item.text}
