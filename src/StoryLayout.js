@@ -112,8 +112,10 @@ class PresentationLayout extends Component {
         nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
       }
       let active;
-      if (titleOffsetTop <= scrollTop &&
-          (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)
+      if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
+          (nextTitleOffsetTop === undefined ||
+            nextTitleOffsetTop >= scrollTop
+          )
         ) {
         active = true;
       }
