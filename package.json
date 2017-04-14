@@ -33,6 +33,8 @@
     "react": "^15.3.2",
     "react-custom-scrollbars": "^4.0.0",
     "react-dom": "^15.3.2",
+    "react-markdown": "^2.4.2",
+    "react-media-player": "^0.6.1",
     "rebound": "0.0.13",
     "redraft": "^0.7.0"
   },
