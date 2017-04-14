@@ -3,6 +3,8 @@ $gutter-small: .5em;
 $gutter-medium: $gutter-small * 1.666;
 $gutter-lateral-large-screens: 25%;
 $color-primary: #333;
+$color-secondary: red;
+$color-secondary-intent: brown;
 $color-background: white;
 $color-secondary-background: #e5e7e6;
 $color-primary-background: #f4f4f4;
@@ -12,6 +14,9 @@ $font-size-1: $gutter-small * 1.666;
 $font-size-2: $font-size-1 * 1.66;
 
 // abstract classes
+.interactive-item{
+    cursor: pointer;
+}
 .interactive-item-intent
 {
     color: $color-primary;
@@ -63,7 +68,7 @@ $font-size-2: $font-size-1 * 1.66;
 
         .header
         {
-                cursor: pointer;
+            cursor: pointer;
             position: relative;
             top: 0;
             left: 0;
@@ -95,6 +100,7 @@ $font-size-2: $font-size-1 * 1.66;
 
     .body-wrapper{
         position: relative;
+        min-height: 100%;
         width: 100%;
 
         .contents-wrapper
@@ -112,13 +118,26 @@ $font-size-2: $font-size-1 * 1.66;
             left: 0;
             top: 0;
             padding: $gutter-medium;
-            width: $gutter-lateral-large-screens;
+            width: $gutter-lateral-large-screens * .8;
+            height: 100%;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: stretch;
+
+            h2{
+                @extend .interactive-item;
+                transition: all .5s ease;
+                &:hover{
+                    color: $color-secondary-intent;
+                }
+            }
         }
     }
 
     .table-of-contents
     {
         padding : 0;
+        overflow: auto;
             li{
             list-style: none;
             padding: 0;
@@ -144,6 +163,11 @@ $font-size-2: $font-size-1 * 1.66;
 
             a{
                 text-decoration: none;
+                color: $color-secondary;
+                transition: all .5s ease;
+                &:hover{
+                    color: $color-secondary-intent;
+                }
             }
 
             &.active
