@@ -63,10 +63,10 @@ class PresentationLayout extends Component {
   onPresentationExit (direction) {
     const top = this.state.scrollTop;
     if (direction === 'top') {
-      this.globalScrollbar.scrollTop(top - 20);
+      this.globalScrollbar.scrollTop(top - 50);
     }
  else {
-      this.globalScrollbar.scrollTop(top + 20);
+      this.globalScrollbar.scrollTop(top + 50);
     }
   }
 
@@ -76,6 +76,7 @@ class PresentationLayout extends Component {
     const presentationEls = document.getElementsByClassName('quinoa-presentation-player');
     const presentations = [];
     let fixedPresentationId;
+    let fixedPresentationHeight;
     for (let i = 0; i < presentationEls.length; i ++) {
       const presentation = presentationEls[i].parentNode;
       const id = presentation.getAttribute('id');
@@ -87,13 +88,15 @@ class PresentationLayout extends Component {
         height
       });
       // console.log(top, scrollTop, top > scrollTop, top + height <= scrollTop);
-      if (scrollTop >= top && scrollTop <= top + height) {
+      if (scrollTop >= top && scrollTop <= top + 40) {
         fixedPresentationId = id;
+        fixedPresentationHeight = height;
       }
     }
     if (fixedPresentationId !== this.state.fixedPresentationId) {
       this.setState({
-        fixedPresentationId
+        fixedPresentationId,
+        fixedPresentationHeight
       });
     }
     if (scrollTop < headerHeight && !this.state.inCover) {
