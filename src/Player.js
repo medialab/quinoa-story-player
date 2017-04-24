@@ -1,6 +1,8 @@
 /* eslint react/no-did-mount-set-state : 0 */
 import React, {Component, PropTypes} from 'react';
 
+import Measure from 'react-measure';
+
 require('./Player.scss');
 
 import StoryLayout from './StoryLayout';
@@ -23,7 +25,10 @@ class QuinoaStoryPlayer extends Component {
   }
 
   getChildContext() {
-    return {story: this.state.story};
+    return {
+      story: this.state.story,
+      dimensions: this.state.dimensions
+    };
   }
 
   shouldComponentUpdate() {
@@ -46,10 +51,16 @@ class QuinoaStoryPlayer extends Component {
   }
 
   render() {
+    const onMeasure = (dimensions) => {
+      this.setState({dimensions});
+    };
     return (
-      <div className="quinoa-story-player">
-        {this.renderComponent()}
-      </div>
+      <Measure
+        onMeasure={onMeasure}>
+        <div className="quinoa-story-player">
+          {this.renderComponent()}
+        </div>
+      </Measure>
     );
   }
 }
@@ -64,7 +75,8 @@ QuinoaStoryPlayer.propTypes = {
 
 
 QuinoaStoryPlayer.childContextTypes = {
-  story: PropTypes.object
+  story: PropTypes.object,
+  dimensions: PropTypes.object
 };
 
 export default QuinoaStoryPlayer;

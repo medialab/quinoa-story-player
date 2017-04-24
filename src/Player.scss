@@ -12,7 +12,7 @@ $color-secondary-background: rgba(255,255,255,.8);
 $color-primary-background: #f4f4f4;
 $color-strokes: #dddbd9;
 
-$font-size-1: $gutter-small;
+$font-size-1: $gutter-small * 1.1;
 $font-size-2: $font-size-1 * 2;
 
 // abstract classes
@@ -40,8 +40,10 @@ $font-size-2: $font-size-1 * 2;
 .quinoa-story-player
 {
     // default styling
-    font-family: 'Source Sans Pro', sans-serif;
+    // font-family: 'Source Sans Pro', sans-serif;
+    font-family: Georgia, "Times New Roman", serif;
     font-size: $font-size-1;
+    line-height: $font-size-1 * 3;
 
     position: absolute;
     top: 0;
@@ -94,8 +96,8 @@ $font-size-2: $font-size-1 * 2;
                 width: 100%; // - $gutter-lateral-large-screens * 2;
                 height: 100%;
                 padding: 0;
-                padding-right: $gutter-lateral-large-screens;
-                padding-left: $gutter-lateral-large-screens;
+                // padding-right: $gutter-lateral-large-screens;
+                // padding-left: $gutter-lateral-large-screens;
                 // padding: $gutter-medium;
 
                 // background: $color-secondary-background;
@@ -107,7 +109,8 @@ $font-size-2: $font-size-1 * 2;
                 justify-content: center;
 
                 h1{
-                    font-size: 3em;
+                    font-size: 5em;
+                    line-height: 1em;
                     font-variant: small-caps;
                 }
             }
@@ -122,24 +125,51 @@ $font-size-2: $font-size-1 * 2;
 
         .contents-wrapper
         {
+            width: 100%;
             padding-top: $gutter-medium;
             font-size: $font-size-2;
-            padding-right: $gutter-lateral-large-screens;
-            padding-left: $gutter-lateral-large-screens;
             position: absolute;
             left: 0;
             top: 0;
             height: 100%;
+
+            text-rendering : optimizeLegibility;
             > div{
                 padding-bottom: $gutter-large;
             }
+            h1,h2,h3,h4,h5,h6,p,ul,blockquote, pre
+            {
+                padding-right: $gutter-lateral-large-screens;
+                padding-left: $gutter-lateral-large-screens;
+            }
+
             h1,h2,h3,h4,h5,h6,p:first-of-type
             {
                 margin-top: 0;
             }
 
             figure{
+                z-index: 3;
                 margin: 0;
+                position: relative;
+                iframe{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    border: none;
+                }
+                img{
+                    max-width: 100%;
+                    max-height: 100%;
+                    display: inline-block;
+                }
+
+                .quinoa-presentation-player
+                {
+                    pointer-events: none;
+                }
             }
 
             a{
@@ -158,6 +188,8 @@ $font-size-2: $font-size-1 * 2;
             display: flex;
             flex-flow: column nowrap;
             justify-content: stretch;
+            pointer-events: none;
+            z-index: 2;
 
             h2{
                 @extend .interactive-item;
@@ -166,6 +198,22 @@ $font-size-2: $font-size-1 * 2;
                     color: $color-secondary-intent;
                 }
                 margin: 0;
+                pointer-events: all;
+            }
+
+            button{
+                outline: none;
+                text-align: left;
+                border: none;
+                background: transparent;
+                transition: all .5s ease;
+                padding: 0;
+                &:hover,
+                &.active
+                {
+                    color: $color-secondary-intent;
+                }
+                pointer-events: all;
             }
         }
     }
@@ -174,6 +222,7 @@ $font-size-2: $font-size-1 * 2;
     {
         padding : 0;
         overflow: auto;
+        pointer-events: all;
         li{
             list-style: none;
             padding: 0;
@@ -207,11 +256,6 @@ $font-size-2: $font-size-1 * 2;
                 padding-left: 1rem;
             }
 
-            // border-bottom: 1px solid $color-primary;
-            // &:first-of-type
-            // {
-            //     border-top: 1px solid $color-primary;
-            // }
 
             a{
                 text-decoration: none;
@@ -225,9 +269,7 @@ $font-size-2: $font-size-1 * 2;
 
             &.active
             {
-                font-weight: 900;
                 opacity: .5;
-                // text-decoration: underline;
             }
         }
     }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {SpringSystem, MathUtil} from 'rebound';
 
@@ -18,11 +19,20 @@ class PresentationLayout extends Component {
 
     this.toggleIndex = this.toggleIndex.bind(this);
 
+    this.onPresentationExit = this.onPresentationExit.bind(this);
+
     this.state = {
       inCover: true,
       toc: [],
       scrollTop: 0,
       indexOpen: false
+    };
+  }
+
+  getChildContext() {
+    return {
+      fixedPresentationId: this.state.fixedPresentationId,
+      onExit: this.onPresentationExit
     };
   }
 
@@ -50,9 +60,42 @@ class PresentationLayout extends Component {
     });
   }
 
+  onPresentationExit (direction) {
+    const top = this.state.scrollTop;
+    if (direction === 'top') {
+      this.globalScrollbar.scrollTop(top - 20);
+    }
+ else {
+      this.globalScrollbar.scrollTop(top + 20);
+    }
+  }
+
   onScrollUpdate (evt) {
     const scrollTop = evt.scrollTop;
     const headerHeight = this.header.offsetHeight;
+    const presentationEls = document.getElementsByClassName('quinoa-presentation-player');
+    const presentations = [];
+    let fixedPresentationId;
+    for (let i = 0; i < presentationEls.length; i ++) {
+      const presentation = presentationEls[i].parentNode;
+      const id = presentation.getAttribute('id');
+      const top = presentation.offsetTop + this.header.offsetHeight;
+      const height = presentation.offsetHeight;
+      presentations.push({
+        id,
+        top,
+        height
+      });
+      // console.log(top, scrollTop, top > scrollTop, top + height <= scrollTop);
+      if (scrollTop >= top && scrollTop <= top + height) {
+        fixedPresentationId = id;
+      }
+    }
+    if (fixedPresentationId !== this.state.fixedPresentationId) {
+      this.setState({
+        fixedPresentationId
+      });
+    }
     if (scrollTop < headerHeight && !this.state.inCover) {
       this.setState({
         inCover: true
@@ -210,9 +253,9 @@ class PresentationLayout extends Component {
                 position: inCover ? 'relative' : 'fixed'
               }}>
               <h2 onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
-              <button
+              {toc && toc.length !== undefined && toc.length > 0 && <button
                 className={'index-toggle ' + (indexOpen ? 'active' : '')}
-                onClick={onClickToggle}>Index</button>
+                onClick={onClickToggle}>Index</button>}
               <ul
                 className="table-of-contents"
                 style={{
@@ -245,6 +288,12 @@ class PresentationLayout extends Component {
     );
   }
 }
+
+PresentationLayout.childContextTypes = {
+  fixedPresentationId: PropTypes.string,
+  onExit: PropTypes.func
+};
+
 
 export default PresentationLayout;
 

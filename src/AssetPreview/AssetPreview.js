@@ -7,7 +7,10 @@ import './AssetPreview.scss';
 
 const AssetPreview = ({
   type,
-  data
+  data,
+  options,
+  fixed,
+  onExit
 }) => {
   switch (type) {
     case 'image':
@@ -19,9 +22,22 @@ const AssetPreview = ({
         </Media>
       );
     case 'data-presentation':
+      const onWheel = e => {
+        if (fixed) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      };
       return (
         <QuinoaPresentationPlayer
-          presentation={data} />
+          presentation={data}
+          template={(options && options.template)}
+          onWheel={onWheel}
+          onExit={onExit}
+          style={{
+            position: fixed ? 'fixed' : 'absolute',
+            pointerEvents: fixed ? 'all' : 'none'
+          }} />
       );
     case 'embed':
       return (

@@ -25,7 +25,6 @@ const styles = {
 // just a helper to add a <br /> after a block
 const addBreaklines = (children) => children.map(child => [child, <br />]);
 
-
 const Link = ({
   to,
   children
@@ -37,14 +36,26 @@ const AssetWrapper = ({
 }, context) => {
   const assetId = data.id;
   const asset = context.story && context.story.assets && context.story.assets[assetId];
+  const dimensions = context.dimensions;
+  const fixedPresentationId = context.fixedPresentationId;
+  const onExit = context.onExit;
   if (asset) {
     const metadata = asset.metadata;
     return (
-      <figure style={{
-        position: 'relative',
-        minHeight: '20rem'
-      }}>
-        <AssetPreview type={assetType} data={asset.data} />
+      <figure
+        style={{
+          position: 'relative',
+          minHeight: (dimensions && dimensions.height) || '10em'
+        }}
+        id={metadata.id}>
+        <AssetPreview
+          type={assetType}
+          data={asset.data}
+          options={{
+            template: 'scroller'
+          }}
+          fixed={fixedPresentationId === metadata.id}
+          onExit={onExit} />
         <figcaption>
           {metadata.title && <h4>
             {metadata.title}
@@ -65,7 +76,10 @@ const AssetWrapper = ({
 };
 
 AssetWrapper.contextTypes = {
-  story: PropTypes.object
+  story: PropTypes.object,
+  dimensions: PropTypes.object,
+  fixedPresentationId: PropTypes.string,
+  onExit: PropTypes.func
 };
 
 /**
@@ -116,7 +130,16 @@ const renderers = {
       // <Link key={key} to={data.url}>{children}<Link/>,
     'DATA-PRESENTATION': (children, data, {key}) => {
       return <AssetWrapper key={key} data={data} assetType="data-presentation" />;
-    }
+    },
+    'IMAGE': (children, data, {key}) => {
+      return <AssetWrapper key={key} data={data} assetType="image" />;
+    },
+    'VIDEO': (children, data, {key}) => {
+      return <AssetWrapper key={key} data={data} assetType="video" />;
+    },
+    'EMBED': (children, data, {key}) => {
+      return <AssetWrapper key={key} data={data} assetType="embed" />;
+    },
   },
 };
 
