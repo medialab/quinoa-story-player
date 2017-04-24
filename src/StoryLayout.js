@@ -87,8 +87,12 @@ class PresentationLayout extends Component {
         top,
         height
       });
-      // console.log(top, scrollTop, top > scrollTop, top + height <= scrollTop);
-      if (scrollTop >= top && scrollTop <= top + 40) {
+      const prevScroll = this.state.scrollTop;
+      if (
+        (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
+        || (scrollTop > prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
+        || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + 40)
+      ) {
         fixedPresentationId = id;
         fixedPresentationHeight = height;
       }
