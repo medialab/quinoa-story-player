@@ -16,10 +16,13 @@ class PresentationLayout extends Component {
     this.buildTOC = this.buildTOC.bind(this);
     this.scrollToTitle = this.scrollToTitle.bind(this);
 
+    this.toggleIndex = this.toggleIndex.bind(this);
+
     this.state = {
       inCover: true,
       toc: [],
-      scrollTop: 0
+      scrollTop: 0,
+      indexOpen: false
     };
   }
 
@@ -27,6 +30,12 @@ class PresentationLayout extends Component {
     this.springSystem = new SpringSystem();
     this.spring = this.springSystem.createSpring();
     this.spring.addListener({onSpringUpdate: this.handleSpringUpdate});
+  }
+
+  toggleIndex(to) {
+    this.setState({
+      indexOpen: to !== undefined ? to : !this.state.indexOpen
+    });
   }
   scrollToContents () {
     this.scrollTop(this.header.offsetHeight);
@@ -74,7 +83,7 @@ class PresentationLayout extends Component {
   }
 
   buildTOC (content, scrollTop) {
-    const headers = content.blocks
+    const headers = content && content.blocks
     .filter(block => block.type.indexOf('header') === 0);
     return headers
     .map((block, index) => {
@@ -147,7 +156,8 @@ class PresentationLayout extends Component {
     } = this.props;
     const {
       inCover,
-      toc
+      toc,
+      indexOpen
     } = this.state;
     const bindGlobalScrollbarRef = scrollbar => {
       this.globalScrollbar = scrollbar;
@@ -155,6 +165,8 @@ class PresentationLayout extends Component {
     const bindHeaderRef = header => {
       this.header = header;
     };
+
+    const onClickToggle = () => this.toggleIndex();
 
     return (
       <section className="wrapper">
@@ -198,9 +210,16 @@ class PresentationLayout extends Component {
                 position: inCover ? 'relative' : 'fixed'
               }}>
               <h2 onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
-              <ul className="table-of-contents">
+              <button
+                className={'index-toggle ' + (indexOpen ? 'active' : '')}
+                onClick={onClickToggle}>Index</button>
+              <ul
+                className="table-of-contents"
+                style={{
+                  maxHeight: indexOpen ? '100%' : 0
+                }}>
                 {
-                  toc.map((item, index) => {
+                  toc && toc.map((item, index) => {
                     const onClick = (e) => {
                       e.stopPropagation();
                       e.preventDefault();

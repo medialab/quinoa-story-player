@@ -55,7 +55,9 @@ var PresentationLayout = function (_Component) {
     _this.scrollToTitle = _this.scrollToTitle.bind(_this);
 
     _this.state = {
-      inCover: true
+      inCover: true,
+      toc: [],
+      scrollTop: 0
     };
     return _this;
   }
@@ -97,6 +99,14 @@ var PresentationLayout = function (_Component) {
           inCover: false
         });
       }
+
+      if (scrollTop !== this.state.scrollTop) {
+        var toc = this.buildTOC(this.props.story.content, scrollTop);
+        this.setState({
+          toc: toc,
+          scrollTop: scrollTop
+        });
+      }
     }
   }, {
     key: 'scrollTop',
@@ -110,10 +120,11 @@ var PresentationLayout = function (_Component) {
     }
   }, {
     key: 'buildTOC',
-    value: function buildTOC(content) {
-      return content.blocks.filter(function (block) {
+    value: function buildTOC(content, scrollTop) {
+      var headers = content && content.blocks.filter(function (block) {
         return block.type.indexOf('header') === 0;
-      }).map(function (block) {
+      });
+      return headers.map(function (block, index) {
         var type = block.type,
             text = block.text,
             key = block.key;
@@ -142,10 +153,23 @@ var PresentationLayout = function (_Component) {
             break;
         }
 
+        var title = document.getElementById(key);
+        var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        var nextTitleOffsetTop = void 0;
+        if (index < headers.length - 1) {
+          var next = headers[index + 1];
+          var nextTitle = document.getElementById(next.key);
+          nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        }
+        var active = void 0;
+        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
+          active = true;
+        }
         return {
           level: level,
           text: text,
-          key: key
+          key: key,
+          active: active
         };
       });
     }
@@ -169,7 +193,9 @@ var PresentationLayout = function (_Component) {
       var _props$story = this.props.story,
           metadata = _props$story.metadata,
           content = _props$story.content;
-      var inCover = this.state.inCover;
+      var _state = this.state,
+          inCover = _state.inCover,
+          toc = _state.toc;
 
       var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
         _this2.globalScrollbar = scrollbar;
@@ -178,7 +204,6 @@ var PresentationLayout = function (_Component) {
         _this2.header = header;
       };
 
-      var toc = this.buildTOC(content);
       return _react2.default.createElement(
         'section',
         { className: 'wrapper' },
@@ -240,7 +265,7 @@ var PresentationLayout = function (_Component) {
               _react2.default.createElement(
                 'ul',
                 { className: 'table-of-contents' },
-                toc.map(function (item, index) {
+                toc && toc.map(function (item, index) {
                   var onClick = function onClick(e) {
                     e.stopPropagation();
                     e.preventDefault();
@@ -250,7 +275,7 @@ var PresentationLayout = function (_Component) {
                     'li',
                     {
                       key: index,
-                      className: 'level-' + item.level },
+                      className: 'level-' + item.level + (item.active ? ' active' : '') },
                     _react2.default.createElement(
                       'a',
                       { href: '#' + item.key,

@@ -32,12 +32,15 @@ var _redraft = require('redraft');
 
 var _redraft2 = _interopRequireDefault(_redraft);
 
+var _AssetPreview = require('./AssetPreview/AssetPreview');
+
+var _AssetPreview2 = _interopRequireDefault(_AssetPreview);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  *  You can use inline styles or classNames inside your callbacks
  */
-/* eslint react/jsx-key : 0 */
 var styles = {
   code: {
     backgroundColor: 'rgba(0, 0, 0, 0.05)',
@@ -54,6 +57,7 @@ var styles = {
 };
 
 // just a helper to add a <br /> after a block
+/* eslint react/jsx-key : 0 */
 var addBreaklines = function addBreaklines(children) {
   return children.map(function (child) {
     return [child, _react2.default.createElement('br', null)];
@@ -108,18 +112,18 @@ var renderers = {
    */
   blocks: {
     'unstyled': function unstyled(children) {
-      return children.map(function (child) {
+      return children.map(function (child, index) {
         return _react2.default.createElement(
           'p',
-          null,
+          { key: index },
           child
         );
       });
     },
-    'blockquote': function blockquote(children) {
+    'blockquote': function blockquote(children, index) {
       return _react2.default.createElement(
         'blockquote',
-        null,
+        { key: index },
         addBreaklines(children)
       );
     },
@@ -128,7 +132,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h1',
-          { id: keys[index] },
+          { key: index, id: keys[index] },
           child
         );
       });
@@ -138,7 +142,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h2',
-          { id: keys[index] },
+          { key: index, id: keys[index] },
           child
         );
       });
@@ -148,7 +152,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h3',
-          { id: keys[index] },
+          { key: index, id: keys[index] },
           child
         );
       });
@@ -158,7 +162,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h4',
-          { id: keys[index] },
+          { key: index, id: keys[index] },
           child
         );
       });
@@ -168,7 +172,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h5',
-          { id: keys[index] },
+          { key: index, id: keys[index] },
           child
         );
       });
@@ -178,7 +182,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h6',
-          { id: keys[index] },
+          { key: index, id: keys[index] },
           child
         );
       });
@@ -222,6 +226,16 @@ var renderers = {
           );
         })
       );
+    },
+    // If your blocks use meta data it can also be accessed like keys
+    'atomic': function atomic(children, props /*{keys, data}*/) {
+      console.log(children, props);
+      return _react2.default.createElement(
+        'div',
+        null,
+        'Atomic'
+      );
+      // return children.map((child, i) => <Atomic key={keys[i]} {...data[i]} />)
     }
   },
   // /**

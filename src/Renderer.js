@@ -1,6 +1,8 @@
 /* eslint react/jsx-key : 0 */
 import React, {Component} from 'react';
 import redraft from 'redraft';
+import AssetPreview from './AssetPreview/AssetPreview';
+import PropTypes from 'prop-types';
 
 /**
  *  You can use inline styles or classNames inside your callbacks
@@ -23,6 +25,49 @@ const styles = {
 // just a helper to add a <br /> after a block
 const addBreaklines = (children) => children.map(child => [child, <br />]);
 
+
+const Link = ({
+  to,
+  children
+}) => <a href={to} target="blank">{children}</a>;
+
+const AssetWrapper = ({
+  data,
+  assetType
+}, context) => {
+  const assetId = data.id;
+  const asset = context.story && context.story.assets && context.story.assets[assetId];
+  if (asset) {
+    const metadata = asset.metadata;
+    return (
+      <figure style={{
+        position: 'relative',
+        minHeight: '20rem'
+      }}>
+        <AssetPreview type={assetType} data={asset.data} />
+        <figcaption>
+          {metadata.title && <h4>
+            {metadata.title}
+          </h4>}
+          {metadata.description && <p>
+            {metadata.description}
+          </p>}
+          {metadata.source && <p>
+            <i>{metadata.source}</i>
+          </p>}
+        </figcaption>
+      </figure>
+    );
+  }
+ else {
+    return null;
+  }
+};
+
+AssetWrapper.contextTypes = {
+  story: PropTypes.object
+};
+
 /**
  * Define the renderers
  */
@@ -42,28 +87,36 @@ const renderers = {
    * Note that children are an array of blocks with same styling,
    */
   blocks: {
-    'unstyled': (children) => children.map((child, index) => <p key={index}>{child}</p>),
-    'blockquote': (children, index) => <blockquote key={index} >{addBreaklines(children)}</blockquote>,
-    'header-one': (children, {keys}) => children.map((child, index) => <h1 key={keys[index]} id={keys[index]}>{child}</h1>),
-    'header-two': (children, {keys}) => children.map((child, index) => <h2 key={keys[index]} id={keys[index]}>{child}</h2>),
-    'header-three': (children, {keys}) => children.map((child, index) => <h3 key={keys[index]} id={keys[index]}>{child}</h3>),
-    'header-four': (children, {keys}) => children.map((child, index) => <h4 key={keys[index]} id={keys[index]}>{child}</h4>),
-    'header-five': (children, {keys}) => children.map((child, index) => <h5 key={keys[index]} id={keys[index]}>{child}</h5>),
-    'header-six': (children, {keys}) => children.map((child, index) => <h6 key={keys[index]} id={keys[index]}>{child}</h6>),
+    'unstyled': (children) => children.map(child => <p>{child}</p>),
+    'blockquote': (children) => <blockquote >{addBreaklines(children)}</blockquote>,
+    // 'header-one': (children) => children.map(child => <h1>{child}</h1>),
+    // 'header-two': (children) => children.map(child => <h2>{child}</h2>),
+    'header-one': (children, {keys}) => children.map((child, index) => <h1 key={index} id={keys[index]}>{child}</h1>),
+    'header-two': (children, {keys}) => children.map((child, index) => <h2 key={index} id={keys[index]}>{child}</h2>),
+    'header-three': (children, {keys}) => children.map((child, index) => <h3 key={index} id={keys[index]}>{child}</h3>),
+    'header-four': (children, {keys}) => children.map((child, index) => <h4 key={index} id={keys[index]}>{child}</h4>),
+    'header-five': (children, {keys}) => children.map((child, index) => <h5 key={index} id={keys[index]}>{child}</h5>),
+    'header-six': (children, {keys}) => children.map((child, index) => <h6 key={index} id={keys[index]}>{child}</h6>),
+
     // You can also access the original keys of the blocks
     'code-block': (children, {keys}) => <pre style={styles.codeBlock} key={keys[0]} >{addBreaklines(children)}</pre>,
     // or depth for nested lists
     'unordered-list-item': (children, {depth, keys}) => <ul key={keys[keys.length - 1]} className={`ul-level-${depth}`}>{children.map(child => <li>{child}</li>)}</ul>,
     'ordered-list-item': (children, {depth, keys}) => <ol key={keys.join('|')} className={`ol-level-${depth}`}>{children.map((child, index) => <li key={keys[index]}>{child}</li>)}</ol>,
     // If your blocks use meta data it can also be accessed like keys
-    // 'atomic': (children, {keys, data}) => children.map((child, i) => <Atomic key={keys[i]} {...data[i]} />),
+    // atomic: (children, { keys, data }) => children.map((child, i) => <Atomic key={keys[i]} {...data[i]}>{child}</Atomic>),
   },
   // /**
   //  * Entities receive children and the entity data
   //  */
   entities: {
-    // key is the entity key value from raw
-    // LINK: (children, data, { key }) => <Link key={key} to={data.url}>{children}<Link/>,
+  //   // key is the entity key value from raw
+    'LINK': (children, data, {key}) =>
+      <Link key={key} to={data.url}>{children}</Link>,
+      // <Link key={key} to={data.url}>{children}<Link/>,
+    'DATA-PRESENTATION': (children, data, {key}) => {
+      return <AssetWrapper key={key} data={data} assetType="data-presentation" />;
+    }
   },
 };
 

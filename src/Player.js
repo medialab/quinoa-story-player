@@ -22,6 +22,10 @@ class QuinoaStoryPlayer extends Component {
     this.state = initialState;
   }
 
+  getChildContext() {
+    return {story: this.state.story};
+  }
+
   shouldComponentUpdate() {
     return true;
   }
@@ -58,5 +62,9 @@ QuinoaStoryPlayer.propTypes = {
   onSlideChange: PropTypes.func, // callback when navigation is changed
 };
 
+
+QuinoaStoryPlayer.childContextTypes = {
+  story: PropTypes.object
+};
 
 export default QuinoaStoryPlayer;
