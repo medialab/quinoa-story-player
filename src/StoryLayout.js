@@ -284,8 +284,8 @@ class PresentationLayout extends Component {
                           {item.text}
                         </a>
                       </li>
-                  );
-})
+                    );
+                  })
                 }
               </ul>
             </nav>
