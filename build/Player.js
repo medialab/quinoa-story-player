@@ -28,13 +28,18 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactMeasure = require('react-measure');
+
+var _reactMeasure2 = _interopRequireDefault(_reactMeasure);
+
 var _StoryLayout = require('./StoryLayout');
 
 var _StoryLayout2 = _interopRequireDefault(_StoryLayout);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-require('./Player.scss'); /* eslint react/no-did-mount-set-state : 0 */
+/* eslint react/no-did-mount-set-state : 0 */
+require('./Player.scss');
 
 var QuinoaStoryPlayer = function (_Component) {
   (0, _inherits3.default)(QuinoaStoryPlayer, _Component);
@@ -60,6 +65,14 @@ var QuinoaStoryPlayer = function (_Component) {
   }
 
   (0, _createClass3.default)(QuinoaStoryPlayer, [{
+    key: 'getChildContext',
+    value: function getChildContext() {
+      return {
+        story: this.state.story,
+        dimensions: this.state.dimensions
+      };
+    }
+  }, {
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate() {
       return true;
@@ -87,10 +100,20 @@ var QuinoaStoryPlayer = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
+      var onMeasure = function onMeasure(dimensions) {
+        _this2.setState({ dimensions: dimensions });
+      };
       return _react2.default.createElement(
-        'div',
-        { className: 'quinoa-story-player' },
-        this.renderComponent()
+        _reactMeasure2.default,
+        {
+          onMeasure: onMeasure },
+        _react2.default.createElement(
+          'div',
+          { className: 'quinoa-story-player' },
+          this.renderComponent()
+        )
       );
     }
   }]);
@@ -103,5 +126,10 @@ QuinoaStoryPlayer.propTypes = {
     allowViewExploration: _react.PropTypes.bool // whether users can pan/zoom/navigate inside view
   }),
   onSlideChange: _react.PropTypes.func };
+
+QuinoaStoryPlayer.childContextTypes = {
+  story: _react.PropTypes.object,
+  dimensions: _react.PropTypes.object
+};
 
 exports.default = QuinoaStoryPlayer;

@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i');
-$gutter-small: .6em;
+$gutter-small: .7em;
 $gutter-medium: $gutter-small * 1.666;
 $gutter-large: $gutter-medium * 3;
 $gutter-lateral-large-screens: 25%;
@@ -12,8 +12,8 @@ $color-secondary-background: rgba(255,255,255,.8);
 $color-primary-background: #f4f4f4;
 $color-strokes: #dddbd9;
 
-$font-size-1: $gutter-small * 1.666;
-$font-size-2: $font-size-1 * 1.66;
+$font-size-1: $gutter-small * 1.1;
+$font-size-2: $font-size-1 * 2;
 
 // abstract classes
 .interactive-item{
@@ -40,8 +40,8 @@ $font-size-2: $font-size-1 * 1.66;
 .quinoa-story-player
 {
     // default styling
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: $font-size-1;
+    // font-family: 'Source Sans Pro', sans-serif;
+    font-family: Georgia, "Times New Roman", serif;
 
     position: absolute;
     top: 0;
@@ -81,6 +81,8 @@ $font-size-2: $font-size-1 * 1.66;
             width: 100%;
             height: 100%;
 
+            background: rgba(0,0,0,.7);
+
             background: $color-secondary-background;
             background-repeat: no-repeat;
             background-size: cover;
@@ -90,11 +92,25 @@ $font-size-2: $font-size-1 * 1.66;
             .header-content
             {
                 width: 100%; // - $gutter-lateral-large-screens * 2;
-                padding-right: $gutter-lateral-large-screens;
-                padding-left: $gutter-lateral-large-screens;
-                padding: $gutter-medium;
+                height: 100%;
+                padding: 0;
+                // padding-right: $gutter-lateral-large-screens;
+                // padding-left: $gutter-lateral-large-screens;
+                // padding: $gutter-medium;
 
-                background: $color-secondary-background;
+                // background: $color-secondary-background;
+                background: rgba(0,0,0,.7);
+                color: white;
+                text-align: center;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: center;
+
+                h1{
+                    font-size: 5em;
+                    line-height: 1em;
+                    font-variant: small-caps;
+                }
             }
         }
     }
@@ -103,17 +119,82 @@ $font-size-2: $font-size-1 * 1.66;
         position: relative;
         min-height: 100%;
         width: 100%;
+        padding-top: $gutter-medium;
 
         .contents-wrapper
         {
-            padding-right: $gutter-lateral-large-screens;
-            padding-left: $gutter-lateral-large-screens;
+            width: 100%;
+            padding-top: $gutter-medium;
+            font-size: $font-size-2;
             position: absolute;
             left: 0;
             top: 0;
             height: 100%;
+
+            text-rendering : optimizeLegibility;
             > div{
                 padding-bottom: $gutter-large;
+
+                > h1,
+                > h2,
+                > h3,
+                > h4,
+                > h5,
+                > h6,
+                > p,
+                > ul,
+                > blockquote, 
+                > pre
+                {
+                    padding-right: $gutter-lateral-large-screens;
+                    padding-left: $gutter-lateral-large-screens;
+                }
+
+                > p {
+                    font-size: $font-size-1;
+                    line-height: $font-size-1 * 2;
+                }
+
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6,
+                p:first-of-type
+                {
+                    margin-top: 0;
+                }
+
+                figure{
+                    z-index: 3;
+                    margin: 0;
+                    position: relative;
+                    iframe{
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        border: none;
+                    }
+                    img{
+                        max-width: 100%;
+                        max-height: 100%;
+                        display: inline-block;
+                    }
+
+                    .quinoa-presentation-player
+                    {
+                        pointer-events: none;
+                        font-size: .7em;
+                    }
+                }
+
+                a{
+                    color: $color-secondary;
+                    &:hover{color: $color-secondary-intent;}
+                }
             }
         }
 
@@ -127,6 +208,8 @@ $font-size-2: $font-size-1 * 1.66;
             display: flex;
             flex-flow: column nowrap;
             justify-content: stretch;
+            pointer-events: none;
+            z-index: 2;
 
             h2{
                 @extend .interactive-item;
@@ -135,6 +218,22 @@ $font-size-2: $font-size-1 * 1.66;
                     color: $color-secondary-intent;
                 }
                 margin: 0;
+                pointer-events: all;
+            }
+
+            button{
+                outline: none;
+                text-align: left;
+                border: none;
+                background: transparent;
+                transition: all .5s ease;
+                padding: 0;
+                &:hover,
+                &.active
+                {
+                    color: $color-secondary-intent;
+                }
+                pointer-events: all;
             }
         }
     }
@@ -143,12 +242,21 @@ $font-size-2: $font-size-1 * 1.66;
     {
         padding : 0;
         overflow: auto;
-            li{
+        pointer-events: all;
+        li{
             list-style: none;
             padding: 0;
-            padding-bottom: $gutter-medium;
-            padding-top: $gutter-medium;
+            padding-bottom: $gutter-small;
+            padding-top: $gutter-small;
             margin: 0;
+
+            opacity: .2;
+
+            transition: all .5s ease;
+
+            &:hover{
+                opacity: 1;
+            }
             &.level-1{
                 padding-left: 0;
             }
@@ -168,11 +276,6 @@ $font-size-2: $font-size-1 * 1.66;
                 padding-left: 1rem;
             }
 
-            border-bottom: 1px solid $color-primary;
-            &:first-of-type
-            {
-                border-top: 1px solid $color-primary;
-            }
 
             a{
                 text-decoration: none;
@@ -186,8 +289,7 @@ $font-size-2: $font-size-1 * 1.66;
 
             &.active
             {
-                font-weight: 900;
-                // text-decoration: underline;
+                opacity: .5;
             }
         }
     }

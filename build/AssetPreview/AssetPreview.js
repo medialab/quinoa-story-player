@@ -21,7 +21,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint react/no-danger : 0 */
 var AssetPreview = function AssetPreview(_ref) {
   var type = _ref.type,
-      data = _ref.data;
+      data = _ref.data,
+      options = _ref.options,
+      fixed = _ref.fixed,
+      onExit = _ref.onExit;
 
   switch (type) {
     case 'image':
@@ -33,8 +36,21 @@ var AssetPreview = function AssetPreview(_ref) {
         _react2.default.createElement(_reactMediaPlayer.Player, { src: data })
       );
     case 'data-presentation':
+      var onWheel = function onWheel(e) {
+        if (fixed) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      };
       return _react2.default.createElement(_quinoaPresentationPlayer2.default, {
-        presentation: data });
+        presentation: data,
+        template: options && options.template,
+        onWheel: onWheel,
+        onExit: onExit,
+        style: {
+          position: fixed ? 'fixed' : 'absolute',
+          pointerEvents: fixed ? 'all' : 'none'
+        } });
     case 'embed':
       return _react2.default.createElement('div', {
         dangerouslySetInnerHTML: {

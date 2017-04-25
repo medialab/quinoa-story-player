@@ -28,6 +28,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactCustomScrollbars = require('react-custom-scrollbars');
 
 var _rebound = require('rebound');
@@ -54,20 +58,40 @@ var PresentationLayout = function (_Component) {
     _this.buildTOC = _this.buildTOC.bind(_this);
     _this.scrollToTitle = _this.scrollToTitle.bind(_this);
 
+    _this.toggleIndex = _this.toggleIndex.bind(_this);
+
+    _this.onPresentationExit = _this.onPresentationExit.bind(_this);
+
     _this.state = {
       inCover: true,
       toc: [],
-      scrollTop: 0
+      scrollTop: 0,
+      indexOpen: false
     };
     return _this;
   }
 
   (0, _createClass3.default)(PresentationLayout, [{
+    key: 'getChildContext',
+    value: function getChildContext() {
+      return {
+        fixedPresentationId: this.state.fixedPresentationId,
+        onExit: this.onPresentationExit
+      };
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.springSystem = new _rebound.SpringSystem();
       this.spring = this.springSystem.createSpring();
       this.spring.addListener({ onSpringUpdate: this.handleSpringUpdate });
+    }
+  }, {
+    key: 'toggleIndex',
+    value: function toggleIndex(to) {
+      this.setState({
+        indexOpen: to !== undefined ? to : !this.state.indexOpen
+      });
     }
   }, {
     key: 'scrollToContents',
@@ -86,10 +110,46 @@ var PresentationLayout = function (_Component) {
       });
     }
   }, {
+    key: 'onPresentationExit',
+    value: function onPresentationExit(direction) {
+      var top = this.state.scrollTop;
+      if (direction === 'top') {
+        this.globalScrollbar.scrollTop(top - 50);
+      } else {
+        this.globalScrollbar.scrollTop(top + 50);
+      }
+    }
+  }, {
     key: 'onScrollUpdate',
     value: function onScrollUpdate(evt) {
       var scrollTop = evt.scrollTop;
       var headerHeight = this.header.offsetHeight;
+      var presentationEls = document.getElementsByClassName('quinoa-presentation-player');
+      var presentations = [];
+      var fixedPresentationId = void 0;
+      var fixedPresentationHeight = void 0;
+      for (var i = 0; i < presentationEls.length; i++) {
+        var presentation = presentationEls[i].parentNode;
+        var id = presentation.getAttribute('id');
+        var top = presentation.offsetTop + this.header.offsetHeight;
+        var height = presentation.offsetHeight;
+        presentations.push({
+          id: id,
+          top: top,
+          height: height
+        });
+        var prevScroll = this.state.scrollTop;
+        if (scrollTop > prevScroll && prevScroll < top && scrollTop > top || scrollTop > prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9 || scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + 40) {
+          fixedPresentationId = id;
+          fixedPresentationHeight = height;
+        }
+      }
+      if (fixedPresentationId !== this.state.fixedPresentationId) {
+        this.setState({
+          fixedPresentationId: fixedPresentationId,
+          fixedPresentationHeight: fixedPresentationHeight
+        });
+      }
       if (scrollTop < headerHeight && !this.state.inCover) {
         this.setState({
           inCover: true
@@ -195,13 +255,18 @@ var PresentationLayout = function (_Component) {
           content = _props$story.content;
       var _state = this.state,
           inCover = _state.inCover,
-          toc = _state.toc;
+          toc = _state.toc,
+          indexOpen = _state.indexOpen;
 
       var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
         _this2.globalScrollbar = scrollbar;
       };
       var bindHeaderRef = function bindHeaderRef(header) {
         _this2.header = header;
+      };
+
+      var onClickToggle = function onClickToggle() {
+        return _this2.toggleIndex();
       };
 
       return _react2.default.createElement(
@@ -262,9 +327,20 @@ var PresentationLayout = function (_Component) {
                 { onClick: this.scrollToCover },
                 metadata.title || 'Quinoa story'
               ),
+              toc && toc.length !== undefined && toc.length > 0 && _react2.default.createElement(
+                'button',
+                {
+                  className: 'index-toggle ' + (indexOpen ? 'active' : ''),
+                  onClick: onClickToggle },
+                'Index'
+              ),
               _react2.default.createElement(
                 'ul',
-                { className: 'table-of-contents' },
+                {
+                  className: 'table-of-contents',
+                  style: {
+                    maxHeight: indexOpen ? '100%' : 0
+                  } },
                 toc && toc.map(function (item, index) {
                   var onClick = function onClick(e) {
                     e.stopPropagation();
@@ -293,5 +369,10 @@ var PresentationLayout = function (_Component) {
   }]);
   return PresentationLayout;
 }(_react.Component);
+
+PresentationLayout.childContextTypes = {
+  fixedPresentationId: _propTypes2.default.string,
+  onExit: _propTypes2.default.func
+};
 
 exports.default = PresentationLayout;
