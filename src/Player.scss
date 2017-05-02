@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Lora:400,400i,700');
+// @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i');
 $gutter-small: .7em;
 $gutter-medium: $gutter-small * 1.666;
 $gutter-large: $gutter-medium * 3;
@@ -6,7 +7,7 @@ $gutter-lateral-large-screens: 25%;
 $color-primary: #333;
 $color-secondary: red;
 $color-secondary-intent: brown;
-$color-background: white;
+$color-background: #fafaf4; // white;
 $color-secondary-background: rgba(255,255,255,.8);
  // #e5e7e6;
 $color-primary-background: #f4f4f4;
@@ -41,7 +42,7 @@ $font-size-2: $font-size-1 * 2;
 {
     // default styling
     // font-family: 'Source Sans Pro', sans-serif;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: Lora, "Times New Roman", serif;
 
     position: absolute;
     top: 0;
@@ -143,6 +144,7 @@ $font-size-2: $font-size-1 * 2;
                 > h6,
                 > p,
                 > ul,
+                > ol,
                 > blockquote, 
                 > pre
                 {
