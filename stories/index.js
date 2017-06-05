@@ -8,27 +8,34 @@ import assetsStoryShort from './story-with-assets-short.json';
 import assetsStoryLong from './story-with-assets-long.json';
 import assetsStoryDiverse from './story-with-diverse-types-of-assets.json';
 
+import peritextStory from './peritext-story.json';
+
 
 // import networkPresentation from './network/network-test-from-bulgur.json';
 
 storiesOf('Quinoa story', module)
-  .add('Simple', () => (
-    <Player 
-      story={mockStory} 
+  .add('Peritext story', () => (
+    <Player
+      story={peritextStory}
     />
   ))
-  .add('With assets (short)', () => (
-    <Player 
-      story={assetsStoryShort} 
-    />
-  ))
-  .add('With assets (long)', () => (
-    <Player 
-      story={assetsStoryLong} 
-    />
-  ))
-  .add('With assets (diverse)', () => (
-    <Player 
-      story={assetsStoryDiverse} 
-    />
-  ))
+  // .add('Simple', () => (
+  //   <Player 
+  //     story={mockStory} 
+  //   />
+  // ))
+  // .add('With assets (short)', () => (
+  //   <Player 
+  //     story={assetsStoryShort} 
+  //   />
+  // ))
+  // .add('With assets (long)', () => (
+  //   <Player 
+  //     story={assetsStoryLong} 
+  //   />
+  // ))
+  // .add('With assets (diverse)', () => (
+  //   <Player 
+  //     story={assetsStoryDiverse} 
+  //   />
+  // ))

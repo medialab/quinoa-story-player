@@ -7,18 +7,18 @@ import './AssetPreview.scss';
 
 const AssetPreview = ({
   type,
-  data,
+  resource,
   options,
   fixed,
   onExit
 }) => {
   switch (type) {
     case 'image':
-      return <img src={data} />;
+      return <img src={resource.data} />;
     case 'video':
       return (
         <Media>
-          <Player src={data} />
+          <Player src={resource.data.url} />
         </Media>
       );
     case 'data-presentation':
@@ -30,7 +30,7 @@ const AssetPreview = ({
       };
       return (
         <QuinoaPresentationPlayer
-          presentation={data}
+          presentation={resource.data}
           template={(options && options.template)}
           onWheel={onWheel}
           onExit={onExit}
@@ -43,7 +43,7 @@ const AssetPreview = ({
       return (
         <div
           dangerouslySetInnerHTML={{
-            __html: data
+            __html: resource.data
           }} />
       );
     default:

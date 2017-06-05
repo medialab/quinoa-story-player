@@ -3,7 +3,18 @@ import PropTypes from 'prop-types';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {SpringSystem, MathUtil} from 'rebound';
 
+import {debounce} from 'lodash';
+
+import {ReferencesManager} from 'react-citeproc';
+
+import SectionLayout from './SectionLayout';
 import Renderer from './Renderer';
+import Bibliography from './Bibliography';
+
+
+import style from 'raw-loader!./assets/apa.csl';
+import locale from 'raw-loader!./assets/english-locale.xml';
+
 
 class PresentationLayout extends Component {
 
@@ -13,7 +24,7 @@ class PresentationLayout extends Component {
     this.scrollToCover = this.scrollToCover.bind(this);
     this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    this.onScrollUpdate = this.onScrollUpdate.bind(this);
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 200);
     this.buildTOC = this.buildTOC.bind(this);
     this.scrollToTitle = this.scrollToTitle.bind(this);
 
@@ -65,12 +76,13 @@ class PresentationLayout extends Component {
     if (direction === 'top') {
       this.globalScrollbar.scrollTop(top - 50);
     }
- else {
-      this.globalScrollbar.scrollTop(top + 50);
+    else {
+      const h = this.state.fixedPresentationHeight;
+      this.globalScrollbar.scrollTop(top + h * 0.2);
     }
   }
 
-  onScrollUpdate (evt) {
+  onScrollUpdate = (evt) => {
     const scrollTop = evt.scrollTop;
     const headerHeight = this.header.offsetHeight;
     const presentationEls = document.getElementsByClassName('quinoa-presentation-player');
@@ -87,11 +99,12 @@ class PresentationLayout extends Component {
         top,
         height
       });
-      const prevScroll = this.state.scrollTop;
+      // const prevScroll = this.state.scrollTop;
       if (
-        (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
-        || (scrollTop > prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
-        || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + 40)
+        scrollTop >= top && scrollTop <= top + height * 0.4
+        // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
+        // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
+        // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
       ) {
         fixedPresentationId = id;
         fixedPresentationHeight = height;
@@ -102,6 +115,7 @@ class PresentationLayout extends Component {
         fixedPresentationId,
         fixedPresentationHeight
       });
+      return;
     }
     if (scrollTop < headerHeight && !this.state.inCover) {
       this.setState({
@@ -115,7 +129,7 @@ class PresentationLayout extends Component {
     }
 
     if (scrollTop !== this.state.scrollTop) {
-      const toc = this.buildTOC(this.props.story.content, scrollTop);
+      const toc = this.buildTOC(this.props.story, scrollTop);
       this.setState({
         toc,
         scrollTop
@@ -132,64 +146,103 @@ class PresentationLayout extends Component {
       this.spring.setEndValue(val);
   }
 
-  buildTOC (content, scrollTop) {
-    const headers = content && content.blocks
-    .filter(block => block.type.indexOf('header') === 0);
-    return headers
-    .map((block, index) => {
-      const {type, text, key} = block;
-      const levelStr = type.split('header-').pop();
-      let level;
-      switch (levelStr) {
-        case 'one':
-          level = 1;
-          break;
-        case 'two':
-          level = 2;
-          break;
-        case 'three':
-          level = 3;
-          break;
-        case 'four':
-          level = 4;
-          break;
-        case 'five':
-          level = 5;
-          break;
-        case 'six':
-        default:
-          level = 6;
-          break;
-      }
+  buildTOC (story, scrollTop) {
+    return story.sectionsOrder
+    .map((sectionId, sectionIndex) => {
+      const section = story.sections[sectionId];
+      const sectionLevel = section.metadata.level;
+      const content = section.contents;
+      const headers = content && content.blocks
+      .filter(block => block.type.indexOf('header') === 0);
 
-      const title = document.getElementById(key);
-      const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      let sectionActive;
+      let titleOffsetTop;
       let nextTitleOffsetTop;
-      if (index < headers.length - 1) {
-        const next = headers[index + 1];
+      let title;
+      title = document.getElementById(section.id);
+      titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      if (sectionIndex < story.sectionsOrder.length - 1) {
+        const next = headers[sectionIndex + 1];
         const nextTitle = document.getElementById(next.key);
         nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
       }
-      let active;
       if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
           (nextTitleOffsetTop === undefined ||
             nextTitleOffsetTop >= scrollTop
           )
         ) {
-        active = true;
+        sectionActive = true;
       }
-      return {
-        level,
-        text,
-        key,
-        active
+      const sectionHeader = {
+        level: sectionLevel,
+        text: section.metadata.title || '',
+        key: section.id,
+        active: sectionActive
       };
-    });
+      const headerItems = headers
+        .map((block, index) => {
+          const {type, text, key} = block;
+          const levelStr = type.split('header-').pop();
+          let level;
+          switch (levelStr) {
+            case 'one':
+              level = sectionLevel + 1;
+              break;
+            case 'two':
+              level = sectionLevel + 2;
+              break;
+            case 'three':
+              level = sectionLevel + 3;
+              break;
+            case 'four':
+              level = sectionLevel + 4;
+              break;
+            case 'five':
+              level = sectionLevel + 5;
+              break;
+            case 'six':
+            default:
+              level = sectionLevel + 6;
+              break;
+          }
+
+          title = document.getElementById(key);
+          titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          // nextTitleOffsetTop;
+          if (index < headers.length - 1) {
+            const next = headers[index + 1];
+            const nextTitle = document.getElementById(next.key);
+            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          }
+          let headerActive;
+          if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
+              (nextTitleOffsetTop === undefined ||
+                nextTitleOffsetTop >= scrollTop
+              )
+            ) {
+            headerActive = true;
+          }
+          return {
+            level,
+            text,
+            key,
+            active: headerActive
+          };
+        });
+      return [
+        sectionHeader,
+        ...headerItems
+        ];
+      })
+      // flatten mini-tocs
+      .reduce((result, ar) => [...result, ...ar], []);
   }
 
   scrollToTitle (id) {
     const title = document.getElementById(id);
-    this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+    if (title) {
+      this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+    }
   }
 
   handleSpringUpdate(spring) {
@@ -197,11 +250,112 @@ class PresentationLayout extends Component {
     this.globalScrollbar.scrollTop(val);
   }
 
+  prepareCitations = () => {
+    const {
+      story
+    } = this.props;
+    if (!story) {
+      return;
+    }
+    const {
+      contextualizations,
+      contextualizers,
+      resources
+    } = story;
+    /*
+     * Assets preparation
+     */
+    const assets = Object.keys(contextualizations)
+    .reduce((ass, id) => {
+      const contextualization = contextualizations[id];
+      const contextualizer = contextualizers[contextualization.contextualizerId];
+      return {
+        ...ass,
+        [id]: {
+          ...contextualization,
+          resource: resources[contextualization.resourceId],
+          contextualizer,
+          type: contextualizer ? contextualizer.type : 'INLINE_ASSET'
+        }
+      };
+    }, {});    /*
+     * Citations preparation
+     */
+    // isolate bib contextualizations
+    const bibContextualizations = Object.keys(assets)
+    .filter(assetKey =>
+        assets[assetKey].type === 'bib'
+      )
+    .map(assetKey => assets[assetKey]);
+    // build citations items data
+    const citationItems = Object.keys(bibContextualizations)
+      .reduce((finalCitations, key1) => {
+        const bibCit = bibContextualizations[key1];
+        const citations = bibCit.resource.data;
+        const newCitations = citations.reduce((final2, citation) => {
+          return {
+            ...final2,
+            [citation.id]: citation
+          };
+        }, {});
+        return {
+          ...finalCitations,
+          ...newCitations,
+        };
+      }, {});
+    // build citations's citations data
+    const citationInstances = bibContextualizations // Object.keys(bibContextualizations)
+      .map((bibCit, index) => {
+        const key1 = bibCit.id;
+        const contextualization = contextualizations[key1];
+
+        const contextualizer = contextualizers[contextualization.contextualizerId];
+        const resource = resources[contextualization.resourceId];
+        return {
+          citationID: key1,
+          citationItems: resource.data.map(ref => ({
+            locator: contextualizer.locator,
+            prefix: contextualizer.prefix,
+            suffix: contextualizer.suffix,
+            // ...contextualizer,
+            id: ref.id,
+          })),
+          properties: {
+            noteIndex: index + 1
+          }
+        };
+      });
+    // map them to the clumsy formatting needed by citeProc
+    const citationData = citationInstances.map((instance, index) => [
+      instance,
+      // citations before
+      citationInstances.slice(0, (index === 0 ? 0 : index))
+        .map((oCitation) => [
+            oCitation.citationID,
+            oCitation.properties.noteIndex
+          ]
+        ),
+      []
+      // citations after
+      // citationInstances.slice(index)
+      //   .map((oCitation) => [
+      //       oCitation.citationID,
+      //       oCitation.properties.noteIndex
+      //     ]
+      //   ),
+    ]);
+    return {
+      citationData,
+      citationItems
+    };
+  }
+
   render() {
     const {
       story: {
         metadata,
-        content
+        sectionsOrder,
+        sections
       }
     } = this.props;
     const {
@@ -217,27 +371,44 @@ class PresentationLayout extends Component {
     };
 
     const onClickToggle = () => this.toggleIndex();
+    let noteCount = 1;
+    const notes = sectionsOrder.reduce((nf, sectionId) => [
+      ...nf,
+      ...Object.keys(sections[sectionId].notes || {})
+          .map(noteId => ({
+            ...sections[sectionId].notes[noteId],
+            sectionId,
+            finalOrder: noteCount++
+          }))
+    ], []);
 
+    const citations = this.prepareCitations();
     return (
-      <section className="wrapper">
-        <Scrollbars
-          ref={bindGlobalScrollbarRef}
-          autoHide
-          onUpdate={this.onScrollUpdate}
-          universal>
-          <header
-            onClick={this.scrollToContents}
-            className="header"
-            ref={bindHeaderRef}
-            style={{
+      <ReferencesManager
+        style={style}
+        locale={locale}
+        items={citations.citationItems}
+        citations={citations.citationData}
+        componentClass="references-manager">
+        <section className="wrapper">
+          <Scrollbars
+            ref={bindGlobalScrollbarRef}
+            autoHide
+            onUpdate={this.onScrollUpdate}
+            universal>
+            <header
+              onClick={this.scrollToContents}
+              className="header"
+              ref={bindHeaderRef}
+              style={{
               backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined
             }}>
-            <div
-              className="header-content">
-              <h1>
-                {metadata.title || 'Quinoa story'}
-              </h1>
-              {
+              <div
+                className="header-content">
+                <h1>
+                  {metadata.title || 'Quinoa story'}
+                </h1>
+                {
                 metadata.authors && metadata.authors.length ?
                   <div className="authors">
                     {
@@ -246,29 +417,46 @@ class PresentationLayout extends Component {
                   </div>
                 : null
               }
-            </div>
-          </header>
-          <section
-            className="body-wrapper">
-            <section className="contents-wrapper">
-              <Renderer raw={content} />
-            </section>
+              </div>
+            </header>
+            <section
+              className="body-wrapper">
+              <section className="contents-wrapper">
+                {
+                sectionsOrder.map((id) => (
+                  <SectionLayout section={sections[id]} key={id} />
+                ))
+              }
+                <div className="notes-container">
+                  <h3>Notes</h3>
+                  <ol>
+                    {
+                    notes.map(note => (
+                      <li key={note.finalOrder}>
+                        <Renderer raw={note.editorState} />
+                      </li>
+                    ))
+                  }
+                  </ol>
+                </div>
+                <Bibliography />
+              </section>
 
-            <nav
-              className="nav"
-              style={{
+              <nav
+                className="nav"
+                style={{
                 position: inCover ? 'relative' : 'fixed'
               }}>
-              <h2 onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
-              {toc && toc.length !== undefined && toc.length > 0 && <button
-                className={'index-toggle ' + (indexOpen ? 'active' : '')}
-                onClick={onClickToggle}>Index</button>}
-              <ul
-                className="table-of-contents"
-                style={{
+                <h2 onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
+                {toc && toc.length !== undefined && toc.length > 0 && <button
+                  className={'index-toggle ' + (indexOpen ? 'active' : '')}
+                  onClick={onClickToggle}>Index</button>}
+                <ul
+                  className="table-of-contents"
+                  style={{
                   maxHeight: indexOpen ? '100%' : 0
                 }}>
-                {
+                  {
                   toc && toc.map((item, index) => {
                     const onClick = (e) => {
                       e.stopPropagation();
@@ -287,11 +475,12 @@ class PresentationLayout extends Component {
                     );
                   })
                 }
-              </ul>
-            </nav>
-          </section>
-        </Scrollbars>
-      </section>
+                </ul>
+              </nav>
+            </section>
+          </Scrollbars>
+        </section>
+      </ReferencesManager>
     );
   }
 }

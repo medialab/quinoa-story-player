@@ -24,6 +24,10 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -48,16 +52,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint react/jsx-key : 0 */
 var styles = {
   code: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    fontSize: 16,
-    padding: 2
+    // backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    // fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    // fontSize: 16,
+    // padding: 2,
   },
   codeBlock: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    fontSize: 16,
-    padding: 20
+    // backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    // fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+    // fontSize: 16,
+    // padding: 20,
   }
 };
 
@@ -82,13 +86,22 @@ var AssetWrapper = function AssetWrapper(_ref2, context) {
   var data = _ref2.data,
       assetType = _ref2.assetType;
 
-  var assetId = data.id;
-  var asset = context.story && context.story.assets && context.story.assets[assetId];
+  var assetId = data.asset.id;
+  var contextualization = context.story && context.story.contextualizations && context.story.contextualizations[assetId];
+  if (!contextualization) {
+    return;
+  }
+  var asset = (0, _extends3.default)({}, contextualization, {
+    contextualizer: context.story.contextualizers[contextualization.contextualizerId],
+    resource: context.story.resources[contextualization.resourceId]
+
+  });
   var dimensions = context.dimensions;
   var fixedPresentationId = context.fixedPresentationId;
   var onExit = context.onExit;
   if (asset) {
-    var metadata = asset.metadata;
+    var resource = asset.resource;
+    var _assetType = asset.contextualizer.type;
     return _react2.default.createElement(
       'figure',
       {
@@ -96,38 +109,16 @@ var AssetWrapper = function AssetWrapper(_ref2, context) {
           position: 'relative',
           minHeight: dimensions && dimensions.height || '10em'
         },
-        id: metadata.id },
+        id: assetId },
       _react2.default.createElement(_AssetPreview2.default, {
-        type: assetType,
-        data: asset.data,
+        type: _assetType,
+        resource: resource,
         options: {
           template: 'scroller'
         },
-        fixed: fixedPresentationId === metadata.id,
+        fixed: fixedPresentationId === assetId,
         onExit: onExit }),
-      _react2.default.createElement(
-        'figcaption',
-        null,
-        metadata.title && _react2.default.createElement(
-          'h4',
-          null,
-          metadata.title
-        ),
-        metadata.description && _react2.default.createElement(
-          'p',
-          null,
-          metadata.description
-        ),
-        metadata.source && _react2.default.createElement(
-          'p',
-          null,
-          _react2.default.createElement(
-            'i',
-            null,
-            metadata.source
-          )
-        )
-      )
+      _react2.default.createElement('figcaption', null)
     );
   } else {
     return null;
@@ -141,6 +132,29 @@ AssetWrapper.contextTypes = {
   onExit: _propTypes2.default.func
 };
 
+var CitationContainer = function CitationContainer(_ref3, context) {
+  var data = _ref3.data;
+
+  var citations = context.citations;
+  var id = data.asset.id;
+  if (citations) {
+    var citation = citations[id];
+    if (citation) {
+      var CitComponent = citation.Component;
+      return _react2.default.createElement(
+        'cite',
+        { id: id },
+        CitComponent
+      );
+    }
+    return null;
+  }
+  return null;
+};
+CitationContainer.contextTypes = {
+  citations: _propTypes2.default.object
+};
+
 /**
  * Define the renderers
  */
@@ -150,32 +164,32 @@ var renderers = {
    */
   inline: {
     // The key passed here is just an index based on rendering order inside a block
-    BOLD: function BOLD(children, _ref3) {
-      var key = _ref3.key;
+    BOLD: function BOLD(children, _ref4) {
+      var key = _ref4.key;
       return _react2.default.createElement(
         'strong',
         { key: key },
         children
       );
     },
-    ITALIC: function ITALIC(children, _ref4) {
-      var key = _ref4.key;
+    ITALIC: function ITALIC(children, _ref5) {
+      var key = _ref5.key;
       return _react2.default.createElement(
         'em',
         { key: key },
         children
       );
     },
-    UNDERLINE: function UNDERLINE(children, _ref5) {
-      var key = _ref5.key;
+    UNDERLINE: function UNDERLINE(children, _ref6) {
+      var key = _ref6.key;
       return _react2.default.createElement(
         'u',
         { key: key },
         children
       );
     },
-    CODE: function CODE(children, _ref6) {
-      var key = _ref6.key;
+    CODE: function CODE(children, _ref7) {
+      var key = _ref7.key;
       return _react2.default.createElement(
         'span',
         { key: key, style: styles.code },
@@ -206,8 +220,8 @@ var renderers = {
     },
     // 'header-one': (children) => children.map(child => <h1>{child}</h1>),
     // 'header-two': (children) => children.map(child => <h2>{child}</h2>),
-    'header-one': function headerOne(children, _ref7) {
-      var keys = _ref7.keys;
+    'header-one': function headerOne(children, _ref8) {
+      var keys = _ref8.keys;
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h1',
@@ -216,8 +230,8 @@ var renderers = {
         );
       });
     },
-    'header-two': function headerTwo(children, _ref8) {
-      var keys = _ref8.keys;
+    'header-two': function headerTwo(children, _ref9) {
+      var keys = _ref9.keys;
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h2',
@@ -226,8 +240,8 @@ var renderers = {
         );
       });
     },
-    'header-three': function headerThree(children, _ref9) {
-      var keys = _ref9.keys;
+    'header-three': function headerThree(children, _ref10) {
+      var keys = _ref10.keys;
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h3',
@@ -236,8 +250,8 @@ var renderers = {
         );
       });
     },
-    'header-four': function headerFour(children, _ref10) {
-      var keys = _ref10.keys;
+    'header-four': function headerFour(children, _ref11) {
+      var keys = _ref11.keys;
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h4',
@@ -246,8 +260,8 @@ var renderers = {
         );
       });
     },
-    'header-five': function headerFive(children, _ref11) {
-      var keys = _ref11.keys;
+    'header-five': function headerFive(children, _ref12) {
+      var keys = _ref12.keys;
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h5',
@@ -256,8 +270,8 @@ var renderers = {
         );
       });
     },
-    'header-six': function headerSix(children, _ref12) {
-      var keys = _ref12.keys;
+    'header-six': function headerSix(children, _ref13) {
+      var keys = _ref13.keys;
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h6',
@@ -268,8 +282,8 @@ var renderers = {
     },
 
     // You can also access the original keys of the blocks
-    'code-block': function codeBlock(children, _ref13) {
-      var keys = _ref13.keys;
+    'code-block': function codeBlock(children, _ref14) {
+      var keys = _ref14.keys;
       return _react2.default.createElement(
         'pre',
         { style: styles.codeBlock, key: keys[0] },
@@ -277,24 +291,24 @@ var renderers = {
       );
     },
     // or depth for nested lists
-    'unordered-list-item': function unorderedListItem(children, _ref14) {
-      var depth = _ref14.depth,
-          keys = _ref14.keys;
+    'unordered-list-item': function unorderedListItem(children, _ref15) {
+      var depth = _ref15.depth,
+          keys = _ref15.keys;
       return _react2.default.createElement(
         'ul',
         { key: keys[keys.length - 1], className: 'ul-level-' + depth },
-        children.map(function (child) {
+        children.map(function (child, index) {
           return _react2.default.createElement(
             'li',
-            null,
+            { key: index },
             child
           );
         })
       );
     },
-    'ordered-list-item': function orderedListItem(children, _ref15) {
-      var depth = _ref15.depth,
-          keys = _ref15.keys;
+    'ordered-list-item': function orderedListItem(children, _ref16) {
+      var depth = _ref16.depth,
+          keys = _ref16.keys;
       return _react2.default.createElement(
         'ol',
         { key: keys.join('|'), className: 'ol-level-' + depth },
@@ -313,8 +327,8 @@ var renderers = {
   //  */
   entities: {
     //   // key is the entity key value from raw
-    'LINK': function LINK(children, data, _ref16) {
-      var key = _ref16.key;
+    LINK: function LINK(children, data, _ref17) {
+      var key = _ref17.key;
       return _react2.default.createElement(
         Link,
         { key: key, to: data.url },
@@ -322,25 +336,15 @@ var renderers = {
       );
     },
     // <Link key={key} to={data.url}>{children}<Link/>,
-    'DATA-PRESENTATION': function DATAPRESENTATION(children, data, _ref17) {
-      var key = _ref17.key;
-
-      return _react2.default.createElement(AssetWrapper, { key: key, data: data, assetType: 'data-presentation' });
-    },
-    'IMAGE': function IMAGE(children, data, _ref18) {
+    BLOCK_ASSET: function BLOCK_ASSET(children, data, _ref18) {
       var key = _ref18.key;
 
-      return _react2.default.createElement(AssetWrapper, { key: key, data: data, assetType: 'image' });
+      return _react2.default.createElement(AssetWrapper, { key: key, data: data });
     },
-    'VIDEO': function VIDEO(children, data, _ref19) {
+    INLINE_ASSET: function INLINE_ASSET(children, data, _ref19) {
       var key = _ref19.key;
 
-      return _react2.default.createElement(AssetWrapper, { key: key, data: data, assetType: 'video' });
-    },
-    'EMBED': function EMBED(children, data, _ref20) {
-      var key = _ref20.key;
-
-      return _react2.default.createElement(AssetWrapper, { key: key, data: data, assetType: 'embed' });
+      return _react2.default.createElement(CitationContainer, { data: data, key: key });
     }
   }
 };

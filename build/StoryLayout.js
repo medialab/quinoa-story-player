@@ -4,6 +4,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends4 = require('babel-runtime/helpers/extends');
+
+var _extends5 = _interopRequireDefault(_extends4);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -36,9 +52,29 @@ var _reactCustomScrollbars = require('react-custom-scrollbars');
 
 var _rebound = require('rebound');
 
+var _lodash = require('lodash');
+
+var _reactCiteproc = require('react-citeproc');
+
+var _SectionLayout = require('./SectionLayout');
+
+var _SectionLayout2 = _interopRequireDefault(_SectionLayout);
+
 var _Renderer = require('./Renderer');
 
 var _Renderer2 = _interopRequireDefault(_Renderer);
+
+var _Bibliography = require('./Bibliography');
+
+var _Bibliography2 = _interopRequireDefault(_Bibliography);
+
+var _apa = require('raw-loader!./assets/apa.csl');
+
+var _apa2 = _interopRequireDefault(_apa);
+
+var _englishLocale = require('raw-loader!./assets/english-locale.xml');
+
+var _englishLocale2 = _interopRequireDefault(_englishLocale);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,11 +86,149 @@ var PresentationLayout = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (PresentationLayout.__proto__ || (0, _getPrototypeOf2.default)(PresentationLayout)).call(this, props));
 
+    _this.onScrollUpdate = function (evt) {
+      var scrollTop = evt.scrollTop;
+      var headerHeight = _this.header.offsetHeight;
+      var presentationEls = document.getElementsByClassName('quinoa-presentation-player');
+      var presentations = [];
+      var fixedPresentationId = void 0;
+      var fixedPresentationHeight = void 0;
+      for (var i = 0; i < presentationEls.length; i++) {
+        var presentation = presentationEls[i].parentNode;
+        var id = presentation.getAttribute('id');
+        var top = presentation.offsetTop + _this.header.offsetHeight;
+        var height = presentation.offsetHeight;
+        presentations.push({
+          id: id,
+          top: top,
+          height: height
+        });
+        var prevScroll = _this.state.scrollTop;
+        if (scrollTop >= top && scrollTop <= top + height * 0.4
+        // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
+        // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
+        // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
+        ) {
+            fixedPresentationId = id;
+            fixedPresentationHeight = height;
+          }
+      }
+      if (fixedPresentationId !== _this.state.fixedPresentationId) {
+        _this.setState({
+          fixedPresentationId: fixedPresentationId,
+          fixedPresentationHeight: fixedPresentationHeight
+        });
+        return;
+      }
+      if (scrollTop < headerHeight && !_this.state.inCover) {
+        _this.setState({
+          inCover: true
+        });
+      } else if (scrollTop > headerHeight && _this.state.inCover) {
+        _this.setState({
+          inCover: false
+        });
+      }
+
+      if (scrollTop !== _this.state.scrollTop) {
+        var toc = _this.buildTOC(_this.props.story, scrollTop);
+        _this.setState({
+          toc: toc,
+          scrollTop: scrollTop
+        });
+      }
+    };
+
+    _this.prepareCitations = function () {
+      var story = _this.props.story;
+
+      if (!story) {
+        return;
+      }
+      var contextualizations = story.contextualizations,
+          contextualizers = story.contextualizers,
+          resources = story.resources;
+      /*
+       * Assets preparation
+       */
+
+      var assets = (0, _keys2.default)(contextualizations).reduce(function (ass, id) {
+        var contextualization = contextualizations[id];
+        var contextualizer = contextualizers[contextualization.contextualizerId];
+        return (0, _extends5.default)({}, ass, (0, _defineProperty3.default)({}, id, (0, _extends5.default)({}, contextualization, {
+          resource: resources[contextualization.resourceId],
+          contextualizer: contextualizer,
+          type: contextualizer ? contextualizer.type : 'INLINE_ASSET'
+        })));
+      }, {}); /*
+              * Citations preparation
+              */
+      // isolate bib contextualizations
+      var bibContextualizations = (0, _keys2.default)(assets).filter(function (assetKey) {
+        return assets[assetKey].type === 'bib';
+      }).map(function (assetKey) {
+        return assets[assetKey];
+      });
+      // build citations items data
+      var citationItems = (0, _keys2.default)(bibContextualizations).reduce(function (finalCitations, key1) {
+        var bibCit = bibContextualizations[key1];
+        var citations = bibCit.resource.data;
+        var newCitations = citations.reduce(function (final2, citation) {
+          return (0, _extends5.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
+        }, {});
+        return (0, _extends5.default)({}, finalCitations, newCitations);
+      }, {});
+      // build citations's citations data
+      var citationInstances = bibContextualizations // Object.keys(bibContextualizations)
+      .map(function (bibCit, index) {
+        var key1 = bibCit.id;
+        var contextualization = contextualizations[key1];
+
+        var contextualizer = contextualizers[contextualization.contextualizerId];
+        var resource = resources[contextualization.resourceId];
+        return {
+          citationID: key1,
+          citationItems: resource.data.map(function (ref) {
+            return {
+              locator: contextualizer.locator,
+              prefix: contextualizer.prefix,
+              suffix: contextualizer.suffix,
+              // ...contextualizer,
+              id: ref.id
+            };
+          }),
+          properties: {
+            noteIndex: index + 1
+          }
+        };
+      });
+      // map them to the clumsy formatting needed by citeProc
+      var citationData = citationInstances.map(function (instance, index) {
+        return [instance,
+        // citations before
+        citationInstances.slice(0, index === 0 ? 0 : index).map(function (oCitation) {
+          return [oCitation.citationID, oCitation.properties.noteIndex];
+        }), []
+        // citations after
+        // citationInstances.slice(index)
+        //   .map((oCitation) => [
+        //       oCitation.citationID,
+        //       oCitation.properties.noteIndex
+        //     ]
+        //   ),
+        ];
+      });
+      return {
+        citationData: citationData,
+        citationItems: citationItems
+      };
+    };
+
     _this.scrollToContents = _this.scrollToContents.bind(_this);
     _this.scrollToCover = _this.scrollToCover.bind(_this);
     _this.handleSpringUpdate = _this.handleSpringUpdate.bind(_this);
     _this.scrollTop = _this.scrollTop.bind(_this);
-    _this.onScrollUpdate = _this.onScrollUpdate.bind(_this);
+    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 200);
     _this.buildTOC = _this.buildTOC.bind(_this);
     _this.scrollToTitle = _this.scrollToTitle.bind(_this);
 
@@ -116,56 +290,8 @@ var PresentationLayout = function (_Component) {
       if (direction === 'top') {
         this.globalScrollbar.scrollTop(top - 50);
       } else {
-        this.globalScrollbar.scrollTop(top + 50);
-      }
-    }
-  }, {
-    key: 'onScrollUpdate',
-    value: function onScrollUpdate(evt) {
-      var scrollTop = evt.scrollTop;
-      var headerHeight = this.header.offsetHeight;
-      var presentationEls = document.getElementsByClassName('quinoa-presentation-player');
-      var presentations = [];
-      var fixedPresentationId = void 0;
-      var fixedPresentationHeight = void 0;
-      for (var i = 0; i < presentationEls.length; i++) {
-        var presentation = presentationEls[i].parentNode;
-        var id = presentation.getAttribute('id');
-        var top = presentation.offsetTop + this.header.offsetHeight;
-        var height = presentation.offsetHeight;
-        presentations.push({
-          id: id,
-          top: top,
-          height: height
-        });
-        var prevScroll = this.state.scrollTop;
-        if (scrollTop > prevScroll && prevScroll < top && scrollTop > top || scrollTop > prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9 || scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + 40) {
-          fixedPresentationId = id;
-          fixedPresentationHeight = height;
-        }
-      }
-      if (fixedPresentationId !== this.state.fixedPresentationId) {
-        this.setState({
-          fixedPresentationId: fixedPresentationId,
-          fixedPresentationHeight: fixedPresentationHeight
-        });
-      }
-      if (scrollTop < headerHeight && !this.state.inCover) {
-        this.setState({
-          inCover: true
-        });
-      } else if (scrollTop > headerHeight && this.state.inCover) {
-        this.setState({
-          inCover: false
-        });
-      }
-
-      if (scrollTop !== this.state.scrollTop) {
-        var toc = this.buildTOC(this.props.story.content, scrollTop);
-        this.setState({
-          toc: toc,
-          scrollTop: scrollTop
-        });
+        var h = this.state.fixedPresentationHeight;
+        this.globalScrollbar.scrollTop(top + h * 0.2);
       }
     }
   }, {
@@ -180,64 +306,96 @@ var PresentationLayout = function (_Component) {
     }
   }, {
     key: 'buildTOC',
-    value: function buildTOC(content, scrollTop) {
-      var headers = content && content.blocks.filter(function (block) {
-        return block.type.indexOf('header') === 0;
-      });
-      return headers.map(function (block, index) {
-        var type = block.type,
-            text = block.text,
-            key = block.key;
+    value: function buildTOC(story, scrollTop) {
+      return story.sectionsOrder.map(function (sectionId, sectionIndex) {
+        var section = story.sections[sectionId];
+        var sectionLevel = section.metadata.level;
+        var content = section.contents;
+        var headers = content && content.blocks.filter(function (block) {
+          return block.type.indexOf('header') === 0;
+        });
 
-        var levelStr = type.split('header-').pop();
-        var level = void 0;
-        switch (levelStr) {
-          case 'one':
-            level = 1;
-            break;
-          case 'two':
-            level = 2;
-            break;
-          case 'three':
-            level = 3;
-            break;
-          case 'four':
-            level = 4;
-            break;
-          case 'five':
-            level = 5;
-            break;
-          case 'six':
-          default:
-            level = 6;
-            break;
-        }
-
-        var title = document.getElementById(key);
+        var sectionActive = void 0;
+        var title = document.getElementById(section.id);
         var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
         var nextTitleOffsetTop = void 0;
-        if (index < headers.length - 1) {
-          var next = headers[index + 1];
+        if (sectionIndex < story.sectionsOrder.length - 1) {
+          var next = headers[sectionIndex + 1];
           var nextTitle = document.getElementById(next.key);
           nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
         }
         var active = void 0;
         if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
-          active = true;
+          sectionActive = true;
         }
-        return {
-          level: level,
-          text: text,
-          key: key,
-          active: active
+        var sectionHeader = {
+          level: sectionLevel,
+          text: section.metadata.title || '',
+          key: section.id,
+          active: sectionActive
         };
-      });
+        var headerItems = headers.map(function (block, index) {
+          var type = block.type,
+              text = block.text,
+              key = block.key;
+
+          var levelStr = type.split('header-').pop();
+          var level = void 0;
+          switch (levelStr) {
+            case 'one':
+              level = sectionLevel + 1;
+              break;
+            case 'two':
+              level = sectionLevel + 2;
+              break;
+            case 'three':
+              level = sectionLevel + 3;
+              break;
+            case 'four':
+              level = sectionLevel + 4;
+              break;
+            case 'five':
+              level = sectionLevel + 5;
+              break;
+            case 'six':
+            default:
+              level = sectionLevel + 6;
+              break;
+          }
+
+          var title = document.getElementById(key);
+          var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          var nextTitleOffsetTop = void 0;
+          if (index < headers.length - 1) {
+            var _next = headers[index + 1];
+            var _nextTitle = document.getElementById(_next.key);
+            nextTitleOffsetTop = _nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          }
+          var active = void 0;
+          if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
+            active = true;
+          }
+          return {
+            level: level,
+            text: text,
+            key: key,
+            active: active
+          };
+        });
+        return [sectionHeader].concat((0, _toConsumableArray3.default)(headerItems));
+      })
+      // flatten mini-tocs
+      .reduce(function (result, ar) {
+        return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
+      }, []);
     }
   }, {
     key: 'scrollToTitle',
     value: function scrollToTitle(id) {
       var title = document.getElementById(id);
-      this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+      if (title) {
+        this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+      }
     }
   }, {
     key: 'handleSpringUpdate',
@@ -252,7 +410,8 @@ var PresentationLayout = function (_Component) {
 
       var _props$story = this.props.story,
           metadata = _props$story.metadata,
-          content = _props$story.content;
+          sectionsOrder = _props$story.sectionsOrder,
+          sections = _props$story.sections;
       var _state = this.state,
           inCover = _state.inCover,
           toc = _state.toc,
@@ -268,98 +427,141 @@ var PresentationLayout = function (_Component) {
       var onClickToggle = function onClickToggle() {
         return _this2.toggleIndex();
       };
+      var noteCount = 1;
+      var notes = sectionsOrder.reduce(function (nf, sectionId) {
+        return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)((0, _keys2.default)(sections[sectionId].notes || {}).map(function (noteId) {
+          return (0, _extends5.default)({}, sections[sectionId].notes[noteId], {
+            sectionId: sectionId,
+            finalOrder: noteCount++
+          });
+        })));
+      }, []);
 
+      var citations = this.prepareCitations();
       return _react2.default.createElement(
-        'section',
-        { className: 'wrapper' },
+        _reactCiteproc.ReferencesManager,
+        {
+          style: _apa2.default,
+          locale: _englishLocale2.default,
+          items: citations.citationItems,
+          citations: citations.citationData,
+          componentClass: 'references-manager'
+        },
         _react2.default.createElement(
-          _reactCustomScrollbars.Scrollbars,
-          {
-            ref: bindGlobalScrollbarRef,
-            autoHide: true,
-            onUpdate: this.onScrollUpdate,
-            universal: true },
+          'section',
+          { className: 'wrapper' },
           _react2.default.createElement(
-            'header',
+            _reactCustomScrollbars.Scrollbars,
             {
-              onClick: this.scrollToContents,
-              className: 'header',
-              ref: bindHeaderRef,
-              style: {
-                backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined
-              } },
+              ref: bindGlobalScrollbarRef,
+              autoHide: true,
+              onUpdate: this.onScrollUpdate,
+              universal: true },
             _react2.default.createElement(
-              'div',
+              'header',
               {
-                className: 'header-content' },
-              _react2.default.createElement(
-                'h1',
-                null,
-                metadata.title || 'Quinoa story'
-              ),
-              metadata.authors && metadata.authors.length ? _react2.default.createElement(
-                'div',
-                { className: 'authors' },
-                metadata.authors.map(function (author) {
-                  return author;
-                }).join(', ')
-              ) : null
-            )
-          ),
-          _react2.default.createElement(
-            'section',
-            {
-              className: 'body-wrapper' },
-            _react2.default.createElement(
-              'section',
-              { className: 'contents-wrapper' },
-              _react2.default.createElement(_Renderer2.default, { raw: content })
-            ),
-            _react2.default.createElement(
-              'nav',
-              {
-                className: 'nav',
+                onClick: this.scrollToContents,
+                className: 'header',
+                ref: bindHeaderRef,
                 style: {
-                  position: inCover ? 'relative' : 'fixed'
+                  backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined
                 } },
               _react2.default.createElement(
-                'h2',
-                { onClick: this.scrollToCover },
-                metadata.title || 'Quinoa story'
-              ),
-              toc && toc.length !== undefined && toc.length > 0 && _react2.default.createElement(
-                'button',
+                'div',
                 {
-                  className: 'index-toggle ' + (indexOpen ? 'active' : ''),
-                  onClick: onClickToggle },
-                'Index'
+                  className: 'header-content' },
+                _react2.default.createElement(
+                  'h1',
+                  null,
+                  metadata.title || 'Quinoa story'
+                ),
+                metadata.authors && metadata.authors.length ? _react2.default.createElement(
+                  'div',
+                  { className: 'authors' },
+                  metadata.authors.map(function (author) {
+                    return author;
+                  }).join(', ')
+                ) : null
+              )
+            ),
+            _react2.default.createElement(
+              'section',
+              {
+                className: 'body-wrapper' },
+              _react2.default.createElement(
+                'section',
+                { className: 'contents-wrapper' },
+                sectionsOrder.map(function (id) {
+                  return _react2.default.createElement(_SectionLayout2.default, { section: sections[id], key: id });
+                }),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'notes-container' },
+                  _react2.default.createElement(
+                    'h3',
+                    null,
+                    'Notes'
+                  ),
+                  _react2.default.createElement(
+                    'ol',
+                    null,
+                    notes.map(function (note) {
+                      return _react2.default.createElement(
+                        'li',
+                        { key: note.finalOrder },
+                        _react2.default.createElement(_Renderer2.default, { raw: note.editorState })
+                      );
+                    })
+                  )
+                ),
+                _react2.default.createElement(_Bibliography2.default, null)
               ),
               _react2.default.createElement(
-                'ul',
+                'nav',
                 {
-                  className: 'table-of-contents',
+                  className: 'nav',
                   style: {
-                    maxHeight: indexOpen ? '100%' : 0
+                    position: inCover ? 'relative' : 'fixed'
                   } },
-                toc && toc.map(function (item, index) {
-                  var onClick = function onClick(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    _this2.scrollToTitle(item.key);
-                  };
-                  return _react2.default.createElement(
-                    'li',
-                    {
-                      key: index,
-                      className: 'level-' + item.level + (item.active ? ' active' : '') },
-                    _react2.default.createElement(
-                      'a',
-                      { href: '#' + item.key,
-                        onClick: onClick },
-                      item.text
-                    )
-                  );
-                })
+                _react2.default.createElement(
+                  'h2',
+                  { onClick: this.scrollToCover },
+                  metadata.title || 'Quinoa story'
+                ),
+                toc && toc.length !== undefined && toc.length > 0 && _react2.default.createElement(
+                  'button',
+                  {
+                    className: 'index-toggle ' + (indexOpen ? 'active' : ''),
+                    onClick: onClickToggle },
+                  'Index'
+                ),
+                _react2.default.createElement(
+                  'ul',
+                  {
+                    className: 'table-of-contents',
+                    style: {
+                      maxHeight: indexOpen ? '100%' : 0
+                    } },
+                  toc && toc.map(function (item, index) {
+                    var onClick = function onClick(e) {
+                      e.stopPropagation();
+                      e.preventDefault();
+                      _this2.scrollToTitle(item.key);
+                    };
+                    return _react2.default.createElement(
+                      'li',
+                      {
+                        key: index,
+                        className: 'level-' + item.level + (item.active ? ' active' : '') },
+                      _react2.default.createElement(
+                        'a',
+                        { href: '#' + item.key,
+                          onClick: onClick },
+                        item.text
+                      )
+                    );
+                  })
+                )
               )
             )
           )

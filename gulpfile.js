@@ -11,7 +11,8 @@ gulp.task('build', function(){
     "plugins": [
       "transform-decorators-legacy",
       "transform-decorators",
-      "transform-object-rest-spread"
+      "transform-object-rest-spread",
+      "transform-class-properties"
     ],
     "presets": [
       "es2015",
@@ -21,7 +22,9 @@ gulp.task('build', function(){
     .pipe(gulp.dest('build'));
 
   gulp.src([
-      'src/**/*.json'
+      'src/**/*.json',
+      'src/**/*.xml',
+      'src/**/*.csl'
     ])
     .pipe(strip())
     .pipe(gulp.dest('build'));
