@@ -36,7 +36,7 @@ const AssetWrapper = ({
   const assetId = data.asset.id;
   const contextualization = context.story && context.story.contextualizations && context.story.contextualizations[assetId];
   if (!contextualization) {
-    return;
+    return null;
   }
   const asset = {
     ...contextualization,
