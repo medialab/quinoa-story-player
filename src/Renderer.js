@@ -191,7 +191,7 @@ class Renderer extends Component {
     return true;
   }
   renderWarning() {
-    return <div>Nothing to render.</div>;
+    return <div><p>Nothing to render.</p></div>;
   }
 
   render() {

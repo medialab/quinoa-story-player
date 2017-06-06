@@ -24,7 +24,7 @@ class PresentationLayout extends Component {
     this.scrollToCover = this.scrollToCover.bind(this);
     this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    this.onScrollUpdate = debounce(this.onScrollUpdate, 200);
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
     this.buildTOC = this.buildTOC.bind(this);
     this.scrollToTitle = this.scrollToTitle.bind(this);
 
@@ -150,10 +150,11 @@ class PresentationLayout extends Component {
     return story.sectionsOrder
     .map((sectionId, sectionIndex) => {
       const section = story.sections[sectionId];
-      const sectionLevel = section.metadata.level;
+      const sectionLevel = section.metadata.level + 1;
       const content = section.contents;
-      const headers = content && content.blocks
+      const headers = content && content.blocks && content.blocks
       .filter(block => block.type.indexOf('header') === 0);
+
 
       let sectionActive;
       let titleOffsetTop;
@@ -179,7 +180,7 @@ class PresentationLayout extends Component {
         key: section.id,
         active: sectionActive
       };
-      const headerItems = headers
+      const headerItems = headers ? headers
         .map((block, index) => {
           const {type, text, key} = block;
           const levelStr = type.split('header-').pop();
@@ -228,8 +229,7 @@ class PresentationLayout extends Component {
             key,
             active: headerActive
           };
-        });
-      console.log('header items', headerItems);
+        }) : [];
       return [
         sectionHeader,
         ...headerItems
@@ -428,7 +428,7 @@ class PresentationLayout extends Component {
                   <SectionLayout section={sections[id]} key={id} />
                 ))
               }
-                <div className="notes-container">
+                {notes && notes.length ? <div className="notes-container">
                   <h3>Notes</h3>
                   <ol>
                     {
@@ -439,8 +439,8 @@ class PresentationLayout extends Component {
                     ))
                   }
                   </ol>
-                </div>
-                <Bibliography />
+                </div> : null}
+                {citations ? <Bibliography />  :null}
               </section>
 
               <nav
