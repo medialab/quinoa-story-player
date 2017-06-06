@@ -178,7 +178,8 @@ $font-size-2: $font-size-1 * 2;
                         overflow-x: auto;
                     }
 
-                    > p {
+                    > p,
+                    li {
                         font-size: $font-size-1;
                         line-height: $font-size-1 * 2;
                     }
@@ -291,19 +292,19 @@ $font-size-2: $font-size-1 * 2;
                 padding-left: 0;
             }
             &.level-2{
-                padding-left: .2rem;
+                padding-left: .3rem;
             }
             &.level-3{
-                padding-left: .4rem;
-            }
-            &.level-4{
                 padding-left: .6rem;
             }
+            &.level-4{
+                padding-left: .9rem;
+            }
             &.level-5{
-                padding-left: .8rem;
+                padding-left: 1.2rem;
             }
             &.level-6{
-                padding-left: 1rem;
+                padding-left: 1.5rem;
             }
 
 
@@ -322,5 +323,9 @@ $font-size-2: $font-size-1 * 2;
                 opacity: .5;
             }
         }
+    }
+
+    .references{
+        padding-bottom: $gutter-large;
     }
 }
