@@ -440,7 +440,7 @@ class PresentationLayout extends Component {
                   }
                   </ol>
                 </div> : null}
-                {citations ? <Bibliography />  :null}
+                {citations && citations.citationItems && citations.citationItems ? <Bibliography />  :null}
               </section>
 
               <nav

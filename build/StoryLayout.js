@@ -514,7 +514,7 @@ var PresentationLayout = function (_Component) {
                     })
                   )
                 ) : null,
-                citations ? _react2.default.createElement(_Bibliography2.default, null) : null
+                citations && citations.citationItems && citations.citationItems ? _react2.default.createElement(_Bibliography2.default, null) : null
               ),
               _react2.default.createElement(
                 'nav',
