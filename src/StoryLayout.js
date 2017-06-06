@@ -162,8 +162,8 @@ class PresentationLayout extends Component {
       title = document.getElementById(section.id);
       titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
       if (sectionIndex < story.sectionsOrder.length - 1) {
-        const next = headers[sectionIndex + 1];
-        const nextTitle = document.getElementById(next.key);
+        const next = story.sectionsOrder[sectionIndex + 1];
+        const nextTitle = document.getElementById(next);
         nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
       }
       if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
@@ -229,6 +229,7 @@ class PresentationLayout extends Component {
             active: headerActive
           };
         });
+      console.log('header items', headerItems);
       return [
         sectionHeader,
         ...headerItems

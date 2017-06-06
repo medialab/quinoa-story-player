@@ -9,6 +9,7 @@ import assetsStoryLong from './story-with-assets-long.json';
 import assetsStoryDiverse from './story-with-diverse-types-of-assets.json';
 
 import peritextStory from './peritext-story.json';
+import formatsExample from './formats-example.json';
 
 
 // import networkPresentation from './network/network-test-from-bulgur.json';
@@ -17,6 +18,11 @@ storiesOf('Quinoa story', module)
   .add('Peritext story', () => (
     <Player
       story={peritextStory}
+    />
+  ))
+  .add('Formats story', () => (
+    <Player
+      story={formatsExample}
     />
   ))
   // .add('Simple', () => (

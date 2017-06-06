@@ -83,13 +83,12 @@ var Link = function Link(_ref) {
 };
 
 var AssetWrapper = function AssetWrapper(_ref2, context) {
-  var data = _ref2.data,
-      assetType = _ref2.assetType;
+  var data = _ref2.data;
 
   var assetId = data.asset.id;
   var contextualization = context.story && context.story.contextualizations && context.story.contextualizations[assetId];
   if (!contextualization) {
-    return;
+    return null;
   }
   var asset = (0, _extends3.default)({}, contextualization, {
     contextualizer: context.story.contextualizers[contextualization.contextualizerId],
@@ -101,7 +100,7 @@ var AssetWrapper = function AssetWrapper(_ref2, context) {
   var onExit = context.onExit;
   if (asset) {
     var resource = asset.resource;
-    var _assetType = asset.contextualizer.type;
+    var assetType = asset.contextualizer.type;
     return _react2.default.createElement(
       'figure',
       {
@@ -111,7 +110,7 @@ var AssetWrapper = function AssetWrapper(_ref2, context) {
         },
         id: assetId },
       _react2.default.createElement(_AssetPreview2.default, {
-        type: _assetType,
+        type: assetType,
         resource: resource,
         options: {
           template: 'scroller'

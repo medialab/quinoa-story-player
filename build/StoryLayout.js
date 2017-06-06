@@ -103,7 +103,7 @@ var PresentationLayout = function (_Component) {
           top: top,
           height: height
         });
-        var prevScroll = _this.state.scrollTop;
+        // const prevScroll = this.state.scrollTop;
         if (scrollTop >= top && scrollTop <= top + height * 0.4
         // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
         // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
@@ -316,15 +316,16 @@ var PresentationLayout = function (_Component) {
         });
 
         var sectionActive = void 0;
-        var title = document.getElementById(section.id);
-        var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        var titleOffsetTop = void 0;
         var nextTitleOffsetTop = void 0;
+        var title = void 0;
+        title = document.getElementById(section.id);
+        titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
         if (sectionIndex < story.sectionsOrder.length - 1) {
           var next = headers[sectionIndex + 1];
           var nextTitle = document.getElementById(next.key);
           nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
         }
-        var active = void 0;
         if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
           sectionActive = true;
         }
@@ -363,23 +364,23 @@ var PresentationLayout = function (_Component) {
               break;
           }
 
-          var title = document.getElementById(key);
-          var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          var nextTitleOffsetTop = void 0;
+          title = document.getElementById(key);
+          titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          // nextTitleOffsetTop;
           if (index < headers.length - 1) {
             var _next = headers[index + 1];
             var _nextTitle = document.getElementById(_next.key);
             nextTitleOffsetTop = _nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
           }
-          var active = void 0;
+          var headerActive = void 0;
           if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
-            active = true;
+            headerActive = true;
           }
           return {
             level: level,
             text: text,
             key: key,
-            active: active
+            active: headerActive
           };
         });
         return [sectionHeader].concat((0, _toConsumableArray3.default)(headerItems));
@@ -445,8 +446,7 @@ var PresentationLayout = function (_Component) {
           locale: _englishLocale2.default,
           items: citations.citationItems,
           citations: citations.citationData,
-          componentClass: 'references-manager'
-        },
+          componentClass: 'references-manager' },
         _react2.default.createElement(
           'section',
           { className: 'wrapper' },
