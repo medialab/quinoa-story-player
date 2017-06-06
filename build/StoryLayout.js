@@ -228,7 +228,7 @@ var PresentationLayout = function (_Component) {
     _this.scrollToCover = _this.scrollToCover.bind(_this);
     _this.handleSpringUpdate = _this.handleSpringUpdate.bind(_this);
     _this.scrollTop = _this.scrollTop.bind(_this);
-    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 200);
+    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 30);
     _this.buildTOC = _this.buildTOC.bind(_this);
     _this.scrollToTitle = _this.scrollToTitle.bind(_this);
 
@@ -309,9 +309,9 @@ var PresentationLayout = function (_Component) {
     value: function buildTOC(story, scrollTop) {
       return story.sectionsOrder.map(function (sectionId, sectionIndex) {
         var section = story.sections[sectionId];
-        var sectionLevel = section.metadata.level;
+        var sectionLevel = section.metadata.level + 1;
         var content = section.contents;
-        var headers = content && content.blocks.filter(function (block) {
+        var headers = content && content.blocks && content.blocks.filter(function (block) {
           return block.type.indexOf('header') === 0;
         });
 
@@ -322,8 +322,8 @@ var PresentationLayout = function (_Component) {
         title = document.getElementById(section.id);
         titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
         if (sectionIndex < story.sectionsOrder.length - 1) {
-          var next = headers[sectionIndex + 1];
-          var nextTitle = document.getElementById(next.key);
+          var next = story.sectionsOrder[sectionIndex + 1];
+          var nextTitle = document.getElementById(next);
           nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
         }
         if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
@@ -335,7 +335,7 @@ var PresentationLayout = function (_Component) {
           key: section.id,
           active: sectionActive
         };
-        var headerItems = headers.map(function (block, index) {
+        var headerItems = headers ? headers.map(function (block, index) {
           var type = block.type,
               text = block.text,
               key = block.key;
@@ -382,7 +382,7 @@ var PresentationLayout = function (_Component) {
             key: key,
             active: headerActive
           };
-        });
+        }) : [];
         return [sectionHeader].concat((0, _toConsumableArray3.default)(headerItems));
       })
       // flatten mini-tocs
@@ -494,7 +494,7 @@ var PresentationLayout = function (_Component) {
                 sectionsOrder.map(function (id) {
                   return _react2.default.createElement(_SectionLayout2.default, { section: sections[id], key: id });
                 }),
-                _react2.default.createElement(
+                notes && notes.length ? _react2.default.createElement(
                   'div',
                   { className: 'notes-container' },
                   _react2.default.createElement(
@@ -513,8 +513,8 @@ var PresentationLayout = function (_Component) {
                       );
                     })
                   )
-                ),
-                _react2.default.createElement(_Bibliography2.default, null)
+                ) : null,
+                citations ? _react2.default.createElement(_Bibliography2.default, null) : null
               ),
               _react2.default.createElement(
                 'nav',

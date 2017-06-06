@@ -367,7 +367,11 @@ var Renderer = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
-        'Nothing to render.'
+        _react2.default.createElement(
+          'p',
+          null,
+          'Nothing to render.'
+        )
       );
     }
   }, {
