@@ -10,6 +10,7 @@ import assetsStoryDiverse from './story-with-diverse-types-of-assets.json';
 
 import peritextStory from './peritext-story.json';
 import formatsExample from './formats-example.json';
+import imageExample from './test-image.json';
 
 
 // import networkPresentation from './network/network-test-from-bulgur.json';
@@ -23,6 +24,11 @@ storiesOf('Quinoa story', module)
   .add('Formats story', () => (
     <Player
       story={formatsExample}
+    />
+  ))
+  .add('Image story', () => (
+    <Player
+      story={imageExample}
     />
   ))
   // .add('Simple', () => (
