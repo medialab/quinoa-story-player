@@ -21,10 +21,23 @@ class NoteItem extends Component {
     const {
       note,
       onNotePointerClick,
+      style = {},
     } = this.props;
+
+    const bindRef = component => {
+      this.component = component;
+    };
+    const onClick = e => {
+      e.stopPropagation();
+      onNotePointerClick(note);
+    };
     return (
-      <li className="note-item">
-        <span onClick={onNotePointerClick} className="note-block-pointer" id={'note-block-pointer-' + note.id}>
+      <li
+        style={style}
+        className="note-item"
+        ref={bindRef}
+        id={note.id}>
+        <span onClick={onClick} className="note-block-pointer" id={'note-block-pointer-' + note.id}>
           {note.finalOrder}
         </span>
         <Renderer raw={note.editorState} />

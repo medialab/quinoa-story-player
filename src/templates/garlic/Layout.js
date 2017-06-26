@@ -11,7 +11,7 @@ import {ReferencesManager} from 'react-citeproc';
 import SectionLayout from './SectionLayout';
 
 import Bibliography from '../../components/Bibliography';
-import NoteItem from '../../components/NoteItem';
+import NotesContainer from '../../components/NotesContainer';
 
 
 import style from 'raw-loader!../../assets/apa.csl';
@@ -19,6 +19,16 @@ import locale from 'raw-loader!../../assets/english-locale.xml';
 
 import './garlic.scss';
 
+function getOffset(el) {
+    let _x = 0;
+    let _y = 0;
+    while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+        _x += el.offsetLeft; // - el.scrollLeft;
+        _y += el.offsetTop; // - el.scrollTop;
+        el = el.offsetParent;
+    }
+    return {top: _y, left: _x};
+}
 
 class PresentationLayout extends Component {
 
@@ -68,14 +78,14 @@ class PresentationLayout extends Component {
     if (this.header) {
       this.scrollTop(this.header.offsetHeight);
       this.setState({
-        inCover: false
+        inCover: false,
       });
     }
   }
   scrollToCover () {
     this.scrollTop(0);
     this.setState({
-      inCover: true
+      inCover: true,
     });
   }
 
@@ -183,7 +193,16 @@ class PresentationLayout extends Component {
   onNoteContentPointerClick(noteId) {
     const noteElId = 'note-block-pointer-' + noteId;
     const el = document.getElementById(noteElId);
-    const top = el.parentNode.offsetTop + window.innerHeight;
+    const offset = getOffset(el);
+    const top = offset.top - window.innerHeight / 2;
+    this.scrollTop(top);
+  }
+
+  onNotePointerClick = (note) => {
+    const noteElId = 'note-content-pointer-' + note.id;
+    const el = document.getElementById(noteElId);
+    const offset = getOffset(el);
+    const top = offset.top - window.innerHeight / 2;
     this.scrollTop(top);
   }
 
@@ -436,8 +455,12 @@ class PresentationLayout extends Component {
       return comment;
       // console.log('comment', comment);
     };
+
     const location = window.location.href;
     const customCss = settings.css || '';
+
+    const notesPosition = settings.notesPosition || 'foot';
+
     return (
       <ReferencesManager
         style={style}
@@ -482,24 +505,12 @@ class PresentationLayout extends Component {
                   <SectionLayout section={sections[thatId]} key={thatId} />
                 ))
               }
-                {notes && notes.length ? <div className="notes-container">
-                  <h3>Notes</h3>
-                  <ol className="notes-list">
-                    {
-                    notes.map((note) => {
-                      const onNotePointerClick = () => {
-                        const noteElId = 'note-content-pointer-' + note.id;
-                        const el = document.getElementById(noteElId);
-                        const top = el.parentNode.offsetTop + window.innerHeight;
-                        this.scrollTop(top);
-                      };
-                      return (
-                        <NoteItem key={note.finalOrder} note={note} onNotePointerClick={onNotePointerClick} />
-                      );
-                    })
-                  }
-                  </ol>
-                </div> : null}
+                {notes && notes.length ?
+                  <NotesContainer
+                    notes={notes}
+                    onNotePointerClick={this.onNotePointerClick}
+                    notesPosition={notesPosition} />
+                : null}
                 {citations && citations.citationItems && Object.keys(citations.citationItems).length ? <Bibliography /> : null}
 
                 {location.indexOf('http://localhost') !== 0 && <ReactDisqusThread

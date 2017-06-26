@@ -24,6 +24,14 @@ const withCustomCss = {
   }
 };
 
+const withSideNotes = {
+  ...sidenotesExample,
+  settings: {
+    notesPosition: 'aside'
+  }
+};
+
+
 storiesOf('Quinoa story - garlic template', module)
   .add('Peritext story', () => (
     <Player
@@ -40,9 +48,14 @@ storiesOf('Quinoa story - garlic template', module)
       story={imageExample}
     />
   ))
-  .add('Sidenotes story', () => (
+  .add('Footnotes story', () => (
     <Player
       story={sidenotesExample}
+    />
+  ))
+  .add('Sidenotes story', () => (
+    <Player
+      story={withSideNotes}
     />
   ))
   .add('With custom css', () => (

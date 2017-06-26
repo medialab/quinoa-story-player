@@ -169,7 +169,7 @@ $font-size-5: $font-size-4 * 1.6;
                     > ol,
                     > blockquote, 
                     > pre,
-                    figcaption
+                    > figure > figcaption
                     {
                         margin-right: $gutter-lateral-large-screens;
                         margin-left: $gutter-lateral-large-screens;
@@ -351,6 +351,14 @@ $font-size-5: $font-size-4 * 1.6;
         .notes-list{
             padding: 0;
         }
+    }
+
+    .notes-container-position-aside
+    {
+        position: absolute;
+        left: -20%;
+        width: 20%;
+        top: 0;
     }
 
     .note-item
