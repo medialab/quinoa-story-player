@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Scrollbars} from 'react-custom-scrollbars';
+import ReactDisqusThread from 'react-disqus-thread';
 import {SpringSystem, MathUtil} from 'rebound';
 
 import {debounce} from 'lodash';
@@ -383,7 +384,8 @@ class PresentationLayout extends Component {
       story: {
         metadata,
         sectionsOrder,
-        sections
+        sections,
+        id
       }
     } = this.props;
     const {
@@ -411,6 +413,10 @@ class PresentationLayout extends Component {
     ], []);
 
     const citations = this.prepareCitations();
+
+    const handleNewComment = comment => {
+      console.log('comment', comment);
+    }
     return (
       <ReferencesManager
         style={style}
@@ -468,6 +474,12 @@ class PresentationLayout extends Component {
                   </ol>
                 </div> : null}
                 {citations && citations.citationItems && citations.citationItems ? <Bibliography /> : null}
+                <ReactDisqusThread
+                  shortname={id}
+                  identifier={id}
+                  title={metadata.title}
+                  url={window.location.href}
+                  onNewComment={handleNewComment}/>
               </section>
 
               <nav
