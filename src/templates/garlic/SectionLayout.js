@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Renderer from './Renderer';
+import Renderer from '../../components/Renderer';
 
 class SectionLayout extends Component {
 

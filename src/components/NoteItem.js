@@ -3,9 +3,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-import Renderer from '../Renderer';
-
-import './NoteItem.scss';
+import Renderer from './Renderer';
 
 class NoteItem extends Component {
 
@@ -25,7 +23,7 @@ class NoteItem extends Component {
       onNotePointerClick,
     } = this.props;
     return (
-      <li className="story-player-NoteItem">
+      <li className="note-item">
         <span onClick={onNotePointerClick} className="note-block-pointer" id={'note-block-pointer-' + note.id}>
           {note.finalOrder}
         </span>

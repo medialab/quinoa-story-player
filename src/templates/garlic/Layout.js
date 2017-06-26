@@ -9,13 +9,15 @@ import {debounce} from 'lodash';
 import {ReferencesManager} from 'react-citeproc';
 
 import SectionLayout from './SectionLayout';
-import Bibliography from './Bibliography';
 
-import NoteItem from './NoteItem/NoteItem';
+import Bibliography from '../../components/Bibliography';
+import NoteItem from '../../components/NoteItem';
 
 
-import style from 'raw-loader!./assets/apa.csl';
-import locale from 'raw-loader!./assets/english-locale.xml';
+import style from 'raw-loader!../../assets/apa.csl';
+import locale from 'raw-loader!../../assets/english-locale.xml';
+
+import './garlic.scss';
 
 
 class PresentationLayout extends Component {
@@ -435,7 +437,7 @@ class PresentationLayout extends Component {
       // console.log('comment', comment);
     };
     const location = window.location.href;
-    const customCss = settings.css || '';
+    const customCss = settings.css || '';
     return (
       <ReferencesManager
         style={style}

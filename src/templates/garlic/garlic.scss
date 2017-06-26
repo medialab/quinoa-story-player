@@ -168,7 +168,8 @@ $font-size-5: $font-size-4 * 1.6;
                     > ul,
                     > ol,
                     > blockquote, 
-                    > pre
+                    > pre,
+                    figcaption
                     {
                         margin-right: $gutter-lateral-large-screens;
                         margin-left: $gutter-lateral-large-screens;
@@ -197,6 +198,11 @@ $font-size-5: $font-size-4 * 1.6;
                     {
                         margin-top: $gutter-large;
                         margin-bottom: 0;
+                    }
+                    figcaption{
+                        h4{
+                            margin-top: 0;
+                        }
                     }
                     h1{
                         font-size: $font-size-3;
@@ -345,5 +351,30 @@ $font-size-5: $font-size-4 * 1.6;
         .notes-list{
             padding: 0;
         }
+    }
+
+    .note-item
+    {
+      list-style-type: none;
+      overflow: visible;
+      position : relative;
+
+      .note-block-pointer{
+        position :  absolute;
+        left : -2rem;
+        top: 0;
+        cursor: pointer;
+        height: 1rem;
+        width: 1.3rem;
+        text-align: center;
+        font-size: .5rem;
+        border-radius: 50%;
+        background: lightgrey;
+        padding-top: .3rem;
+        &:hover{
+          background: black;
+          color: white;
+        }
+      }
     }
 }

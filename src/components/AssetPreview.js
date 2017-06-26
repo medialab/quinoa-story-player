@@ -3,8 +3,6 @@ import React from 'react';
 import {Media, Player} from 'react-media-player';
 import QuinoaPresentationPlayer from 'quinoa-presentation-player';
 
-import './AssetPreview.scss';
-
 const AssetPreview = ({
   type,
   resource,

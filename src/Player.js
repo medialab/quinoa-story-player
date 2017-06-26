@@ -3,9 +3,7 @@ import React, {Component, PropTypes} from 'react';
 
 import Measure from 'react-measure';
 
-require('./Player.scss');
-
-import StoryLayout from './StoryLayout';
+import GarlicLayout from './templates/garlic/Layout';
 
 class QuinoaStoryPlayer extends Component {
   constructor(props) {
@@ -36,11 +34,17 @@ class QuinoaStoryPlayer extends Component {
   }
 
   renderComponent () {
+    const template = (this.state.story && this.state.story.settings && this.state.story.settings.template) || 'garlic';
     if (this.state.story && this.state.status === 'loaded') {
-      return (
-        <StoryLayout
-          story={this.state.story} />
-      );
+      switch (template) {
+        case 'garlic':
+          return (
+            <GarlicLayout
+              story={this.state.story} />
+          );
+        default:
+          return;
+      }
     }
     else if (this.status === 'error') {
       return (<div>Oups, that looks like an error</div>);

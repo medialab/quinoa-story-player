@@ -1,131 +1,15 @@
 /* eslint react/jsx-key : 0 */
 import React, {Component} from 'react';
 import redraft from 'redraft';
-import AssetPreview from './AssetPreview/AssetPreview';
-import PropTypes from 'prop-types';
+import Link from './Link';
 
-// just a helper to add a <br /> after a block
+import AssetWrapper from './AssetWrapper';
+import NotePointer from './NotePointer';
+import CitationContainer from './CitationContainer';
+
+
+// just a helper to add a <br /> after each block
 const addBreaklines = (children) => children.map(child => [child, <br />]);
-
-const Link = ({
-  to,
-  children
-}) => <a href={to} target="blank">{children}</a>;
-
-const NotePointer = ({
-  children,
-  noteId = ''
-}, context) => {
-  const notes = context.notes;
-  const onNoteContentPointerClick = () => {
-    return typeof onNoteContentPointerClick === 'function' && context.onNoteContentPointerClick(noteId);
-  };
-  if (notes) {
-    const note = notes[noteId];
-    if (note) {
-      return (
-        <sup onClick={onNoteContentPointerClick} className="note-content-pointer" id={'note-content-pointer-' + note.id}>
-          {note.order}
-          {children}
-        </sup>
-      );
-    }
-    return null;
-  }
-  return null;
-};
-
-NotePointer.contextTypes = {
-  notes: PropTypes.object,
-  onNoteContentPointerClick: PropTypes.func
-};
-
-const AssetWrapper = ({
-  data
-}, context) => {
-  const assetId = data.asset.id;
-  const contextualization = context.story && context.story.contextualizations && context.story.contextualizations[assetId];
-  if (!contextualization) {
-    return null;
-  }
-  const asset = {
-    ...contextualization,
-    contextualizer: context.story.contextualizers[contextualization.contextualizerId],
-    resource: context.story.resources[contextualization.resourceId],
-
-  };
-  const dimensions = context.dimensions;
-  const fixedPresentationId = context.fixedPresentationId;
-  const onExit = context.onExit;
-  const inNote = context.inNote;
-  if (asset) {
-    const resource = asset.resource;
-    const assetType = asset.contextualizer.type;
-    return (
-      <figure
-        style={{
-          position: 'relative',
-          minHeight: (dimensions && dimensions.height) || '10em'
-        }}
-        id={assetId}>
-        <AssetPreview
-          type={assetType}
-          resource={resource}
-          options={{
-            template: 'scroller'
-          }}
-          fixed={fixedPresentationId === assetId}
-          allowInteractions={inNote || fixedPresentationId === assetId}
-          onExit={onExit} />
-        <figcaption>
-          {/*
-          {metadata.title && <h4>
-            {metadata.title}
-          </h4>}
-          {metadata.description && <p>
-            {metadata.description}
-          </p>}
-          {metadata.source && <p>
-            <i>{metadata.source}</i>
-          </p>}
-        */}
-        </figcaption>
-      </figure>
-    );
-  }
- else {
-    return null;
-  }
-};
-
-AssetWrapper.contextTypes = {
-  story: PropTypes.object,
-  dimensions: PropTypes.object,
-  fixedPresentationId: PropTypes.string,
-  inNote: PropTypes.bool,
-  onExit: PropTypes.func
-};
-
-const CitationContainer = ({
-  data,
-}, context) => {
-  const citations = context.citations;
-  const id = data.asset.id;
-  if (citations) {
-    const citation = citations[id];
-    if (citation) {
-      const CitComponent = citation.Component;
-      return (<cite id={id}>
-        {CitComponent}
-      </cite>);
-    }
-    return null;
-  }
-  return null;
-};
-CitationContainer.contextTypes = {
-  citations: PropTypes.object
-};
 
 /**
  * Define the renderers
