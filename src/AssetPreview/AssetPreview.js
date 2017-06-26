@@ -10,6 +10,7 @@ const AssetPreview = ({
   resource,
   options,
   fixed,
+  allowInteractions,
   onExit
 }) => {
   switch (type) {
@@ -38,7 +39,7 @@ const AssetPreview = ({
           onExit={onExit}
           style={{
             position: fixed ? 'fixed' : 'absolute',
-            pointerEvents: fixed ? 'all' : 'none'
+            pointerEvents: allowInteractions ? 'all' : 'none'
           }} />
       );
     case 'embed':

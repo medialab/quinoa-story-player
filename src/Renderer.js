@@ -30,6 +30,33 @@ const Link = ({
   children
 }) => <a href={to} target="blank">{children}</a>;
 
+const NotePointer = ({
+  children,
+  noteId = ''
+}, context) => {
+  const notes = context.notes;
+  const onNoteContentPointerClick = () => {
+    return typeof onNoteContentPointerClick === 'function' && context.onNoteContentPointerClick(noteId);
+  };
+  if (notes) {
+    const note = notes[noteId];
+    if (note) {
+      return (
+        <sup onClick={onNoteContentPointerClick} className="note-content-pointer" id={'note-content-pointer-' + note.id}>
+          {note.order}
+        </sup>
+      );
+    }
+    return null;
+  }
+  return null;
+};
+
+NotePointer.contextTypes = {
+  notes: PropTypes.object,
+  onNoteContentPointerClick: PropTypes.func
+};
+
 const AssetWrapper = ({
   data
 }, context) => {
@@ -47,6 +74,7 @@ const AssetWrapper = ({
   const dimensions = context.dimensions;
   const fixedPresentationId = context.fixedPresentationId;
   const onExit = context.onExit;
+  const inNote = context.inNote;
   if (asset) {
     const resource = asset.resource;
     const assetType = asset.contextualizer.type;
@@ -64,6 +92,7 @@ const AssetWrapper = ({
             template: 'scroller'
           }}
           fixed={fixedPresentationId === assetId}
+          allowInteractions={inNote || fixedPresentationId === assetId}
           onExit={onExit} />
         <figcaption>
           {/*
@@ -90,6 +119,7 @@ AssetWrapper.contextTypes = {
   story: PropTypes.object,
   dimensions: PropTypes.object,
   fixedPresentationId: PropTypes.string,
+  inNote: PropTypes.bool,
   onExit: PropTypes.func
 };
 
@@ -165,6 +195,9 @@ const renderers = {
     },
     INLINE_ASSET: (children, data, {key}) => {
       return <CitationContainer data={data} key={key} />;
+    },
+    NOTE_POINTER: (children, data, {key}) => {
+      return <NotePointer key={key} children={children} noteId={data.noteId} />;
     },
     // 'DATA-PRESENTATION': (children, data, {key}) => {
     //   return <AssetWrapper key={key} data={data} assetType="data-presentation" />;

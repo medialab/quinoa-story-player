@@ -9,8 +9,9 @@ import {debounce} from 'lodash';
 import {ReferencesManager} from 'react-citeproc';
 
 import SectionLayout from './SectionLayout';
-import Renderer from './Renderer';
 import Bibliography from './Bibliography';
+
+import NoteItem from './NoteItem/NoteItem';
 
 
 import style from 'raw-loader!./assets/apa.csl';
@@ -28,6 +29,7 @@ class PresentationLayout extends Component {
     this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
     this.buildTOC = this.buildTOC.bind(this);
     this.scrollToTitle = this.scrollToTitle.bind(this);
+    this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
 
     this.toggleIndex = this.toggleIndex.bind(this);
 
@@ -44,7 +46,8 @@ class PresentationLayout extends Component {
   getChildContext() {
     return {
       fixedPresentationId: this.state.fixedPresentationId,
-      onExit: this.onPresentationExit
+      onExit: this.onPresentationExit,
+      onNoteContentPointerClick: this.onNoteContentPointerClick
     };
   }
 
@@ -60,10 +63,12 @@ class PresentationLayout extends Component {
     });
   }
   scrollToContents () {
-    this.scrollTop(this.header.offsetHeight);
-    this.setState({
-      inCover: false
-    });
+    if (this.header) {
+      this.scrollTop(this.header.offsetHeight);
+      this.setState({
+        inCover: false
+      });
+    }
   }
   scrollToCover () {
     this.scrollTop(0);
@@ -86,6 +91,9 @@ class PresentationLayout extends Component {
   }
 
   onScrollUpdate = (evt) => {
+    if (!this.header) {
+      return;
+    }
     const scrollTop = evt.scrollTop;
     const headerHeight = this.header.offsetHeight;
     const presentationEls = document.getElementsByClassName('quinoa-presentation-player');
@@ -168,6 +176,13 @@ class PresentationLayout extends Component {
       const val = MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
       this.spring.setCurrentValue(scrollTop).setAtRest();
       this.spring.setEndValue(val);
+  }
+
+  onNoteContentPointerClick(noteId) {
+    const noteElId = 'note-block-pointer-' + noteId;
+    const el = document.getElementById(noteElId);
+    const top = el.parentNode.offsetTop + window.innerHeight;
+    this.scrollTop(top);
   }
 
   buildTOC (story, scrollTop) {
@@ -415,8 +430,10 @@ class PresentationLayout extends Component {
     const citations = this.prepareCitations();
 
     const handleNewComment = comment => {
-      console.log('comment', comment);
-    }
+      return comment;
+      // console.log('comment', comment);
+    };
+    const location = window.location.href;
     return (
       <ReferencesManager
         style={style}
@@ -457,29 +474,36 @@ class PresentationLayout extends Component {
               className="body-wrapper">
               <section className="contents-wrapper">
                 {
-                sectionsOrder.map((id) => (
-                  <SectionLayout section={sections[id]} key={id} />
+                sectionsOrder.map((thatId) => (
+                  <SectionLayout section={sections[thatId]} key={thatId} />
                 ))
               }
                 {notes && notes.length ? <div className="notes-container">
                   <h3>Notes</h3>
-                  <ol>
+                  <ol className="notes-list">
                     {
-                    notes.map(note => (
-                      <li key={note.finalOrder}>
-                        <Renderer raw={note.editorState} />
-                      </li>
-                    ))
+                    notes.map((note) => {
+                      const onNotePointerClick = () => {
+                        const noteElId = 'note-content-pointer-' + note.id;
+                        const el = document.getElementById(noteElId);
+                        const top = el.parentNode.offsetTop + window.innerHeight;
+                        this.scrollTop(top);
+                      };
+                      return (
+                        <NoteItem key={note.finalOrder} note={note} onNotePointerClick={onNotePointerClick} />
+                      );
+                    })
                   }
                   </ol>
                 </div> : null}
-                {citations && citations.citationItems && citations.citationItems ? <Bibliography /> : null}
-                <ReactDisqusThread
-                  shortname={id}
-                  identifier={id}
+                {citations && citations.citationItems && Object.keys(citations.citationItems).length ? <Bibliography /> : null}
+
+                {location.indexOf('http://localhost') !== 0 && <ReactDisqusThread
+                  shortname={'quinoa-story-' + id}
+                  identifier={'quinoa-story-' + id}
                   title={metadata.title}
-                  url={window.location.href}
-                  onNewComment={handleNewComment}/>
+                  url={location}
+                  onNewComment={handleNewComment} />}
               </section>
 
               <nav
@@ -527,7 +551,8 @@ class PresentationLayout extends Component {
 
 PresentationLayout.childContextTypes = {
   fixedPresentationId: PropTypes.string,
-  onExit: PropTypes.func
+  onNoteContentPointerClick: PropTypes.func,
+  onExit: PropTypes.func,
 };
 
 

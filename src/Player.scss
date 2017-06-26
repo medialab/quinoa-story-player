@@ -339,4 +339,11 @@ $font-size-5: $font-size-4 * 1.6;
     .references{
         padding-bottom: $gutter-large;
     }
+
+    .notes-container
+    {
+        .notes-list{
+            padding: 0;
+        }
+    }
 }
