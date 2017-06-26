@@ -4,24 +4,6 @@ import redraft from 'redraft';
 import AssetPreview from './AssetPreview/AssetPreview';
 import PropTypes from 'prop-types';
 
-/**
- *  You can use inline styles or classNames inside your callbacks
- */
-const styles = {
-  code: {
-    // backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    // fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    // fontSize: 16,
-    // padding: 2,
-  },
-  codeBlock: {
-    // backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    // fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-    // fontSize: 16,
-    // padding: 20,
-  },
-};
-
 // just a helper to add a <br /> after a block
 const addBreaklines = (children) => children.map(child => [child, <br />]);
 
@@ -44,6 +26,7 @@ const NotePointer = ({
       return (
         <sup onClick={onNoteContentPointerClick} className="note-content-pointer" id={'note-content-pointer-' + note.id}>
           {note.order}
+          {children}
         </sup>
       );
     }
@@ -156,7 +139,7 @@ const renderers = {
     BOLD: (children, {key}) => <strong key={key}>{children}</strong>,
     ITALIC: (children, {key}) => <em key={key}>{children}</em>,
     UNDERLINE: (children, {key}) => <u key={key}>{children}</u>,
-    CODE: (children, {key}) => <span key={key} style={styles.code}>{children}</span>,
+    CODE: (children, {key}) => <span key={key}>{children}</span>,
   },
   /**
    * Blocks receive children and depth
@@ -175,7 +158,7 @@ const renderers = {
     'header-six': (children, {keys}) => children.map((child, index) => <h6 key={index} id={keys[index]}>{child}</h6>),
 
     // You can also access the original keys of the blocks
-    'code-block': (children, {keys}) => <pre style={styles.codeBlock} key={keys[0]} >{addBreaklines(children)}</pre>,
+    'code-block': (children, {keys}) => <pre key={keys[0]} >{addBreaklines(children)}</pre>,
     // or depth for nested lists
     'unordered-list-item': (children, {depth, keys}) => <ul key={keys[keys.length - 1]} className={`ul-level-${depth}`}>{children.map((child, index) => <li key={index}>{child}</li>)}</ul>,
     'ordered-list-item': (children, {depth, keys}) => <ol key={keys.join('|')} className={`ol-level-${depth}`}>{children.map((child, index) => <li key={keys[index]}>{child}</li>)}</ol>,
