@@ -161,6 +161,9 @@ class PresentationLayout extends Component {
       let nextTitleOffsetTop;
       let title;
       title = document.getElementById(section.id);
+      if (!title) {
+        return undefined;
+      }
       titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
       if (sectionIndex < story.sectionsOrder.length - 1) {
         const next = story.sectionsOrder[sectionIndex + 1];
@@ -235,6 +238,7 @@ class PresentationLayout extends Component {
         ...headerItems
         ];
       })
+      .filter(el => el !== undefined)
       // flatten mini-tocs
       .reduce((result, ar) => [...result, ...ar], []);
   }
