@@ -13,6 +13,17 @@ import formatsExample from './formats-example.json';
 import imageExample from './test-image.json';
 import sidenotesExample from './sidenotes-test.json';
 
+const withCustomCss = {
+  ...peritextStory,
+  settings: {
+    css: `
+.quinoa-story-player{
+  color : red;
+}
+`
+  }
+}
+
 
 // import networkPresentation from './network/network-test-from-bulgur.json';
 
@@ -35,6 +46,11 @@ storiesOf('Quinoa story', module)
   .add('Sidenotes story', () => (
     <Player
       story={sidenotesExample}
+    />
+  ))
+  .add('With custom css', () => (
+    <Player
+      story={withCustomCss}
     />
   ))
   // .add('Simple', () => (

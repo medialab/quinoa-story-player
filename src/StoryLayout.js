@@ -400,6 +400,7 @@ class PresentationLayout extends Component {
         metadata,
         sectionsOrder,
         sections,
+        settings = {},
         id
       }
     } = this.props;
@@ -434,6 +435,7 @@ class PresentationLayout extends Component {
       // console.log('comment', comment);
     };
     const location = window.location.href;
+    const customCss = settings.css || '';
     return (
       <ReferencesManager
         style={style}
@@ -544,6 +546,9 @@ class PresentationLayout extends Component {
             </section>
           </Scrollbars>
         </section>
+        <style>
+          {customCss}
+        </style>
       </ReferencesManager>
     );
   }
