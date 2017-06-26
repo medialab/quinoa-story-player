@@ -14,7 +14,10 @@ $color-primary-background: #f4f4f4;
 $color-strokes: #dddbd9;
 
 $font-size-1: $gutter-small * 1.1;
-$font-size-2: $font-size-1 * 2;
+$font-size-2: $font-size-1 * 1.6;
+$font-size-3: $font-size-2 * 1.6;
+$font-size-4: $font-size-3 * 1.6;
+$font-size-5: $font-size-4 * 1.6;
 
 // abstract classes
 .interactive-item{
@@ -116,8 +119,8 @@ $font-size-2: $font-size-1 * 2;
                 justify-content: center;
 
                 h1{
-                    font-size: 5em;
-                    line-height: 1em;
+                    font-size: $font-size-4;
+                    line-height: $font-size-1;
                     font-variant: small-caps;
                 }
             }
@@ -192,7 +195,14 @@ $font-size-2: $font-size-1 * 2;
                     h6,
                     p:first-of-type
                     {
-                        margin-top: 0;
+                        margin-top: $gutter-large;
+                        margin-bottom: 0;
+                    }
+                    h1{
+                        font-size: $font-size-3;
+                    }
+                    h1{
+                        font-size: $font-size-2;
                     }
 
                     figure{
@@ -217,7 +227,7 @@ $font-size-2: $font-size-1 * 2;
                         .quinoa-presentation-player
                         {
                             pointer-events: none;
-                            font-size: .7em;
+                            font-size: $font-size-1;
                         }
                     }
 

@@ -73,12 +73,14 @@ class PresentationLayout extends Component {
 
   onPresentationExit (direction) {
     const top = this.state.scrollTop;
+    // user is scrolling in direction of the top of the screen
     if (direction === 'top') {
       this.globalScrollbar.scrollTop(top - 50);
     }
+    // user is scrolling in direction of the bottom of the screen
     else {
       const h = this.state.fixedPresentationHeight;
-      this.globalScrollbar.scrollTop(top + h * 0.2);
+      this.globalScrollbar.scrollTop(top + h * 0.1);
     }
   }
 
@@ -89,6 +91,27 @@ class PresentationLayout extends Component {
     const presentations = [];
     let fixedPresentationId;
     let fixedPresentationHeight;
+    let stateChanges = {};
+
+    // check if we are in the cover of the story
+    if (scrollTop < headerHeight && !this.state.inCover) {
+      stateChanges = {
+        ...stateChanges,
+        inCover: true,
+      };
+    }
+    else if (scrollTop > headerHeight && this.state.inCover) {
+      stateChanges = {
+        ...stateChanges,
+        inCover: false,
+      };
+    }
+    // applying state changes if needed
+    if (Object.keys(stateChanges).length) {
+      this.setState(stateChanges);
+      return;
+    }
+    // check if a presentation is in "fixed" mode (user scrolls inside it)
     for (let i = 0; i < presentationEls.length; i ++) {
       const presentation = presentationEls[i].parentNode;
       const id = presentation.getAttribute('id');
@@ -99,9 +122,10 @@ class PresentationLayout extends Component {
         top,
         height
       });
-      // const prevScroll = this.state.scrollTop;
+      // checking if this presentation deserves to be "fixed" (user scroll inside it)
+      // note : there can be more or less strict rules to define when to switch to "fixed" mode - it's a matter of ux and testing
       if (
-        scrollTop >= top && scrollTop <= top + height * 0.4
+        scrollTop >= top && scrollTop <= top + height * 0.4 - 5
         // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
         // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
         // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
@@ -110,30 +134,29 @@ class PresentationLayout extends Component {
         fixedPresentationHeight = height;
       }
     }
+    // if new fixed presentation, set it
     if (fixedPresentationId !== this.state.fixedPresentationId) {
-      this.setState({
+      stateChanges = {
+        ...stateChanges,
         fixedPresentationId,
-        fixedPresentationHeight
-      });
+        fixedPresentationHeight,
+      };
+      this.setState(stateChanges);
       return;
-    }
-    if (scrollTop < headerHeight && !this.state.inCover) {
-      this.setState({
-        inCover: true
-      });
-    }
-    else if (scrollTop > headerHeight && this.state.inCover) {
-      this.setState({
-        inCover: false
-      });
     }
 
     if (scrollTop !== this.state.scrollTop) {
       const toc = this.buildTOC(this.props.story, scrollTop);
-      this.setState({
+      stateChanges = {
+        ...stateChanges,
         toc,
-        scrollTop
-      });
+        scrollTop,
+      };
+    }
+
+    // applying state changes if needed
+    if (Object.keys(stateChanges).length) {
+      this.setState(stateChanges);
     }
   }
 
@@ -444,7 +467,7 @@ class PresentationLayout extends Component {
                   }
                   </ol>
                 </div> : null}
-                {citations && citations.citationItems && citations.citationItems ? <Bibliography />  :null}
+                {citations && citations.citationItems && citations.citationItems ? <Bibliography /> : null}
               </section>
 
               <nav

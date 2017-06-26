@@ -15,7 +15,7 @@ const AssetPreview = ({
   switch (type) {
     case 'image':
       // future-proofing possible externally linked images
-      const src = resource.data.base64 || resource.data.src || resource.data.url;
+      const src = resource.data.base64 || resource.data.src || resource.data.url;
       return <img src={src} />;
     case 'video':
       return (
