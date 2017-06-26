@@ -12,13 +12,13 @@ var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends4 = require('babel-runtime/helpers/extends');
-
-var _extends5 = _interopRequireDefault(_extends4);
-
 var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
+
+var _extends4 = require('babel-runtime/helpers/extends');
+
+var _extends5 = _interopRequireDefault(_extends4);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -50,6 +50,10 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactCustomScrollbars = require('react-custom-scrollbars');
 
+var _reactDisqusThread = require('react-disqus-thread');
+
+var _reactDisqusThread2 = _interopRequireDefault(_reactDisqusThread);
+
 var _rebound = require('rebound');
 
 var _lodash = require('lodash');
@@ -60,23 +64,36 @@ var _SectionLayout = require('./SectionLayout');
 
 var _SectionLayout2 = _interopRequireDefault(_SectionLayout);
 
-var _Renderer = require('./Renderer');
-
-var _Renderer2 = _interopRequireDefault(_Renderer);
-
-var _Bibliography = require('./Bibliography');
+var _Bibliography = require('../../components/Bibliography');
 
 var _Bibliography2 = _interopRequireDefault(_Bibliography);
 
-var _apa = require('raw-loader!./assets/apa.csl');
+var _NotesContainer = require('../../components/NotesContainer');
+
+var _NotesContainer2 = _interopRequireDefault(_NotesContainer);
+
+var _apa = require('raw-loader!../../assets/apa.csl');
 
 var _apa2 = _interopRequireDefault(_apa);
 
-var _englishLocale = require('raw-loader!./assets/english-locale.xml');
+var _englishLocale = require('raw-loader!../../assets/english-locale.xml');
 
 var _englishLocale2 = _interopRequireDefault(_englishLocale);
 
+require('./garlic.scss');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getOffset(el) {
+  var _x = 0;
+  var _y = 0;
+  while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
+    _x += el.offsetLeft; // - el.scrollLeft;
+    _y += el.offsetTop; // - el.scrollTop;
+    el = el.offsetParent;
+  }
+  return { top: _y, left: _x };
+}
 
 var PresentationLayout = function (_Component) {
   (0, _inherits3.default)(PresentationLayout, _Component);
@@ -87,12 +104,33 @@ var PresentationLayout = function (_Component) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (PresentationLayout.__proto__ || (0, _getPrototypeOf2.default)(PresentationLayout)).call(this, props));
 
     _this.onScrollUpdate = function (evt) {
+      if (!_this.header) {
+        return;
+      }
       var scrollTop = evt.scrollTop;
       var headerHeight = _this.header.offsetHeight;
       var presentationEls = document.getElementsByClassName('quinoa-presentation-player');
       var presentations = [];
       var fixedPresentationId = void 0;
       var fixedPresentationHeight = void 0;
+      var stateChanges = {};
+
+      // check if we are in the cover of the story
+      if (scrollTop < headerHeight && !_this.state.inCover) {
+        stateChanges = (0, _extends5.default)({}, stateChanges, {
+          inCover: true
+        });
+      } else if (scrollTop > headerHeight && _this.state.inCover) {
+        stateChanges = (0, _extends5.default)({}, stateChanges, {
+          inCover: false
+        });
+      }
+      // applying state changes if needed
+      if ((0, _keys2.default)(stateChanges).length) {
+        _this.setState(stateChanges);
+        return;
+      }
+      // check if a presentation is in "fixed" mode (user scrolls inside it)
       for (var i = 0; i < presentationEls.length; i++) {
         var presentation = presentationEls[i].parentNode;
         var id = presentation.getAttribute('id');
@@ -103,8 +141,9 @@ var PresentationLayout = function (_Component) {
           top: top,
           height: height
         });
-        // const prevScroll = this.state.scrollTop;
-        if (scrollTop >= top && scrollTop <= top + height * 0.4
+        // checking if this presentation deserves to be "fixed" (user scroll inside it)
+        // note : there can be more or less strict rules to define when to switch to "fixed" mode - it's a matter of ux and testing
+        if (scrollTop >= top && scrollTop <= top + height * 0.4 - 5
         // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
         // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
         // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
@@ -113,30 +152,36 @@ var PresentationLayout = function (_Component) {
             fixedPresentationHeight = height;
           }
       }
+      // if new fixed presentation, set it
       if (fixedPresentationId !== _this.state.fixedPresentationId) {
-        _this.setState({
+        stateChanges = (0, _extends5.default)({}, stateChanges, {
           fixedPresentationId: fixedPresentationId,
           fixedPresentationHeight: fixedPresentationHeight
         });
+        _this.setState(stateChanges);
         return;
-      }
-      if (scrollTop < headerHeight && !_this.state.inCover) {
-        _this.setState({
-          inCover: true
-        });
-      } else if (scrollTop > headerHeight && _this.state.inCover) {
-        _this.setState({
-          inCover: false
-        });
       }
 
       if (scrollTop !== _this.state.scrollTop) {
         var toc = _this.buildTOC(_this.props.story, scrollTop);
-        _this.setState({
+        stateChanges = (0, _extends5.default)({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
         });
       }
+
+      // applying state changes if needed
+      if ((0, _keys2.default)(stateChanges).length) {
+        _this.setState(stateChanges);
+      }
+    };
+
+    _this.onNotePointerClick = function (note) {
+      var noteElId = 'note-content-pointer-' + note.id;
+      var el = document.getElementById(noteElId);
+      var offset = getOffset(el);
+      var top = offset.top - window.innerHeight / 2;
+      _this.scrollTop(top);
     };
 
     _this.prepareCitations = function () {
@@ -231,6 +276,7 @@ var PresentationLayout = function (_Component) {
     _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 30);
     _this.buildTOC = _this.buildTOC.bind(_this);
     _this.scrollToTitle = _this.scrollToTitle.bind(_this);
+    _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_this);
 
     _this.toggleIndex = _this.toggleIndex.bind(_this);
 
@@ -250,7 +296,8 @@ var PresentationLayout = function (_Component) {
     value: function getChildContext() {
       return {
         fixedPresentationId: this.state.fixedPresentationId,
-        onExit: this.onPresentationExit
+        onExit: this.onPresentationExit,
+        onNoteContentPointerClick: this.onNoteContentPointerClick
       };
     }
   }, {
@@ -270,10 +317,12 @@ var PresentationLayout = function (_Component) {
   }, {
     key: 'scrollToContents',
     value: function scrollToContents() {
-      this.scrollTop(this.header.offsetHeight);
-      this.setState({
-        inCover: false
-      });
+      if (this.header) {
+        this.scrollTop(this.header.offsetHeight);
+        this.setState({
+          inCover: false
+        });
+      }
     }
   }, {
     key: 'scrollToCover',
@@ -287,12 +336,15 @@ var PresentationLayout = function (_Component) {
     key: 'onPresentationExit',
     value: function onPresentationExit(direction) {
       var top = this.state.scrollTop;
+      // user is scrolling in direction of the top of the screen
       if (direction === 'top') {
         this.globalScrollbar.scrollTop(top - 50);
-      } else {
-        var h = this.state.fixedPresentationHeight;
-        this.globalScrollbar.scrollTop(top + h * 0.2);
       }
+      // user is scrolling in direction of the bottom of the screen
+      else {
+          var h = this.state.fixedPresentationHeight;
+          this.globalScrollbar.scrollTop(top + h * 0.1);
+        }
     }
   }, {
     key: 'scrollTop',
@@ -303,6 +355,15 @@ var PresentationLayout = function (_Component) {
       var val = _rebound.MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
       this.spring.setCurrentValue(scrollTop).setAtRest();
       this.spring.setEndValue(val);
+    }
+  }, {
+    key: 'onNoteContentPointerClick',
+    value: function onNoteContentPointerClick(noteId) {
+      var noteElId = 'note-block-pointer-' + noteId;
+      var el = document.getElementById(noteElId);
+      var offset = getOffset(el);
+      var top = offset.top - window.innerHeight / 2;
+      this.scrollTop(top);
     }
   }, {
     key: 'buildTOC',
@@ -320,6 +381,9 @@ var PresentationLayout = function (_Component) {
         var nextTitleOffsetTop = void 0;
         var title = void 0;
         title = document.getElementById(section.id);
+        if (!title) {
+          return undefined;
+        }
         titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
         if (sectionIndex < story.sectionsOrder.length - 1) {
           var next = story.sectionsOrder[sectionIndex + 1];
@@ -384,6 +448,8 @@ var PresentationLayout = function (_Component) {
           };
         }) : [];
         return [sectionHeader].concat((0, _toConsumableArray3.default)(headerItems));
+      }).filter(function (el) {
+        return el !== undefined;
       })
       // flatten mini-tocs
       .reduce(function (result, ar) {
@@ -412,7 +478,10 @@ var PresentationLayout = function (_Component) {
       var _props$story = this.props.story,
           metadata = _props$story.metadata,
           sectionsOrder = _props$story.sectionsOrder,
-          sections = _props$story.sections;
+          sections = _props$story.sections,
+          _props$story$settings = _props$story.settings,
+          settings = _props$story$settings === undefined ? {} : _props$story$settings,
+          id = _props$story.id;
       var _state = this.state,
           inCover = _state.inCover,
           toc = _state.toc,
@@ -439,6 +508,17 @@ var PresentationLayout = function (_Component) {
       }, []);
 
       var citations = this.prepareCitations();
+
+      var handleNewComment = function handleNewComment(comment) {
+        return comment;
+        // console.log('comment', comment);
+      };
+
+      var location = window.location.href;
+      var customCss = settings.css || '';
+
+      var notesPosition = settings.notesPosition || 'foot';
+
       return _react2.default.createElement(
         _reactCiteproc.ReferencesManager,
         {
@@ -491,30 +571,20 @@ var PresentationLayout = function (_Component) {
               _react2.default.createElement(
                 'section',
                 { className: 'contents-wrapper' },
-                sectionsOrder.map(function (id) {
-                  return _react2.default.createElement(_SectionLayout2.default, { section: sections[id], key: id });
+                sectionsOrder.map(function (thatId) {
+                  return _react2.default.createElement(_SectionLayout2.default, { section: sections[thatId], key: thatId });
                 }),
-                notes && notes.length ? _react2.default.createElement(
-                  'div',
-                  { className: 'notes-container' },
-                  _react2.default.createElement(
-                    'h3',
-                    null,
-                    'Notes'
-                  ),
-                  _react2.default.createElement(
-                    'ol',
-                    null,
-                    notes.map(function (note) {
-                      return _react2.default.createElement(
-                        'li',
-                        { key: note.finalOrder },
-                        _react2.default.createElement(_Renderer2.default, { raw: note.editorState })
-                      );
-                    })
-                  )
-                ) : null,
-                citations && citations.citationItems && citations.citationItems ? _react2.default.createElement(_Bibliography2.default, null) : null
+                notes && notes.length ? _react2.default.createElement(_NotesContainer2.default, {
+                  notes: notes,
+                  onNotePointerClick: this.onNotePointerClick,
+                  notesPosition: notesPosition }) : null,
+                citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, null) : null,
+                location.indexOf('http://localhost') !== 0 && _react2.default.createElement(_reactDisqusThread2.default, {
+                  shortname: 'quinoa-story-' + id,
+                  identifier: 'quinoa-story-' + id,
+                  title: metadata.title,
+                  url: location,
+                  onNewComment: handleNewComment })
               ),
               _react2.default.createElement(
                 'nav',
@@ -565,6 +635,11 @@ var PresentationLayout = function (_Component) {
               )
             )
           )
+        ),
+        _react2.default.createElement(
+          'style',
+          null,
+          customCss
         )
       );
     }
@@ -574,6 +649,7 @@ var PresentationLayout = function (_Component) {
 
 PresentationLayout.childContextTypes = {
   fixedPresentationId: _propTypes2.default.string,
+  onNoteContentPointerClick: _propTypes2.default.func,
   onExit: _propTypes2.default.func
 };
 

@@ -14,21 +14,21 @@ var _quinoaPresentationPlayer = require('quinoa-presentation-player');
 
 var _quinoaPresentationPlayer2 = _interopRequireDefault(_quinoaPresentationPlayer);
 
-require('./AssetPreview.scss');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint react/no-danger : 0 */
 var AssetPreview = function AssetPreview(_ref) {
   var type = _ref.type,
       resource = _ref.resource,
       options = _ref.options,
       fixed = _ref.fixed,
+      allowInteractions = _ref.allowInteractions,
       onExit = _ref.onExit;
 
   switch (type) {
     case 'image':
-      return _react2.default.createElement('img', { src: resource.data });
+      // future-proofing possible externally linked images
+      var src = resource.data.base64 || resource.data.src || resource.data.url;
+      return _react2.default.createElement('img', { src: src });
     case 'video':
       return _react2.default.createElement(
         _reactMediaPlayer.Media,
@@ -49,7 +49,7 @@ var AssetPreview = function AssetPreview(_ref) {
         onExit: onExit,
         style: {
           position: fixed ? 'fixed' : 'absolute',
-          pointerEvents: fixed ? 'all' : 'none'
+          pointerEvents: allowInteractions ? 'all' : 'none'
         } });
     case 'embed':
       return _react2.default.createElement('div', {
@@ -59,6 +59,5 @@ var AssetPreview = function AssetPreview(_ref) {
     default:
       return null;
   }
-};
-
+}; /* eslint react/no-danger : 0 */
 exports.default = AssetPreview;

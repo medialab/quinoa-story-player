@@ -32,14 +32,11 @@ var _reactMeasure = require('react-measure');
 
 var _reactMeasure2 = _interopRequireDefault(_reactMeasure);
 
-var _StoryLayout = require('./StoryLayout');
+var _Layout = require('./templates/garlic/Layout');
 
-var _StoryLayout2 = _interopRequireDefault(_StoryLayout);
+var _Layout2 = _interopRequireDefault(_Layout);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/* eslint react/no-did-mount-set-state : 0 */
-require('./Player.scss');
 
 var QuinoaStoryPlayer = function (_Component) {
   (0, _inherits3.default)(QuinoaStoryPlayer, _Component);
@@ -80,9 +77,15 @@ var QuinoaStoryPlayer = function (_Component) {
   }, {
     key: 'renderComponent',
     value: function renderComponent() {
+      var template = this.state.story && this.state.story.settings && this.state.story.settings.template || 'garlic';
       if (this.state.story && this.state.status === 'loaded') {
-        return _react2.default.createElement(_StoryLayout2.default, {
-          story: this.state.story });
+        switch (template) {
+          case 'garlic':
+            return _react2.default.createElement(_Layout2.default, {
+              story: this.state.story });
+          default:
+            return;
+        }
       } else if (this.status === 'error') {
         return _react2.default.createElement(
           'div',
@@ -118,7 +121,8 @@ var QuinoaStoryPlayer = function (_Component) {
     }
   }]);
   return QuinoaStoryPlayer;
-}(_react.Component);
+}(_react.Component); /* eslint react/no-did-mount-set-state : 0 */
+
 
 QuinoaStoryPlayer.propTypes = {
   // story: PropTypes.Object,
