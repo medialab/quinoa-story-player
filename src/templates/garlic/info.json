@@ -1,4 +1,8 @@
 {
   "id": "garlic",
-  "name": "Garlic"
+  "name": "Garlic",
+  "description": "One-page scrollytelling - sections are displayed one on top of the other - assets are displayed in full length",
+  "acceptsOptions" : [
+    "notesPosition"
+  ]
 }
