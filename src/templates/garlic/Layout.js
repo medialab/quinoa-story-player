@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Scrollbars} from 'react-custom-scrollbars';
-import ReactDisqusThread from 'react-disqus-thread';
 import {SpringSystem, MathUtil} from 'rebound';
 
 import {debounce} from 'lodash';
@@ -12,7 +11,7 @@ import SectionLayout from './SectionLayout';
 
 import Bibliography from '../../components/Bibliography';
 import NotesContainer from '../../components/NotesContainer';
-
+import ReactDisqusWrapper from '../../components/ReactDisqusWrapper';
 
 import style from 'raw-loader!../../assets/apa.csl';
 import locale from 'raw-loader!../../assets/english-locale.xml';
@@ -451,11 +450,6 @@ class PresentationLayout extends Component {
 
     const citations = this.prepareCitations();
 
-    const handleNewComment = comment => {
-      return comment;
-      // console.log('comment', comment);
-    };
-
     const location = window.location.href;
     const customCss = settings.css || '';
 
@@ -516,12 +510,12 @@ class PresentationLayout extends Component {
 
                 {location.indexOf('http://localhost') !== 0 
                 &&  allowDisqusComments
-                && <ReactDisqusThread
-                  shortname={'quinoa-story-' + id}
-                  identifier={'quinoa-story-' + id}
-                  title={metadata.title}
-                  url={location}
-                  onNewComment={handleNewComment} />}
+                && <ReactDisqusWrapper
+                    shortname={'quinoa-story-' + id}
+                    identifier={'quinoa-story-' + id}
+                    title={metadata.title}
+                    url={location}
+                  />}
               </section>
 
               <nav
