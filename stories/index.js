@@ -27,7 +27,9 @@ const withCustomCss = {
 const withSideNotes = {
   ...sidenotesExample,
   settings: {
-    notesPosition: 'aside'
+    options: {
+      notesPosition: 'aside'      
+    }
   }
 };
 

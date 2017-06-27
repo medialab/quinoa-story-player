@@ -459,7 +459,8 @@ class PresentationLayout extends Component {
     const location = window.location.href;
     const customCss = settings.css || '';
 
-    const notesPosition = settings.notesPosition || 'foot';
+    const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
+    const allowDisqusComments = (settings.options && settings.options.allowDisqusComments) || true;
 
     return (
       <ReferencesManager
@@ -513,7 +514,9 @@ class PresentationLayout extends Component {
                 : null}
                 {citations && citations.citationItems && Object.keys(citations.citationItems).length ? <Bibliography /> : null}
 
-                {location.indexOf('http://localhost') !== 0 && <ReactDisqusThread
+                {location.indexOf('http://localhost') !== 0 
+                &&  allowDisqusComments
+                && <ReactDisqusThread
                   shortname={'quinoa-story-' + id}
                   identifier={'quinoa-story-' + id}
                   title={metadata.title}
