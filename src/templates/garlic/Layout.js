@@ -13,8 +13,8 @@ import Bibliography from '../../components/Bibliography';
 import NotesContainer from '../../components/NotesContainer';
 import ReactDisqusWrapper from '../../components/ReactDisqusWrapper';
 
-import style from 'raw-loader!../../assets/apa.csl';
-import locale from 'raw-loader!../../assets/english-locale.xml';
+import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
+import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
 
 import './garlic.scss';
 
@@ -455,11 +455,12 @@ class PresentationLayout extends Component {
 
     const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
     const allowDisqusComments = (settings.options && settings.options.allowDisqusComments) || true;
-
+    const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
+    const citationStyle = (settings.citationStyle && settings.citatioStyle.data) || defaultCitationStyle;
     return (
       <ReferencesManager
-        style={style}
-        locale={locale}
+        style={citationStyle}
+        locale={citationLocale}
         items={citations.citationItems}
         citations={citations.citationData}
         componentClass="references-manager">
