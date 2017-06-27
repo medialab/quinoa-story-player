@@ -508,8 +508,7 @@ class PresentationLayout extends Component {
                 : null}
                 {citations && citations.citationItems && Object.keys(citations.citationItems).length ? <Bibliography /> : null}
 
-                {location.indexOf('http://localhost') !== 0 
-                &&  allowDisqusComments
+                {allowDisqusComments
                 && <ReactDisqusWrapper
                     shortname={'quinoa-story-' + id}
                     identifier={'quinoa-story-' + id}

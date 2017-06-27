@@ -33,6 +33,15 @@ const withSideNotes = {
   }
 };
 
+const withComments = {
+  ...sidenotesExample,
+  settings: {
+    options: {
+      allowDisqusComments: true      
+    }
+  }
+};
+
 
 storiesOf('Quinoa story - garlic template', module)
   .add('Peritext story', () => (
@@ -63,6 +72,11 @@ storiesOf('Quinoa story - garlic template', module)
   .add('With custom css', () => (
     <Player
       story={withCustomCss}
+    />
+  ))
+  .add('With comments', () => (
+    <Player
+      story={withComments}
     />
   ))
 // add other templates here

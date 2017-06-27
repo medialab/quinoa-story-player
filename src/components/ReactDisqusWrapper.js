@@ -3,7 +3,7 @@ import ReactDisqusThread from 'react-disqus-thread';
 
 class ReactDisqusWrapper extends Component {
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate() {
     return false;
   }
   render() {
