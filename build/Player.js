@@ -70,6 +70,15 @@ var QuinoaStoryPlayer = function (_Component) {
       };
     }
   }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      // if (this.props.story !== nextProps.story) {
+      this.setState({
+        story: nextProps.story
+      });
+      // }
+    }
+  }, {
     key: 'shouldComponentUpdate',
     value: function shouldComponentUpdate() {
       return true;

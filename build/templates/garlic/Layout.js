@@ -50,10 +50,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactCustomScrollbars = require('react-custom-scrollbars');
 
-var _reactDisqusThread = require('react-disqus-thread');
-
-var _reactDisqusThread2 = _interopRequireDefault(_reactDisqusThread);
-
 var _rebound = require('rebound');
 
 var _lodash = require('lodash');
@@ -71,6 +67,10 @@ var _Bibliography2 = _interopRequireDefault(_Bibliography);
 var _NotesContainer = require('../../components/NotesContainer');
 
 var _NotesContainer2 = _interopRequireDefault(_NotesContainer);
+
+var _ReactDisqusWrapper = require('../../components/ReactDisqusWrapper');
+
+var _ReactDisqusWrapper2 = _interopRequireDefault(_ReactDisqusWrapper);
 
 var _apa = require('raw-loader!../../assets/apa.csl');
 
@@ -509,21 +509,18 @@ var PresentationLayout = function (_Component) {
 
       var citations = this.prepareCitations();
 
-      var handleNewComment = function handleNewComment(comment) {
-        return comment;
-        // console.log('comment', comment);
-      };
-
       var location = window.location.href;
       var customCss = settings.css || '';
 
-      var notesPosition = settings.notesPosition || 'foot';
-
+      var notesPosition = settings.options && settings.options.notesPosition || 'foot';
+      var allowDisqusComments = settings.options && settings.options.allowDisqusComments || true;
+      var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
+      var citationStyle = settings.citationStyle && settings.citatioStyle.data || _apa2.default;
       return _react2.default.createElement(
         _reactCiteproc.ReferencesManager,
         {
-          style: _apa2.default,
-          locale: _englishLocale2.default,
+          style: citationStyle,
+          locale: citationLocale,
           items: citations.citationItems,
           citations: citations.citationData,
           componentClass: 'references-manager' },
@@ -579,12 +576,11 @@ var PresentationLayout = function (_Component) {
                   onNotePointerClick: this.onNotePointerClick,
                   notesPosition: notesPosition }) : null,
                 citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, null) : null,
-                location.indexOf('http://localhost') !== 0 && _react2.default.createElement(_reactDisqusThread2.default, {
+                allowDisqusComments && _react2.default.createElement(_ReactDisqusWrapper2.default, {
                   shortname: 'quinoa-story-' + id,
                   identifier: 'quinoa-story-' + id,
                   title: metadata.title,
-                  url: location,
-                  onNewComment: handleNewComment })
+                  url: location })
               ),
               _react2.default.createElement(
                 'nav',

@@ -385,4 +385,24 @@ $font-size-5: $font-size-4 * 1.6;
         }
       }
     }
+
+    .note-content-pointer
+    {
+        cursor: pointer;
+        transition: all .5s ease;
+        &:hover{
+            height: 1rem;
+            width: 1.3rem;
+            text-align: center;
+            font-size: .5rem;
+            border-radius: 50%;
+            background: lightgrey;
+            padding-top: .3rem;
+        }
+    }
+    #disqus_thread
+    {
+        margin-right: $gutter-lateral-large-screens;
+        margin-left: $gutter-lateral-large-screens;
+    }
 }
