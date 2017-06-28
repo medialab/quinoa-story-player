@@ -29,6 +29,14 @@ class QuinoaStoryPlayer extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.story !== nextProps.story) {
+      this.setState({
+        story: nextProps.story,
+      });
+    }
+  }
+
   shouldComponentUpdate() {
     return true;
   }

@@ -19,8 +19,7 @@ class ReactDisqusWrapper extends Component {
       if (onNewComment && typeof onNewComment === 'function') {
         onNewComment(comment);
       }
-    }
-
+    };
 
     return (
       <ReactDisqusThread

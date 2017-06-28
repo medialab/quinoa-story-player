@@ -511,11 +511,10 @@ class PresentationLayout extends Component {
 
                 {allowDisqusComments
                 && <ReactDisqusWrapper
-                    shortname={'quinoa-story-' + id}
-                    identifier={'quinoa-story-' + id}
-                    title={metadata.title}
-                    url={location}
-                  />}
+                  shortname={'quinoa-story-' + id}
+                  identifier={'quinoa-story-' + id}
+                  title={metadata.title}
+                  url={location} />}
               </section>
 
               <nav
