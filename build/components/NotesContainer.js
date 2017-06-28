@@ -117,10 +117,10 @@ var NotesContainer = function (_Component) {
     }
   }, {
     key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps() {
-      if (this.props.notesPosition === 'aside') {
-        this.updatePositions();
-      }
+    value: function componentWillReceiveProps(nextProps) {
+      // if (this.props.notesPosition === 'aside') {
+      this.updatePositions();
+      // }
     }
   }, {
     key: 'render',
@@ -159,7 +159,7 @@ var NotesContainer = function (_Component) {
               note: note,
               onNotePointerClick: onNotePointerClick,
               ref: bindRef,
-              style: notesStyles[note.id] });
+              style: _this3.props.notesPosition === 'aside' ? notesStyles[note.id] : {} });
           })
         )
       );

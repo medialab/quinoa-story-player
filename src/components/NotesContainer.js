@@ -30,10 +30,10 @@ class NotesContainer extends Component {
       }, 1);
     }
   }
-  componentWillReceiveProps() {
-    if (this.props.notesPosition === 'aside') {
-      this.updatePositions();
-    }
+  componentWillReceiveProps(nextProps) {
+    // if (this.props.notesPosition === 'aside') {
+    this.updatePositions();
+    // }
   }
 
   updatePositions = () => {
@@ -116,7 +116,7 @@ class NotesContainer extends Component {
                   note={note}
                   onNotePointerClick={onNotePointerClick}
                   ref={bindRef}
-                  style={notesStyles[note.id]} />
+                  style={this.props.notesPosition === 'aside' ? notesStyles[note.id] : {}} />
               );
             })
           }

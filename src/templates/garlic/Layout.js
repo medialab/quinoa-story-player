@@ -454,9 +454,9 @@ class PresentationLayout extends Component {
     const customCss = settings.css || '';
 
     const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
-    const allowDisqusComments = (settings.options && settings.options.allowDisqusComments) || true;
+    const allowDisqusComments = settings.options && settings.options.allowDisqusComments !== undefined ? settings.options.allowDisqusComments : true ;
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
-    const citationStyle = (settings.citationStyle && settings.citatioStyle.data) || defaultCitationStyle;
+    const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
     return (
       <ReferencesManager
         style={citationStyle}

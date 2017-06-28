@@ -513,7 +513,7 @@ var PresentationLayout = function (_Component) {
       var customCss = settings.css || '';
 
       var notesPosition = settings.options && settings.options.notesPosition || 'foot';
-      var allowDisqusComments = settings.options && settings.options.allowDisqusComments || true;
+      var allowDisqusComments = settings.options && settings.options.allowDisqusComments !== undefined ? settings.options.allowDisqusComments : true;
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
       var citationStyle = settings.citationStyle && settings.citatioStyle.data || _apa2.default;
       return _react2.default.createElement(
