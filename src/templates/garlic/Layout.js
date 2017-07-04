@@ -429,6 +429,10 @@ class PresentationLayout extends Component {
       toc,
       indexOpen
     } = this.state;
+    const {
+      dimensions
+    } = this.context;
+
     const bindGlobalScrollbarRef = scrollbar => {
       this.globalScrollbar = scrollbar;
     };
@@ -520,8 +524,11 @@ class PresentationLayout extends Component {
               <nav
                 className="nav"
                 style={{
-                position: inCover ? 'relative' : 'fixed'
-              }}>
+                  position: inCover ? 'relative' : 'fixed',
+                  left: inCover ? '': dimensions.left,
+                  top: inCover ? '': dimensions.top
+                }}
+              >
                 <h2 onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
                 {toc && toc.length !== undefined && toc.length > 0 && <button
                   className={'index-toggle ' + (indexOpen ? 'active' : '')}
@@ -561,6 +568,10 @@ class PresentationLayout extends Component {
       </ReferencesManager>
     );
   }
+}
+
+PresentationLayout.contextTypes = {
+  dimensions: PropTypes.object,
 }
 
 PresentationLayout.childContextTypes = {

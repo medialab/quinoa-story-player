@@ -79,4 +79,26 @@ storiesOf('Quinoa story - garlic template', module)
       story={withComments}
     />
   ))
+  .add('Container-relative positionning of absolute positionned elements', () => (
+    <div
+      style={{
+        background: 'grey'
+      }}
+    >
+      <div 
+        style={{
+          background: 'red',
+          position: 'absolute',
+          left: '10%',
+          top: '10%',
+          width: '80%',
+          height: '80%'
+        }}
+      >
+        <Player
+          story={formatsExample}
+        />
+      </div>
+    </div>
+  ))
 // add other templates here

@@ -88,7 +88,7 @@ QuinoaStoryPlayer.propTypes = {
 
 QuinoaStoryPlayer.childContextTypes = {
   story: PropTypes.object,
-  dimensions: PropTypes.object
+  dimensions: PropTypes.object,
 };
 
 export default QuinoaStoryPlayer;

@@ -515,7 +515,7 @@ var PresentationLayout = function (_Component) {
       var notesPosition = settings.options && settings.options.notesPosition || 'foot';
       var allowDisqusComments = settings.options && settings.options.allowDisqusComments !== undefined ? settings.options.allowDisqusComments : true;
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
-      var citationStyle = settings.citationStyle && settings.citatioStyle.data || _apa2.default;
+      var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
       return _react2.default.createElement(
         _reactCiteproc.ReferencesManager,
         {

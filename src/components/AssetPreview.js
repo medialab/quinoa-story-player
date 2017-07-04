@@ -1,5 +1,6 @@
 /* eslint react/no-danger : 0 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Media, Player} from 'react-media-player';
 import QuinoaPresentationPlayer from 'quinoa-presentation-player';
 
@@ -10,7 +11,8 @@ const AssetPreview = ({
   fixed,
   allowInteractions,
   onExit
-}) => {
+}, context) => {
+  const dimensions = context.dimensions;
   switch (type) {
     case 'image':
       // future-proofing possible externally linked images
@@ -37,6 +39,10 @@ const AssetPreview = ({
           onExit={onExit}
           style={{
             position: fixed ? 'fixed' : 'absolute',
+            left: fixed ? dimensions.left : '0',
+            top: fixed ? dimensions.top : '0',
+            width: fixed ? dimensions.width : '',
+            height: fixed ? dimensions.height : '',
             pointerEvents: allowInteractions ? 'all' : 'none'
           }} />
       );
@@ -51,5 +57,9 @@ const AssetPreview = ({
       return null;
   }
 };
+
+AssetPreview.contextTypes = {
+  dimensions: PropTypes.object
+}
 
 export default AssetPreview;
