@@ -486,6 +486,8 @@ var PresentationLayout = function (_Component) {
           inCover = _state.inCover,
           toc = _state.toc,
           indexOpen = _state.indexOpen;
+      var dimensions = this.context.dimensions;
+
 
       var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
         _this2.globalScrollbar = scrollbar;
@@ -587,8 +589,11 @@ var PresentationLayout = function (_Component) {
                 {
                   className: 'nav',
                   style: {
-                    position: inCover ? 'relative' : 'fixed'
-                  } },
+                    position: inCover ? 'relative' : 'fixed',
+                    left: inCover ? '' : dimensions.left,
+                    top: inCover ? '' : dimensions.top
+                  }
+                },
                 _react2.default.createElement(
                   'h2',
                   { onClick: this.scrollToCover },
@@ -642,6 +647,10 @@ var PresentationLayout = function (_Component) {
   }]);
   return PresentationLayout;
 }(_react.Component);
+
+PresentationLayout.contextTypes = {
+  dimensions: _propTypes2.default.object
+};
 
 PresentationLayout.childContextTypes = {
   fixedPresentationId: _propTypes2.default.string,
