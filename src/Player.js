@@ -78,11 +78,7 @@ class QuinoaStoryPlayer extends Component {
 }
 
 QuinoaStoryPlayer.propTypes = {
-  // story: PropTypes.Object,
-  options: PropTypes.shape({
-    allowViewExploration: PropTypes.bool // whether users can pan/zoom/navigate inside view
-  }),
-  onSlideChange: PropTypes.func, // callback when navigation is changed
+  story: PropTypes.Object
 };
 
 
