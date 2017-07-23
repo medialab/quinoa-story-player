@@ -134,11 +134,8 @@ var QuinoaStoryPlayer = function (_Component) {
 
 
 QuinoaStoryPlayer.propTypes = {
-  // story: PropTypes.Object,
-  options: _react.PropTypes.shape({
-    allowViewExploration: _react.PropTypes.bool // whether users can pan/zoom/navigate inside view
-  }),
-  onSlideChange: _react.PropTypes.func };
+  story: _react.PropTypes.Object
+};
 
 QuinoaStoryPlayer.childContextTypes = {
   story: _react.PropTypes.object,
