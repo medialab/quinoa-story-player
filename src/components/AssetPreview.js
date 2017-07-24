@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Media, Player} from 'react-media-player';
 import QuinoaPresentationPlayer from 'quinoa-presentation-player';
+import ReactTable from 'react-table';
+import 'react-table/react-table.css';
 
 const AssetPreview = ({
   type,
@@ -14,6 +16,13 @@ const AssetPreview = ({
 }, context) => {
   const dimensions = context.dimensions;
   switch (type) {
+    case 'table':
+      const data = resource.data;
+      const columns = Object.keys(data[0]).map(key => ({
+        Header: key,
+        accessor: key
+      }))
+      return <ReactTable data={data} columns={columns} />;
     case 'image':
       // future-proofing possible externally linked images
       const src = resource.data.base64 || resource.data.src || resource.data.url;

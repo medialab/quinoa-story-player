@@ -37,6 +37,7 @@
     "react-dom": "^15.3.2",
     "react-markdown": "^2.4.2",
     "react-media-player": "^0.6.1",
+    "react-table": "^6.5.1",
     "rebound": "0.0.13",
     "redraft": "^0.7.0"
   },

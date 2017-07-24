@@ -78,7 +78,7 @@ class QuinoaStoryPlayer extends Component {
 }
 
 QuinoaStoryPlayer.propTypes = {
-  story: PropTypes.Object
+  story: PropTypes.object
 };
 
 

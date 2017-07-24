@@ -12,6 +12,7 @@ import peritextStory from './peritext-story.json';
 import formatsExample from './formats-example.json';
 import imageExample from './test-image.json';
 import sidenotesExample from './sidenotes-test.json';
+import lotsOfAssets from './story-with-lots-of-assets.json';
 
 const withCustomCss = {
   ...peritextStory,
@@ -77,6 +78,11 @@ storiesOf('Quinoa story - garlic template', module)
   .add('With comments', () => (
     <Player
       story={withComments}
+    />
+  ))
+  .add('With lots of assets', () => (
+    <Player
+      story={lotsOfAssets}
     />
   ))
   .add('Container-relative positionning of absolute positionned elements', () => (

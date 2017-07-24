@@ -5,7 +5,7 @@ import Link from './Link';
 
 import AssetWrapper from './AssetWrapper';
 import NotePointer from './NotePointer';
-import CitationContainer from './CitationContainer';
+import InlineAssetWrapper from './InlineAssetWrapper';
 
 
 // just a helper to add a <br /> after each block
@@ -61,23 +61,11 @@ const renderers = {
       return <AssetWrapper key={key} data={data} />;
     },
     INLINE_ASSET: (children, data, {key}) => {
-      return <CitationContainer data={data} key={key} />;
+      return <InlineAssetWrapper data={data} key={key} />;
     },
     NOTE_POINTER: (children, data, {key}) => {
       return <NotePointer key={key} children={children} noteId={data.noteId} />;
     },
-    // 'DATA-PRESENTATION': (children, data, {key}) => {
-    //   return <AssetWrapper key={key} data={data} assetType="data-presentation" />;
-    // },
-    // 'IMAGE': (children, data, {key}) => {
-    //   return <AssetWrapper key={key} data={data} assetType="image" />;
-    // },
-    // 'VIDEO': (children, data, {key}) => {
-    //   return <AssetWrapper key={key} data={data} assetType="video" />;
-    // },
-    // 'EMBED': (children, data, {key}) => {
-    //   return <AssetWrapper key={key} data={data} assetType="embed" />;
-    // },
   },
 };
 

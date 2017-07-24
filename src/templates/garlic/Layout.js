@@ -66,6 +66,63 @@ class PresentationLayout extends Component {
     this.springSystem = new SpringSystem();
     this.spring = this.springSystem.createSpring();
     this.spring.addListener({onSpringUpdate: this.handleSpringUpdate});
+    setTimeout(() => {
+      if (this.props.story) {
+        this.setState({
+          glossary: this.buildGlossary(this.props.story)
+        });
+      }
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.story !== nextProps.story) {
+      this.setState({
+        glossary: this.buildGlossary(nextProps.story)
+      });
+    }
+  }
+
+  buildGlossary(story) {
+    const {
+      contextualizations,
+      contextualizers,
+      resources
+    } = story;
+    let glossaryMentions = Object.keys(contextualizations)
+      .filter(contextualizationId => {
+        const contextualizerId = contextualizations[contextualizationId].contextualizerId;
+        const contextualizer = contextualizers[contextualizerId];
+        return contextualizer && contextualizer.type === 'glossary';
+      })
+      .map(contextualizationId => ({
+        ...contextualizations[contextualizationId],
+        contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
+        resource: resources[contextualizations[contextualizationId].resourceId]
+      }))
+      .reduce((entries, contextualization) => {
+        return {
+          ...entries,
+          [contextualization.resourceId]: {
+            resource: contextualization.resource,
+            mentions: entries[contextualization.resourceId]  ? 
+                        entries[contextualization.resourceId].mentions.concat(contextualization) 
+                        : [contextualization]
+          }
+        }
+      }, {});
+
+    glossaryMentions = Object.keys(glossaryMentions)
+                        .map(id => glossaryMentions[id])
+                        .sort((a, b) => {
+                          if (a.resource.data.name > b.resource.data.name) {
+                            return -1;
+                          } else {
+                            return 1;
+                          }
+                        });
+
+    return glossaryMentions;
   }
 
   toggleIndex(to) {
@@ -427,7 +484,8 @@ class PresentationLayout extends Component {
     const {
       inCover,
       toc,
-      indexOpen
+      indexOpen,
+      glossary
     } = this.state;
     const {
       dimensions
@@ -511,7 +569,38 @@ class PresentationLayout extends Component {
                     onNotePointerClick={this.onNotePointerClick}
                     notesPosition={notesPosition} />
                 : null}
-                {citations && citations.citationItems && Object.keys(citations.citationItems).length ? <Bibliography /> : null}
+                {
+                  citations && 
+                  citations.citationItems && 
+                  Object.keys(citations.citationItems).length ? 
+                  <Bibliography /> 
+                : null}
+
+                {glossary && 
+                  glossary.length ?
+                  <div className="glossary-container">
+                    <h2>Glossary</h2>
+                    <ul className="glossary-mentions-container">
+                     {
+                      glossary.map(entry => {
+                        const entryName = entry.resource.data.name;
+                        return (
+                            <li key={entry.id} id={'glossary-entry-' + entry.resource.id}>
+                              {entryName} ({
+                                entry.mentions.map((mention, count) => (
+                                  <a key={mention.id} href={'#glossary-mention-' + mention.id}>
+                                    {count + 1}
+                                  </a>
+                                ))
+                                .reduce((prev, curr) => [prev, ', ', curr])
+                              })
+                            </li>
+                        )
+                      })
+                     } 
+                    </ul>
+                  </div>
+                : null}
 
                 {allowDisqusComments
                 && <ReactDisqusWrapper
