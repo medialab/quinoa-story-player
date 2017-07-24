@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -18,6 +22,12 @@ var _quinoaPresentationPlayer = require('quinoa-presentation-player');
 
 var _quinoaPresentationPlayer2 = _interopRequireDefault(_quinoaPresentationPlayer);
 
+var _reactTable = require('react-table');
+
+var _reactTable2 = _interopRequireDefault(_reactTable);
+
+require('react-table/react-table.css');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* eslint react/no-danger : 0 */
@@ -31,6 +41,15 @@ var AssetPreview = function AssetPreview(_ref, context) {
 
   var dimensions = context.dimensions;
   switch (type) {
+    case 'table':
+      var data = resource.data;
+      var columns = (0, _keys2.default)(data[0]).map(function (key) {
+        return {
+          Header: key,
+          accessor: key
+        };
+      });
+      return _react2.default.createElement(_reactTable2.default, { data: data, columns: columns });
     case 'image':
       // future-proofing possible externally linked images
       var src = resource.data.base64 || resource.data.src || resource.data.url;

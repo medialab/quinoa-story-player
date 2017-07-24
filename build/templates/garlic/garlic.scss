@@ -147,7 +147,8 @@ $font-size-5: $font-size-4 * 1.6;
             .section-header,
             .section-footer,
             .notes-container,
-            .references
+            .references,
+            .glossary-container
             {
                 margin-right: $gutter-lateral-large-screens;
                 margin-left: $gutter-lateral-large-screens;
@@ -235,6 +236,12 @@ $font-size-5: $font-size-4 * 1.6;
                             pointer-events: none;
                             font-size: $font-size-1;
                         }
+
+                        .ReactTable{
+                            margin-left: $gutter-lateral-large-screens;
+                            margin-right: $gutter-lateral-large-screens;
+                            font-size: $font-size-1;
+                        }
                     }
 
                     a{
@@ -252,6 +259,7 @@ $font-size-5: $font-size-4 * 1.6;
             top: 0;
             padding: $gutter-medium;
             width: $gutter-lateral-large-screens * .8;
+            overflow-x: hidden;
             height: 100%;
             display: flex;
             flex-flow: column nowrap;
@@ -342,9 +350,17 @@ $font-size-5: $font-size-4 * 1.6;
         }
     }
 
-    .references{
-        padding-bottom: $gutter-large;
+    .glossary-container{
+        ul{
+            padding: 0;
+            li{
+                list-style-type: none;
+                padding: 0;
+                font-size: $font-size-1;
+            }
+        }
     }
+
 
     .notes-container
     {
@@ -388,17 +404,36 @@ $font-size-5: $font-size-4 * 1.6;
 
     .note-content-pointer
     {
+        display: inline-block;
         cursor: pointer;
-        transition: all .5s ease;
+        height: 1rem;
+        width: 1rem;
+        line-height: 1rem;
+        text-align: center;
+        font-size: .5rem;
+        border-radius: 50%;
+        background: lightgrey;
+        // padding-top: .3rem;
         &:hover{
-            height: 1rem;
-            width: 1.3rem;
-            text-align: center;
-            font-size: .5rem;
-            border-radius: 50%;
-            background: lightgrey;
-            padding-top: .3rem;
+          background: black;
+          color: white;
         }
+
+        // cursor: pointer;
+        // transition: all .5s ease;
+        // &:hover{
+        //     height: 1rem;
+        //     width: 1.3rem;
+        //     text-align: center;
+        //     // font-size: .5rem;
+        //     border-radius: 50%;
+        //     background: lightgrey;
+        //     padding-top: .3rem;
+        // }
+    }
+    .glossary-mention{
+        color: inherit!important;
+        text-decoration: none;
     }
     #disqus_thread
     {

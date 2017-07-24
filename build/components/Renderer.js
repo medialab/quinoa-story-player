@@ -44,9 +44,9 @@ var _NotePointer = require('./NotePointer');
 
 var _NotePointer2 = _interopRequireDefault(_NotePointer);
 
-var _CitationContainer = require('./CitationContainer');
+var _InlineAssetWrapper = require('./InlineAssetWrapper');
 
-var _CitationContainer2 = _interopRequireDefault(_CitationContainer);
+var _InlineAssetWrapper2 = _interopRequireDefault(_InlineAssetWrapper);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -247,7 +247,7 @@ var renderers = {
     INLINE_ASSET: function INLINE_ASSET(children, data, _ref16) {
       var key = _ref16.key;
 
-      return _react2.default.createElement(_CitationContainer2.default, { data: data, key: key });
+      return _react2.default.createElement(_InlineAssetWrapper2.default, { data: data, key: key });
     },
     NOTE_POINTER: function NOTE_POINTER(children, data, _ref17) {
       var key = _ref17.key;

@@ -134,7 +134,7 @@ var QuinoaStoryPlayer = function (_Component) {
 
 
 QuinoaStoryPlayer.propTypes = {
-  story: _react.PropTypes.Object
+  story: _react.PropTypes.object
 };
 
 QuinoaStoryPlayer.childContextTypes = {

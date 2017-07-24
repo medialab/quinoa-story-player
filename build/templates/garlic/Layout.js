@@ -16,9 +16,9 @@ var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _extends4 = require('babel-runtime/helpers/extends');
+var _extends5 = require('babel-runtime/helpers/extends');
 
-var _extends5 = _interopRequireDefault(_extends4);
+var _extends6 = _interopRequireDefault(_extends5);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -117,11 +117,11 @@ var PresentationLayout = function (_Component) {
 
       // check if we are in the cover of the story
       if (scrollTop < headerHeight && !_this.state.inCover) {
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
+        stateChanges = (0, _extends6.default)({}, stateChanges, {
           inCover: true
         });
       } else if (scrollTop > headerHeight && _this.state.inCover) {
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
+        stateChanges = (0, _extends6.default)({}, stateChanges, {
           inCover: false
         });
       }
@@ -154,7 +154,7 @@ var PresentationLayout = function (_Component) {
       }
       // if new fixed presentation, set it
       if (fixedPresentationId !== _this.state.fixedPresentationId) {
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
+        stateChanges = (0, _extends6.default)({}, stateChanges, {
           fixedPresentationId: fixedPresentationId,
           fixedPresentationHeight: fixedPresentationHeight
         });
@@ -164,7 +164,7 @@ var PresentationLayout = function (_Component) {
 
       if (scrollTop !== _this.state.scrollTop) {
         var toc = _this.buildTOC(_this.props.story, scrollTop);
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
+        stateChanges = (0, _extends6.default)({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
         });
@@ -200,7 +200,7 @@ var PresentationLayout = function (_Component) {
       var assets = (0, _keys2.default)(contextualizations).reduce(function (ass, id) {
         var contextualization = contextualizations[id];
         var contextualizer = contextualizers[contextualization.contextualizerId];
-        return (0, _extends5.default)({}, ass, (0, _defineProperty3.default)({}, id, (0, _extends5.default)({}, contextualization, {
+        return (0, _extends6.default)({}, ass, (0, _defineProperty3.default)({}, id, (0, _extends6.default)({}, contextualization, {
           resource: resources[contextualization.resourceId],
           contextualizer: contextualizer,
           type: contextualizer ? contextualizer.type : 'INLINE_ASSET'
@@ -219,9 +219,9 @@ var PresentationLayout = function (_Component) {
         var bibCit = bibContextualizations[key1];
         var citations = bibCit.resource.data;
         var newCitations = citations.reduce(function (final2, citation) {
-          return (0, _extends5.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
+          return (0, _extends6.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
         }, {});
-        return (0, _extends5.default)({}, finalCitations, newCitations);
+        return (0, _extends6.default)({}, finalCitations, newCitations);
       }, {});
       // build citations's citations data
       var citationInstances = bibContextualizations // Object.keys(bibContextualizations)
@@ -303,9 +303,62 @@ var PresentationLayout = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.springSystem = new _rebound.SpringSystem();
       this.spring = this.springSystem.createSpring();
       this.spring.addListener({ onSpringUpdate: this.handleSpringUpdate });
+      setTimeout(function () {
+        if (_this2.props.story) {
+          _this2.setState({
+            glossary: _this2.buildGlossary(_this2.props.story)
+          });
+        }
+      });
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.story !== nextProps.story) {
+        this.setState({
+          glossary: this.buildGlossary(nextProps.story)
+        });
+      }
+    }
+  }, {
+    key: 'buildGlossary',
+    value: function buildGlossary(story) {
+      var contextualizations = story.contextualizations,
+          contextualizers = story.contextualizers,
+          resources = story.resources;
+
+      var glossaryMentions = (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
+        var contextualizerId = contextualizations[contextualizationId].contextualizerId;
+        var contextualizer = contextualizers[contextualizerId];
+        return contextualizer && contextualizer.type === 'glossary';
+      }).map(function (contextualizationId) {
+        return (0, _extends6.default)({}, contextualizations[contextualizationId], {
+          contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
+          resource: resources[contextualizations[contextualizationId].resourceId]
+        });
+      }).reduce(function (entries, contextualization) {
+        return (0, _extends6.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
+          resource: contextualization.resource,
+          mentions: entries[contextualization.resourceId] ? entries[contextualization.resourceId].mentions.concat(contextualization) : [contextualization]
+        }));
+      }, {});
+
+      glossaryMentions = (0, _keys2.default)(glossaryMentions).map(function (id) {
+        return glossaryMentions[id];
+      }).sort(function (a, b) {
+        if (a.resource.data.name > b.resource.data.name) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+
+      return glossaryMentions;
     }
   }, {
     key: 'toggleIndex',
@@ -473,7 +526,7 @@ var PresentationLayout = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _props$story = this.props.story,
           metadata = _props$story.metadata,
@@ -485,24 +538,25 @@ var PresentationLayout = function (_Component) {
       var _state = this.state,
           inCover = _state.inCover,
           toc = _state.toc,
-          indexOpen = _state.indexOpen;
+          indexOpen = _state.indexOpen,
+          glossary = _state.glossary;
       var dimensions = this.context.dimensions;
 
 
       var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
-        _this2.globalScrollbar = scrollbar;
+        _this3.globalScrollbar = scrollbar;
       };
       var bindHeaderRef = function bindHeaderRef(header) {
-        _this2.header = header;
+        _this3.header = header;
       };
 
       var onClickToggle = function onClickToggle() {
-        return _this2.toggleIndex();
+        return _this3.toggleIndex();
       };
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
         return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)((0, _keys2.default)(sections[sectionId].notes || {}).map(function (noteId) {
-          return (0, _extends5.default)({}, sections[sectionId].notes[noteId], {
+          return (0, _extends6.default)({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++
           });
@@ -578,6 +632,38 @@ var PresentationLayout = function (_Component) {
                   onNotePointerClick: this.onNotePointerClick,
                   notesPosition: notesPosition }) : null,
                 citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, null) : null,
+                glossary && glossary.length ? _react2.default.createElement(
+                  'div',
+                  { className: 'glossary-container' },
+                  _react2.default.createElement(
+                    'h2',
+                    null,
+                    'Glossary'
+                  ),
+                  _react2.default.createElement(
+                    'ul',
+                    { className: 'glossary-mentions-container' },
+                    glossary.map(function (entry) {
+                      var entryName = entry.resource.data.name;
+                      return _react2.default.createElement(
+                        'li',
+                        { key: entry.id, id: 'glossary-entry-' + entry.resource.id },
+                        entryName,
+                        ' (',
+                        entry.mentions.map(function (mention, count) {
+                          return _react2.default.createElement(
+                            'a',
+                            { key: mention.id, href: '#glossary-mention-' + mention.id },
+                            count + 1
+                          );
+                        }).reduce(function (prev, curr) {
+                          return [prev, ', ', curr];
+                        }),
+                        ')'
+                      );
+                    })
+                  )
+                ) : null,
                 allowDisqusComments && _react2.default.createElement(_ReactDisqusWrapper2.default, {
                   shortname: 'quinoa-story-' + id,
                   identifier: 'quinoa-story-' + id,
@@ -617,7 +703,7 @@ var PresentationLayout = function (_Component) {
                     var onClick = function onClick(e) {
                       e.stopPropagation();
                       e.preventDefault();
-                      _this2.scrollToTitle(item.key);
+                      _this3.scrollToTitle(item.key);
                     };
                     return _react2.default.createElement(
                       'li',
