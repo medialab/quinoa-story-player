@@ -411,7 +411,9 @@ class GarlicLayout extends Component {
    */
   handleSpringUpdate(spring) {
     const val = spring.getCurrentValue();
-    this.globalScrollbar.scrollTop(val);
+    if (val !== undefined && this.globalScrollbar) {
+      this.globalScrollbar.scrollTop(val);
+    }
   }
 
   /**
@@ -670,14 +672,14 @@ class GarlicLayout extends Component {
             autoHide
             onUpdate={this.onScrollUpdate}
             universal>
-            <header
+            {metadata.coverImage &&<header
               onClick={this.scrollToContents}
               className="header"
               ref={bindHeaderRef}
               style={{
               backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined
             }}>
-              <div
+              {/*<div
                 className="header-content">
                 <h1>
                   {metadata.title || 'Quinoa story'}
@@ -691,16 +693,31 @@ class GarlicLayout extends Component {
                   </div>
                 : null
               }
-              </div>
-            </header>
+              </div>*/}
+            </header>}
             <section
               className="body-wrapper">
               <section className="contents-wrapper">
+                <div
+                className="header-titles">
+                  <h1>
+                    {metadata.title || 'Quinoa story'}
+                  </h1>
+                  {
+                  metadata.authors && metadata.authors.length ?
+                    <div className="authors">
+                      {
+                      metadata.authors.map(author => author).join(', ')
+                    }
+                    </div>
+                  : null
+                }
+                </div>
                 {
                 sectionsOrder.map((thatId) => (
                   <SectionLayout section={sections[thatId]} key={thatId} />
                 ))
-              }
+                }
                 {notes && notes.length ?
                   <NotesContainer
                     notes={notes}
@@ -800,7 +817,6 @@ class GarlicLayout extends Component {
                         className={'level-' + item.level + (item.active ? ' active' : '')}>
                         <a href={'#' + item.key}
                           onClick={onClick}>
-                          <span className="link-placeholder">{item.text}</span>
                           <span className="link-content">{item.text}</span>
                         </a>
                       </li>

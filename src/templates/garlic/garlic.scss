@@ -169,7 +169,19 @@ $font-stack-sans-serif: Roboto, serif;
         width: 100%;
         min-height: 100%;
         padding-top: $gutter-medium;
-        a
+
+        .contents-wrapper
+        {
+            font-size: $font-size-2;
+
+            padding-top: $gutter-medium;
+
+            @extend .absolute-fill;
+            text-rendering: optimizeLegibility;
+
+
+
+            a
         {
             outline: none;
             line-height: 1.3em;
@@ -247,19 +259,12 @@ $font-stack-sans-serif: Roboto, serif;
                 }
             }
         }
-        .contents-wrapper
-        {
-            font-size: $font-size-2;
-
-            padding-top: $gutter-medium;
-
-            @extend .absolute-fill;
-            text-rendering: optimizeLegibility;
             .section-header,
             .section-footer,
             .notes-container,
             .references,
-            .glossary-container
+            .glossary-container,
+            .header-titles
             {
                 font-size: $font-size-1;
 
@@ -369,10 +374,12 @@ $font-stack-sans-serif: Roboto, serif;
         }
         .nav
         {
-            z-index: 2;
+            z-index: 3;
 
             display: flex;
             overflow-x: hidden;
+
+            font-family: $font-stack-serif;
 
             width: $gutter-lateral-large-screens * .8;// todo: parametrize that
             padding: $gutter-medium;
@@ -383,9 +390,12 @@ $font-stack-sans-serif: Roboto, serif;
             @extend .absolute-fill;
             flex-flow: column nowrap;
             justify-content: stretch;
+            height: 100%;
             &.active
             {
                 background: $color-background;
+                  -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
+                    box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
             }
             h2
             {
@@ -535,6 +545,21 @@ $font-stack-sans-serif: Roboto, serif;
                 list-style-type: none;
             }
         }
+    }
+
+    .header-titles{
+        h1{
+            font-size: $font-size-3;
+            margin-top: 0;
+            margin-bottom: $gutter-small;
+        }
+        .authors{
+            font-size: $font-size-2;
+            opacity: .8;
+            font-style: italic;
+        }
+        margin-bottom: $gutter-large;
+
     }
     .notes-container
     {

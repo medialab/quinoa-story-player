@@ -439,7 +439,9 @@ var GarlicLayout = function (_Component) {
     key: 'handleSpringUpdate',
     value: function handleSpringUpdate(spring) {
       var val = spring.getCurrentValue();
-      this.globalScrollbar.scrollTop(val);
+      if (val !== undefined && this.globalScrollbar) {
+        this.globalScrollbar.scrollTop(val);
+      }
     }
 
 
@@ -594,33 +596,13 @@ var GarlicLayout = function (_Component) {
               autoHide: true,
               onUpdate: this.onScrollUpdate,
               universal: true },
-            _react2.default.createElement(
-              'header',
-              {
-                onClick: this.scrollToContents,
-                className: 'header',
-                ref: bindHeaderRef,
-                style: {
-                  backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined
-                } },
-              _react2.default.createElement(
-                'div',
-                {
-                  className: 'header-content' },
-                _react2.default.createElement(
-                  'h1',
-                  null,
-                  metadata.title || 'Quinoa story'
-                ),
-                metadata.authors && metadata.authors.length ? _react2.default.createElement(
-                  'div',
-                  { className: 'authors' },
-                  metadata.authors.map(function (author) {
-                    return author;
-                  }).join(', ')
-                ) : null
-              )
-            ),
+            metadata.coverImage && _react2.default.createElement('header', {
+              onClick: this.scrollToContents,
+              className: 'header',
+              ref: bindHeaderRef,
+              style: {
+                backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined
+              } }),
             _react2.default.createElement(
               'section',
               {
@@ -628,6 +610,23 @@ var GarlicLayout = function (_Component) {
               _react2.default.createElement(
                 'section',
                 { className: 'contents-wrapper' },
+                _react2.default.createElement(
+                  'div',
+                  {
+                    className: 'header-titles' },
+                  _react2.default.createElement(
+                    'h1',
+                    null,
+                    metadata.title || 'Quinoa story'
+                  ),
+                  metadata.authors && metadata.authors.length ? _react2.default.createElement(
+                    'div',
+                    { className: 'authors' },
+                    metadata.authors.map(function (author) {
+                      return author;
+                    }).join(', ')
+                  ) : null
+                ),
                 sectionsOrder.map(function (thatId) {
                   return _react2.default.createElement(_SectionLayout2.default, { section: sections[thatId], key: thatId });
                 }),
@@ -748,11 +747,6 @@ var GarlicLayout = function (_Component) {
                         'a',
                         { href: '#' + item.key,
                           onClick: onClick },
-                        _react2.default.createElement(
-                          'span',
-                          { className: 'link-placeholder' },
-                          item.text
-                        ),
                         _react2.default.createElement(
                           'span',
                           { className: 'link-content' },
