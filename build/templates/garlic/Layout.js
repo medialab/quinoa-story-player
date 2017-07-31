@@ -669,31 +669,42 @@ var GarlicLayout = function (_Component) {
               _react2.default.createElement(
                 'nav',
                 {
-                  className: 'nav',
+                  className: 'nav' + (indexOpen ? ' active' : ''),
                   style: {
                     position: inCover ? 'relative' : 'fixed',
                     left: inCover ? '' : dimensions.left,
                     top: inCover ? '' : dimensions.top
                   } },
-                _react2.default.createElement(
-                  'h2',
-                  { onClick: this.scrollToCover },
-                  metadata.title || 'Quinoa story'
-                ),
                 toc && toc.length !== undefined && toc.length > 0 && _react2.default.createElement(
                   'button',
                   {
-                    className: 'index-toggle ' + (indexOpen ? 'active' : ''),
+                    className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
                     onClick: onClickToggle },
-                  'Index'
+                  _react2.default.createElement(
+                    'span',
+                    { id: 'burger-menu', className: indexOpen || inCover ? 'open' : '' },
+                    _react2.default.createElement('span', null),
+                    _react2.default.createElement('span', null),
+                    _react2.default.createElement('span', null),
+                    _react2.default.createElement('span', null)
+                  )
                 ),
                 _react2.default.createElement(
                   'ul',
                   {
                     className: 'table-of-contents',
                     style: {
-                      maxHeight: indexOpen ? '100%' : 0
+                      maxHeight: indexOpen || inCover ? '100%' : 0
                     } },
+                  _react2.default.createElement(
+                    'li',
+                    null,
+                    _react2.default.createElement(
+                      'h2',
+                      { className: 'menu-title', onClick: this.scrollToCover },
+                      metadata.title || 'Quinoa story'
+                    )
+                  ),
                   toc && toc.map(function (item, index) {
                     var onClick = function onClick(e) {
                       e.stopPropagation();

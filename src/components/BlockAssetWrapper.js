@@ -28,7 +28,6 @@ const BlockAssetWrapper = ({
     ...contextualization,
     contextualizer: context.story.contextualizers[contextualization.contextualizerId],
     resource: context.story.resources[contextualization.resourceId],
-
   };
   const dimensions = context.dimensions;
   const fixedPresentationId = context.fixedPresentationId;

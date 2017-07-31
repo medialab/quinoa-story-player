@@ -33,7 +33,6 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
   var asset = (0, _extends3.default)({}, contextualization, {
     contextualizer: context.story.contextualizers[contextualization.contextualizerId],
     resource: context.story.resources[contextualization.resourceId]
-
   });
   var dimensions = context.dimensions;
   var fixedPresentationId = context.fixedPresentationId;

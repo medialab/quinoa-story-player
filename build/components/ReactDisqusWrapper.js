@@ -50,8 +50,8 @@ var ReactDisqusWrapper = function (_Component) {
     key: 'shouldComponentUpdate',
 
 
-    value: function shouldComponentUpdate() {
-      return false;
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.identifier !== nextProps.identifier;
     }
 
 

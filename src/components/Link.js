@@ -16,7 +16,10 @@ import PropTypes from 'prop-types';
 const Link = ({
   to,
   children
-}) => <a href={to} target="blank">{children}</a>;
+}) => <a href={to} target="blank">
+  <span className="link-placeholder">{children}</span>
+  <span className="link-content">{children}</span>
+</a>;
 
 /**
  * Component's properties types

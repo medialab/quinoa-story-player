@@ -20,7 +20,16 @@ var Link = function Link(_ref) {
   return _react2.default.createElement(
     'a',
     { href: to, target: 'blank' },
-    children
+    _react2.default.createElement(
+      'span',
+      { className: 'link-placeholder' },
+      children
+    ),
+    _react2.default.createElement(
+      'span',
+      { className: 'link-content' },
+      children
+    )
   );
 };
 

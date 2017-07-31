@@ -52,6 +52,9 @@ var SectionLayout = function (_Component) {
       };
     };
 
+    _this.state = {
+      dimensions: undefined
+    };
     return _this;
   }
 
@@ -65,6 +68,7 @@ var SectionLayout = function (_Component) {
           section = _props$section === undefined ? {} : _props$section;
       var contents = section.contents,
           metadata = section.metadata;
+
 
       return _react2.default.createElement(
         'section',
@@ -90,9 +94,12 @@ var SectionLayout = function (_Component) {
     }
   }]);
   return SectionLayout;
-}(_react.Component);
+}(_react.Component); 
 
 
+SectionLayout.contextTypes = {
+  dimensions: _propTypes2.default.object
+};
 
 SectionLayout.propTypes = {
   section: _propTypes2.default.shape({

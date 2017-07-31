@@ -252,8 +252,8 @@ var Renderer = function (_Component) {
 
   (0, _createClass3.default)(Renderer, [{
     key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate(nextProps) {
-      return this.props.raw !== nextProps.raw;
+    value: function shouldComponentUpdate() {
+      return true; 
     }
 
 

@@ -91,8 +91,8 @@ class Renderer extends Component {
    * @param {object} nextProps - the future properties of the component
    * @return {boolean} shouldUpdate - yes or no
    */
-  shouldComponentUpdate(nextProps) {
-    return this.props.raw !== nextProps.raw;
+  shouldComponentUpdate() {
+    return true;// todo: wisely optimize here
   }
 
   /**

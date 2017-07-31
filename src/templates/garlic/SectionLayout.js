@@ -19,6 +19,10 @@ class SectionLayout extends Component {
    */
   constructor(props) {
     super(props);
+
+    this.state = {
+      dimensions: undefined
+    };
   }
   /**
    * Updates data in the context when the state or props change
@@ -42,6 +46,7 @@ class SectionLayout extends Component {
       contents,
       metadata,
     } = section;
+
     return (
       <section className="section">
         <div className="section-header">
@@ -64,6 +69,10 @@ class SectionLayout extends Component {
   }
 }
 
+SectionLayout.contextTypes = {
+  dimensions: PropTypes.object
+};
+
 /**
  * Component's properties types
  */
@@ -75,7 +84,7 @@ SectionLayout.propTypes = {
     metadata: PropTypes.object,
     contents: PropTypes.object,
     notes: PropTypes.object
-  }).isRequired
+  }).isRequired,
 };
 
 /**

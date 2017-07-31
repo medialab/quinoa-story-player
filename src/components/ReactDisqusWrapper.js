@@ -2,8 +2,6 @@
  * This module exports a statefull react disqus wrapper component
  * This wrapper is only aimed at preventing disqus thread component's rerendering
  * each time update may be needed.
- * That's way shouldComponentUpdate is always set to false so that the disqus
- * component remains stable.
  * ============
  * @module quinoa-story-player/components/ReactDisqusWrapper
  */
@@ -18,9 +16,11 @@ class ReactDisqusWrapper extends Component {
 
   /**
    * Defines whether component should be updated
+   * @param {object} nextProps - the props to come
+   * @return {boolean} shouldUpdate - whether to update
    */
-  shouldComponentUpdate() {
-    return false;
+  shouldComponentUpdate(nextProps) {
+    return this.props.identifier !== nextProps.identifier;
   }
 
   /**

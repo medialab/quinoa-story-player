@@ -103,7 +103,7 @@ class GarlicLayout extends Component {
       // callback to trigger when a presentation-player is exited
       onExit: this.onPresentationExit,
       // calback to trigger when a note content pointer is clicked
-      onNoteContentPointerClick: this.onNoteContentPointerClick
+      onNoteContentPointerClick: this.onNoteContentPointerClick,
     };
   }
   /**
@@ -741,21 +741,30 @@ class GarlicLayout extends Component {
               </section>
 
               <nav
-                className="nav"
+                className={'nav' + (indexOpen ? ' active' : '')}
                 style={{
                   position: inCover ? 'relative' : 'fixed',
                   left: inCover ? '' : dimensions.left,
                   top: inCover ? '' : dimensions.top
                 }}>
-                <h2 onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
                 {toc && toc.length !== undefined && toc.length > 0 && <button
-                  className={'index-toggle ' + (indexOpen ? 'active' : '')}
-                  onClick={onClickToggle}>Index</button>}
+                  className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
+                  onClick={onClickToggle}>
+                  <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
+                    <span />
+                    <span />
+                    <span />
+                    <span />
+                  </span>
+                  </button>}
                 <ul
                   className="table-of-contents"
                   style={{
-                  maxHeight: indexOpen ? '100%' : 0
+                  maxHeight: (indexOpen || inCover) ? '100%' : 0
                 }}>
+                  <li>
+                    <h2 className="menu-title" onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
+                  </li>
                   {
                   toc && toc.map((item, index) => {
                     const onClick = (e) => {
