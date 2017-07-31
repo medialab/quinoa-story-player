@@ -672,7 +672,7 @@ class GarlicLayout extends Component {
             autoHide
             onUpdate={this.onScrollUpdate}
             universal>
-            {metadata.coverImage &&<header
+            {metadata.coverImage && <header
               onClick={this.scrollToContents}
               className="header"
               ref={bindHeaderRef}
@@ -699,7 +699,7 @@ class GarlicLayout extends Component {
               className="body-wrapper">
               <section className="contents-wrapper">
                 <div
-                className="header-titles">
+                  className="header-titles">
                   <h1>
                     {metadata.title || 'Quinoa story'}
                   </h1>

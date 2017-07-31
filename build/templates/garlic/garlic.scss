@@ -330,6 +330,7 @@ $font-stack-sans-serif: Roboto, serif;
                         iframe
                         {
                             border: none;
+                            max-width: 100%;
                             // @extend .absolute-fill;
                         }
                         img
@@ -355,14 +356,14 @@ $font-stack-sans-serif: Roboto, serif;
                         }
                         figcaption
                         {
-                            font-size: $font-size-1;
+                            font-size: $font-size-1 * .9;
 
                             margin-right: $gutter-medium;
                             margin-left: $gutter-small;
                             padding: $gutter-medium;
                             padding-top: 0;
 
-                            opacity: .8;
+                            opacity: .7;
                             > *
                             {
                                 margin: 0;
