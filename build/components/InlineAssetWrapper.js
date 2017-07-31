@@ -43,7 +43,16 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
       case 'bib':
         return _react2.default.createElement(_CitationContainer2.default, { data: data });
       case 'glossary':
-        return _react2.default.createElement(_GlossaryMention2.default, { contextualization: contextualization, contextualizer: contextualizer, resource: resource });
+        var onGlossaryClick = function onGlossaryClick() {
+          if (typeof context.onGlossaryMentionClick === 'function') {
+            context.onGlossaryMentionClick(assetId);
+          }
+        };
+        return _react2.default.createElement(_GlossaryMention2.default, {
+          onClick: onGlossaryClick,
+          contextualization: contextualization,
+          contextualizer: contextualizer,
+          resource: resource });
       default:
         return null;
     }
@@ -59,7 +68,8 @@ InlineAssetWrapper.propTypes = {
   })
 };
 InlineAssetWrapper.contextTypes = {
-  story: _propTypes2.default.object
+  story: _propTypes2.default.object,
+  onGlossaryMentionClick: _propTypes2.default.func
 };
 
 exports.default = InlineAssetWrapper;

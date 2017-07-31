@@ -54,8 +54,9 @@ class GarlicLayout extends Component {
     this.scrollTop = this.scrollTop.bind(this);
     this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
     this.buildTOC = this.buildTOC.bind(this);
-    this.scrollToTitle = this.scrollToTitle.bind(this);
+    this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
+    this.onGlossaryMentionClick = this.onGlossaryMentionClick.bind(this);
 
     this.toggleIndex = this.toggleIndex.bind(this);
 
@@ -104,6 +105,8 @@ class GarlicLayout extends Component {
       onExit: this.onPresentationExit,
       // calback to trigger when a note content pointer is clicked
       onNoteContentPointerClick: this.onNoteContentPointerClick,
+      // callbacks when a glossary mention is clicked
+      onGlossaryMentionClick: this.onGlossaryMentionClick,
     };
   }
   /**
@@ -429,10 +432,10 @@ class GarlicLayout extends Component {
    * Handle scrolling to a specific title in the page
    * @param {string} id - the id of the item to scroll to
    */
-  scrollToTitle (id) {
+  scrollToElementId (id) {
     const title = document.getElementById(id);
     if (title) {
-      this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+      this.scrollTop(this.context.dimensions.height / 2 + title.offsetTop + title.offsetParent.offsetParent.offsetTop);
     }
   }
 
@@ -552,7 +555,7 @@ class GarlicLayout extends Component {
     const noteElId = 'note-block-pointer-' + noteId;
     const el = document.getElementById(noteElId);
     const offset = getOffset(el);
-    const top = offset.top - window.innerHeight / 2;
+    const top = offset.top - this.context.dimensions.height / 2;
     this.scrollTop(top);
   }
 
@@ -564,7 +567,7 @@ class GarlicLayout extends Component {
     const noteElId = 'note-content-pointer-' + note.id;
     const el = document.getElementById(noteElId);
     const offset = getOffset(el);
-    const top = offset.top - window.innerHeight / 2;
+    const top = offset.top - this.context.dimensions.height / 2;
     this.scrollTop(top);
   }
 
@@ -583,6 +586,11 @@ class GarlicLayout extends Component {
       const h = this.state.fixedPresentationHeight;
       this.globalScrollbar.scrollTop(top + h * 0.1);
     }
+  }
+
+  onGlossaryMentionClick(id) {
+    const target = 'glossary-mention-backlink-' + id;
+    this.scrollToElementId(target);
   }
 
   /**
@@ -628,7 +636,7 @@ class GarlicLayout extends Component {
     let noteCount = 1;
     const notes = sectionsOrder.reduce((nf, sectionId) => [
       ...nf,
-      ...Object.keys(sections[sectionId].notes || {})
+      ...sections[sectionId].notesOrder
           .map(noteId => ({
             ...sections[sectionId].notes[noteId],
             sectionId,
@@ -717,11 +725,23 @@ class GarlicLayout extends Component {
                         return (
                           <li key={index} id={'glossary-entry-' + entry.resource.id}>
                             {entryName} ({
-                                entry.mentions.map((mention, count) => (
-                                  <a key={mention.id} href={'#glossary-mention-' + mention.id}>
-                                    {count + 1}
-                                  </a>
-                                ))
+                                entry.mentions.map((mention, count) => {
+                                  const target = 'glossary-mention-' + mention.id;
+                                  const onClick = e => {
+                                    e.preventDefault();
+                                    this.scrollToElementId(target);
+                                  };
+                                  return (
+                                    <a
+                                      key={mention.id}
+                                      onClick={onClick}
+                                      id={'glossary-mention-backlink-' + mention.id}
+                                      href={'#' + target}>
+                                      <span className="link-placeholder">{count + 1}</span>
+                                      <span className="link-content">{count + 1}</span>
+                                    </a>
+                                  );
+                                })
                                 .reduce((prev, curr) => [prev, ', ', curr])
                               })
                             </li>
@@ -763,14 +783,16 @@ class GarlicLayout extends Component {
                   maxHeight: (indexOpen || inCover) ? '100%' : 0
                 }}>
                   <li>
-                    <h2 className="menu-title" onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
+                    <h2
+                      className="menu-title"
+                      onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
                   </li>
                   {
                   toc && toc.map((item, index) => {
                     const onClick = (e) => {
                       e.stopPropagation();
                       e.preventDefault();
-                      this.scrollToTitle(item.key);
+                      this.scrollToElementId(item.key);
                     };
                     return (
                       <li
@@ -778,7 +800,8 @@ class GarlicLayout extends Component {
                         className={'level-' + item.level + (item.active ? ' active' : '')}>
                         <a href={'#' + item.key}
                           onClick={onClick}>
-                          {item.text}
+                          <span className="link-placeholder">{item.text}</span>
+                          <span className="link-content">{item.text}</span>
                         </a>
                       </li>
                     );
@@ -829,6 +852,10 @@ GarlicLayout.childContextTypes = {
    * screen is exited
    */
   onExit: PropTypes.func,
+  /**
+   * Callbacks when a glossary item is clicked
+   */
+   onGlossaryMentionClick: PropTypes.func,
 };
 
 

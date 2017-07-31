@@ -18,13 +18,22 @@ const GlossaryMention = ({
   resource,
   contextualizer,
   contextualization,
+  onClick
 }) => {
   const name = contextualizer.alias || resource.data && resource.data.name;
+  const handleClick = e => {
+    e.preventDefault();
+    if (typeof onClick === 'function') {
+      onClick();
+    }
+  };
   return (<a
     id={'glossary-mention-' + contextualization.id}
     href={'#glossary-entry-' + resource.id}
+    onClick={handleClick}
     className="glossary-mention">
-    <b>{name}</b>
+    <span className="link-placeholder">{name}</span>
+    <span className="link-content">{name}</span>
   </a>);
 };
 /**

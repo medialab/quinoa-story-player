@@ -17,18 +17,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var GlossaryMention = function GlossaryMention(_ref) {
   var resource = _ref.resource,
       contextualizer = _ref.contextualizer,
-      contextualization = _ref.contextualization;
+      contextualization = _ref.contextualization,
+      onClick = _ref.onClick;
 
   var name = contextualizer.alias || resource.data && resource.data.name;
+  var handleClick = function handleClick(e) {
+    e.preventDefault();
+    if (typeof onClick === 'function') {
+      onClick();
+    }
+  };
   return _react2.default.createElement(
     'a',
     {
       id: 'glossary-mention-' + contextualization.id,
       href: '#glossary-entry-' + resource.id,
+      onClick: handleClick,
       className: 'glossary-mention' },
     _react2.default.createElement(
-      'b',
-      null,
+      'span',
+      { className: 'link-placeholder' },
+      name
+    ),
+    _react2.default.createElement(
+      'span',
+      { className: 'link-content' },
       name
     )
   );

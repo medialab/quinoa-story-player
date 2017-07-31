@@ -105,6 +105,14 @@ $font-stack-sans-serif: Roboto, serif;
     @extend .absolute-fill;
     flex-flow: column nowrap;
     align-items: stretch;
+    *::selection {
+      background: $color-secondary;
+      color: $color-background;
+    }
+    *::-moz-selection {
+      background: $color-secondary;
+      color: $color-background;
+    }
     /**
      * Nested children
      */
@@ -161,6 +169,84 @@ $font-stack-sans-serif: Roboto, serif;
         width: 100%;
         min-height: 100%;
         padding-top: $gutter-medium;
+        a
+        {
+            outline: none;
+            line-height: 1.3em;
+
+            position: relative;
+
+            text-decoration: none;
+            // color: $color-secondary;
+
+            color: $color-secondary;
+
+            @include transition(all .5s ease);
+            .link-placeholder
+            {
+                opacity: 0;
+            }
+            .link-content
+            {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            &:hover,
+            &:focus
+            {
+                color: $color-background;
+            }
+            &:before
+            {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                width: 100%;
+                height: 5px;
+
+                content: '';
+                transform: scaleX(0);
+
+                background: $color-secondary;
+                // animation: .2s forwards no-hover-v linear;
+                // animation-fill-mode: forwards;
+                // z-index: -1;
+            }
+            &:hover:before,
+            &:focus:before
+            {
+                animation: .2s forwards hover-v linear;
+
+                animation-fill-mode: forwards;
+            }
+            @keyframes hover-v
+            {
+                0%
+                {
+                    height: 5px;
+
+                    transform: scaleX(0);
+                }
+                45%
+                {
+                    height: 5px;
+
+                    transform: scaleX(1.05);
+                }
+                55%
+                {
+                    height: 5px;
+                }
+                100%
+                {
+                    height: 1.3em;
+
+                    transform: scaleX(1.05);
+                }
+            }
+        }
         .contents-wrapper
         {
             font-size: $font-size-2;
@@ -185,7 +271,7 @@ $font-stack-sans-serif: Roboto, serif;
                 > div
                 {
                     padding-bottom: $gutter-large;
-                    > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > blockquote, > pre, > figure > figcaption
+                    > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > blockquote, > pre
                     {
                         margin-right: $gutter-lateral-large-screens;
                         margin-left: $gutter-lateral-large-screens;
@@ -216,13 +302,6 @@ $font-stack-sans-serif: Roboto, serif;
                         margin-top: $gutter-medium;
                         margin-bottom: 0;
                     }
-                    figcaption
-                    {
-                        h4
-                        {
-                            margin-top: 0;
-                        }
-                    }
                     h1
                     {
                         font-size: $font-size-3;
@@ -237,11 +316,16 @@ $font-stack-sans-serif: Roboto, serif;
                         z-index: 3;
 
                         margin: 0;
+                        &.video,
+                        &.image
+                        {
+                            padding-right: $gutter-lateral-large-screens * .9;
+                            padding-left: $gutter-lateral-large-screens * .9;
+                        }
                         iframe
                         {
                             border: none;
-
-                            @extend .absolute-fill;
+                            // @extend .absolute-fill;
                         }
                         img
                         {
@@ -264,60 +348,20 @@ $font-stack-sans-serif: Roboto, serif;
                             margin-right: $gutter-lateral-large-screens;
                             margin-left: $gutter-lateral-large-screens;
                         }
-                    }
-                    a
-                    {
-                        // color: $color-secondary;
-                        color: $color-secondary;
-                        text-decoration: none;
-                        position: relative;
-
-                        @include transition(all .5s ease);
-                        .link-placeholder{
-                            opacity: 0;
-                        }
-                        .link-content{
-                            position: absolute;
-                            left: 0;
-                            top: 0;
-                        }
-                        &:hover
+                        figcaption
                         {
-                            color: $color-background;
-                        }
-                        &:before {
-                          content: "";
-                          background: $color-secondary;
-                          position: absolute;
-                          width: 100%;
-                          height: 5px;
-                          bottom: 0;
-                          left: 0;
-                          transform: scaleX(0);
-                          // animation: .2s forwards no-hover-v linear;
-                          // animation-fill-mode: forwards;
-                          // z-index: -1;
-                        }
+                            font-size: $font-size-1;
 
-                        &:hover:before,
-                        &:focus:before {
-                          animation: .2s forwards hover-v linear;
-                          animation-fill-mode: forwards;
-                        }
-                        @keyframes hover-v {
-                          0% {
-                              transform: scaleX(0);
-                              height: 5px;
-                             }
-                          45% {   
-                              transform: scaleX(1.05);
-                              height: 5px;
-                             }
-                          55% {height: 5px;}
-                          100% {
-                              transform: scaleX(1.05);
-                              height: 1.3em;
-                             }
+                            margin-right: $gutter-medium;
+                            margin-left: $gutter-small;
+                            padding: $gutter-medium;
+                            padding-top: 0;
+
+                            opacity: .8;
+                            > *
+                            {
+                                margin: 0;
+                            }
                         }
                     }
                 }
@@ -339,7 +383,8 @@ $font-stack-sans-serif: Roboto, serif;
             @extend .absolute-fill;
             flex-flow: column nowrap;
             justify-content: stretch;
-            &.active{
+            &.active
+            {
                 background: $color-background;
             }
             h2
@@ -377,17 +422,16 @@ $font-stack-sans-serif: Roboto, serif;
     }
     .table-of-contents
     {
+        font-size: $font-size-1;
+
         overflow: auto;
 
+        margin: 0;
         padding: 0;
 
         pointer-events: all;
 
-        font-size: $font-size-1;
-
         @include transition(.5s all  ease);
-        margin: 0;
-
         li
         {
             margin: 0;
@@ -398,7 +442,6 @@ $font-stack-sans-serif: Roboto, serif;
             list-style: none;
 
             opacity: .2;// todo: parametrize that
-
 
             @include transition(all .5s ease);// todo: parametrize that
             &:hover
@@ -432,8 +475,9 @@ $font-stack-sans-serif: Roboto, serif;
             a
             {
                 text-decoration: none;
+
                 color: $color-primary;
-        
+
                 @include transition(all .5s ease);// todo: parametrize that
                 &:hover
                 {
@@ -443,13 +487,20 @@ $font-stack-sans-serif: Roboto, serif;
             &.active
             {
                 opacity: .5;// todo: parametrize that
-                a{color: $color-secondary-intent;}
+                a
+                {
+                    color: $color-secondary-intent;
+                }
             }
         }
-
         .menu-title
         {
+            -webkit-transition-delay: 1s;
+                    transition-delay: 1s;
+
             opacity: 1;
+
+            @include transition(.5s all ease);
         }
     }
     /**
@@ -478,10 +529,10 @@ $font-stack-sans-serif: Roboto, serif;
             {
                 font-size: $font-size-1;
 
+                margin-bottom: $gutter-medium;
                 padding: 0;
 
                 list-style-type: none;
-                margin-bottom: $gutter-medium;
             }
         }
     }
@@ -496,42 +547,43 @@ $font-stack-sans-serif: Roboto, serif;
     {
         position: absolute;
         top: 0;
-        left: -20%;// todo: parametrize that
+        left: -$gutter-lateral-large-screens * .9;
 
-        width: 18%;// todo: parametrize that
+        width: $gutter-lateral-large-screens * .7;
     }
     .note-item
     {
+        font-size: $font-size-1;
+
         position: relative;
 
         overflow: visible;
 
-        list-style-type: none;
-    
-        font-size: $font-size-1;
-
-        padding-bottom: $gutter-small;
-        border-bottom: 5px solid $color-secondary;
         margin-bottom: $gutter-medium;
+        padding-bottom: $gutter-small;
 
+        list-style-type: none;
+
+        border-bottom: 5px solid $color-secondary;
         p,
-        ul{
+        ul
+        {
             line-height: $font-size-1 * 2;
         }
-        
-        > div{
+        > div
+        {
             display: inline;
+
             margin-left: $gutter-small;
-            > *{
+            > *
+            {
                 display: inline;
             }
         }
     }
-
     .note-content-pointer,
     .note-block-pointer
     {
-        vertical-align: unset;
         font-size: $font-size-1;
         line-height: $font-size-1*2.5;
 
@@ -542,121 +594,126 @@ $font-stack-sans-serif: Roboto, serif;
 
         cursor: pointer;
         text-align: center;
+        vertical-align: unset;
 
+        color: $color-background;
         border-radius: 50%;// todo: parametrize that
         background: $color-secondary;
-        color: $color-background;
         &:hover
         {
             background: $color-secondary-intent;
         }
     }
-
-    .note-block-pointer
-    {
-        
-    }
     .note-content-pointer
     {
         margin-left: $gutter-small;
-
-    }
-    .glossary-mention
-    {
-        text-decoration: none;
-
-        color: inherit!important;// todo: bad!
     }
     #disqus_thread
     {
         margin-right: $gutter-lateral-large-screens;
         margin-left: $gutter-lateral-large-screens;
     }
-
     #burger-menu
     {
-     $burger-measure: $font-size-3;
-      width: $burger-measure;
-      height: $burger-measure;
-      position: relative;
-      -webkit-transform: rotate(0deg);
-      -moz-transform: rotate(0deg);
-      -o-transform: rotate(0deg);
-      transform: rotate(0deg);
-      -webkit-transition: .5s ease-in-out;
-      -moz-transition: .5s ease-in-out;
-      -o-transition: .5s ease-in-out;
-      transition: .5s ease-in-out;
-      cursor: pointer;
-      display:inline-block;
-      span{
-        display: block;
-          position: absolute;
-          height: $font-size-4/10;
-          width: 100%;
-          background: #d3531a;
-          border-radius: $burger-measure/30;
-          opacity: 1;
-          left: 0;
-          -webkit-transform: rotate(0deg);
-          -moz-transform: rotate(0deg);
-          -o-transform: rotate(0deg);
-          transform: rotate(0deg);
-          -webkit-transition: .25s ease-in-out;
-          -moz-transition: .25s ease-in-out;
-          -o-transition: .25s ease-in-out;
-          transition: .25s ease-in-out;
-          &:nth-child(1) {
-              top: 0px;
-            }
+        $burger-measure: $font-size-3;
 
-            &:nth-child(3) {
-              top: $burger-measure * .333;
-            }
+        position: relative;
 
-            &:nth-child(4) {
-              top: $burger-measure * .666;
-            }
-      }
+        display: inline-block;
 
-      &.open{
-        span{
-            &:nth-child(1) {
-              top: $burger-measure/3;
-              width: 0%;
-              left: 50%;
-            }
+        width: $burger-measure;
+        height: $burger-measure;
 
-            &:nth-child(2) {
-              -webkit-transform: rotate(45deg)translateX(25%);
-              -moz-transform: rotate(45deg)translateX(25%);
-              -o-transform: rotate(45deg)translateX(25%);
-              transform: rotate(45deg)translateX(25%);
-            }
+        cursor: pointer;
+        -webkit-transition: .5s ease-in-out;
+           -moz-transition: .5s ease-in-out;
+             -o-transition: .5s ease-in-out;
+                transition: .5s ease-in-out;
+        -webkit-transform: rotate(0deg);
+           -moz-transform: rotate(0deg);
+             -o-transform: rotate(0deg);
+                transform: rotate(0deg);
 
-            &:nth-child(3) {
-              -webkit-transform: rotate(-45deg);
-              -moz-transform: rotate(-45deg)translateX(25%);
-              -o-transform: rotate(-45deg)translateX(25%);
-              transform: rotate(-45deg)translateX(25%);
-            }
+        span
+        {
+            position: absolute;
+            left: 0;
 
-            &:nth-child(4) {
-              top: $burger-measure/3;
-              width: 0%;
-              left: 50%;
+            display: block;
+
+            width: 100%;
+            height: $font-size-4/10;
+
+            -webkit-transition: .25s ease-in-out;
+               -moz-transition: .25s ease-in-out;
+                 -o-transition: .25s ease-in-out;
+                    transition: .25s ease-in-out;
+            -webkit-transform: rotate(0deg);
+               -moz-transform: rotate(0deg);
+                 -o-transform: rotate(0deg);
+                    transform: rotate(0deg);
+
+            opacity: 1;
+            border-radius: $burger-measure/30;
+            background: #d3531a;
+            &:nth-child(1)
+            {
+                top: 0;
+            }
+            &:nth-child(3)
+            {
+                top: $burger-measure * .333;
+            }
+            &:nth-child(4)
+            {
+                top: $burger-measure * .666;
             }
         }
-      }
-    }
+        &.open
+        {
+            span
+            {
+                &:nth-child(1)
+                {
+                    top: $burger-measure/3;
+                    left: 50%;
 
+                    width: 0;
+                }
+                &:nth-child(2)
+                {
+                    -webkit-transform: rotate(45deg)translateX(25%);
+                       -moz-transform: rotate(45deg)translateX(25%);
+                         -o-transform: rotate(45deg)translateX(25%);
+                            transform: rotate(45deg)translateX(25%);
+                }
+                &:nth-child(3)
+                {
+                    -webkit-transform: rotate(-45deg);
+                       -moz-transform: rotate(-45deg)translateX(25%);
+                         -o-transform: rotate(-45deg)translateX(25%);
+                            transform: rotate(-45deg)translateX(25%);
+                }
+                &:nth-child(4)
+                {
+                    top: $burger-measure/3;
+                    left: 50%;
+
+                    width: 0;
+                }
+            }
+        }
+    }
     .references,
-    .glossary-container{
+    .glossary-container
+    {
         margin-bottom: $gutter-large;
-        h2{
+        h2
+        {
             border-bottom: 5px solid $color-secondary;
         }
-        .csl-entry{
+        .csl-entry
+        {
             margin-bottom: $gutter-medium;
         }
     }

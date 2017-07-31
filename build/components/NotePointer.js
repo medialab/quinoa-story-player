@@ -28,7 +28,7 @@ var NotePointer = function NotePointer(_ref, context) {
     if (note) {
       return _react2.default.createElement(
         'sup',
-        { onClick: onNoteContentPointerClick, className: 'note-content-pointer', id: 'note-content-pointer-' + note.id },
+        { onClick: onNoteContentPointerClick, className: 'note-content-pointer', id: 'note-content-pointer-' + noteId },
         note.order,
         children
       );

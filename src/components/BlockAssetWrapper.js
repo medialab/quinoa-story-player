@@ -41,9 +41,10 @@ const BlockAssetWrapper = ({
     // involved in displaying the embed
     return (
       <figure
+        className={asset.contextualizer.type}
         style={{
           position: 'relative',
-          minHeight: (dimensions && dimensions.height) || '10em'
+          minHeight: (asset.contextualizer.type === 'data-presentation' && dimensions && dimensions.height) || '10em'
         }}
         id={assetId}>
         <BlockAssetPlayer

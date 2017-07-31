@@ -44,9 +44,10 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
     return _react2.default.createElement(
       'figure',
       {
+        className: asset.contextualizer.type,
         style: {
           position: 'relative',
-          minHeight: dimensions && dimensions.height || '10em'
+          minHeight: asset.contextualizer.type === 'data-presentation' && dimensions && dimensions.height || '10em'
         },
         id: assetId },
       _react2.default.createElement(_BlockAssetPlayer2.default, {

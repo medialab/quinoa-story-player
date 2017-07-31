@@ -230,7 +230,7 @@ var GarlicLayout = function (_Component) {
       var noteElId = 'note-content-pointer-' + note.id;
       var el = document.getElementById(noteElId);
       var offset = getOffset(el);
-      var top = offset.top - window.innerHeight / 2;
+      var top = offset.top - _this.context.dimensions.height / 2;
       _this.scrollTop(top);
     };
 
@@ -240,8 +240,9 @@ var GarlicLayout = function (_Component) {
     _this.scrollTop = _this.scrollTop.bind(_this);
     _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 30);
     _this.buildTOC = _this.buildTOC.bind(_this);
-    _this.scrollToTitle = _this.scrollToTitle.bind(_this);
+    _this.scrollToElementId = _this.scrollToElementId.bind(_this);
     _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_this);
+    _this.onGlossaryMentionClick = _this.onGlossaryMentionClick.bind(_this);
 
     _this.toggleIndex = _this.toggleIndex.bind(_this);
 
@@ -267,7 +268,8 @@ var GarlicLayout = function (_Component) {
       return {
         fixedPresentationId: this.state.fixedPresentationId,
         onExit: this.onPresentationExit,
-        onNoteContentPointerClick: this.onNoteContentPointerClick
+        onNoteContentPointerClick: this.onNoteContentPointerClick,
+        onGlossaryMentionClick: this.onGlossaryMentionClick
       };
     }
 
@@ -454,11 +456,11 @@ var GarlicLayout = function (_Component) {
 
 
   }, {
-    key: 'scrollToTitle',
-    value: function scrollToTitle(id) {
+    key: 'scrollToElementId',
+    value: function scrollToElementId(id) {
       var title = document.getElementById(id);
       if (title) {
-        this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+        this.scrollTop(this.context.dimensions.height / 2 + title.offsetTop + title.offsetParent.offsetParent.offsetTop);
       }
     }
 
@@ -493,7 +495,7 @@ var GarlicLayout = function (_Component) {
       var noteElId = 'note-block-pointer-' + noteId;
       var el = document.getElementById(noteElId);
       var offset = getOffset(el);
-      var top = offset.top - window.innerHeight / 2;
+      var top = offset.top - this.context.dimensions.height / 2;
       this.scrollTop(top);
     }
 
@@ -511,6 +513,12 @@ var GarlicLayout = function (_Component) {
           var h = this.state.fixedPresentationHeight;
           this.globalScrollbar.scrollTop(top + h * 0.1);
         }
+    }
+  }, {
+    key: 'onGlossaryMentionClick',
+    value: function onGlossaryMentionClick(id) {
+      var target = 'glossary-mention-backlink-' + id;
+      this.scrollToElementId(target);
     }
 
 
@@ -548,7 +556,7 @@ var GarlicLayout = function (_Component) {
       var customCss = settings.css || '';
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
-        return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)((0, _keys2.default)(sections[sectionId].notes || {}).map(function (noteId) {
+        return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)(sections[sectionId].notesOrder.map(function (noteId) {
           return (0, _extends6.default)({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++
@@ -647,10 +655,28 @@ var GarlicLayout = function (_Component) {
                         entryName,
                         ' (',
                         entry.mentions.map(function (mention, count) {
+                          var target = 'glossary-mention-' + mention.id;
+                          var onClick = function onClick(e) {
+                            e.preventDefault();
+                            _this3.scrollToElementId(target);
+                          };
                           return _react2.default.createElement(
                             'a',
-                            { key: mention.id, href: '#glossary-mention-' + mention.id },
-                            count + 1
+                            {
+                              key: mention.id,
+                              onClick: onClick,
+                              id: 'glossary-mention-backlink-' + mention.id,
+                              href: '#' + target },
+                            _react2.default.createElement(
+                              'span',
+                              { className: 'link-placeholder' },
+                              count + 1
+                            ),
+                            _react2.default.createElement(
+                              'span',
+                              { className: 'link-content' },
+                              count + 1
+                            )
                           );
                         }).reduce(function (prev, curr) {
                           return [prev, ', ', curr];
@@ -701,7 +727,9 @@ var GarlicLayout = function (_Component) {
                     null,
                     _react2.default.createElement(
                       'h2',
-                      { className: 'menu-title', onClick: this.scrollToCover },
+                      {
+                        className: 'menu-title',
+                        onClick: this.scrollToCover },
                       metadata.title || 'Quinoa story'
                     )
                   ),
@@ -709,7 +737,7 @@ var GarlicLayout = function (_Component) {
                     var onClick = function onClick(e) {
                       e.stopPropagation();
                       e.preventDefault();
-                      _this3.scrollToTitle(item.key);
+                      _this3.scrollToElementId(item.key);
                     };
                     return _react2.default.createElement(
                       'li',
@@ -720,7 +748,16 @@ var GarlicLayout = function (_Component) {
                         'a',
                         { href: '#' + item.key,
                           onClick: onClick },
-                        item.text
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'link-placeholder' },
+                          item.text
+                        ),
+                        _react2.default.createElement(
+                          'span',
+                          { className: 'link-content' },
+                          item.text
+                        )
                       )
                     );
                   })
@@ -751,7 +788,8 @@ GarlicLayout.contextTypes = {
 GarlicLayout.childContextTypes = {
   fixedPresentationId: _propTypes2.default.string,
   onNoteContentPointerClick: _propTypes2.default.func,
-  onExit: _propTypes2.default.func
+  onExit: _propTypes2.default.func,
+  onGlossaryMentionClick: _propTypes2.default.func
 };
 
 exports.default = GarlicLayout;

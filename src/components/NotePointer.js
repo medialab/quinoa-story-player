@@ -26,7 +26,7 @@ const NotePointer = ({
     const note = notes[noteId];
     if (note) {
       return (
-        <sup onClick={onNoteContentPointerClick} className="note-content-pointer" id={'note-content-pointer-' + note.id}>
+        <sup onClick={onNoteContentPointerClick} className="note-content-pointer" id={'note-content-pointer-' + noteId}>
           {note.order}
           {children}
         </sup>

@@ -37,7 +37,16 @@ const InlineAssetWrapper = ({
       case 'bib':
         return <CitationContainer data={data} />;
       case 'glossary':
-        return <GlossaryMention contextualization={contextualization} contextualizer={contextualizer} resource={resource} />;
+        const onGlossaryClick = () => {
+          if (typeof context.onGlossaryMentionClick === 'function') {
+            context.onGlossaryMentionClick(assetId);
+          }
+        };
+        return (<GlossaryMention
+          onClick={onGlossaryClick}
+          contextualization={contextualization}
+          contextualizer={contextualizer}
+          resource={resource} />);
       default:
         return null;
     }
@@ -56,13 +65,17 @@ InlineAssetWrapper.propTypes = {
     asset: PropTypes.shape({
       id: PropTypes.string
     })
-  })
+  }),
 };
 /**
  * Component's context used properties
  */
 InlineAssetWrapper.contextTypes = {
-  story: PropTypes.object
+  story: PropTypes.object,
+  /**
+   * Callbacks when a glossary mention is clicked
+   */
+  onGlossaryMentionClick: PropTypes.func,
 };
 
 export default InlineAssetWrapper;

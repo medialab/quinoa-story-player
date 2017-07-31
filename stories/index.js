@@ -29,11 +29,11 @@ const withCustomCss = {
   }
 };
 
-const withSideNotes = {
+const withFootnotes = {
   ...sidenotesExample,
   settings: {
     options: {
-      notesPosition: 'aside'      
+      notesPosition: 'foot'      
     }
   }
 };
@@ -61,12 +61,12 @@ storiesOf('Quinoa story - garlic template', module)
   ))
   .add('Footnotes story', () => (
     <Player
-      story={sidenotesExample}
+      story={withFootnotes}
     />
   ))
   .add('Sidenotes story', () => (
     <Player
-      story={withSideNotes}
+      story={sidenotesExample}
     />
   ))
   .add('With custom css', () => (
