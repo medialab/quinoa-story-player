@@ -51,6 +51,13 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
   return null;
 };
 
+InlineAssetWrapper.propTypes = {
+  data: _propTypes2.default.shape({
+    asset: _propTypes2.default.shape({
+      id: _propTypes2.default.string
+    })
+  })
+};
 InlineAssetWrapper.contextTypes = {
   story: _propTypes2.default.object
 };

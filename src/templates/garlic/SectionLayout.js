@@ -1,20 +1,39 @@
+/**
+ * This module exports a stateful section layout component
+ * for the garlic template
+ * ============
+ * @module quinoa-story-player/templates/garlic
+ */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import Renderer from '../../components/Renderer';
 
+/**
+ * SectionLayout class for building a garlic-related section react component instances
+ */
 class SectionLayout extends Component {
-
+  /**
+   * constructor
+   * @param {object} props - properties given to instance at instanciation
+   */
   constructor(props) {
     super(props);
-
   }
-
+  /**
+   * Updates data in the context when the state or props change
+   */
   getChildContext = () => {
     return {
+      // notes are provided to content note pointers through the context
       notes: this.props.section && this.props.section.notes
     };
   }
+
+  /**
+   * Renders the component
+   * @return {ReactElement} component - the component
+   */
   render() {
     const {
       section = {}
@@ -45,7 +64,27 @@ class SectionLayout extends Component {
   }
 }
 
+/**
+ * Component's properties types
+ */
+SectionLayout.propTypes = {
+  /**
+   * The section data to render
+   */
+  section: PropTypes.shape({
+    metadata: PropTypes.object,
+    contents: PropTypes.object,
+    notes: PropTypes.object
+  }).isRequired
+};
+
+/**
+ * Component's context properties provided to children
+ */
 SectionLayout.childContextTypes = {
+  /**
+   * notes are provided to content note pointers through the context
+   */
   notes: PropTypes.object,
 };
 export default SectionLayout;

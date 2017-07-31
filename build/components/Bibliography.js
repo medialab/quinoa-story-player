@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _objectDestructuringEmpty2 = require('babel-runtime/helpers/objectDestructuringEmpty');
-
-var _objectDestructuringEmpty3 = _interopRequireDefault(_objectDestructuringEmpty2);
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -18,9 +14,9 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Bib = function Bib(_ref, _ref2) {
-  var bibliography = _ref2.bibliography;
-  (0, _objectDestructuringEmpty3.default)(_ref);
+
+var BibliographyWrapper = function BibliographyWrapper(unusedProps, _ref) {
+  var bibliography = _ref.bibliography;
 
   return _react2.default.createElement(
     'section',
@@ -37,9 +33,9 @@ var Bib = function Bib(_ref, _ref2) {
     )
   );
 };
-
-Bib.contextTypes = {
-  bibliography: _propTypes2.default.object
+BibliographyWrapper.propTypes = {};
+BibliographyWrapper.contextTypes = {
+  bibliography: _propTypes2.default.array
 };
 
-exports.default = Bib;
+exports.default = BibliographyWrapper;

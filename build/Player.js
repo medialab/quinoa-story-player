@@ -47,9 +47,9 @@ var QuinoaStoryPlayer = function (_Component) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (QuinoaStoryPlayer.__proto__ || (0, _getPrototypeOf2.default)(QuinoaStoryPlayer)).call(this, props));
 
     _this.renderComponent = _this.renderComponent.bind(_this);
-
     var initialState = {
-      status: 'waiting'
+      status: 'waiting',
+      story: undefined
     };
 
     if (props.story) {
@@ -61,6 +61,7 @@ var QuinoaStoryPlayer = function (_Component) {
     return _this;
   }
 
+
   (0, _createClass3.default)(QuinoaStoryPlayer, [{
     key: 'getChildContext',
     value: function getChildContext() {
@@ -69,20 +70,23 @@ var QuinoaStoryPlayer = function (_Component) {
         dimensions: this.state.dimensions
       };
     }
+
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      // if (this.props.story !== nextProps.story) {
-      this.setState({
-        story: nextProps.story
-      });
-      // }
+      if (this.props.story !== nextProps.story) {
+        this.setState({
+          story: nextProps.story
+        });
+      }
     }
+
   }, {
     key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate() {
-      return true;
+    value: function shouldComponentUpdate(nextProps, nextState) {
+      return this.props.story !== nextProps.story || this.state.dimensions !== nextState.dimensions;
     }
+
   }, {
     key: 'renderComponent',
     value: function renderComponent() {
@@ -93,7 +97,7 @@ var QuinoaStoryPlayer = function (_Component) {
             return _react2.default.createElement(_Layout2.default, {
               story: this.state.story });
           default:
-            return;
+            return null;
         }
       } else if (this.status === 'error') {
         return _react2.default.createElement(
@@ -109,6 +113,7 @@ var QuinoaStoryPlayer = function (_Component) {
         );
       }
     }
+
   }, {
     key: 'render',
     value: function render() {
@@ -130,7 +135,7 @@ var QuinoaStoryPlayer = function (_Component) {
     }
   }]);
   return QuinoaStoryPlayer;
-}(_react.Component); /* eslint react/no-did-mount-set-state : 0 */
+}(_react.Component);
 
 
 QuinoaStoryPlayer.propTypes = {

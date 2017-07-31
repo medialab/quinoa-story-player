@@ -38,6 +38,11 @@ var NotePointer = function NotePointer(_ref, context) {
   return null;
 };
 
+NotePointer.propTypes = {
+  children: _propTypes2.default.array,
+  noteId: _propTypes2.default.string
+};
+
 NotePointer.contextTypes = {
   notes: _propTypes2.default.object,
   onNoteContentPointerClick: _propTypes2.default.func

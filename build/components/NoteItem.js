@@ -55,8 +55,10 @@ var NoteItem = function (_Component) {
     return _this;
   }
 
+
   (0, _createClass3.default)(NoteItem, [{
     key: 'render',
+
     value: function render() {
       var _this2 = this;
 
@@ -91,13 +93,14 @@ var NoteItem = function (_Component) {
     }
   }]);
   return NoteItem;
-}(_react.Component); /* eslint react/forbid-prop-types:0 */
+}(_react.Component);
+
 
 NoteItem.propTypes = {
   note: _propTypes2.default.object,
-  onNotePointerClick: _propTypes2.default.func
+  onNotePointerClick: _propTypes2.default.func,
+  style: _propTypes2.default.object
 };
-
 NoteItem.childContextTypes = {
   inNote: _propTypes2.default.bool
 };

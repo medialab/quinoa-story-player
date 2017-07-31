@@ -1,10 +1,13 @@
+/**
+ * This module exports a stateful garlic layout component
+ * ============
+ * @module quinoa-story-player/templates/garlic
+ */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {SpringSystem, MathUtil} from 'rebound';
-
 import {debounce} from 'lodash';
-
 import {ReferencesManager} from 'react-citeproc';
 
 import SectionLayout from './SectionLayout';
@@ -18,6 +21,13 @@ import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
 
 import './garlic.scss';
 
+/**
+ * Retrieves the absolute offset of an element
+ * (this avoids to use an additionnal lib such as jquery to handle the operation)
+ * (todo: this should be stored in a separate utils file)
+ * @param {DOMElement} el - the element to inspect
+ * @return {object} offset - the absolute offset of the element
+ */
 function getOffset(el) {
     let _x = 0;
     let _y = 0;
@@ -28,9 +38,14 @@ function getOffset(el) {
     }
     return {top: _y, left: _x};
 }
-
-class PresentationLayout extends Component {
-
+/**
+ * GarlicLayout class for building a story-player template react component instances
+ */
+class GarlicLayout extends Component {
+  /**
+   * constructor
+   * @param {object} props - properties given to instance at instanciation
+   */
   constructor(props) {
     super(props);
     this.scrollToContents = this.scrollToContents.bind(this);
@@ -45,246 +60,121 @@ class PresentationLayout extends Component {
     this.toggleIndex = this.toggleIndex.bind(this);
 
     this.onPresentationExit = this.onPresentationExit.bind(this);
-
+    /**
+     * Initial state
+     */
     this.state = {
+      /**
+       * Wether the component's scroll is on top's cover of the page
+       */
       inCover: true,
+      /**
+       * Data used for the table of content
+       */
       toc: [],
+      /**
+       * Representation of the scroll position
+       */
       scrollTop: 0,
-      indexOpen: false
+      /**
+       * Whether the index displaying the table of content is open
+       */
+      indexOpen: false,
+      /**
+       * citation-related data
+       */
+      citations: {
+        citationItems: {},
+        citationData: []
+      },
+      /**
+       * Glossary-related data
+       */
+      glossary: []
     };
   }
-
+  /**
+   * Updates data in the context when the state or props change
+   */
   getChildContext() {
     return {
+      // id of the presentation-player displayed in full screen if any
       fixedPresentationId: this.state.fixedPresentationId,
+      // callback to trigger when a presentation-player is exited
       onExit: this.onPresentationExit,
+      // calback to trigger when a note content pointer is clicked
       onNoteContentPointerClick: this.onNoteContentPointerClick
     };
   }
-
+  /**
+   * Executes code on instance after the component is mounted
+   */
   componentDidMount() {
+    // we use a spring system to handle automatic scrolls
+    // (e.g. note pointer clicked or click in the table of contents)
     this.springSystem = new SpringSystem();
     this.spring = this.springSystem.createSpring();
     this.spring.addListener({onSpringUpdate: this.handleSpringUpdate});
+    // todo: why did I have to wrap that in a setTimeout ?
     setTimeout(() => {
       if (this.props.story) {
         this.setState({
-          glossary: this.buildGlossary(this.props.story)
+          glossary: this.buildGlossary(this.props.story),
+          citations: this.buildCitations(this.props.story),
         });
       }
     });
   }
-
+  /**
+   * Executes code when component receives new properties
+   * @param {object} nextProps - the future properties of the component
+   */
   componentWillReceiveProps(nextProps) {
+    // we perform expensive operations of building glossary
+    // and citations data only when the story changes
     if (this.props.story !== nextProps.story) {
       this.setState({
-        glossary: this.buildGlossary(nextProps.story)
+        glossary: this.buildGlossary(nextProps.story),
+        citations: this.buildCitations(nextProps.story)
       });
     }
   }
 
-  buildGlossary(story) {
-    const {
-      contextualizations,
-      contextualizers,
-      resources
-    } = story;
-    let glossaryMentions = Object.keys(contextualizations)
-      .filter(contextualizationId => {
-        const contextualizerId = contextualizations[contextualizationId].contextualizerId;
-        const contextualizer = contextualizers[contextualizerId];
-        return contextualizer && contextualizer.type === 'glossary';
-      })
-      .map(contextualizationId => ({
-        ...contextualizations[contextualizationId],
-        contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
-        resource: resources[contextualizations[contextualizationId].resourceId]
-      }))
-      .reduce((entries, contextualization) => {
-        return {
-          ...entries,
-          [contextualization.resourceId]: {
-            resource: contextualization.resource,
-            mentions: entries[contextualization.resourceId]  ? 
-                        entries[contextualization.resourceId].mentions.concat(contextualization) 
-                        : [contextualization]
-          }
-        }
-      }, {});
-
-    glossaryMentions = Object.keys(glossaryMentions)
-                        .map(id => glossaryMentions[id])
-                        .sort((a, b) => {
-                          if (a.resource.data.name > b.resource.data.name) {
-                            return -1;
-                          } else {
-                            return 1;
-                          }
-                        });
-
-    return glossaryMentions;
-  }
-
-  toggleIndex(to) {
-    this.setState({
-      indexOpen: to !== undefined ? to : !this.state.indexOpen
-    });
-  }
-  scrollToContents () {
-    if (this.header) {
-      this.scrollTop(this.header.offsetHeight);
-      this.setState({
-        inCover: false,
-      });
-    }
-  }
-  scrollToCover () {
-    this.scrollTop(0);
-    this.setState({
-      inCover: true,
-    });
-  }
-
-  onPresentationExit (direction) {
-    const top = this.state.scrollTop;
-    // user is scrolling in direction of the top of the screen
-    if (direction === 'top') {
-      this.globalScrollbar.scrollTop(top - 50);
-    }
-    // user is scrolling in direction of the bottom of the screen
-    else {
-      const h = this.state.fixedPresentationHeight;
-      this.globalScrollbar.scrollTop(top + h * 0.1);
-    }
-  }
-
-  onScrollUpdate = (evt) => {
-    if (!this.header) {
-      return;
-    }
-    const scrollTop = evt.scrollTop;
-    const headerHeight = this.header.offsetHeight;
-    const presentationEls = document.getElementsByClassName('quinoa-presentation-player');
-    const presentations = [];
-    let fixedPresentationId;
-    let fixedPresentationHeight;
-    let stateChanges = {};
-
-    // check if we are in the cover of the story
-    if (scrollTop < headerHeight && !this.state.inCover) {
-      stateChanges = {
-        ...stateChanges,
-        inCover: true,
-      };
-    }
-    else if (scrollTop > headerHeight && this.state.inCover) {
-      stateChanges = {
-        ...stateChanges,
-        inCover: false,
-      };
-    }
-    // applying state changes if needed
-    if (Object.keys(stateChanges).length) {
-      this.setState(stateChanges);
-      return;
-    }
-    // check if a presentation is in "fixed" mode (user scrolls inside it)
-    for (let i = 0; i < presentationEls.length; i ++) {
-      const presentation = presentationEls[i].parentNode;
-      const id = presentation.getAttribute('id');
-      const top = presentation.offsetTop + this.header.offsetHeight;
-      const height = presentation.offsetHeight;
-      presentations.push({
-        id,
-        top,
-        height
-      });
-      // checking if this presentation deserves to be "fixed" (user scroll inside it)
-      // note : there can be more or less strict rules to define when to switch to "fixed" mode - it's a matter of ux and testing
-      if (
-        scrollTop >= top && scrollTop <= top + height * 0.4 - 5
-        // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
-        // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
-        // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
-      ) {
-        fixedPresentationId = id;
-        fixedPresentationHeight = height;
-      }
-    }
-    // if new fixed presentation, set it
-    if (fixedPresentationId !== this.state.fixedPresentationId) {
-      stateChanges = {
-        ...stateChanges,
-        fixedPresentationId,
-        fixedPresentationHeight,
-      };
-      this.setState(stateChanges);
-      return;
-    }
-
-    if (scrollTop !== this.state.scrollTop) {
-      const toc = this.buildTOC(this.props.story, scrollTop);
-      stateChanges = {
-        ...stateChanges,
-        toc,
-        scrollTop,
-      };
-    }
-
-    // applying state changes if needed
-    if (Object.keys(stateChanges).length) {
-      this.setState(stateChanges);
-    }
-  }
-
-  scrollTop(top) {
-      const scrollbars = this.globalScrollbar;
-      const scrollTop = scrollbars.getScrollTop();
-      const scrollHeight = scrollbars.getScrollHeight();
-      const val = MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
-      this.spring.setCurrentValue(scrollTop).setAtRest();
-      this.spring.setEndValue(val);
-  }
-
-  onNoteContentPointerClick(noteId) {
-    const noteElId = 'note-block-pointer-' + noteId;
-    const el = document.getElementById(noteElId);
-    const offset = getOffset(el);
-    const top = offset.top - window.innerHeight / 2;
-    this.scrollTop(top);
-  }
-
-  onNotePointerClick = (note) => {
-    const noteElId = 'note-content-pointer-' + note.id;
-    const el = document.getElementById(noteElId);
-    const offset = getOffset(el);
-    const top = offset.top - window.innerHeight / 2;
-    this.scrollTop(top);
-  }
-
+  /**
+   * Builds component-consumable table of contents data
+   * @param {object} story - the story to process
+   * @param {number} scrollTop - the position of the scroll to use for decidinng which TOC item is active
+   * @return {array} tocElements - the toc elements to use for rendering the TOC
+   */
   buildTOC (story, scrollTop) {
     return story.sectionsOrder
     .map((sectionId, sectionIndex) => {
       const section = story.sections[sectionId];
       const sectionLevel = section.metadata.level + 1;
       const content = section.contents;
+      // we retrieve all the 'header-#' blocks
+      // in the draft-js raw representation of each section
       const headers = content && content.blocks && content.blocks
       .filter(block => block.type.indexOf('header') === 0);
-
 
       let sectionActive;
       let titleOffsetTop;
       let nextTitleOffsetTop;
       let title;
+      // title of the section
       title = document.getElementById(section.id);
       if (!title) {
         return undefined;
       }
+      // we will check if scroll is in this section's part of the page height
       titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      // to do that we need the offset of the next element
       if (sectionIndex < story.sectionsOrder.length - 1) {
         const next = story.sectionsOrder[sectionIndex + 1];
         const nextTitle = document.getElementById(next);
-        nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        if (nextTitle) {
+          nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        }
       }
       if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
           (nextTitleOffsetTop === undefined ||
@@ -293,6 +183,7 @@ class PresentationLayout extends Component {
         ) {
         sectionActive = true;
       }
+      // eventually we format the headers for display
       const sectionHeader = {
         level: sectionLevel,
         text: section.metadata.title || '',
@@ -359,25 +250,13 @@ class PresentationLayout extends Component {
       .reduce((result, ar) => [...result, ...ar], []);
   }
 
-  scrollToTitle (id) {
-    const title = document.getElementById(id);
-    if (title) {
-      this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
-    }
-  }
-
-  handleSpringUpdate(spring) {
-    const val = spring.getCurrentValue();
-    this.globalScrollbar.scrollTop(val);
-  }
-
-  prepareCitations = () => {
-    const {
-      story
-    } = this.props;
-    if (!story) {
-      return;
-    }
+  /**
+   * Builds component-consumable data to represent
+   * the citations of "bib" resources being mentionned in the story
+   * @param {object} story - the story to process
+   * @return {object} citationData - the citation data to input in the reference manager
+   */
+  buildCitations = (story) => {
     const {
       contextualizations,
       contextualizers,
@@ -399,7 +278,8 @@ class PresentationLayout extends Component {
           type: contextualizer ? contextualizer.type : 'INLINE_ASSET'
         }
       };
-    }, {});    /*
+    }, {});
+    /*
      * Citations preparation
      */
     // isolate bib contextualizations
@@ -457,7 +337,9 @@ class PresentationLayout extends Component {
           ]
         ),
       []
-      // citations after
+      // citations after the current citation
+      // this is claimed to be needed by citeproc.js
+      // but it works without it so ¯\_(ツ)_/¯
       // citationInstances.slice(index)
       //   .map((oCitation) => [
       //       oCitation.citationID,
@@ -471,6 +353,252 @@ class PresentationLayout extends Component {
     };
   }
 
+  /**
+   * Builds component-consumable data to represent
+   * the glossary of "entities" resources being mentionned in the story
+   * @param {object} story - the story to process
+   * @return {array} glossaryMentions - all the glossary entries properly formatted for rendering
+   */
+  buildGlossary(story) {
+    const {
+      contextualizations,
+      contextualizers,
+      resources
+    } = story;
+    let glossaryMentions = Object.keys(contextualizations)
+      .filter(contextualizationId => {
+        const contextualizerId = contextualizations[contextualizationId].contextualizerId;
+        const contextualizer = contextualizers[contextualizerId];
+        return contextualizer && contextualizer.type === 'glossary';
+      })
+      .map(contextualizationId => ({
+        ...contextualizations[contextualizationId],
+        contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
+        resource: resources[contextualizations[contextualizationId].resourceId]
+      }))
+      .reduce((entries, contextualization) => {
+        return {
+          ...entries,
+          [contextualization.resourceId]: {
+            resource: contextualization.resource,
+            mentions: entries[contextualization.resourceId] ?
+                        entries[contextualization.resourceId].mentions.concat(contextualization)
+                        : [contextualization]
+          }
+        };
+      }, {});
+
+    glossaryMentions = Object.keys(glossaryMentions)
+                        .map(id => glossaryMentions[id])
+                        .sort((a, b) => {
+                          if (a.resource.data.name > b.resource.data.name) {
+                            return -1;
+                          }
+                          else {
+                            return 1;
+                          }
+                        });
+
+    return glossaryMentions;
+  }
+
+  /**
+   * Handles the scrolling process using the spring system
+   * @param {object} spring - the spring system instance
+   */
+  handleSpringUpdate(spring) {
+    const val = spring.getCurrentValue();
+    this.globalScrollbar.scrollTop(val);
+  }
+
+  /**
+   * Programmatically modifies the scroll state of the component
+   * so that it transitions to a specific point in the page
+   * @param {number} top - the position to scroll to
+   */
+  scrollTop(top) {
+      const scrollbars = this.globalScrollbar;
+      const scrollTop = scrollbars.getScrollTop();
+      const scrollHeight = scrollbars.getScrollHeight();
+      const val = MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
+      this.spring.setCurrentValue(scrollTop).setAtRest();
+      this.spring.setEndValue(val);
+  }
+
+  /**
+   * Handle scrolling to a specific title in the page
+   * @param {string} id - the id of the item to scroll to
+   */
+  scrollToTitle (id) {
+    const title = document.getElementById(id);
+    if (title) {
+      this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+    }
+  }
+
+  /**
+   * Updates the state when scroll is changed
+   * @param {object} evt - the scroll event to process
+   */
+  onScrollUpdate = (evt) => {
+    if (!this.header) {
+      return;
+    }
+    const scrollTop = evt.scrollTop;
+    const headerHeight = this.header.offsetHeight;
+    const presentationEls = document.getElementsByClassName('quinoa-presentation-player');
+    const presentations = [];
+    let fixedPresentationId;
+    let fixedPresentationHeight;
+    let stateChanges = {};
+
+    // check if we are in the cover of the story
+    if (scrollTop < headerHeight && !this.state.inCover) {
+      stateChanges = {
+        ...stateChanges,
+        inCover: true,
+      };
+    }
+    else if (scrollTop > headerHeight && this.state.inCover) {
+      stateChanges = {
+        ...stateChanges,
+        inCover: false,
+      };
+    }
+    // applying state changes if needed
+    if (Object.keys(stateChanges).length) {
+      this.setState(stateChanges);
+      return;
+    }
+    // check if a presentation is in "fixed" mode (user scrolls inside it)
+    for (let i = 0; i < presentationEls.length; i ++) {
+      const presentation = presentationEls[i].parentNode;
+      const id = presentation.getAttribute('id');
+      const top = presentation.offsetTop + this.header.offsetHeight;
+      const height = presentation.offsetHeight;
+      presentations.push({
+        id,
+        top,
+        height
+      });
+      // checking if this presentation deserves to be "fixed" (user scroll inside it)
+      // note : there can be more or less strict rules to define when to switch to "fixed" mode - it's a matter of ux and testing
+      if (
+        scrollTop >= top && scrollTop <= top + height * 0.4 - 5
+        // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
+        // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
+        // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
+      ) {
+        fixedPresentationId = id;
+        fixedPresentationHeight = height;
+      }
+    }
+    // if new fixed presentation, set it in state thanks to fixedPresentationId
+    if (fixedPresentationId !== this.state.fixedPresentationId) {
+      stateChanges = {
+        ...stateChanges,
+        fixedPresentationId,
+        fixedPresentationHeight,
+      };
+      this.setState(stateChanges);
+      return;
+    }
+    // if scroll has changed, update the table of contents
+    // (active element may have changed)
+    // (todo: right now we are rebuilding the toc from scratch
+    // at each update, we should split buildTOC in two functions
+    // to handle the change of active element separately, for better performances)
+    if (scrollTop !== this.state.scrollTop) {
+      const toc = this.buildTOC(this.props.story, scrollTop);
+      stateChanges = {
+        ...stateChanges,
+        toc,
+        scrollTop,
+      };
+    }
+    // applying state changes if needed
+    if (Object.keys(stateChanges).length) {
+      this.setState(stateChanges);
+    }
+  }
+
+  /**
+   * Handle scrolling to the begining of contents
+   */
+  scrollToContents () {
+    if (this.header) {
+      this.scrollTop(this.header.offsetHeight);
+      this.setState({
+        inCover: false,
+      });
+    }
+  }
+
+  /**
+   * Handle scrolling to the cover (top of the page)
+   */
+  scrollToCover () {
+    this.scrollTop(0);
+    this.setState({
+      inCover: true,
+    });
+  }
+
+  /**
+   * Handles click on a specific note pointer in the main contents (scroll to the related note)
+   * @param {string} noteId - the id of the note clicked
+   */
+  onNoteContentPointerClick(noteId) {
+    const noteElId = 'note-block-pointer-' + noteId;
+    const el = document.getElementById(noteElId);
+    const offset = getOffset(el);
+    const top = offset.top - window.innerHeight / 2;
+    this.scrollTop(top);
+  }
+
+  /**
+   * Handles click on a specific note pointer in the notes section (scroll to the related pointer)
+   * @param {object} note - the note data
+   */
+  onNotePointerClick = (note) => {
+    const noteElId = 'note-content-pointer-' + note.id;
+    const el = document.getElementById(noteElId);
+    const offset = getOffset(el);
+    const top = offset.top - window.innerHeight / 2;
+    this.scrollTop(top);
+  }
+
+  /**
+   * Handles when a full-screen presentation is exited
+   * @param {string} - the direction of the exit (top or bottom)
+   */
+  onPresentationExit (direction) {
+    const top = this.state.scrollTop;
+    // user is scrolling in direction of the top of the screen
+    if (direction === 'top') {
+      this.globalScrollbar.scrollTop(top - 50);
+    }
+    // user is scrolling in direction of the bottom of the screen
+    else {
+      const h = this.state.fixedPresentationHeight;
+      this.globalScrollbar.scrollTop(top + h * 0.1);
+    }
+  }
+
+  /**
+   * Toggles the visibility of the table of contents
+   * @param {boolean} to - whether toc should be visible
+   */
+  toggleIndex(to) {
+    this.setState({
+      indexOpen: to !== undefined ? to : !this.state.indexOpen
+    });
+  }
+
+  /**
+   * Renders the component
+   * @return {ReactElement} component - the component
+   */
   render() {
     const {
       story: {
@@ -485,20 +613,18 @@ class PresentationLayout extends Component {
       inCover,
       toc,
       indexOpen,
-      glossary
+      glossary,
+      citations,
     } = this.state;
     const {
       dimensions
     } = this.context;
 
-    const bindGlobalScrollbarRef = scrollbar => {
-      this.globalScrollbar = scrollbar;
-    };
-    const bindHeaderRef = header => {
-      this.header = header;
-    };
-
-    const onClickToggle = () => this.toggleIndex();
+    const location = window.location.href;
+    const customCss = settings.css || '';
+    /**
+     * callbacks
+     */
     let noteCount = 1;
     const notes = sectionsOrder.reduce((nf, sectionId) => [
       ...nf,
@@ -509,16 +635,20 @@ class PresentationLayout extends Component {
             finalOrder: noteCount++
           }))
     ], []);
-
-    const citations = this.prepareCitations();
-
-    const location = window.location.href;
-    const customCss = settings.css || '';
-
+    const onClickToggle = () => this.toggleIndex();
     const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
-    const allowDisqusComments = settings.options && settings.options.allowDisqusComments === 'yes' ;
+    const allowDisqusComments = settings.options && settings.options.allowDisqusComments === 'yes';
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
     const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
+    /**
+     * References binding
+     */
+    const bindGlobalScrollbarRef = scrollbar => {
+      this.globalScrollbar = scrollbar;
+    };
+    const bindHeaderRef = header => {
+      this.header = header;
+    };
     return (
       <ReferencesManager
         style={citationStyle}
@@ -570,23 +700,23 @@ class PresentationLayout extends Component {
                     notesPosition={notesPosition} />
                 : null}
                 {
-                  citations && 
-                  citations.citationItems && 
-                  Object.keys(citations.citationItems).length ? 
-                  <Bibliography /> 
+                  citations &&
+                  citations.citationItems &&
+                  Object.keys(citations.citationItems).length ?
+                    <Bibliography />
                 : null}
 
-                {glossary && 
+                {glossary &&
                   glossary.length ?
-                  <div className="glossary-container">
-                    <h2>Glossary</h2>
-                    <ul className="glossary-mentions-container">
-                     {
-                      glossary.map(entry => {
+                    <div className="glossary-container">
+                      <h2>Glossary</h2>
+                      <ul className="glossary-mentions-container">
+                        {
+                      glossary.map((entry, index) => {
                         const entryName = entry.resource.data.name;
                         return (
-                            <li key={entry.id} id={'glossary-entry-' + entry.resource.id}>
-                              {entryName} ({
+                          <li key={index} id={'glossary-entry-' + entry.resource.id}>
+                            {entryName} ({
                                 entry.mentions.map((mention, count) => (
                                   <a key={mention.id} href={'#glossary-mention-' + mention.id}>
                                     {count + 1}
@@ -595,11 +725,11 @@ class PresentationLayout extends Component {
                                 .reduce((prev, curr) => [prev, ', ', curr])
                               })
                             </li>
-                        )
+                        );
                       })
-                     } 
-                    </ul>
-                  </div>
+                     }
+                      </ul>
+                    </div>
                 : null}
 
                 {allowDisqusComments
@@ -614,10 +744,9 @@ class PresentationLayout extends Component {
                 className="nav"
                 style={{
                   position: inCover ? 'relative' : 'fixed',
-                  left: inCover ? '': dimensions.left,
-                  top: inCover ? '': dimensions.top
-                }}
-              >
+                  left: inCover ? '' : dimensions.left,
+                  top: inCover ? '' : dimensions.top
+                }}>
                 <h2 onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
                 {toc && toc.length !== undefined && toc.length > 0 && <button
                   className={'index-toggle ' + (indexOpen ? 'active' : '')}
@@ -659,16 +788,40 @@ class PresentationLayout extends Component {
   }
 }
 
-PresentationLayout.contextTypes = {
+/**
+ * Component's properties types
+ */
+GarlicLayout.propTypes = {
+  story: PropTypes.object
+};
+/**
+ * Component's context used properties
+ */
+GarlicLayout.contextTypes = {
+  /**
+   * dimensions of the container
+   */
   dimensions: PropTypes.object,
-}
-
-PresentationLayout.childContextTypes = {
+};
+/**
+ * Component's context properties provided to children
+ */
+GarlicLayout.childContextTypes = {
+  /**
+   * The presentation player to display full-screen if any
+   */
   fixedPresentationId: PropTypes.string,
+  /**
+   * Callback triggered when a note pointer is clicked
+   */
   onNoteContentPointerClick: PropTypes.func,
+  /**
+   * Callback triggered when a presentation displayed in full
+   * screen is exited
+   */
   onExit: PropTypes.func,
 };
 
 
-export default PresentationLayout;
+export default GarlicLayout;
 

@@ -55,8 +55,11 @@ var SectionLayout = function (_Component) {
     return _this;
   }
 
+
   (0, _createClass3.default)(SectionLayout, [{
     key: 'render',
+
+
     value: function render() {
       var _props$section = this.props.section,
           section = _props$section === undefined ? {} : _props$section;
@@ -88,6 +91,16 @@ var SectionLayout = function (_Component) {
   }]);
   return SectionLayout;
 }(_react.Component);
+
+
+
+SectionLayout.propTypes = {
+  section: _propTypes2.default.shape({
+    metadata: _propTypes2.default.object,
+    contents: _propTypes2.default.object,
+    notes: _propTypes2.default.object
+  }).isRequired
+};
 
 SectionLayout.childContextTypes = {
   notes: _propTypes2.default.object

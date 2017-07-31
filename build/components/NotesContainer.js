@@ -28,6 +28,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _NoteItem = require('./NoteItem');
 
 var _NoteItem2 = _interopRequireDefault(_NoteItem);
@@ -45,6 +49,7 @@ function getOffset(el) {
   return { top: _y, left: _x };
 }
 
+
 var NotesContainer = function (_Component) {
   (0, _inherits3.default)(NotesContainer, _Component);
 
@@ -61,7 +66,6 @@ var NotesContainer = function (_Component) {
         return -1;
       }).map(function (note) {
         var component = document.getElementById('note-content-pointer-' + note.id);
-        // const position = component.getBoundingClientRect();
         var position = getOffset(component);
         return {
           order: note.finalOrder,
@@ -70,24 +74,21 @@ var NotesContainer = function (_Component) {
           offsetTop: position.top
         };
       });
-      var notesStyles = {};
 
+      var notesStyles = {};
       var y = 0;
       var prevHeight = 0;
 
       for (var index = 0; index < components.length; index++) {
         var component = components[index];
         var wantedHeight = component.offsetTop;
-        // console.log(index, 'y', y, 'wantedHeight', wantedHeight);
         if (wantedHeight > y + prevHeight) {
           y = wantedHeight;
         } else {
           y = y + prevHeight + 10;
         }
-        // update prevHeight with current component
         var noteItem = _this.notes[component.noteId];
         prevHeight = noteItem.component.offsetHeight;
-        // update note styles
         notesStyles[component.noteId] = {
           top: y,
           position: 'absolute',
@@ -104,6 +105,8 @@ var NotesContainer = function (_Component) {
     return _this;
   }
 
+
+
   (0, _createClass3.default)(NotesContainer, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
@@ -112,18 +115,24 @@ var NotesContainer = function (_Component) {
       if (this.props.notesPosition === 'aside') {
         setTimeout(function () {
           _this2.updatePositions();
-        }, 1);
+        });
       }
     }
+
+
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      // if (this.props.notesPosition === 'aside') {
-      this.updatePositions();
-      // }
+      if (this.props.notesPosition !== nextProps.notesPosition && nextProps.notesPosition === 'aside') {
+        this.updatePositions();
+        setTimeout(this.updatePositions);
+      }
     }
+
+
   }, {
     key: 'render',
+
     value: function render() {
       var _this3 = this;
 
@@ -167,5 +176,13 @@ var NotesContainer = function (_Component) {
   }]);
   return NotesContainer;
 }(_react.Component);
+
+
+
+NotesContainer.propTypes = {
+  notes: _propTypes2.default.array,
+  onNotePointerClick: _propTypes2.default.func,
+  notesPosition: _propTypes2.default.oneOf(['aside', 'foot'])
+};
 
 exports.default = NotesContainer;

@@ -1,6 +1,11 @@
+/**
+ * quinoa-story-player stories definition
+ * ============
+ * each story allows to visually assess the lib's component in the browser
+ * run `npm storybook` to see them in action
+ */
 import React from 'react';
-import { storiesOf, action, linkTo } from '@kadira/storybook';
-import Welcome from './Welcome';
+import { storiesOf } from '@kadira/storybook';
 import Player from '../src/';
 
 import mockStory from './plain-story.json';
@@ -8,14 +13,13 @@ import assetsStoryShort from './story-with-assets-short.json';
 import assetsStoryLong from './story-with-assets-long.json';
 import assetsStoryDiverse from './story-with-diverse-types-of-assets.json';
 
-import peritextStory from './peritext-story.json';
 import formatsExample from './formats-example.json';
 import imageExample from './test-image.json';
 import sidenotesExample from './sidenotes-test.json';
 import lotsOfAssets from './story-with-lots-of-assets.json';
 
 const withCustomCss = {
-  ...peritextStory,
+  ...formatsExample,
   settings: {
     css: `
 .quinoa-story-player{
@@ -38,18 +42,13 @@ const withComments = {
   ...sidenotesExample,
   settings: {
     options: {
-      allowDisqusComments: true      
+      allowDisqusComments: 'yes'      
     }
   }
 };
 
 
 storiesOf('Quinoa story - garlic template', module)
-  .add('Peritext story', () => (
-    <Player
-      story={peritextStory}
-    />
-  ))
   .add('Formats story', () => (
     <Player
       story={formatsExample}

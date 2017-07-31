@@ -28,6 +28,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactDisqusThread = require('react-disqus-thread');
 
 var _reactDisqusThread2 = _interopRequireDefault(_reactDisqusThread);
@@ -44,14 +48,18 @@ var ReactDisqusWrapper = function (_Component) {
 
   (0, _createClass3.default)(ReactDisqusWrapper, [{
     key: 'shouldComponentUpdate',
+
+
     value: function shouldComponentUpdate() {
       return false;
     }
+
+
   }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
-          shortName = _props.shortName,
+          shortname = _props.shortname,
           identifier = _props.identifier,
           title = _props.title,
           url = _props.url,
@@ -65,7 +73,7 @@ var ReactDisqusWrapper = function (_Component) {
       };
 
       return _react2.default.createElement(_reactDisqusThread2.default, {
-        shortname: shortName,
+        shortname: shortname,
         identifier: identifier,
         title: title,
         url: url,
@@ -74,5 +82,15 @@ var ReactDisqusWrapper = function (_Component) {
   }]);
   return ReactDisqusWrapper;
 }(_react.Component);
+
+
+
+ReactDisqusWrapper.propTypes = {
+  shortname: _propTypes2.default.string,
+  identifier: _propTypes2.default.string,
+  title: _propTypes2.default.string,
+  url: _propTypes2.default.string,
+  onNewComment: _propTypes2.default.func
+};
 
 exports.default = ReactDisqusWrapper;

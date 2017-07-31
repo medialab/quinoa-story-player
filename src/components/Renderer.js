@@ -1,11 +1,19 @@
 /* eslint react/jsx-key : 0 */
+/**
+ * This module exports a statefull reusable draft-js raw-to-react renderer component
+ * It wrapps around the redraft engine that converts draft-s raw to a react representation,
+ * providing it specific settings and callbacks.
+ * ============
+ * @module quinoa-story-player/components/Renderer
+ */
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import redraft from 'redraft';
 import Link from './Link';
 
-import AssetWrapper from './AssetWrapper';
-import NotePointer from './NotePointer';
+import BlockAssetWrapper from './BlockAssetWrapper';
 import InlineAssetWrapper from './InlineAssetWrapper';
+import NotePointer from './NotePointer';
 
 
 // just a helper to add a <br /> after each block
@@ -32,8 +40,6 @@ const renderers = {
   blocks: {
     'unstyled': (children) => children.map(child => <p>{child}</p>),
     'blockquote': (children) => <blockquote >{addBreaklines(children)}</blockquote>,
-    // 'header-one': (children) => children.map(child => <h1>{child}</h1>),
-    // 'header-two': (children) => children.map(child => <h2>{child}</h2>),
     'header-one': (children, {keys}) => children.map((child, index) => <h1 key={index} id={keys[index]}>{child}</h1>),
     'header-two': (children, {keys}) => children.map((child, index) => <h2 key={index} id={keys[index]}>{child}</h2>),
     'header-three': (children, {keys}) => children.map((child, index) => <h3 key={index} id={keys[index]}>{child}</h3>),
@@ -49,16 +55,15 @@ const renderers = {
     // If your blocks use meta data it can also be accessed like keys
     // atomic: (children, { keys, data }) => children.map((child, i) => <Atomic key={keys[i]} {...data[i]}>{child}</Atomic>),
   },
-  // /**
-  //  * Entities receive children and the entity data
-  //  */
+  /**
+   * Entities receive children and the entity data
+   */
   entities: {
   //   // key is the entity key value from raw
     LINK: (children, data, {key}) =>
       <Link key={key} to={data.url}>{children}</Link>,
-      // <Link key={key} to={data.url}>{children}<Link/>,
     BLOCK_ASSET: (children, data, {key}) => {
-      return <AssetWrapper key={key} data={data} />;
+      return <BlockAssetWrapper key={key} data={data} />;
     },
     INLINE_ASSET: (children, data, {key}) => {
       return <InlineAssetWrapper data={data} key={key} />;
@@ -69,26 +74,48 @@ const renderers = {
   },
 };
 
+/**
+ * Renderer class for building raw-to-react rendering react component instances
+ */
 class Renderer extends Component {
-
+  /**
+   * constructor
+   * @param {object} props - properties given to instance at instanciation
+   */
   constructor (props) {
     super(props);
   }
 
-  shouldComponentUpdate() {
-    return true;
+  /**
+   * Determines whether to update the component or not
+   * @param {object} nextProps - the future properties of the component
+   * @return {boolean} shouldUpdate - yes or no
+   */
+  shouldComponentUpdate(nextProps) {
+    return this.props.raw !== nextProps.raw;
   }
+
+  /**
+   * Displays something when no suitable content state is provided to the renderer
+   * @return {ReactElement} default message
+   */
   renderWarning() {
     return <div><p>Nothing to render.</p></div>;
   }
 
+  /**
+   * Renders the component
+   * @return {ReactElement} component - the component
+   */
   render() {
-    const {raw} = this.props;
+    const {
+      raw,
+    } = this.props;
     if (!raw) {
       return this.renderWarning();
     }
     const rendered = redraft(raw, renderers);
-    // redraft returns a null if there's nothing to render
+    // redraft can return a null if there's nothing to render
     if (!rendered) {
       return this.renderWarning();
     }
@@ -100,8 +127,15 @@ class Renderer extends Component {
   }
 }
 
+/**
+ * Component's properties types
+ */
 Renderer.propTypes = {
-  // raw: PropTypes.object
+  /**
+   * Draft-js raw representation of some contents
+   * see https://draftjs.org/docs/api-reference-data-conversion.html
+   */
+  raw: PropTypes.object
 };
 
 export default Renderer;

@@ -30,8 +30,7 @@ require('react-table/react-table.css');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint react/no-danger : 0 */
-var AssetPreview = function AssetPreview(_ref, context) {
+var BlockAssetPlayer = function BlockAssetPlayer(_ref, context) {
   var type = _ref.type,
       resource = _ref.resource,
       options = _ref.options,
@@ -51,7 +50,6 @@ var AssetPreview = function AssetPreview(_ref, context) {
       });
       return _react2.default.createElement(_reactTable2.default, { data: data, columns: columns });
     case 'image':
-      // future-proofing possible externally linked images
       var src = resource.data.base64 || resource.data.src || resource.data.url;
       return _react2.default.createElement('img', { src: src });
     case 'video':
@@ -90,8 +88,16 @@ var AssetPreview = function AssetPreview(_ref, context) {
   }
 };
 
-AssetPreview.contextTypes = {
+BlockAssetPlayer.propTypes = {
+  type: _propTypes2.default.string,
+  resource: _propTypes2.default.object,
+  options: _propTypes2.default.object,
+  fixed: _propTypes2.default.bool,
+  allowInteractions: _propTypes2.default.bool,
+  onExit: _propTypes2.default.func
+};
+BlockAssetPlayer.contextTypes = {
   dimensions: _propTypes2.default.object
 };
 
-exports.default = AssetPreview;
+exports.default = BlockAssetPlayer;

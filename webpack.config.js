@@ -1,5 +1,10 @@
+/**
+ * Webpack configuration for handling the component's source code
+ */
+
 module.exports = {
   module: {
+    // file loaders definition
     loaders: [
       {
         test: /\.(jpe?g|png|gif|svg)$/i,

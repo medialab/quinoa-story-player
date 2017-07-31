@@ -12,13 +12,13 @@ var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
 var _extends5 = require('babel-runtime/helpers/extends');
 
 var _extends6 = _interopRequireDefault(_extends5);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -88,114 +88,25 @@ function getOffset(el) {
   var _x = 0;
   var _y = 0;
   while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-    _x += el.offsetLeft; // - el.scrollLeft;
-    _y += el.offsetTop; // - el.scrollTop;
+    _x += el.offsetLeft; 
+    _y += el.offsetTop; 
     el = el.offsetParent;
   }
   return { top: _y, left: _x };
 }
 
-var PresentationLayout = function (_Component) {
-  (0, _inherits3.default)(PresentationLayout, _Component);
+var GarlicLayout = function (_Component) {
+  (0, _inherits3.default)(GarlicLayout, _Component);
 
-  function PresentationLayout(props) {
-    (0, _classCallCheck3.default)(this, PresentationLayout);
+  function GarlicLayout(props) {
+    (0, _classCallCheck3.default)(this, GarlicLayout);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (PresentationLayout.__proto__ || (0, _getPrototypeOf2.default)(PresentationLayout)).call(this, props));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (GarlicLayout.__proto__ || (0, _getPrototypeOf2.default)(GarlicLayout)).call(this, props));
 
-    _this.onScrollUpdate = function (evt) {
-      if (!_this.header) {
-        return;
-      }
-      var scrollTop = evt.scrollTop;
-      var headerHeight = _this.header.offsetHeight;
-      var presentationEls = document.getElementsByClassName('quinoa-presentation-player');
-      var presentations = [];
-      var fixedPresentationId = void 0;
-      var fixedPresentationHeight = void 0;
-      var stateChanges = {};
-
-      // check if we are in the cover of the story
-      if (scrollTop < headerHeight && !_this.state.inCover) {
-        stateChanges = (0, _extends6.default)({}, stateChanges, {
-          inCover: true
-        });
-      } else if (scrollTop > headerHeight && _this.state.inCover) {
-        stateChanges = (0, _extends6.default)({}, stateChanges, {
-          inCover: false
-        });
-      }
-      // applying state changes if needed
-      if ((0, _keys2.default)(stateChanges).length) {
-        _this.setState(stateChanges);
-        return;
-      }
-      // check if a presentation is in "fixed" mode (user scrolls inside it)
-      for (var i = 0; i < presentationEls.length; i++) {
-        var presentation = presentationEls[i].parentNode;
-        var id = presentation.getAttribute('id');
-        var top = presentation.offsetTop + _this.header.offsetHeight;
-        var height = presentation.offsetHeight;
-        presentations.push({
-          id: id,
-          top: top,
-          height: height
-        });
-        // checking if this presentation deserves to be "fixed" (user scroll inside it)
-        // note : there can be more or less strict rules to define when to switch to "fixed" mode - it's a matter of ux and testing
-        if (scrollTop >= top && scrollTop <= top + height * 0.4 - 5
-        // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
-        // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
-        // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
-        ) {
-            fixedPresentationId = id;
-            fixedPresentationHeight = height;
-          }
-      }
-      // if new fixed presentation, set it
-      if (fixedPresentationId !== _this.state.fixedPresentationId) {
-        stateChanges = (0, _extends6.default)({}, stateChanges, {
-          fixedPresentationId: fixedPresentationId,
-          fixedPresentationHeight: fixedPresentationHeight
-        });
-        _this.setState(stateChanges);
-        return;
-      }
-
-      if (scrollTop !== _this.state.scrollTop) {
-        var toc = _this.buildTOC(_this.props.story, scrollTop);
-        stateChanges = (0, _extends6.default)({}, stateChanges, {
-          toc: toc,
-          scrollTop: scrollTop
-        });
-      }
-
-      // applying state changes if needed
-      if ((0, _keys2.default)(stateChanges).length) {
-        _this.setState(stateChanges);
-      }
-    };
-
-    _this.onNotePointerClick = function (note) {
-      var noteElId = 'note-content-pointer-' + note.id;
-      var el = document.getElementById(noteElId);
-      var offset = getOffset(el);
-      var top = offset.top - window.innerHeight / 2;
-      _this.scrollTop(top);
-    };
-
-    _this.prepareCitations = function () {
-      var story = _this.props.story;
-
-      if (!story) {
-        return;
-      }
+    _this.buildCitations = function (story) {
       var contextualizations = story.contextualizations,
           contextualizers = story.contextualizers,
           resources = story.resources;
-      /*
-       * Assets preparation
-       */
 
       var assets = (0, _keys2.default)(contextualizations).reduce(function (ass, id) {
         var contextualization = contextualizations[id];
@@ -205,16 +116,12 @@ var PresentationLayout = function (_Component) {
           contextualizer: contextualizer,
           type: contextualizer ? contextualizer.type : 'INLINE_ASSET'
         })));
-      }, {}); /*
-              * Citations preparation
-              */
-      // isolate bib contextualizations
+      }, {});
       var bibContextualizations = (0, _keys2.default)(assets).filter(function (assetKey) {
         return assets[assetKey].type === 'bib';
       }).map(function (assetKey) {
         return assets[assetKey];
       });
-      // build citations items data
       var citationItems = (0, _keys2.default)(bibContextualizations).reduce(function (finalCitations, key1) {
         var bibCit = bibContextualizations[key1];
         var citations = bibCit.resource.data;
@@ -223,8 +130,7 @@ var PresentationLayout = function (_Component) {
         }, {});
         return (0, _extends6.default)({}, finalCitations, newCitations);
       }, {});
-      // build citations's citations data
-      var citationInstances = bibContextualizations // Object.keys(bibContextualizations)
+      var citationInstances = bibContextualizations 
       .map(function (bibCit, index) {
         var key1 = bibCit.id;
         var contextualization = contextualizations[key1];
@@ -238,7 +144,6 @@ var PresentationLayout = function (_Component) {
               locator: contextualizer.locator,
               prefix: contextualizer.prefix,
               suffix: contextualizer.suffix,
-              // ...contextualizer,
               id: ref.id
             };
           }),
@@ -247,26 +152,86 @@ var PresentationLayout = function (_Component) {
           }
         };
       });
-      // map them to the clumsy formatting needed by citeProc
       var citationData = citationInstances.map(function (instance, index) {
         return [instance,
-        // citations before
         citationInstances.slice(0, index === 0 ? 0 : index).map(function (oCitation) {
           return [oCitation.citationID, oCitation.properties.noteIndex];
         }), []
-        // citations after
-        // citationInstances.slice(index)
-        //   .map((oCitation) => [
-        //       oCitation.citationID,
-        //       oCitation.properties.noteIndex
-        //     ]
-        //   ),
         ];
       });
       return {
         citationData: citationData,
         citationItems: citationItems
       };
+    };
+
+    _this.onScrollUpdate = function (evt) {
+      if (!_this.header) {
+        return;
+      }
+      var scrollTop = evt.scrollTop;
+      var headerHeight = _this.header.offsetHeight;
+      var presentationEls = document.getElementsByClassName('quinoa-presentation-player');
+      var presentations = [];
+      var fixedPresentationId = void 0;
+      var fixedPresentationHeight = void 0;
+      var stateChanges = {};
+
+      if (scrollTop < headerHeight && !_this.state.inCover) {
+        stateChanges = (0, _extends6.default)({}, stateChanges, {
+          inCover: true
+        });
+      } else if (scrollTop > headerHeight && _this.state.inCover) {
+        stateChanges = (0, _extends6.default)({}, stateChanges, {
+          inCover: false
+        });
+      }
+      if ((0, _keys2.default)(stateChanges).length) {
+        _this.setState(stateChanges);
+        return;
+      }
+      for (var i = 0; i < presentationEls.length; i++) {
+        var presentation = presentationEls[i].parentNode;
+        var id = presentation.getAttribute('id');
+        var top = presentation.offsetTop + _this.header.offsetHeight;
+        var height = presentation.offsetHeight;
+        presentations.push({
+          id: id,
+          top: top,
+          height: height
+        });
+        if (scrollTop >= top && scrollTop <= top + height * 0.4 - 5
+        ) {
+            fixedPresentationId = id;
+            fixedPresentationHeight = height;
+          }
+      }
+      if (fixedPresentationId !== _this.state.fixedPresentationId) {
+        stateChanges = (0, _extends6.default)({}, stateChanges, {
+          fixedPresentationId: fixedPresentationId,
+          fixedPresentationHeight: fixedPresentationHeight
+        });
+        _this.setState(stateChanges);
+        return;
+      }
+      if (scrollTop !== _this.state.scrollTop) {
+        var toc = _this.buildTOC(_this.props.story, scrollTop);
+        stateChanges = (0, _extends6.default)({}, stateChanges, {
+          toc: toc,
+          scrollTop: scrollTop
+        });
+      }
+      if ((0, _keys2.default)(stateChanges).length) {
+        _this.setState(stateChanges);
+      }
+    };
+
+    _this.onNotePointerClick = function (note) {
+      var noteElId = 'note-content-pointer-' + note.id;
+      var el = document.getElementById(noteElId);
+      var offset = getOffset(el);
+      var top = offset.top - window.innerHeight / 2;
+      _this.scrollTop(top);
     };
 
     _this.scrollToContents = _this.scrollToContents.bind(_this);
@@ -281,17 +246,22 @@ var PresentationLayout = function (_Component) {
     _this.toggleIndex = _this.toggleIndex.bind(_this);
 
     _this.onPresentationExit = _this.onPresentationExit.bind(_this);
-
     _this.state = {
       inCover: true,
       toc: [],
       scrollTop: 0,
-      indexOpen: false
+      indexOpen: false,
+      citations: {
+        citationItems: {},
+        citationData: []
+      },
+      glossary: []
     };
     return _this;
   }
 
-  (0, _createClass3.default)(PresentationLayout, [{
+
+  (0, _createClass3.default)(GarlicLayout, [{
     key: 'getChildContext',
     value: function getChildContext() {
       return {
@@ -300,6 +270,7 @@ var PresentationLayout = function (_Component) {
         onNoteContentPointerClick: this.onNoteContentPointerClick
       };
     }
+
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
@@ -311,113 +282,25 @@ var PresentationLayout = function (_Component) {
       setTimeout(function () {
         if (_this2.props.story) {
           _this2.setState({
-            glossary: _this2.buildGlossary(_this2.props.story)
+            glossary: _this2.buildGlossary(_this2.props.story),
+            citations: _this2.buildCitations(_this2.props.story)
           });
         }
       });
     }
+
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       if (this.props.story !== nextProps.story) {
         this.setState({
-          glossary: this.buildGlossary(nextProps.story)
+          glossary: this.buildGlossary(nextProps.story),
+          citations: this.buildCitations(nextProps.story)
         });
       }
     }
-  }, {
-    key: 'buildGlossary',
-    value: function buildGlossary(story) {
-      var contextualizations = story.contextualizations,
-          contextualizers = story.contextualizers,
-          resources = story.resources;
 
-      var glossaryMentions = (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
-        var contextualizerId = contextualizations[contextualizationId].contextualizerId;
-        var contextualizer = contextualizers[contextualizerId];
-        return contextualizer && contextualizer.type === 'glossary';
-      }).map(function (contextualizationId) {
-        return (0, _extends6.default)({}, contextualizations[contextualizationId], {
-          contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
-          resource: resources[contextualizations[contextualizationId].resourceId]
-        });
-      }).reduce(function (entries, contextualization) {
-        return (0, _extends6.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
-          resource: contextualization.resource,
-          mentions: entries[contextualization.resourceId] ? entries[contextualization.resourceId].mentions.concat(contextualization) : [contextualization]
-        }));
-      }, {});
 
-      glossaryMentions = (0, _keys2.default)(glossaryMentions).map(function (id) {
-        return glossaryMentions[id];
-      }).sort(function (a, b) {
-        if (a.resource.data.name > b.resource.data.name) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-
-      return glossaryMentions;
-    }
-  }, {
-    key: 'toggleIndex',
-    value: function toggleIndex(to) {
-      this.setState({
-        indexOpen: to !== undefined ? to : !this.state.indexOpen
-      });
-    }
-  }, {
-    key: 'scrollToContents',
-    value: function scrollToContents() {
-      if (this.header) {
-        this.scrollTop(this.header.offsetHeight);
-        this.setState({
-          inCover: false
-        });
-      }
-    }
-  }, {
-    key: 'scrollToCover',
-    value: function scrollToCover() {
-      this.scrollTop(0);
-      this.setState({
-        inCover: true
-      });
-    }
-  }, {
-    key: 'onPresentationExit',
-    value: function onPresentationExit(direction) {
-      var top = this.state.scrollTop;
-      // user is scrolling in direction of the top of the screen
-      if (direction === 'top') {
-        this.globalScrollbar.scrollTop(top - 50);
-      }
-      // user is scrolling in direction of the bottom of the screen
-      else {
-          var h = this.state.fixedPresentationHeight;
-          this.globalScrollbar.scrollTop(top + h * 0.1);
-        }
-    }
-  }, {
-    key: 'scrollTop',
-    value: function scrollTop(top) {
-      var scrollbars = this.globalScrollbar;
-      var scrollTop = scrollbars.getScrollTop();
-      var scrollHeight = scrollbars.getScrollHeight();
-      var val = _rebound.MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
-      this.spring.setCurrentValue(scrollTop).setAtRest();
-      this.spring.setEndValue(val);
-    }
-  }, {
-    key: 'onNoteContentPointerClick',
-    value: function onNoteContentPointerClick(noteId) {
-      var noteElId = 'note-block-pointer-' + noteId;
-      var el = document.getElementById(noteElId);
-      var offset = getOffset(el);
-      var top = offset.top - window.innerHeight / 2;
-      this.scrollTop(top);
-    }
   }, {
     key: 'buildTOC',
     value: function buildTOC(story, scrollTop) {
@@ -441,7 +324,9 @@ var PresentationLayout = function (_Component) {
         if (sectionIndex < story.sectionsOrder.length - 1) {
           var next = story.sectionsOrder[sectionIndex + 1];
           var nextTitle = document.getElementById(next);
-          nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          if (nextTitle) {
+            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          }
         }
         if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
           sectionActive = true;
@@ -483,7 +368,6 @@ var PresentationLayout = function (_Component) {
 
           title = document.getElementById(key);
           titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          // nextTitleOffsetTop;
           if (index < headers.length - 1) {
             var _next = headers[index + 1];
             var _nextTitle = document.getElementById(_next.key);
@@ -504,11 +388,71 @@ var PresentationLayout = function (_Component) {
       }).filter(function (el) {
         return el !== undefined;
       })
-      // flatten mini-tocs
       .reduce(function (result, ar) {
         return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
       }, []);
     }
+
+
+  }, {
+    key: 'buildGlossary',
+
+
+    value: function buildGlossary(story) {
+      var contextualizations = story.contextualizations,
+          contextualizers = story.contextualizers,
+          resources = story.resources;
+
+      var glossaryMentions = (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
+        var contextualizerId = contextualizations[contextualizationId].contextualizerId;
+        var contextualizer = contextualizers[contextualizerId];
+        return contextualizer && contextualizer.type === 'glossary';
+      }).map(function (contextualizationId) {
+        return (0, _extends6.default)({}, contextualizations[contextualizationId], {
+          contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
+          resource: resources[contextualizations[contextualizationId].resourceId]
+        });
+      }).reduce(function (entries, contextualization) {
+        return (0, _extends6.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
+          resource: contextualization.resource,
+          mentions: entries[contextualization.resourceId] ? entries[contextualization.resourceId].mentions.concat(contextualization) : [contextualization]
+        }));
+      }, {});
+
+      glossaryMentions = (0, _keys2.default)(glossaryMentions).map(function (id) {
+        return glossaryMentions[id];
+      }).sort(function (a, b) {
+        if (a.resource.data.name > b.resource.data.name) {
+          return -1;
+        } else {
+          return 1;
+        }
+      });
+
+      return glossaryMentions;
+    }
+
+
+  }, {
+    key: 'handleSpringUpdate',
+    value: function handleSpringUpdate(spring) {
+      var val = spring.getCurrentValue();
+      this.globalScrollbar.scrollTop(val);
+    }
+
+
+  }, {
+    key: 'scrollTop',
+    value: function scrollTop(top) {
+      var scrollbars = this.globalScrollbar;
+      var scrollTop = scrollbars.getScrollTop();
+      var scrollHeight = scrollbars.getScrollHeight();
+      var val = _rebound.MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
+      this.spring.setCurrentValue(scrollTop).setAtRest();
+      this.spring.setEndValue(val);
+    }
+
+
   }, {
     key: 'scrollToTitle',
     value: function scrollToTitle(id) {
@@ -517,12 +461,68 @@ var PresentationLayout = function (_Component) {
         this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop);
       }
     }
+
+
   }, {
-    key: 'handleSpringUpdate',
-    value: function handleSpringUpdate(spring) {
-      var val = spring.getCurrentValue();
-      this.globalScrollbar.scrollTop(val);
+    key: 'scrollToContents',
+
+
+    value: function scrollToContents() {
+      if (this.header) {
+        this.scrollTop(this.header.offsetHeight);
+        this.setState({
+          inCover: false
+        });
+      }
     }
+
+
+  }, {
+    key: 'scrollToCover',
+    value: function scrollToCover() {
+      this.scrollTop(0);
+      this.setState({
+        inCover: true
+      });
+    }
+
+
+  }, {
+    key: 'onNoteContentPointerClick',
+    value: function onNoteContentPointerClick(noteId) {
+      var noteElId = 'note-block-pointer-' + noteId;
+      var el = document.getElementById(noteElId);
+      var offset = getOffset(el);
+      var top = offset.top - window.innerHeight / 2;
+      this.scrollTop(top);
+    }
+
+
+  }, {
+    key: 'onPresentationExit',
+
+
+    value: function onPresentationExit(direction) {
+      var top = this.state.scrollTop;
+      if (direction === 'top') {
+        this.globalScrollbar.scrollTop(top - 50);
+      }
+      else {
+          var h = this.state.fixedPresentationHeight;
+          this.globalScrollbar.scrollTop(top + h * 0.1);
+        }
+    }
+
+
+  }, {
+    key: 'toggleIndex',
+    value: function toggleIndex(to) {
+      this.setState({
+        indexOpen: to !== undefined ? to : !this.state.indexOpen
+      });
+    }
+
+
   }, {
     key: 'render',
     value: function render() {
@@ -539,20 +539,13 @@ var PresentationLayout = function (_Component) {
           inCover = _state.inCover,
           toc = _state.toc,
           indexOpen = _state.indexOpen,
-          glossary = _state.glossary;
+          glossary = _state.glossary,
+          citations = _state.citations;
       var dimensions = this.context.dimensions;
 
 
-      var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
-        _this3.globalScrollbar = scrollbar;
-      };
-      var bindHeaderRef = function bindHeaderRef(header) {
-        _this3.header = header;
-      };
-
-      var onClickToggle = function onClickToggle() {
-        return _this3.toggleIndex();
-      };
+      var location = window.location.href;
+      var customCss = settings.css || '';
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
         return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)((0, _keys2.default)(sections[sectionId].notes || {}).map(function (noteId) {
@@ -562,16 +555,19 @@ var PresentationLayout = function (_Component) {
           });
         })));
       }, []);
-
-      var citations = this.prepareCitations();
-
-      var location = window.location.href;
-      var customCss = settings.css || '';
-
+      var onClickToggle = function onClickToggle() {
+        return _this3.toggleIndex();
+      };
       var notesPosition = settings.options && settings.options.notesPosition || 'foot';
       var allowDisqusComments = settings.options && settings.options.allowDisqusComments === 'yes';
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
       var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
+      var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
+        _this3.globalScrollbar = scrollbar;
+      };
+      var bindHeaderRef = function bindHeaderRef(header) {
+        _this3.header = header;
+      };
       return _react2.default.createElement(
         _reactCiteproc.ReferencesManager,
         {
@@ -643,11 +639,11 @@ var PresentationLayout = function (_Component) {
                   _react2.default.createElement(
                     'ul',
                     { className: 'glossary-mentions-container' },
-                    glossary.map(function (entry) {
+                    glossary.map(function (entry, index) {
                       var entryName = entry.resource.data.name;
                       return _react2.default.createElement(
                         'li',
-                        { key: entry.id, id: 'glossary-entry-' + entry.resource.id },
+                        { key: index, id: 'glossary-entry-' + entry.resource.id },
                         entryName,
                         ' (',
                         entry.mentions.map(function (mention, count) {
@@ -678,8 +674,7 @@ var PresentationLayout = function (_Component) {
                     position: inCover ? 'relative' : 'fixed',
                     left: inCover ? '' : dimensions.left,
                     top: inCover ? '' : dimensions.top
-                  }
-                },
+                  } },
                 _react2.default.createElement(
                   'h2',
                   { onClick: this.scrollToCover },
@@ -731,17 +726,21 @@ var PresentationLayout = function (_Component) {
       );
     }
   }]);
-  return PresentationLayout;
+  return GarlicLayout;
 }(_react.Component);
 
-PresentationLayout.contextTypes = {
+
+
+GarlicLayout.propTypes = {
+  story: _propTypes2.default.object
+};
+GarlicLayout.contextTypes = {
   dimensions: _propTypes2.default.object
 };
-
-PresentationLayout.childContextTypes = {
+GarlicLayout.childContextTypes = {
   fixedPresentationId: _propTypes2.default.string,
   onNoteContentPointerClick: _propTypes2.default.func,
   onExit: _propTypes2.default.func
 };
 
-exports.default = PresentationLayout;
+exports.default = GarlicLayout;

@@ -19,14 +19,13 @@ var GlossaryMention = function GlossaryMention(_ref) {
       contextualizer = _ref.contextualizer,
       contextualization = _ref.contextualization;
 
-  var name = contextualizer.alias || resource.data.name;
+  var name = contextualizer.alias || resource.data && resource.data.name;
   return _react2.default.createElement(
     'a',
     {
       id: 'glossary-mention-' + contextualization.id,
-      href: "#glossary-entry-" + resource.id,
-      className: 'glossary-mention'
-    },
+      href: '#glossary-entry-' + resource.id,
+      className: 'glossary-mention' },
     _react2.default.createElement(
       'b',
       null,
@@ -34,4 +33,10 @@ var GlossaryMention = function GlossaryMention(_ref) {
     )
   );
 };
+GlossaryMention.propTypes = {
+  resource: _propTypes2.default.object,
+  contextualizer: _propTypes2.default.object,
+  contextualization: _propTypes2.default.object
+};
+
 exports.default = GlossaryMention;

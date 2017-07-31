@@ -30,6 +30,7 @@
   "homepage": "https://github.com/medialab/quinoa-story-player#readme",
   "dependencies": {
     "quinoa-presentation-player": "git+https://github.com/medialab/quinoa-presentation-player.git",
+    "raw-loader": "^0.5.1",
     "react": "^15.3.2",
     "react-citeproc": "git+https://github.com/robindemourat/react-citeproc.git",
     "react-custom-scrollbars": "^4.0.0",
@@ -89,7 +90,8 @@
       "@yomguithereal/eslint-config/react"
     ],
     "rules": {
-      "react/no-set-state": 0
+      "react/no-set-state": 0,
+      "react/forbid-prop-types": 0
     }
   }
 }

@@ -1,10 +1,21 @@
+/**
+ * This module exports a stateless reusable bibliography wrapper component
+ * ============
+ * @module quinoa-story-player/components/BlockAssetPlayer
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
 
-const Bib = ({
-
-}, {
+/**
+ * Renders a block asset player as a pure component
+ * @param {object} props
+ * @param {object} context
+ * @param {array} context.bibliography - an array of strings & react elements representing each reference
+ * @return {ReactElement} component - the component
+ */
+const BibliographyWrapper = (unusedProps, {
   bibliography,
 }) => {
   return (
@@ -14,9 +25,18 @@ const Bib = ({
     </section>
   );
 };
-
-Bib.contextTypes = {
-  bibliography: PropTypes.object,
+/**
+ * Component's properties types
+ */
+BibliographyWrapper.propTypes = {};
+/**
+ * Component's context used properties
+ */
+BibliographyWrapper.contextTypes = {
+  /**
+   * Array of strings and react elements
+   */
+  bibliography: PropTypes.array,
 };
 
-export default Bib;
+export default BibliographyWrapper;

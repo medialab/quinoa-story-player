@@ -28,6 +28,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _redraft = require('redraft');
 
 var _redraft2 = _interopRequireDefault(_redraft);
@@ -36,37 +40,28 @@ var _Link = require('./Link');
 
 var _Link2 = _interopRequireDefault(_Link);
 
-var _AssetWrapper = require('./AssetWrapper');
+var _BlockAssetWrapper = require('./BlockAssetWrapper');
 
-var _AssetWrapper2 = _interopRequireDefault(_AssetWrapper);
-
-var _NotePointer = require('./NotePointer');
-
-var _NotePointer2 = _interopRequireDefault(_NotePointer);
+var _BlockAssetWrapper2 = _interopRequireDefault(_BlockAssetWrapper);
 
 var _InlineAssetWrapper = require('./InlineAssetWrapper');
 
 var _InlineAssetWrapper2 = _interopRequireDefault(_InlineAssetWrapper);
 
+var _NotePointer = require('./NotePointer');
+
+var _NotePointer2 = _interopRequireDefault(_NotePointer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// just a helper to add a <br /> after each block
-/* eslint react/jsx-key : 0 */
 var addBreaklines = function addBreaklines(children) {
   return children.map(function (child) {
     return [child, _react2.default.createElement('br', null)];
   });
 };
 
-/**
- * Define the renderers
- */
 var renderers = {
-  /**
-   * Those callbacks will be called recursively to render a nested structure
-   */
   inline: {
-    // The key passed here is just an index based on rendering order inside a block
     BOLD: function BOLD(children, _ref) {
       var key = _ref.key;
       return _react2.default.createElement(
@@ -100,10 +95,6 @@ var renderers = {
       );
     }
   },
-  /**
-   * Blocks receive children and depth
-   * Note that children are an array of blocks with same styling,
-   */
   blocks: {
     'unstyled': function unstyled(children) {
       return children.map(function (child) {
@@ -121,8 +112,6 @@ var renderers = {
         addBreaklines(children)
       );
     },
-    // 'header-one': (children) => children.map(child => <h1>{child}</h1>),
-    // 'header-two': (children) => children.map(child => <h2>{child}</h2>),
     'header-one': function headerOne(children, _ref5) {
       var keys = _ref5.keys;
       return children.map(function (child, index) {
@@ -184,7 +173,6 @@ var renderers = {
       });
     },
 
-    // You can also access the original keys of the blocks
     'code-block': function codeBlock(children, _ref11) {
       var keys = _ref11.keys;
       return _react2.default.createElement(
@@ -193,7 +181,6 @@ var renderers = {
         addBreaklines(children)
       );
     },
-    // or depth for nested lists
     'unordered-list-item': function unorderedListItem(children, _ref12) {
       var depth = _ref12.depth,
           keys = _ref12.keys;
@@ -225,11 +212,7 @@ var renderers = {
       );
     }
   },
-  // /**
-  //  * Entities receive children and the entity data
-  //  */
   entities: {
-    //   // key is the entity key value from raw
     LINK: function LINK(children, data, _ref14) {
       var key = _ref14.key;
       return _react2.default.createElement(
@@ -238,11 +221,10 @@ var renderers = {
         children
       );
     },
-    // <Link key={key} to={data.url}>{children}<Link/>,
     BLOCK_ASSET: function BLOCK_ASSET(children, data, _ref15) {
       var key = _ref15.key;
 
-      return _react2.default.createElement(_AssetWrapper2.default, { key: key, data: data });
+      return _react2.default.createElement(_BlockAssetWrapper2.default, { key: key, data: data });
     },
     INLINE_ASSET: function INLINE_ASSET(children, data, _ref16) {
       var key = _ref16.key;
@@ -257,6 +239,7 @@ var renderers = {
   }
 };
 
+
 var Renderer = function (_Component) {
   (0, _inherits3.default)(Renderer, _Component);
 
@@ -265,11 +248,15 @@ var Renderer = function (_Component) {
     return (0, _possibleConstructorReturn3.default)(this, (Renderer.__proto__ || (0, _getPrototypeOf2.default)(Renderer)).call(this, props));
   }
 
+
+
   (0, _createClass3.default)(Renderer, [{
     key: 'shouldComponentUpdate',
-    value: function shouldComponentUpdate() {
-      return true;
+    value: function shouldComponentUpdate(nextProps) {
+      return this.props.raw !== nextProps.raw;
     }
+
+
   }, {
     key: 'renderWarning',
     value: function renderWarning() {
@@ -283,6 +270,8 @@ var Renderer = function (_Component) {
         )
       );
     }
+
+
   }, {
     key: 'render',
     value: function render() {
@@ -292,7 +281,6 @@ var Renderer = function (_Component) {
         return this.renderWarning();
       }
       var rendered = (0, _redraft2.default)(raw, renderers);
-      // redraft returns a null if there's nothing to render
       if (!rendered) {
         return this.renderWarning();
       }
@@ -306,8 +294,10 @@ var Renderer = function (_Component) {
   return Renderer;
 }(_react.Component);
 
+
+
 Renderer.propTypes = {
-  // raw: PropTypes.object
+  raw: _propTypes2.default.object
 };
 
 exports.default = Renderer;

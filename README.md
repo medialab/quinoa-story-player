@@ -88,7 +88,7 @@ Creating a new template supposes to create a new folder within `src/templates/` 
 
 Example of an `info.json`:
 
-```
+```js
 {
   "id": "garlic",
   "name": "Garlic",

@@ -33,6 +33,13 @@ var CitationContainer = function CitationContainer(_ref, context) {
   }
   return null;
 };
+CitationContainer.propTypes = {
+  data: _propTypes2.default.shape({
+    asset: _propTypes2.default.shape({
+      id: _propTypes2.default.string
+    })
+  })
+};
 CitationContainer.contextTypes = {
   citations: _propTypes2.default.object
 };

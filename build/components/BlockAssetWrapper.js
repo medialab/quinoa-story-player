@@ -16,13 +16,13 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _AssetPreview = require('./AssetPreview');
+var _BlockAssetPlayer = require('./BlockAssetPlayer');
 
-var _AssetPreview2 = _interopRequireDefault(_AssetPreview);
+var _BlockAssetPlayer2 = _interopRequireDefault(_BlockAssetPlayer);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var AssetWrapper = function AssetWrapper(_ref, context) {
+var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
   var data = _ref.data;
 
   var assetId = data.asset.id;
@@ -50,7 +50,7 @@ var AssetWrapper = function AssetWrapper(_ref, context) {
           minHeight: dimensions && dimensions.height || '10em'
         },
         id: assetId },
-      _react2.default.createElement(_AssetPreview2.default, {
+      _react2.default.createElement(_BlockAssetPlayer2.default, {
         type: assetType,
         resource: resource,
         options: {
@@ -88,8 +88,14 @@ var AssetWrapper = function AssetWrapper(_ref, context) {
     return null;
   }
 };
-
-AssetWrapper.contextTypes = {
+BlockAssetWrapper.propTypes = {
+  data: _propTypes2.default.shape({
+    asset: _propTypes2.default.shape({
+      id: _propTypes2.default.string
+    })
+  })
+};
+BlockAssetWrapper.contextTypes = {
   story: _propTypes2.default.object,
   dimensions: _propTypes2.default.object,
   fixedPresentationId: _propTypes2.default.string,
@@ -97,4 +103,4 @@ AssetWrapper.contextTypes = {
   onExit: _propTypes2.default.func
 };
 
-exports.default = AssetWrapper;
+exports.default = BlockAssetWrapper;
