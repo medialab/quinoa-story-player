@@ -52,6 +52,8 @@ var _reactCustomScrollbars = require('react-custom-scrollbars');
 
 var _rebound = require('rebound');
 
+var _lodash = require('lodash');
+
 var _reactCiteproc = require('react-citeproc');
 
 var _SectionLayout = require('./SectionLayout');
@@ -81,7 +83,6 @@ var _englishLocale2 = _interopRequireDefault(_englishLocale);
 require('./garlic.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 
 function getOffset(el) {
   var _x = 0;
@@ -237,7 +238,7 @@ var GarlicLayout = function (_Component) {
     _this.scrollToCover = _this.scrollToCover.bind(_this);
     _this.handleSpringUpdate = _this.handleSpringUpdate.bind(_this);
     _this.scrollTop = _this.scrollTop.bind(_this);
-    _this.onScrollUpdate = _this.onScrollUpdate.bind(_this);
+    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 30);
     _this.buildTOC = _this.buildTOC.bind(_this);
     _this.scrollToElementId = _this.scrollToElementId.bind(_this);
     _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_this);

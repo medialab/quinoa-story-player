@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {SpringSystem, MathUtil} from 'rebound';
-// import {debounce} from 'lodash';
+import {debounce} from 'lodash';
 import {ReferencesManager} from 'react-citeproc';
 
 import SectionLayout from './SectionLayout';
@@ -52,8 +52,8 @@ class GarlicLayout extends Component {
     this.scrollToCover = this.scrollToCover.bind(this);
     this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    // this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
-    this.onScrollUpdate = this.onScrollUpdate.bind(this);
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
+    // this.onScrollUpdate = this.onScrollUpdate.bind(this);
     this.buildTOC = this.buildTOC.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
