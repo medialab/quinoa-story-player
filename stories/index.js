@@ -8,15 +8,8 @@ import React from 'react';
 import { storiesOf } from '@kadira/storybook';
 import Player from '../src/';
 
-import mockStory from './plain-story.json';
-import assetsStoryShort from './story-with-assets-short.json';
-import assetsStoryLong from './story-with-assets-long.json';
-import assetsStoryDiverse from './story-with-diverse-types-of-assets.json';
-
 import formatsExample from './formats-example.json';
-import imageExample from './test-image.json';
 import sidenotesExample from './sidenotes-test.json';
-import lotsOfAssets from './story-with-lots-of-assets.json';
 
 const withCustomCss = {
   ...formatsExample,
