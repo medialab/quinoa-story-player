@@ -778,52 +778,56 @@ class GarlicLayout extends Component {
               </section>
 
               <nav
-                className={'nav' + (indexOpen ? ' active' : '')}
+                className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
                 style={{
                   position: inCover ? 'relative' : 'fixed',
                   left: inCover ? '' : dimensions.left,
-                  top: inCover ? '' : dimensions.top
+                  top: inCover ? '' : dimensions.top,
+                  height: inCover ? '' : dimensions.height,
                 }}>
-                {toc && toc.length !== undefined && toc.length > 0 && <button
-                  className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
-                  onClick={onClickToggle}>
-                  <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                  </span>
-                  </button>}
-                <ul
-                  className="table-of-contents"
+                <div
+                  className="nav-content"
                   style={{
-                  maxHeight: (indexOpen || inCover) ? '100%' : 0
-                }}>
-                  <li>
-                    <h2
-                      className="menu-title"
-                      onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
-                  </li>
-                  {
-                  toc && toc.map((item, index) => {
-                    const onClick = (e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      this.scrollToElementId(item.key);
-                    };
-                    return (
-                      <li
-                        key={index}
-                        className={'level-' + item.level + (item.active ? ' active' : '')}>
-                        <a href={'#' + item.key}
-                          onClick={onClick}>
-                          <span className="link-content">{item.text}</span>
-                        </a>
-                      </li>
-                    );
-                  })
-                }
-                </ul>
+                      maxHeight: (indexOpen || inCover) ? '100%' : 0
+                    }}>
+                  {toc && toc.length !== undefined && toc.length > 0 && <button
+                    className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
+                    onClick={onClickToggle}>
+                    <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
+                      <span />
+                      <span />
+                      <span />
+                      <span />
+                    </span>
+                  </button>}
+                  <ul
+                    className="table-of-contents">
+                    <li>
+                      <h2
+                        className="menu-title"
+                        onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
+                    </li>
+                    {
+                      toc && toc.map((item, index) => {
+                        const onClick = (e) => {
+                          e.stopPropagation();
+                          e.preventDefault();
+                          this.scrollToElementId(item.key);
+                        };
+                        return (
+                          <li
+                            key={index}
+                            className={'level-' + item.level + (item.active ? ' active' : '')}>
+                            <a href={'#' + item.key}
+                              onClick={onClick}>
+                              <span className="link-content">{item.text}</span>
+                            </a>
+                          </li>
+                        );
+                      })
+                    }
+                  </ul>
+                </div>
               </nav>
             </section>
           </Scrollbars>

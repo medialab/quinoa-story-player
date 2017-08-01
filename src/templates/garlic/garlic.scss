@@ -24,7 +24,7 @@ $gutter-lateral-large-screens: 25%;
 
 $color-primary: #414E4D; // blued dark grey
 $color-secondary: #F32E36; // fresh red
-$color-secondary-intent: #B32E36; // bordeaux red
+$color-secondary-intent: #87240E; // bordeaux red
 $color-background: #FDFFF8; // cream
 $color-secondary-background: rgba(255,255,255,.8);// white desopacified
  // #e5e7e6;
@@ -383,8 +383,7 @@ $font-stack-sans-serif: Roboto, serif;
             font-family: $font-stack-serif;
 
             width: $gutter-lateral-large-screens * .8;// todo: parametrize that
-            padding: $gutter-medium;
-            padding-right: $gutter-small;
+            padding: 0;
 
             pointer-events: none;
 
@@ -392,11 +391,25 @@ $font-stack-sans-serif: Roboto, serif;
             flex-flow: column nowrap;
             justify-content: stretch;
             height: 100%;
+
+            .nav-content{
+                @include transition(.5s all  ease);
+                padding: $gutter-medium;
+                display: flex;
+                flex-flow: column nowrap;
+                justify-content: stretch;
+                overflow: hidden;
+                .table-of-content{
+                    flex: 1;
+                }
+            }
             &.active
             {
                 background: $color-background;
+                &.fixed {
                   -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
                     box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
+                }
             }
             h2
             {
@@ -447,8 +460,7 @@ $font-stack-sans-serif: Roboto, serif;
         {
             margin: 0;
             padding: 0;
-            padding-top: $gutter-small;
-            padding-bottom: $gutter-small;
+            padding-bottom: $gutter-medium;
 
             list-style: none;
 
@@ -590,7 +602,7 @@ $font-stack-sans-serif: Roboto, serif;
 
         list-style-type: none;
 
-        border-bottom: 5px solid $color-secondary;
+        border-bottom: $font-size-1/5 solid $color-secondary;
         p,
         ul
         {
@@ -611,7 +623,7 @@ $font-stack-sans-serif: Roboto, serif;
     .note-block-pointer
     {
         font-size: $font-size-1;
-        line-height: $font-size-1*2.5;
+        line-height: $font-size-1*2.3;
 
         display: inline-block;
 
@@ -620,7 +632,7 @@ $font-stack-sans-serif: Roboto, serif;
 
         cursor: pointer;
         text-align: center;
-        vertical-align: unset;
+        vertical-align: middle;
 
         color: $color-background;
         border-radius: 50%;// todo: parametrize that
@@ -641,7 +653,7 @@ $font-stack-sans-serif: Roboto, serif;
     }
     #burger-menu
     {
-        $burger-measure: $font-size-3;
+        $burger-measure: $font-size-2;
 
         position: relative;
 
@@ -668,7 +680,7 @@ $font-stack-sans-serif: Roboto, serif;
             display: block;
 
             width: 100%;
-            height: $font-size-4/10;
+            height: $burger-measure/5;
 
             -webkit-transition: .25s ease-in-out;
                -moz-transition: .25s ease-in-out;
@@ -681,7 +693,7 @@ $font-stack-sans-serif: Roboto, serif;
 
             opacity: 1;
             border-radius: $burger-measure/30;
-            background: #d3531a;
+            background: $color-secondary;
             &:nth-child(1)
             {
                 top: 0;
@@ -736,7 +748,7 @@ $font-stack-sans-serif: Roboto, serif;
         margin-bottom: $gutter-large;
         h2
         {
-            border-bottom: 5px solid $color-secondary;
+            border-bottom: $font-size-1/5 solid $color-secondary;
         }
         .csl-entry
         {
