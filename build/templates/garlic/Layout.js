@@ -52,8 +52,6 @@ var _reactCustomScrollbars = require('react-custom-scrollbars');
 
 var _rebound = require('rebound');
 
-var _lodash = require('lodash');
-
 var _reactCiteproc = require('react-citeproc');
 
 var _SectionLayout = require('./SectionLayout');
@@ -83,6 +81,7 @@ var _englishLocale2 = _interopRequireDefault(_englishLocale);
 require('./garlic.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 
 function getOffset(el) {
   var _x = 0;
@@ -238,7 +237,7 @@ var GarlicLayout = function (_Component) {
     _this.scrollToCover = _this.scrollToCover.bind(_this);
     _this.handleSpringUpdate = _this.handleSpringUpdate.bind(_this);
     _this.scrollTop = _this.scrollTop.bind(_this);
-    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 30);
+    _this.onScrollUpdate = _this.onScrollUpdate.bind(_this);
     _this.buildTOC = _this.buildTOC.bind(_this);
     _this.scrollToElementId = _this.scrollToElementId.bind(_this);
     _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_this);
@@ -700,7 +699,7 @@ var GarlicLayout = function (_Component) {
                     position: inCover ? 'relative' : 'fixed',
                     left: inCover ? '' : dimensions.left,
                     top: inCover ? '' : dimensions.top,
-                    height: inCover ? '' : dimensions.height
+                    height: dimensions && dimensions.height
                   } },
                 _react2.default.createElement(
                   'div',
@@ -714,7 +713,8 @@ var GarlicLayout = function (_Component) {
                     {
                       className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
                       style: {
-                        opacity: inCover ? 0 : 1
+                        opacity: inCover ? 0 : 1,
+                        maxHeight: inCover ? 0 : '3em'
                       },
                       onClick: onClickToggle },
                     _react2.default.createElement(
@@ -737,7 +737,7 @@ var GarlicLayout = function (_Component) {
                         'h2',
                         {
                           className: 'menu-title',
-                          onClick: this.scrollToCover },
+                          onClick: this.scrollToContents },
                         metadata.title || 'Quinoa story'
                       )
                     ),

@@ -50,7 +50,7 @@ class SectionLayout extends Component {
     return (
       <section className="section">
         <div className="section-header">
-           <h2 id={section.id}>{metadata.title || ''}</h2>
+          <h2 id={section.id}>{metadata.title || ''}</h2>
           {
             metadata &&
             metadata.authors &&

@@ -384,7 +384,7 @@ $font-stack-sans-serif: Roboto, serif;
 
             font-family: $font-stack-serif;
 
-            width: $gutter-lateral-large-screens * .8;// todo: parametrize that
+            width: $gutter-lateral-large-screens * .9;// todo: parametrize that
             padding: 0;
 
             pointer-events: none;
@@ -405,13 +405,15 @@ $font-stack-sans-serif: Roboto, serif;
                     flex: 1;
                 }
             }
-            &.active
-            {
+            
+            &.active,
+            &:not(.fixed){
                 background: $color-background;
-                &.fixed {
-                  -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
-                    box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
-                }
+            }
+
+            &.fixed.active{
+            -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
+                    box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);   
             }
             h2
             {

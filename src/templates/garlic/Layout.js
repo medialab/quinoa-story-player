@@ -7,7 +7,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Scrollbars} from 'react-custom-scrollbars';
 import {SpringSystem, MathUtil} from 'rebound';
-import {debounce} from 'lodash';
+// import {debounce} from 'lodash';
 import {ReferencesManager} from 'react-citeproc';
 
 import SectionLayout from './SectionLayout';
@@ -52,7 +52,8 @@ class GarlicLayout extends Component {
     this.scrollToCover = this.scrollToCover.bind(this);
     this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
+    // this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
+    this.onScrollUpdate = this.onScrollUpdate.bind(this);
     this.buildTOC = this.buildTOC.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
@@ -768,7 +769,7 @@ class GarlicLayout extends Component {
                                   position: inCover ? 'relative' : 'fixed',
                   left: inCover ? '' : dimensions.left,
                   top: inCover ? '' : dimensions.top,
-                  height: inCover ? '' : dimensions.height,
+                  height: dimensions && dimensions.height,
                 }}>
                 <div
                   className="nav-content"
@@ -778,7 +779,8 @@ class GarlicLayout extends Component {
                   <button
                     className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
                     style={{
-                      opacity: inCover ? 0 : 1
+                      opacity: inCover ? 0 : 1,
+                      maxHeight: inCover ? 0 : '3em'
                     }}
                     onClick={onClickToggle}>
                     <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
@@ -793,7 +795,7 @@ class GarlicLayout extends Component {
                     <li>
                       <h2
                         className="menu-title"
-                        onClick={this.scrollToCover}>{metadata.title || 'Quinoa story'}</h2>
+                        onClick={this.scrollToContents}>{metadata.title || 'Quinoa story'}</h2>
                     </li>
                     {
                       toc && toc.map((item, index) => {

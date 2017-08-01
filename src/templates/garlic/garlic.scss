@@ -322,8 +322,7 @@ $font-stack-sans-serif: Roboto, serif;
 
                         margin: 0;
                         
-                        // allowing to select text in sidenotes being at the same level as the figure
-                        pointer-events: none;
+                        
                         &.video,
                         &.image
                         {
@@ -334,7 +333,6 @@ $font-stack-sans-serif: Roboto, serif;
                         {
                             border: none;
                             max-width: 100%;
-                            // @extend .absolute-fill;
                         }
                         img
                         {
@@ -343,13 +341,6 @@ $font-stack-sans-serif: Roboto, serif;
 
                             max-width: 100%;
                             max-height: 100%;
-                        }
-
-                        .quinoa-presentation-player,
-                        .video,
-                        .ReactTable
-                        {
-                            pointer-events: all;
                         }
 
                         .quinoa-presentation-player
@@ -393,7 +384,7 @@ $font-stack-sans-serif: Roboto, serif;
 
             font-family: $font-stack-serif;
 
-            width: $gutter-lateral-large-screens * .8;// todo: parametrize that
+            width: $gutter-lateral-large-screens * .9;// todo: parametrize that
             padding: 0;
 
             pointer-events: none;
@@ -414,13 +405,15 @@ $font-stack-sans-serif: Roboto, serif;
                     flex: 1;
                 }
             }
-            &.active
-            {
+            
+            &.active,
+            &:not(.fixed){
                 background: $color-background;
-                &.fixed {
-                  -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
-                    box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
-                }
+            }
+
+            &.fixed.active{
+            -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
+                    box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);   
             }
             h2
             {
