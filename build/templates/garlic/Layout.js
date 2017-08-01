@@ -596,12 +596,13 @@ var GarlicLayout = function (_Component) {
               autoHide: true,
               onUpdate: this.onScrollUpdate,
               universal: true },
-            metadata.coverImage && _react2.default.createElement('header', {
+            _react2.default.createElement('header', {
               onClick: this.scrollToContents,
               className: 'header',
               ref: bindHeaderRef,
               style: {
-                backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined
+                backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined,
+                height: metadata.coverImage ? '100%' : '0'
               } }),
             _react2.default.createElement(
               'section',
@@ -708,10 +709,13 @@ var GarlicLayout = function (_Component) {
                     style: {
                       maxHeight: indexOpen || inCover ? '100%' : 0
                     } },
-                  toc && toc.length !== undefined && toc.length > 0 && _react2.default.createElement(
+                  _react2.default.createElement(
                     'button',
                     {
                       className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
+                      style: {
+                        opacity: inCover ? 0 : 1
+                      },
                       onClick: onClickToggle },
                     _react2.default.createElement(
                       'span',

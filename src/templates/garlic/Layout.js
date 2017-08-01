@@ -672,29 +672,15 @@ class GarlicLayout extends Component {
             autoHide
             onUpdate={this.onScrollUpdate}
             universal>
-            {metadata.coverImage && <header
+            <header
               onClick={this.scrollToContents}
               className="header"
               ref={bindHeaderRef}
               style={{
-              backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined
+              backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined,
+              height: metadata.coverImage ? '100%' : '0'
             }}>
-              {/*<div
-                className="header-content">
-                <h1>
-                  {metadata.title || 'Quinoa story'}
-                </h1>
-                {
-                metadata.authors && metadata.authors.length ?
-                  <div className="authors">
-                    {
-                    metadata.authors.map(author => author).join(', ')
-                  }
-                  </div>
-                : null
-              }
-              </div>*/}
-            </header>}
+            </header>
             <section
               className="body-wrapper">
               <section className="contents-wrapper">
@@ -780,7 +766,7 @@ class GarlicLayout extends Component {
               <nav
                 className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
                 style={{
-                  position: inCover ? 'relative' : 'fixed',
+                                  position: inCover ? 'relative' : 'fixed',
                   left: inCover ? '' : dimensions.left,
                   top: inCover ? '' : dimensions.top,
                   height: inCover ? '' : dimensions.height,
@@ -790,8 +776,11 @@ class GarlicLayout extends Component {
                   style={{
                       maxHeight: (indexOpen || inCover) ? '100%' : 0
                     }}>
-                  {toc && toc.length !== undefined && toc.length > 0 && <button
+                  <button
                     className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
+                    style={{
+                      opacity: inCover ? 0 : 1
+                    }}
                     onClick={onClickToggle}>
                     <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
                       <span />
@@ -799,7 +788,7 @@ class GarlicLayout extends Component {
                       <span />
                       <span />
                     </span>
-                  </button>}
+                  </button>
                   <ul
                     className="table-of-contents">
                     <li>
