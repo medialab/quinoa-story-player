@@ -808,7 +808,8 @@ class GarlicLayout extends Component {
                           <li
                             key={index}
                             className={'level-' + item.level + (item.active ? ' active' : '')}>
-                            <a href={'#' + item.key}
+                            <a
+                              href={'#' + item.key}
                               onClick={onClick}>
                               <span className="link-content">{item.text}</span>
                             </a>
