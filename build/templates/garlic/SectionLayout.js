@@ -76,10 +76,10 @@ var SectionLayout = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'section-header' },
-          metadata && metadata.title && _react2.default.createElement(
+          _react2.default.createElement(
             'h2',
             { id: section.id },
-            metadata.title
+            metadata.title || ''
           ),
           metadata && metadata.authors && metadata.authors.length > 0 && metadata.authors.map(function (author) {
             return author;

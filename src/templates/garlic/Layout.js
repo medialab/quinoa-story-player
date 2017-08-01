@@ -679,8 +679,7 @@ class GarlicLayout extends Component {
               style={{
               backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined,
               height: metadata.coverImage ? '100%' : '0'
-            }}>
-            </header>
+            }} />
             <section
               className="body-wrapper">
               <section className="contents-wrapper">
