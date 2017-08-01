@@ -73,11 +73,6 @@ storiesOf('Quinoa story - garlic template', module)
       story={withComments}
     />
   ))
-  .add('With lots of assets', () => (
-    <Player
-      story={lotsOfAssets}
-    />
-  ))
   .add('Within another page (container-relative positionning)', () => (
     <div
       style={{
