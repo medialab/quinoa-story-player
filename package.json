@@ -1,6 +1,6 @@
 {
   "name": "quinoa-story-player",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "js module and standalone app for displaying quinoa data stories",
   "main": "build/index.js",
   "scripts": {
@@ -37,6 +37,7 @@
     "react-disqus-comments": "^1.0.3",
     "react-dom": "^15.3.2",
     "react-markdown": "^2.4.2",
+    "react-measure": "^1.4.7",
     "react-media-player": "^0.6.1",
     "react-table": "^6.5.1",
     "rebound": "0.0.15",
