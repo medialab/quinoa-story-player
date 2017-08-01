@@ -462,7 +462,7 @@ var GarlicLayout = function (_Component) {
     value: function scrollToElementId(id) {
       var title = document.getElementById(id);
       if (title) {
-        this.scrollTop(this.context.dimensions.height / 2 + title.offsetTop + title.offsetParent.offsetParent.offsetTop);
+        this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop - this.context.dimensions.height / 2);
       }
     }
 
