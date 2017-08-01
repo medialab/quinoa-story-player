@@ -23,8 +23,12 @@ const withCustomCss = {
   settings: {
     css: `
 .quinoa-story-player{
-  color : red;
+  font-size : 1.5rem;
 }
+
+.quinoa-story-player h1{
+  color: brown;
+  }
 `
   }
 };
@@ -49,22 +53,12 @@ const withComments = {
 
 
 storiesOf('Quinoa story - garlic template', module)
-  .add('Formats story', () => (
-    <Player
-      story={formatsExample}
-    />
-  ))
-  .add('Image story', () => (
-    <Player
-      story={imageExample}
-    />
-  ))
-  .add('Footnotes story', () => (
+  .add('With Footnotes', () => (
     <Player
       story={withFootnotes}
     />
   ))
-  .add('Sidenotes story', () => (
+  .add('With Sidenotes', () => (
     <Player
       story={sidenotesExample}
     />
@@ -84,7 +78,7 @@ storiesOf('Quinoa story - garlic template', module)
       story={lotsOfAssets}
     />
   ))
-  .add('Container-relative positionning of absolute positionned elements', () => (
+  .add('Within another page (container-relative positionning)', () => (
     <div
       style={{
         background: 'grey'

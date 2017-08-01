@@ -7,7 +7,7 @@
  */
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import ReactDisqusThread from 'react-disqus-thread';
+import ReactDisqusComments from 'react-disqus-comments';
 
 /**
  * ReactDisqusWrapper class for building disqus wrapper react component instances
@@ -36,7 +36,6 @@ class ReactDisqusWrapper extends Component {
       onNewComment
     } = this.props;
 
-
     const handleNewComment = comment => {
       // we add a little security in case no onNewComment callback is provided
       if (onNewComment && typeof onNewComment === 'function') {
@@ -45,7 +44,7 @@ class ReactDisqusWrapper extends Component {
     };
 
     return (
-      <ReactDisqusThread
+      <ReactDisqusComments
         shortname={shortname}
         identifier={identifier}
         title={title}

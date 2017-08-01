@@ -32,9 +32,9 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactDisqusThread = require('react-disqus-thread');
+var _reactDisqusComments = require('react-disqus-comments');
 
-var _reactDisqusThread2 = _interopRequireDefault(_reactDisqusThread);
+var _reactDisqusComments2 = _interopRequireDefault(_reactDisqusComments);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72,7 +72,7 @@ var ReactDisqusWrapper = function (_Component) {
         }
       };
 
-      return _react2.default.createElement(_reactDisqusThread2.default, {
+      return _react2.default.createElement(_reactDisqusComments2.default, {
         shortname: shortname,
         identifier: identifier,
         title: title,
