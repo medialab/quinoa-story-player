@@ -754,7 +754,8 @@ var GarlicLayout = function (_Component) {
                           className: 'level-' + item.level + (item.active ? ' active' : '') },
                         _react2.default.createElement(
                           'a',
-                          { href: '#' + item.key,
+                          {
+                            href: '#' + item.key,
                             onClick: onClick },
                           _react2.default.createElement(
                             'span',
