@@ -333,6 +333,7 @@ $font-stack-sans-serif: Roboto, serif;
                         {
                             border: none;
                             max-width: 100%;
+                            width: 100%;
                         }
                         img
                         {
@@ -346,10 +347,14 @@ $font-stack-sans-serif: Roboto, serif;
                         // hide legend for bulgur-made data presentations because it is embedded
                         &.data-presentation
                         {
-                             > figcaption
-                             {
+                            box-shadow: 0 1em 5em 0.5em rgba(0,0,0,.2);
+                            -webkit-box-shadow: 0 1em 5em 0.5em rgba(0,0,0,.2);
+                            margin-top: $gutter-large;
+                            margin-bottom: $gutter-large;
+                            > figcaption
+                            {
                                     display: none;
-                             }
+                            }
                         }
 
                         .quinoa-presentation-player
@@ -357,6 +362,16 @@ $font-stack-sans-serif: Roboto, serif;
                             font-size: $font-size-1;
 
                             pointer-events: none;
+
+                            background: $color-background;
+
+                            figcaption{
+                                margin-left: $gutter-large;
+
+                                .caption-header{
+                                    padding-top: $gutter-medium;
+                                }
+                            }
                         }
                         .ReactTable
                         {
@@ -664,14 +679,19 @@ $font-stack-sans-serif: Roboto, serif;
         margin-right: $gutter-lateral-large-screens;
         margin-left: $gutter-lateral-large-screens;
     }
+
+    .index-toggle{
+        margin-bottom: $gutter-medium;
+        pointer-events: none;
+    }
     #burger-menu
     {
+        pointer-events: all;
         $burger-measure: $font-size-2;
 
         position: relative;
 
         display: inline-block;
-        margin-bottom: $gutter-medium;
 
         width: $burger-measure;
         height: $burger-measure;

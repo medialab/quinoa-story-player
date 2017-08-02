@@ -586,7 +586,8 @@ class GarlicLayout extends Component {
     }
     // user is scrolling in direction of the bottom of the screen
     else {
-      const h = this.state.fixedPresentationHeight;
+      const h = this.state.fixedPresentationHeight || this.context.dimensions.height;
+
       this.globalScrollbar.scrollTop(top + h * 0.1);
     }
   }

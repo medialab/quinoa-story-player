@@ -512,7 +512,8 @@ var GarlicLayout = function (_Component) {
         this.globalScrollbar.scrollTop(top - 50);
       }
       else {
-          var h = this.state.fixedPresentationHeight;
+          var h = this.state.fixedPresentationHeight || this.context.dimensions.height;
+
           this.globalScrollbar.scrollTop(top + h * 0.1);
         }
     }
