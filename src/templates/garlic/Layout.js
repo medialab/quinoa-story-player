@@ -94,6 +94,10 @@ class GarlicLayout extends Component {
        */
       glossary: []
     };
+
+    if(!window.chrome) {
+      alert('quinoa-story-player\'s garlic template is only tested for chrome for now ! use another browser at your own risks ...');
+    } 
   }
   /**
    * Updates data in the context when the state or props change

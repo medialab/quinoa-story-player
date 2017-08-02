@@ -258,6 +258,10 @@ var GarlicLayout = function (_Component) {
       },
       glossary: []
     };
+
+    if (!window.chrome) {
+      alert('quinoa-story-player\'s garlic template is only tested for chrome for now ! use another browser at your own risks ...');
+    }
     return _this;
   }
 
