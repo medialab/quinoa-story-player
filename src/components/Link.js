@@ -17,7 +17,6 @@ const Link = ({
   to,
   children
 }) => (<a href={to} target="blank">
-  <span className="link-placeholder">{children}</span>
   <span className="link-content">{children}</span>
 </a>);
 

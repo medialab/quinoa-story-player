@@ -36,11 +36,6 @@ var GlossaryMention = function GlossaryMention(_ref) {
       className: 'glossary-mention' },
     _react2.default.createElement(
       'span',
-      { className: 'link-placeholder' },
-      name
-    ),
-    _react2.default.createElement(
-      'span',
       { className: 'link-content' },
       name
     )

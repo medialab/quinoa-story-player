@@ -674,11 +674,6 @@ var GarlicLayout = function (_Component) {
                               href: '#' + target },
                             _react2.default.createElement(
                               'span',
-                              { className: 'link-placeholder' },
-                              count + 1
-                            ),
-                            _react2.default.createElement(
-                              'span',
                               { className: 'link-content' },
                               count + 1
                             )

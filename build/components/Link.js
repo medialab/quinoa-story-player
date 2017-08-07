@@ -22,11 +22,6 @@ var Link = function Link(_ref) {
     { href: to, target: 'blank' },
     _react2.default.createElement(
       'span',
-      { className: 'link-placeholder' },
-      children
-    ),
-    _react2.default.createElement(
-      'span',
       { className: 'link-content' },
       children
     )

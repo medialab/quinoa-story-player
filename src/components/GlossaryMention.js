@@ -32,7 +32,6 @@ const GlossaryMention = ({
     href={'#glossary-entry-' + resource.id}
     onClick={handleClick}
     className="glossary-mention">
-    <span className="link-placeholder">{name}</span>
     <span className="link-content">{name}</span>
   </a>);
 };
