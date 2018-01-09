@@ -159,23 +159,21 @@ class GarlicLayout extends Component {
     .map((sectionId, sectionIndex) => {
       const section = story.sections[sectionId];
       const sectionLevel = section.metadata.level + 1;
-      const content = section.contents;
+      // const content = section.contents;
       // we retrieve all the 'header-#' blocks
       // in the draft-js raw representation of each section
-      const headers = content && content.blocks && content.blocks
-      .filter(block => block.type.indexOf('header') === 0);
+      // const headers = content && content.blocks && content.blocks
+      // .filter(block => block.type.indexOf('header') === 0);
 
       let sectionActive;
-      let titleOffsetTop;
       let nextTitleOffsetTop;
-      let title;
       // title of the section
-      title = document.getElementById(section.id);
+      const title = document.getElementById(section.id);
       if (!title) {
         return undefined;
       }
       // we will check if scroll is in this section's part of the page height
-      titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
       // to do that we need the offset of the next element
       if (sectionIndex < story.sectionsOrder.length - 1) {
         const next = story.sectionsOrder[sectionIndex + 1];
@@ -198,59 +196,59 @@ class GarlicLayout extends Component {
         key: section.id,
         active: sectionActive
       };
-      const headerItems = headers ? headers
-        .map((block, index) => {
-          const {type, text, key} = block;
-          const levelStr = type.split('header-').pop();
-          let level;
-          switch (levelStr) {
-            case 'one':
-              level = sectionLevel + 1;
-              break;
-            case 'two':
-              level = sectionLevel + 2;
-              break;
-            case 'three':
-              level = sectionLevel + 3;
-              break;
-            case 'four':
-              level = sectionLevel + 4;
-              break;
-            case 'five':
-              level = sectionLevel + 5;
-              break;
-            case 'six':
-            default:
-              level = sectionLevel + 6;
-              break;
-          }
+      // const headerItems = headers ? headers
+      //   .map((block, index) => {
+      //     const {type, text, key} = block;
+      //     const levelStr = type.split('header-').pop();
+      //     let level;
+      //     switch (levelStr) {
+      //       case 'one':
+      //         level = sectionLevel + 1;
+      //         break;
+      //       case 'two':
+      //         level = sectionLevel + 2;
+      //         break;
+      //       case 'three':
+      //         level = sectionLevel + 3;
+      //         break;
+      //       case 'four':
+      //         level = sectionLevel + 4;
+      //         break;
+      //       case 'five':
+      //         level = sectionLevel + 5;
+      //         break;
+      //       case 'six':
+      //       default:
+      //         level = sectionLevel + 6;
+      //         break;
+      //     }
 
-          title = document.getElementById(key);
-          titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          // nextTitleOffsetTop;
-          if (index < headers.length - 1) {
-            const next = headers[index + 1];
-            const nextTitle = document.getElementById(next.key);
-            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          }
-          let headerActive;
-          if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
-              (nextTitleOffsetTop === undefined ||
-                nextTitleOffsetTop >= scrollTop
-              )
-            ) {
-            headerActive = true;
-          }
-          return {
-            level,
-            text,
-            key,
-            active: headerActive
-          };
-        }) : [];
+      //     title = document.getElementById(key);
+      //     titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      //     // nextTitleOffsetTop;
+      //     if (index < headers.length - 1) {
+      //       const next = headers[index + 1];
+      //       const nextTitle = document.getElementById(next.key);
+      //       nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      //     }
+      //     let headerActive;
+      //     if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
+      //         (nextTitleOffsetTop === undefined ||
+      //           nextTitleOffsetTop >= scrollTop
+      //         )
+      //       ) {
+      //       headerActive = true;
+      //     }
+      //     return {
+      //       level,
+      //       text,
+      //       key,
+      //       active: headerActive
+      //     };
+      //   }) : [];
       return [
         sectionHeader,
-        ...headerItems
+        // ...headerItems
         ];
       })
       .filter(el => el !== undefined)

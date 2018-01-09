@@ -313,20 +313,14 @@ var GarlicLayout = function (_Component) {
       return story.sectionsOrder.map(function (sectionId, sectionIndex) {
         var section = story.sections[sectionId];
         var sectionLevel = section.metadata.level + 1;
-        var content = section.contents;
-        var headers = content && content.blocks && content.blocks.filter(function (block) {
-          return block.type.indexOf('header') === 0;
-        });
 
         var sectionActive = void 0;
-        var titleOffsetTop = void 0;
         var nextTitleOffsetTop = void 0;
-        var title = void 0;
-        title = document.getElementById(section.id);
+        var title = document.getElementById(section.id);
         if (!title) {
           return undefined;
         }
-        titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
         if (sectionIndex < story.sectionsOrder.length - 1) {
           var next = story.sectionsOrder[sectionIndex + 1];
           var nextTitle = document.getElementById(next);
@@ -343,55 +337,10 @@ var GarlicLayout = function (_Component) {
           key: section.id,
           active: sectionActive
         };
-        var headerItems = headers ? headers.map(function (block, index) {
-          var type = block.type,
-              text = block.text,
-              key = block.key;
 
-          var levelStr = type.split('header-').pop();
-          var level = void 0;
-          switch (levelStr) {
-            case 'one':
-              level = sectionLevel + 1;
-              break;
-            case 'two':
-              level = sectionLevel + 2;
-              break;
-            case 'three':
-              level = sectionLevel + 3;
-              break;
-            case 'four':
-              level = sectionLevel + 4;
-              break;
-            case 'five':
-              level = sectionLevel + 5;
-              break;
-            case 'six':
-            default:
-              level = sectionLevel + 6;
-              break;
-          }
-
-          title = document.getElementById(key);
-          titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          if (index < headers.length - 1) {
-            var _next = headers[index + 1];
-            var _nextTitle = document.getElementById(_next.key);
-            nextTitleOffsetTop = _nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          }
-          var headerActive = void 0;
-          if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
-            headerActive = true;
-          }
-          return {
-            level: level,
-            text: text,
-            key: key,
-            active: headerActive
-          };
-        }) : [];
-        return [sectionHeader].concat((0, _toConsumableArray3.default)(headerItems));
-      }).filter(function (el) {
+        return [sectionHeader];
+      }
+      ).filter(function (el) {
         return el !== undefined;
       })
       .reduce(function (result, ar) {
