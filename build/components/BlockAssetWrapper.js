@@ -38,7 +38,7 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
   var fixedPresentationId = context.fixedPresentationId;
   var onExit = context.onExit;
   var inNote = context.inNote;
-  if (asset) {
+  if (asset && asset.resource.data) {
     var resource = asset.resource;
     var assetType = asset.contextualizer.type;
     return _react2.default.createElement(
