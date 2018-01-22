@@ -286,6 +286,14 @@ $font-stack-sans-serif: Roboto, serif;
                             max-width: 100%;
                             max-height: 100%;
                         }
+                        .leaflet-container
+                        {
+                            img
+                            {
+                                max-width: none !important;
+                                max-height: none !important;
+                            }
+                        }
                         // hide legend for bulgur-made data presentations because it is embedded
                         &.data-presentation
                         {
