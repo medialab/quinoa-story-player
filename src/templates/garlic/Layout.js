@@ -92,7 +92,11 @@ class GarlicLayout extends Component {
       /**
        * Glossary-related data
        */
-      glossary: []
+      glossary: [],
+      /**
+       * Cover image resource data
+       */
+      coverImage: undefined
     };
 
     if (!window.chrome) {
@@ -129,6 +133,7 @@ class GarlicLayout extends Component {
         this.setState({
           glossary: this.buildGlossary(this.props.story),
           citations: this.buildCitations(this.props.story),
+          coverImage: this.buildCoverImage(this.props.story)
         });
       }
     });
@@ -143,7 +148,8 @@ class GarlicLayout extends Component {
     if (this.props.story !== nextProps.story) {
       this.setState({
         glossary: this.buildGlossary(nextProps.story),
-        citations: this.buildCitations(nextProps.story)
+        citations: this.buildCitations(nextProps.story),
+        coverImage: this.buildCoverImage(nextProps.story)
       });
     }
   }
@@ -256,6 +262,20 @@ class GarlicLayout extends Component {
       .reduce((result, ar) => [...result, ...ar], []);
   }
 
+  buildCoverImage = (story) => {
+    const {
+      contextualizations,
+      resources,
+      metadata
+    } = story;
+    if (metadata.coverImage && metadata.coverImage.contextualizationId) {
+      const contextualization = contextualizations[metadata.coverImage.contextualizationId];
+      if (contextualization && resources[contextualization.resourceId])
+        return resources[contextualization.resourceId].data;
+      else return null;
+    }
+    else return null;
+  }
   /**
    * Builds component-consumable data to represent
    * the citations of "bib" resources being mentionned in the story
@@ -629,6 +649,7 @@ class GarlicLayout extends Component {
       indexOpen,
       glossary,
       citations,
+      coverImage
     } = this.state;
     const {
       dimensions
@@ -681,8 +702,8 @@ class GarlicLayout extends Component {
               className="header"
               ref={bindHeaderRef}
               style={{
-              backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined,
-              height: metadata.coverImage ? '100%' : '0'
+              backgroundImage: coverImage ? 'url(' + (coverImage.url || coverImage.base64) + ')' : undefined,
+              height: coverImage ? '100%' : '0'
             }} />
             <section
               className="body-wrapper">

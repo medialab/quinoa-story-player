@@ -103,6 +103,17 @@ var GarlicLayout = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (GarlicLayout.__proto__ || (0, _getPrototypeOf2.default)(GarlicLayout)).call(this, props));
 
+    _this.buildCoverImage = function (story) {
+      var contextualizations = story.contextualizations,
+          resources = story.resources,
+          metadata = story.metadata;
+
+      if (metadata.coverImage && metadata.coverImage.contextualizationId) {
+        var contextualization = contextualizations[metadata.coverImage.contextualizationId];
+        if (contextualization && resources[contextualization.resourceId]) return resources[contextualization.resourceId].data;else return null;
+      } else return null;
+    };
+
     _this.buildCitations = function (story) {
       var contextualizations = story.contextualizations,
           contextualizers = story.contextualizers,
@@ -256,7 +267,8 @@ var GarlicLayout = function (_Component) {
         citationItems: {},
         citationData: []
       },
-      glossary: []
+      glossary: [],
+      coverImage: undefined
     };
 
     if (!window.chrome) {
@@ -289,7 +301,8 @@ var GarlicLayout = function (_Component) {
         if (_this2.props.story) {
           _this2.setState({
             glossary: _this2.buildGlossary(_this2.props.story),
-            citations: _this2.buildCitations(_this2.props.story)
+            citations: _this2.buildCitations(_this2.props.story),
+            coverImage: _this2.buildCoverImage(_this2.props.story)
           });
         }
       });
@@ -301,7 +314,8 @@ var GarlicLayout = function (_Component) {
       if (this.props.story !== nextProps.story) {
         this.setState({
           glossary: this.buildGlossary(nextProps.story),
-          citations: this.buildCitations(nextProps.story)
+          citations: this.buildCitations(nextProps.story),
+          coverImage: this.buildCoverImage(nextProps.story)
         });
       }
     }
@@ -347,7 +361,6 @@ var GarlicLayout = function (_Component) {
         return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
       }, []);
     }
-
 
   }, {
     key: 'buildGlossary',
@@ -504,7 +517,8 @@ var GarlicLayout = function (_Component) {
           toc = _state.toc,
           indexOpen = _state.indexOpen,
           glossary = _state.glossary,
-          citations = _state.citations;
+          citations = _state.citations,
+          coverImage = _state.coverImage;
       var dimensions = this.context.dimensions;
 
 
@@ -555,8 +569,8 @@ var GarlicLayout = function (_Component) {
               className: 'header',
               ref: bindHeaderRef,
               style: {
-                backgroundImage: metadata.coverImage ? 'url(' + metadata.coverImage + ')' : undefined,
-                height: metadata.coverImage ? '100%' : '0'
+                backgroundImage: coverImage ? 'url(' + (coverImage.url || coverImage.base64) + ')' : undefined,
+                height: coverImage ? '100%' : '0'
               } }),
             _react2.default.createElement(
               'section',
