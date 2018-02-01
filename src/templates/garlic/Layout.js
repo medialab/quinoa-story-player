@@ -264,14 +264,12 @@ class GarlicLayout extends Component {
 
   buildCoverImage = (story) => {
     const {
-      contextualizations,
       resources,
       metadata
     } = story;
-    if (metadata.coverImage && metadata.coverImage.contextualizationId) {
-      const contextualization = contextualizations[metadata.coverImage.contextualizationId];
-      if (contextualization && resources[contextualization.resourceId])
-        return resources[contextualization.resourceId].data;
+    if (metadata.coverImage && metadata.coverImage.resourceId) {
+      if (resources[metadata.coverImage.resourceId])
+        return resources[metadata.coverImage.resourceId].data;
       else return null;
     }
     else return null;

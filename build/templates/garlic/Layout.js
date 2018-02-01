@@ -104,13 +104,11 @@ var GarlicLayout = function (_Component) {
     var _this = (0, _possibleConstructorReturn3.default)(this, (GarlicLayout.__proto__ || (0, _getPrototypeOf2.default)(GarlicLayout)).call(this, props));
 
     _this.buildCoverImage = function (story) {
-      var contextualizations = story.contextualizations,
-          resources = story.resources,
+      var resources = story.resources,
           metadata = story.metadata;
 
-      if (metadata.coverImage && metadata.coverImage.contextualizationId) {
-        var contextualization = contextualizations[metadata.coverImage.contextualizationId];
-        if (contextualization && resources[contextualization.resourceId]) return resources[contextualization.resourceId].data;else return null;
+      if (metadata.coverImage && metadata.coverImage.resourceId) {
+        if (resources[metadata.coverImage.resourceId]) return resources[metadata.coverImage.resourceId].data;else return null;
       } else return null;
     };
 
