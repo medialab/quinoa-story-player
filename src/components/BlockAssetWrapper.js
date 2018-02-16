@@ -49,7 +49,7 @@ const BlockAssetWrapper = ({
         id={assetId}>
         <BlockAssetPlayer
           type={assetType}
-          resource={resource}
+          data={resource.data}
           options={{
             template: 'scroller'
           }}

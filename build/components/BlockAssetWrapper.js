@@ -52,7 +52,7 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
         id: assetId },
       _react2.default.createElement(_BlockAssetPlayer2.default, {
         type: assetType,
-        resource: resource,
+        data: resource.data,
         options: {
           template: 'scroller'
         },
