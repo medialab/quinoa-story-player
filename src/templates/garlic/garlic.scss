@@ -22,12 +22,12 @@ $gutter-medium: $gutter-small * 1.666;
 $gutter-large: $gutter-medium * 3;
 $gutter-lateral-large-screens: 25%;
 
-$color-primary: #414E4D; // blued dark grey
-$color-secondary: #F32E36; // fresh red
-$color-secondary-intent: #87240E; // bordeaux red
-$color-background: #FDFFF8; // cream
+$color-primary: #414e4d; // blued dark grey
+$color-secondary: #f32e36; // fresh red
+$color-secondary-intent: #87240e; // bordeaux red
+$color-background: #fdfff8; // cream
 $color-secondary-background: rgba(255,255,255,.8);// white desopacified
- // #e5e7e6;
+// #e5e7e6;
 $color-primary-background: #f4f4f4;
 $color-strokes: #dddbd9;
 
@@ -100,13 +100,13 @@ $font-stack-sans-serif: Roboto, serif;
 
     display: flex;
     overflow: hidden;
+    align-items: stretch;
+    flex-flow: column nowrap;
 
     color: $color-primary;
     background: $color-background;
 
     @extend .absolute-fill;
-    flex-flow: column nowrap;
-    align-items: stretch;
     *::selection
     {
         color: $color-background;
@@ -131,6 +131,8 @@ $font-stack-sans-serif: Roboto, serif;
             position: relative;
 
             display: flex;
+            align-items: center;
+            flex-flow: row nowrap;
 
             cursor: pointer;
 
@@ -140,11 +142,11 @@ $font-stack-sans-serif: Roboto, serif;
             background-size: cover;
 
             @extend .absolute-fill;
-            flex-flow: row nowrap;
-            align-items: center;
             .header-content
             {
                 display: flex;
+                flex-flow: column nowrap;
+                justify-content: center;
 
                 width: 100%; // - $gutter-lateral-large-screens * 2;
                 height: 100%;
@@ -154,9 +156,6 @@ $font-stack-sans-serif: Roboto, serif;
 
                 color: white;
                 background: rgba(0,0,0,.7);// todo: parametrize that
-
-                flex-flow: column nowrap;
-                justify-content: center;
                 h1
                 {
                     font-size: $font-size-4;
@@ -188,19 +187,20 @@ $font-stack-sans-serif: Roboto, serif;
                 position: relative;
 
                 text-decoration: none;
-                u{
-                    text-decoration: none!important;
-                }
 
                 color: inherit;
                 border-bottom: 1px solid $color-secondary;
                 outline: none;
 
                 @include transition(all .5s ease);
+                u
+                {
+                    text-decoration: none!important;
+                }
                 &:hover
                 {
-                    background: $color-secondary-intent;
                     color: $color-background;
+                    background: $color-secondary-intent;
                 }
             }
             .section-header,
@@ -217,14 +217,24 @@ $font-stack-sans-serif: Roboto, serif;
             }
             .section-body
             {
-                > div
+                 > div
                 {
                     padding-bottom: $gutter-large;
-                    > h1, > h2, > h3, > h4, > h5, > h6, > .unstyled, > ul, > ol, > blockquote, > pre
+                     > h1,
+                     > h2,
+                     > h3,
+                     > h4,
+                     > h5,
+                     > h6,
+                     > .unstyled,
+                     > ul,
+                     > ol,
+                     > blockquote,
+                     > pre
                     {
                         margin-right: $gutter-lateral-large-screens;
-                        margin-left: $gutter-lateral-large-screens;
                         margin-bottom: $gutter-medium;
+                        margin-left: $gutter-lateral-large-screens;
                     }
                     pre
                     {
@@ -235,7 +245,7 @@ $font-stack-sans-serif: Roboto, serif;
 
                         background: $color-secondary-background;
                     }
-                    > .unstyled,
+                     > .unstyled,
                     li
                     {
                         font-size: $font-size-1;
@@ -298,7 +308,7 @@ $font-stack-sans-serif: Roboto, serif;
 
                             -webkit-box-shadow: 0 1em 5em .5em rgba(0,0,0,.2);
                                     box-shadow: 0 1em 5em .5em rgba(0,0,0,.2);
-                            > figcaption
+                             > figcaption
                             {
                                 display: none;
                             }
@@ -336,7 +346,7 @@ $font-stack-sans-serif: Roboto, serif;
                             padding-top: 0;
 
                             opacity: .7;
-                            > *
+                             > *
                             {
                                 margin: 0;
                             }
@@ -353,6 +363,8 @@ $font-stack-sans-serif: Roboto, serif;
 
             display: flex;
             overflow-x: hidden;
+            flex-flow: column nowrap;
+            justify-content: stretch;
 
             width: $gutter-lateral-large-screens * .9;// todo: parametrize that
             height: 100%;
@@ -361,18 +373,16 @@ $font-stack-sans-serif: Roboto, serif;
             pointer-events: none;
 
             @extend .absolute-fill;
-            flex-flow: column nowrap;
-            justify-content: stretch;
             .nav-content
             {
                 display: flex;
                 overflow: hidden;
+                flex-flow: column nowrap;
+                justify-content: stretch;
 
                 padding: $gutter-medium;
 
                 @include transition(.5s all  ease);
-                flex-flow: column nowrap;
-                justify-content: stretch;
                 .table-of-content
                 {
                     flex: 1;
@@ -588,12 +598,12 @@ $font-stack-sans-serif: Roboto, serif;
         {
             line-height: $font-size-1 * 2;
         }
-        > div
+         > div
         {
             display: inline;
 
             margin-left: $gutter-small;
-            > *
+             > *
             {
                 display: inline;
             }
