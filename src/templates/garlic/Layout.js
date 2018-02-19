@@ -100,7 +100,7 @@ class GarlicLayout extends Component {
     };
 
     if (!window.chrome) {
-      alert('quinoa-story-player\'s garlic template is only tested for chrome for now ! use another browser at your own risks ...');
+      alert('quinoa-story-player\'s garlic template is only tested for chrome for now ! use another browser at your own risks ...');/* eslint no-alert:0 */
     }
   }
   /**
@@ -768,7 +768,7 @@ class GarlicLayout extends Component {
                                 })
                                 .reduce((prev, curr) => [prev, ', ', curr])
                               })
-                            </li>
+                          </li>
                         );
                       })
                      }
@@ -787,7 +787,7 @@ class GarlicLayout extends Component {
               <nav
                 className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
                 style={{
-                                  position: inCover ? 'relative' : 'fixed',
+                  position: inCover ? 'relative' : 'fixed',
                   left: inCover ? '' : dimensions.left,
                   top: inCover ? '' : dimensions.top,
                   height: dimensions && dimensions.height,

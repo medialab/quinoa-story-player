@@ -220,10 +220,11 @@ $font-stack-sans-serif: Roboto, serif;
                 > div
                 {
                     padding-bottom: $gutter-large;
-                    > h1, > h2, > h3, > h4, > h5, > h6, > p, > ul, > ol, > blockquote, > pre
+                    > h1, > h2, > h3, > h4, > h5, > h6, > .unstyled, > ul, > ol, > blockquote, > pre
                     {
                         margin-right: $gutter-lateral-large-screens;
                         margin-left: $gutter-lateral-large-screens;
+                        margin-bottom: $gutter-medium;
                     }
                     pre
                     {
@@ -234,7 +235,7 @@ $font-stack-sans-serif: Roboto, serif;
 
                         background: $color-secondary-background;
                     }
-                    > p,
+                    > .unstyled,
                     li
                     {
                         font-size: $font-size-1;
@@ -246,7 +247,7 @@ $font-stack-sans-serif: Roboto, serif;
                     h4,
                     h5,
                     h6,
-                    p:first-of-type
+                    .unstyled:first-of-type
                     {
                         margin-top: $gutter-medium;
                         margin-bottom: 0;
@@ -265,12 +266,7 @@ $font-stack-sans-serif: Roboto, serif;
                         z-index: 3;
 
                         margin: 0;
-                        &.video,
-                        &.image
-                        {
-                            padding-right: $gutter-lateral-large-screens * .9;
-                            padding-left: $gutter-lateral-large-screens * .9;
-                        }
+
                         iframe
                         {
                             width: 100%;
@@ -587,7 +583,7 @@ $font-stack-sans-serif: Roboto, serif;
         list-style-type: none;
 
         border-bottom: $font-size-1/5 solid $color-secondary;
-        p,
+        .unstyled,
         ul
         {
             line-height: $font-size-1 * 2;

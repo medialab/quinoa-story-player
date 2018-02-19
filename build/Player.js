@@ -28,6 +28,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _reactMeasure = require('react-measure');
 
 var _reactMeasure2 = _interopRequireDefault(_reactMeasure);
@@ -49,7 +53,12 @@ var QuinoaStoryPlayer = function (_Component) {
     _this.renderComponent = _this.renderComponent.bind(_this);
     var initialState = {
       status: 'waiting',
-      story: undefined
+      story: undefined,
+
+      dimensions: {
+        width: -1,
+        height: -1
+      }
     };
 
     if (props.story) {
@@ -119,18 +128,22 @@ var QuinoaStoryPlayer = function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      var onMeasure = function onMeasure(dimensions) {
-        _this2.setState({ dimensions: dimensions });
+      var onMeasure = function onMeasure(contentRect) {
+        _this2.setState({ dimensions: contentRect.bounds });
       };
       return _react2.default.createElement(
         _reactMeasure2.default,
         {
-          onMeasure: onMeasure },
-        _react2.default.createElement(
-          'div',
-          { className: 'quinoa-story-player' },
-          this.renderComponent()
-        )
+          bounds: true,
+          onResize: onMeasure },
+        function (_ref) {
+          var measureRef = _ref.measureRef;
+          return _react2.default.createElement(
+            'div',
+            { ref: measureRef, className: 'quinoa-story-player' },
+            _this2.renderComponent()
+          );
+        }
       );
     }
   }]);
@@ -139,12 +152,12 @@ var QuinoaStoryPlayer = function (_Component) {
 
 
 QuinoaStoryPlayer.propTypes = {
-  story: _react.PropTypes.object
+  story: _propTypes2.default.object
 };
 
 QuinoaStoryPlayer.childContextTypes = {
-  story: _react.PropTypes.object,
-  dimensions: _react.PropTypes.object
+  story: _propTypes2.default.object,
+  dimensions: _propTypes2.default.object
 };
 
 exports.default = QuinoaStoryPlayer;

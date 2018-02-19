@@ -38,7 +38,7 @@ const renderers = {
    * Note that children are an array of blocks with same styling,
    */
   blocks: {
-    'unstyled': (children) => children.map(child => <p>{child}</p>),
+    'unstyled': (children) => children.map((child, index) => <div className="unstyled" key={index}>{child}</div>),
     'blockquote': (children) => <blockquote >{addBreaklines(children)}</blockquote>,
     'header-one': (children, {keys}) => children.map((child, index) => <h1 key={index} id={keys[index]}>{child}</h1>),
     'header-two': (children, {keys}) => children.map((child, index) => <h2 key={index} id={keys[index]}>{child}</h2>),

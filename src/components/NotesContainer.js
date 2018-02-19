@@ -162,13 +162,13 @@ class NotesContainer extends Component {
               }
               return -1;
             })
-            .map((note) => {
+            .map((note, index) => {
               const bindRef = noteEl => {
                 this.notes[note.id] = noteEl;
               };
               return (
                 <NoteItem
-                  key={note.finalOrder}
+                  key={index}
                   note={note}
                   onNotePointerClick={onNotePointerClick}
                   ref={bindRef}

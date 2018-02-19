@@ -97,10 +97,10 @@ var renderers = {
   },
   blocks: {
     'unstyled': function unstyled(children) {
-      return children.map(function (child) {
+      return children.map(function (child, index) {
         return _react2.default.createElement(
-          'p',
-          null,
+          'div',
+          { className: 'unstyled', key: index },
           child
         );
       });

@@ -159,12 +159,12 @@ var NotesContainer = function (_Component) {
               return 1;
             }
             return -1;
-          }).map(function (note) {
+          }).map(function (note, index) {
             var bindRef = function bindRef(noteEl) {
               _this3.notes[note.id] = noteEl;
             };
             return _react2.default.createElement(_NoteItem2.default, {
-              key: note.finalOrder,
+              key: index,
               note: note,
               onNotePointerClick: onNotePointerClick,
               ref: bindRef,
