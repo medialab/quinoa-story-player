@@ -270,6 +270,7 @@ $font-stack-sans-serif: Roboto, serif;
                     {
                         font-size: $font-size-2;
                     }
+
                     figure
                     {
                         position: relative;
@@ -299,6 +300,15 @@ $font-stack-sans-serif: Roboto, serif;
                                 max-width: none !important;
                                 max-height: none !important;
                             }
+                        }
+
+                        &.embed,
+                        &.image
+                        {
+                            margin-left: $gutter-lateral-large-screens * .8;
+                            margin-right: $gutter-lateral-large-screens * .8;
+                             -webkit-box-shadow: 0 1em 5em .5em rgba(0,0,0,.2);
+                                    box-shadow: 0 1em 5em .5em rgba(0,0,0,.2);
                         }
                         // hide legend for bulgur-made data presentations because it is embedded
                         &.data-presentation
