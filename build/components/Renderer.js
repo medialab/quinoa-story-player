@@ -24,6 +24,10 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -99,7 +103,7 @@ var renderers = {
     'unstyled': function unstyled(children) {
       return children.map(function (child, index) {
         return _react2.default.createElement(
-          'div',
+          'p',
           { className: 'unstyled', key: index },
           child
         );
@@ -210,29 +214,40 @@ var renderers = {
           );
         })
       );
+    },
+    'atomic': function atomic(children, _ref14) {
+      var keys = _ref14.keys,
+          data = _ref14.data;
+      return children.map(function (child, i) {
+        return _react2.default.createElement(
+          'div',
+          (0, _extends3.default)({ className: 'atomic-container', key: keys[i] }, data[i]),
+          child
+        );
+      });
     }
   },
   entities: {
-    LINK: function LINK(children, data, _ref14) {
-      var key = _ref14.key;
+    LINK: function LINK(children, data, _ref15) {
+      var key = _ref15.key;
       return _react2.default.createElement(
         _Link2.default,
         { key: key, to: data.url },
         children
       );
     },
-    BLOCK_ASSET: function BLOCK_ASSET(children, data, _ref15) {
-      var key = _ref15.key;
+    BLOCK_ASSET: function BLOCK_ASSET(children, data, _ref16) {
+      var key = _ref16.key;
 
       return _react2.default.createElement(_BlockAssetWrapper2.default, { key: key, data: data });
     },
-    INLINE_ASSET: function INLINE_ASSET(children, data, _ref16) {
-      var key = _ref16.key;
+    INLINE_ASSET: function INLINE_ASSET(children, data, _ref17) {
+      var key = _ref17.key;
 
       return _react2.default.createElement(_InlineAssetWrapper2.default, { data: data, key: key });
     },
-    NOTE_POINTER: function NOTE_POINTER(children, data, _ref17) {
-      var key = _ref17.key;
+    NOTE_POINTER: function NOTE_POINTER(children, data, _ref18) {
+      var key = _ref18.key;
 
       return _react2.default.createElement(_NotePointer2.default, { key: key, children: children, noteId: data.noteId });
     }

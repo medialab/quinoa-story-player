@@ -101,10 +101,11 @@ class BlockAssetPlayer extends React.Component {
           </Media>
         );
       case 'data-presentation':
+        const usableData = data || this.state.data;
         return (
-          (data.json || this.state.data) ?
+          usableData ?
             <QuinoaPresentationPlayer
-              presentation={data.json || this.state.data}
+              presentation={usableData}
               template={(options && options.template)}
               onWheel={this.onWheel}
               onExit={onExit}
@@ -135,7 +136,11 @@ class BlockAssetPlayer extends React.Component {
  */
 BlockAssetPlayer.propTypes = {
   type: PropTypes.string,
-  data: PropTypes.object,
+  data: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.string
+  ]),
   options: PropTypes.object,
   fixed: PropTypes.bool,
   allowInteractions: PropTypes.bool,

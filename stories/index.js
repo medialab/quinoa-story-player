@@ -10,9 +10,10 @@ import Player from '../src/';
 
 import formatsExample from './formats-example.json';
 import sidenotesExample from './sidenotes-test.json';
+import burnoutExample from './le-burnout.json';
 
 const withCustomCss = {
-  ...formatsExample,
+  ...burnoutExample,
   settings: {
     css: `
 .quinoa-story-player{
@@ -27,7 +28,7 @@ const withCustomCss = {
 };
 
 const withFootnotes = {
-  ...sidenotesExample,
+  ...burnoutExample,
   settings: {
     options: {
       notesPosition: 'foot'      
@@ -36,7 +37,7 @@ const withFootnotes = {
 };
 
 const withComments = {
-  ...sidenotesExample,
+  ...burnoutExample,
   settings: {
     options: {
       allowDisqusComments: 'yes'      

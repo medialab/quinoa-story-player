@@ -149,8 +149,9 @@ var BlockAssetPlayer = function (_React$Component) {
             _react2.default.createElement(_reactMediaPlayer.Player, { src: data.url })
           );
         case 'data-presentation':
-          return data.json || this.state.data ? _react2.default.createElement(_quinoaPresentationPlayer2.default, {
-            presentation: data.json || this.state.data,
+          var usableData = data || this.state.data;
+          return usableData ? _react2.default.createElement(_quinoaPresentationPlayer2.default, {
+            presentation: usableData,
             template: options && options.template,
             onWheel: this.onWheel,
             onExit: onExit,
@@ -179,7 +180,7 @@ var BlockAssetPlayer = function (_React$Component) {
 
 BlockAssetPlayer.propTypes = {
   type: _propTypes2.default.string,
-  data: _propTypes2.default.object,
+  data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object, _propTypes2.default.string]),
   options: _propTypes2.default.object,
   fixed: _propTypes2.default.bool,
   allowInteractions: _propTypes2.default.bool,

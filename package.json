@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/medialab/quinoa-story-player#readme",
   "dependencies": {
-    "axios": "^0.17.1",
+    "axios": "^0.18.0",
     "quinoa-presentation-player": "^0.2.3",
     "raw-loader": "^0.5.1",
     "react": "^16.2.0",
