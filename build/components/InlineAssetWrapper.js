@@ -53,6 +53,15 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
           contextualization: contextualization,
           contextualizer: contextualizer,
           resource: resource });
+      case 'webpage':
+        var text = contextualizer.alias || resource.metadata.title || '*';
+        return _react2.default.createElement(
+          'a',
+          {
+            href: resource.data, target: '_blank', alt: 'href',
+            rel: 'noopener' },
+          text
+        );
       default:
         return null;
     }

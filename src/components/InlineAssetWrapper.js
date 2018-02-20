@@ -47,6 +47,15 @@ const InlineAssetWrapper = ({
           contextualization={contextualization}
           contextualizer={contextualizer}
           resource={resource} />);
+      case 'webpage':
+        const text = contextualizer.alias || resource.metadata.title || '*';
+        return (
+          <a
+            href={resource.data} target="_blank" alt="href"
+            rel="noopener">
+            {text}
+          </a>
+        );
       default:
         return null;
     }
