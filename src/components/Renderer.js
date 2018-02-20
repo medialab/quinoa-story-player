@@ -17,7 +17,7 @@ import NotePointer from './NotePointer';
 
 
 // just a helper to add a <br /> after each block
-const addBreaklines = (children) => children.map(child => [child, <br />]);
+const addBreaklines = (children) => children.map((child) => [child, <br />]);
 
 /**
  * Define the renderers
@@ -38,7 +38,7 @@ const renderers = {
    * Note that children are an array of blocks with same styling,
    */
   blocks: {
-    'unstyled': (children) => children.map((child, index) => <div className="unstyled" key={index}>{child}</div>),
+    'unstyled': (children) => children.map((child, index) => <p className="unstyled" key={index}>{child}</p>),
     'blockquote': (children) => <blockquote >{addBreaklines(children)}</blockquote>,
     'header-one': (children, {keys}) => children.map((child, index) => <h1 key={index} id={keys[index]}>{child}</h1>),
     'header-two': (children, {keys}) => children.map((child, index) => <h2 key={index} id={keys[index]}>{child}</h2>),
@@ -52,8 +52,7 @@ const renderers = {
     // or depth for nested lists
     'unordered-list-item': (children, {depth, keys}) => <ul key={keys[keys.length - 1]} className={`ul-level-${depth}`}>{children.map((child, index) => <li key={index}>{child}</li>)}</ul>,
     'ordered-list-item': (children, {depth, keys}) => <ol key={keys.join('|')} className={`ol-level-${depth}`}>{children.map((child, index) => <li key={keys[index]}>{child}</li>)}</ol>,
-    // If your blocks use meta data it can also be accessed like keys
-    // atomic: (children, { keys, data }) => children.map((child, i) => <Atomic key={keys[i]} {...data[i]}>{child}</Atomic>),
+    'atomic': (children, {keys, data}) => children.map((child, i) => <div className="atomic-container" key={keys[i]} {...data[i]}>{child}</div>),
   },
   /**
    * Entities receive children and the entity data
