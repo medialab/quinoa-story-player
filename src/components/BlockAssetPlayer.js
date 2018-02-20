@@ -101,7 +101,7 @@ class BlockAssetPlayer extends React.Component {
           </Media>
         );
       case 'data-presentation':
-        const usableData = data || this.state.data;
+        const usableData = data.json || this.state.data;
         return (
           usableData ?
             <QuinoaPresentationPlayer
