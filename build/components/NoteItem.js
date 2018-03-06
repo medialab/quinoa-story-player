@@ -88,7 +88,7 @@ var NoteItem = function (_Component) {
           { onClick: onClick, className: 'note-block-pointer', id: 'note-block-pointer-' + note.id },
           note.finalOrder
         ),
-        _react2.default.createElement(_Renderer2.default, { raw: note.editorState })
+        _react2.default.createElement(_Renderer2.default, { raw: note.contents })
       );
     }
   }]);

@@ -56,7 +56,7 @@ class NoteItem extends Component {
         <span onClick={onClick} className="note-block-pointer" id={'note-block-pointer-' + note.id}>
           {note.finalOrder}
         </span>
-        <Renderer raw={note.editorState} />
+        <Renderer raw={note.contents} />
       </li>
     );
   }
