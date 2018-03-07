@@ -672,13 +672,16 @@ class GarlicLayout extends Component {
       ...res,
       [sectionId]: {
         ...sections[sectionId],
-        notes: Object.keys(sections[sectionId].notes).reduce((tempNotes, noteId) => ({
-          ...tempNotes,
-          [noteId]: {
-            ...sections[sectionId].notes[noteId],
-            finalOrder: notes.find(n => n.id === noteId).finalOrder
-          }
-        }), {})
+        notes: Object.keys(sections[sectionId].notes).reduce((tempNotes, noteId) => {
+          const related = notes.find(n => n.id === noteId);
+          return {
+            ...tempNotes,
+            [noteId]: {
+              ...sections[sectionId].notes[noteId],
+              finalOrder: related ? related.finalOrder : sections[sectionId].notes[noteId].order
+            }
+          };
+        }, {})
       }
     }), {});
     const onClickToggle = () => this.toggleIndex();

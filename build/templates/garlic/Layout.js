@@ -534,10 +534,11 @@ var GarlicLayout = function (_Component) {
       var finalSections = (0, _keys2.default)(sections).reduce(function (res, sectionId) {
         return (0, _extends8.default)({}, res, (0, _defineProperty3.default)({}, sectionId, (0, _extends8.default)({}, sections[sectionId], {
           notes: (0, _keys2.default)(sections[sectionId].notes).reduce(function (tempNotes, noteId) {
+            var related = notes.find(function (n) {
+              return n.id === noteId;
+            });
             return (0, _extends8.default)({}, tempNotes, (0, _defineProperty3.default)({}, noteId, (0, _extends8.default)({}, sections[sectionId].notes[noteId], {
-              finalOrder: notes.find(function (n) {
-                return n.id === noteId;
-              }).finalOrder
+              finalOrder: related ? related.finalOrder : sections[sectionId].notes[noteId].order
             })));
           }, {})
         })));
