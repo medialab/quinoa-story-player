@@ -665,9 +665,22 @@ class GarlicLayout extends Component {
           .map(noteId => ({
             ...sections[sectionId].notes[noteId],
             sectionId,
-            finalOrder: noteCount++
+            finalOrder: noteCount++,
           }))
     ], []);
+    const finalSections = Object.keys(sections).reduce((res, sectionId) => ({
+      ...res,
+      [sectionId]: {
+        ...sections[sectionId],
+        notes: Object.keys(sections[sectionId].notes).reduce((tempNotes, noteId) => ({
+          ...tempNotes,
+          [noteId]: {
+            ...sections[sectionId].notes[noteId],
+            finalOrder: notes.find(n => n.id === noteId).finalOrder
+          }
+        }), {})
+      }
+    }), {});
     const onClickToggle = () => this.toggleIndex();
     const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
     const allowDisqusComments = settings.options && settings.options.allowDisqusComments === 'yes';
@@ -723,7 +736,7 @@ class GarlicLayout extends Component {
                 </div>
                 {
                 sectionsOrder.map((thatId) => (
-                  <SectionLayout section={sections[thatId]} key={thatId} />
+                  <SectionLayout section={finalSections[thatId]} key={thatId} />
                 ))
                 }
                 {notes && notes.length ?

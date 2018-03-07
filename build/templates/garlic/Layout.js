@@ -12,9 +12,9 @@ var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends5 = require('babel-runtime/helpers/extends');
+var _extends7 = require('babel-runtime/helpers/extends');
 
-var _extends6 = _interopRequireDefault(_extends5);
+var _extends8 = _interopRequireDefault(_extends7);
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
@@ -120,7 +120,7 @@ var GarlicLayout = function (_Component) {
       var assets = (0, _keys2.default)(contextualizations).reduce(function (ass, id) {
         var contextualization = contextualizations[id];
         var contextualizer = contextualizers[contextualization.contextualizerId];
-        return (0, _extends6.default)({}, ass, (0, _defineProperty3.default)({}, id, (0, _extends6.default)({}, contextualization, {
+        return (0, _extends8.default)({}, ass, (0, _defineProperty3.default)({}, id, (0, _extends8.default)({}, contextualization, {
           resource: resources[contextualization.resourceId],
           contextualizer: contextualizer,
           type: contextualizer ? contextualizer.type : 'INLINE_ASSET'
@@ -135,9 +135,9 @@ var GarlicLayout = function (_Component) {
         var bibCit = bibContextualizations[key1];
         var citations = bibCit.resource.data;
         var newCitations = citations.reduce(function (final2, citation) {
-          return (0, _extends6.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
+          return (0, _extends8.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
         }, {});
-        return (0, _extends6.default)({}, finalCitations, newCitations);
+        return (0, _extends8.default)({}, finalCitations, newCitations);
       }, {});
       var citationInstances = bibContextualizations 
       .map(function (bibCit, index) {
@@ -187,11 +187,11 @@ var GarlicLayout = function (_Component) {
       var stateChanges = {};
 
       if (scrollTop < headerHeight && !_this.state.inCover) {
-        stateChanges = (0, _extends6.default)({}, stateChanges, {
+        stateChanges = (0, _extends8.default)({}, stateChanges, {
           inCover: true
         });
       } else if (scrollTop > headerHeight && _this.state.inCover) {
-        stateChanges = (0, _extends6.default)({}, stateChanges, {
+        stateChanges = (0, _extends8.default)({}, stateChanges, {
           inCover: false
         });
       }
@@ -216,7 +216,7 @@ var GarlicLayout = function (_Component) {
           }
       }
       if (fixedPresentationId !== _this.state.fixedPresentationId) {
-        stateChanges = (0, _extends6.default)({}, stateChanges, {
+        stateChanges = (0, _extends8.default)({}, stateChanges, {
           fixedPresentationId: fixedPresentationId,
           fixedPresentationHeight: fixedPresentationHeight
         });
@@ -225,7 +225,7 @@ var GarlicLayout = function (_Component) {
       }
       if (scrollTop !== _this.state.scrollTop) {
         var toc = _this.buildTOC(_this.props.story, scrollTop);
-        stateChanges = (0, _extends6.default)({}, stateChanges, {
+        stateChanges = (0, _extends8.default)({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
         });
@@ -374,12 +374,12 @@ var GarlicLayout = function (_Component) {
         var contextualizer = contextualizers[contextualizerId];
         return contextualizer && contextualizer.type === 'glossary';
       }).map(function (contextualizationId) {
-        return (0, _extends6.default)({}, contextualizations[contextualizationId], {
+        return (0, _extends8.default)({}, contextualizations[contextualizationId], {
           contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
           resource: resources[contextualizations[contextualizationId].resourceId]
         });
       }).reduce(function (entries, contextualization) {
-        return (0, _extends6.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
+        return (0, _extends8.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
           resource: contextualization.resource,
           mentions: entries[contextualization.resourceId] ? entries[contextualization.resourceId].mentions.concat(contextualization) : [contextualization]
         }));
@@ -525,12 +525,23 @@ var GarlicLayout = function (_Component) {
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
         return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)(sections[sectionId].notesOrder.map(function (noteId) {
-          return (0, _extends6.default)({}, sections[sectionId].notes[noteId], {
+          return (0, _extends8.default)({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++
           });
         })));
       }, []);
+      var finalSections = (0, _keys2.default)(sections).reduce(function (res, sectionId) {
+        return (0, _extends8.default)({}, res, (0, _defineProperty3.default)({}, sectionId, (0, _extends8.default)({}, sections[sectionId], {
+          notes: (0, _keys2.default)(sections[sectionId].notes).reduce(function (tempNotes, noteId) {
+            return (0, _extends8.default)({}, tempNotes, (0, _defineProperty3.default)({}, noteId, (0, _extends8.default)({}, sections[sectionId].notes[noteId], {
+              finalOrder: notes.find(function (n) {
+                return n.id === noteId;
+              }).finalOrder
+            })));
+          }, {})
+        })));
+      }, {});
       var onClickToggle = function onClickToggle() {
         return _this3.toggleIndex();
       };
@@ -595,7 +606,7 @@ var GarlicLayout = function (_Component) {
                   ) : null
                 ),
                 sectionsOrder.map(function (thatId) {
-                  return _react2.default.createElement(_SectionLayout2.default, { section: sections[thatId], key: thatId });
+                  return _react2.default.createElement(_SectionLayout2.default, { section: finalSections[thatId], key: thatId });
                 }),
                 notes && notes.length ? _react2.default.createElement(_NotesContainer2.default, {
                   notes: notes,
