@@ -245,6 +245,13 @@ $font-stack-sans-serif: Roboto, serif;
 
                         background: $color-secondary-background;
                     }
+
+                    blockquote{
+                        padding: $gutter-medium;
+                        border-left: 2px solid $color-strokes;
+                        font-size: $font-size-1;
+                    }
+
                      > .unstyled,
                     li
                     {
@@ -351,7 +358,7 @@ $font-stack-sans-serif: Roboto, serif;
                             font-size: $font-size-1 * .9;
 
                             margin-right: $gutter-medium;
-                            margin-left: $gutter-small;
+                            margin-left: $gutter-lateral-large-screens;
                             padding: $gutter-medium;
                             padding-top: 0;
 
