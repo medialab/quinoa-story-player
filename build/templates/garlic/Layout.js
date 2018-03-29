@@ -268,10 +268,6 @@ var GarlicLayout = function (_Component) {
       glossary: [],
       coverImage: undefined
     };
-
-    if (!window.chrome) {
-      alert('quinoa-story-player\'s garlic template is only tested for chrome for now ! use another browser at your own risks ...'); 
-    }
     return _this;
   }
 
@@ -519,7 +515,6 @@ var GarlicLayout = function (_Component) {
           coverImage = _state.coverImage;
       var dimensions = this.context.dimensions;
 
-
       var location = window.location.href;
       var customCss = settings.css || '';
       var noteCount = 1;
@@ -545,6 +540,10 @@ var GarlicLayout = function (_Component) {
       }, {});
       var onClickToggle = function onClickToggle() {
         return _this3.toggleIndex();
+      };
+      var onClickTitle = function onClickTitle() {
+        _this3.scrollToContents();
+        _this3.toggleIndex();
       };
       var notesPosition = settings.options && settings.options.notesPosition || 'foot';
       var allowDisqusComments = settings.options && settings.options.allowDisqusComments === 'yes';
@@ -654,7 +653,12 @@ var GarlicLayout = function (_Component) {
                         }).reduce(function (prev, curr) {
                           return [prev, ', ', curr];
                         }),
-                        ')'
+                        ')',
+                        _react2.default.createElement(
+                          'span',
+                          null,
+                          entry.resource.metadata.description && ': ' + entry.resource.metadata.description
+                        )
                       );
                     })
                   )
@@ -711,7 +715,7 @@ var GarlicLayout = function (_Component) {
                         'h2',
                         {
                           className: 'menu-title',
-                          onClick: this.scrollToContents },
+                          onClick: onClickTitle },
                         metadata.title || 'Quinoa story'
                       )
                     ),
@@ -720,6 +724,7 @@ var GarlicLayout = function (_Component) {
                         e.stopPropagation();
                         e.preventDefault();
                         _this3.scrollToElementId(item.key);
+                        _this3.toggleIndex();
                       };
                       return _react2.default.createElement(
                         'li',

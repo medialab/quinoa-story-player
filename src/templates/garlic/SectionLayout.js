@@ -55,7 +55,7 @@ class SectionLayout extends Component {
             metadata &&
             metadata.authors &&
             metadata.authors.length > 0 &&
-            metadata.authors.map((author) => author)
+            metadata.authors.map((author) => author.trim()).join(', ')
           }
         </div>
         <div className="section-body">

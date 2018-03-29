@@ -82,8 +82,8 @@ var SectionLayout = function (_Component) {
             metadata.title || ''
           ),
           metadata && metadata.authors && metadata.authors.length > 0 && metadata.authors.map(function (author) {
-            return author;
-          })
+            return author.trim();
+          }).join(', ')
         ),
         _react2.default.createElement(
           'div',

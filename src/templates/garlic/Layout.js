@@ -98,10 +98,6 @@ class GarlicLayout extends Component {
        */
       coverImage: undefined
     };
-
-    if (!window.chrome) {
-      alert('quinoa-story-player\'s garlic template is only tested for chrome for now ! use another browser at your own risks ...');/* eslint no-alert:0 */
-    }
   }
   /**
    * Updates data in the context when the state or props change
@@ -652,7 +648,6 @@ class GarlicLayout extends Component {
     const {
       dimensions
     } = this.context;
-
     const location = window.location.href;
     const customCss = settings.css || '';
     /**
@@ -685,6 +680,10 @@ class GarlicLayout extends Component {
       }
     }), {});
     const onClickToggle = () => this.toggleIndex();
+    const onClickTitle = () => {
+      this.scrollToContents();
+      this.toggleIndex();
+    };
     const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
     const allowDisqusComments = settings.options && settings.options.allowDisqusComments === 'yes';
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
@@ -784,6 +783,7 @@ class GarlicLayout extends Component {
                                 })
                                 .reduce((prev, curr) => [prev, ', ', curr])
                               })
+                            <span>{entry.resource.metadata.description && `: ${entry.resource.metadata.description}`}</span>
                           </li>
                         );
                       })
@@ -832,7 +832,7 @@ class GarlicLayout extends Component {
                     <li>
                       <h2
                         className="menu-title"
-                        onClick={this.scrollToContents}>{metadata.title || 'Quinoa story'}</h2>
+                        onClick={onClickTitle}>{metadata.title || 'Quinoa story'}</h2>
                     </li>
                     {
                       toc && toc.map((item, index) => {
@@ -840,6 +840,7 @@ class GarlicLayout extends Component {
                           e.stopPropagation();
                           e.preventDefault();
                           this.scrollToElementId(item.key);
+                          this.toggleIndex();
                         };
                         return (
                           <li
