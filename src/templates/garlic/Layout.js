@@ -764,26 +764,29 @@ class GarlicLayout extends Component {
                         const entryName = entry.resource.data.name;
                         return (
                           <li key={index} id={'glossary-entry-' + entry.resource.id}>
-                            {entryName} ({
-                                entry.mentions.map((mention, count) => {
-                                  const target = 'glossary-mention-' + mention.id;
-                                  const onClick = e => {
-                                    e.preventDefault();
-                                    this.scrollToElementId(target);
-                                  };
-                                  return (
-                                    <a
-                                      key={mention.id}
-                                      onClick={onClick}
-                                      id={'glossary-mention-backlink-' + mention.id}
-                                      href={'#' + target}>
-                                      <span className="link-content">{count + 1}</span>
-                                    </a>
-                                  );
-                                })
-                                .reduce((prev, curr) => [prev, ', ', curr])
-                              })
-                            <span>{entry.resource.metadata.description && `: ${entry.resource.metadata.description}`}</span>
+                            <h3>{entryName} <i>({
+                                  entry.mentions.map((mention, count) => {
+                                    const target = 'glossary-mention-' + mention.id;
+                                    const onClick = e => {
+                                      e.preventDefault();
+                                      this.scrollToElementId(target);
+                                    };
+                                    return (
+                                      <a
+                                        key={mention.id}
+                                        onClick={onClick}
+                                        id={'glossary-mention-backlink-' + mention.id}
+                                        href={'#' + target}>
+                                        <span className="link-content">{count + 1}</span>
+                                      </a>
+                                    );
+                                  })
+                                  .reduce((prev, curr) => [prev, ', ', curr])
+                                })</i>
+                            </h3>
+                            {entry.resource.metadata.description && <p>
+                              {entry.resource.metadata.description}
+                            </p>}
                           </li>
                         );
                       })

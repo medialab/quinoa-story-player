@@ -629,35 +629,44 @@ var GarlicLayout = function (_Component) {
                       return _react2.default.createElement(
                         'li',
                         { key: index, id: 'glossary-entry-' + entry.resource.id },
-                        entryName,
-                        ' (',
-                        entry.mentions.map(function (mention, count) {
-                          var target = 'glossary-mention-' + mention.id;
-                          var onClick = function onClick(e) {
-                            e.preventDefault();
-                            _this3.scrollToElementId(target);
-                          };
-                          return _react2.default.createElement(
-                            'a',
-                            {
-                              key: mention.id,
-                              onClick: onClick,
-                              id: 'glossary-mention-backlink-' + mention.id,
-                              href: '#' + target },
-                            _react2.default.createElement(
-                              'span',
-                              { className: 'link-content' },
-                              count + 1
-                            )
-                          );
-                        }).reduce(function (prev, curr) {
-                          return [prev, ', ', curr];
-                        }),
-                        ')',
                         _react2.default.createElement(
-                          'span',
+                          'h3',
                           null,
-                          entry.resource.metadata.description && ': ' + entry.resource.metadata.description
+                          entryName,
+                          ' ',
+                          _react2.default.createElement(
+                            'i',
+                            null,
+                            '(',
+                            entry.mentions.map(function (mention, count) {
+                              var target = 'glossary-mention-' + mention.id;
+                              var onClick = function onClick(e) {
+                                e.preventDefault();
+                                _this3.scrollToElementId(target);
+                              };
+                              return _react2.default.createElement(
+                                'a',
+                                {
+                                  key: mention.id,
+                                  onClick: onClick,
+                                  id: 'glossary-mention-backlink-' + mention.id,
+                                  href: '#' + target },
+                                _react2.default.createElement(
+                                  'span',
+                                  { className: 'link-content' },
+                                  count + 1
+                                )
+                              );
+                            }).reduce(function (prev, curr) {
+                              return [prev, ', ', curr];
+                            }),
+                            ')'
+                          )
+                        ),
+                        entry.resource.metadata.description && _react2.default.createElement(
+                          'p',
+                          null,
+                          entry.resource.metadata.description
                         )
                       );
                     })
