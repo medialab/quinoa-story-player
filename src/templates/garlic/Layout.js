@@ -852,7 +852,7 @@ class GarlicLayout extends Component {
                             <a
                               href={'#' + item.key}
                               onClick={onClick}>
-                              <span className="link-content">{item.text}</span>
+                              <span className="link-content">{item.text || 'Untitled section'}</span>
                             </a>
                           </li>
                         );

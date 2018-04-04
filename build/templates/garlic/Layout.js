@@ -748,7 +748,7 @@ var GarlicLayout = function (_Component) {
                           _react2.default.createElement(
                             'span',
                             { className: 'link-content' },
-                            item.text
+                            item.text || 'Untitled section'
                           )
                         )
                       );
