@@ -17,7 +17,7 @@
  */
 
 // 1. variables
-$gutter-small: .7em;
+$gutter-small: .7rem;
 $gutter-medium: $gutter-small * 1.666;
 $gutter-large: $gutter-medium * 3;
 $gutter-lateral-large-screens: 25%;
@@ -180,6 +180,63 @@ $font-stack-sans-serif: Roboto, serif;
 
             @extend .absolute-fill;
             text-rendering: optimizeLegibility;
+
+            .section{
+                &.is-level-1{
+                    .section-title{
+                        font-size: $font-size-4;
+                    }
+                    h1
+                    {
+                        font-size: $font-size-3 * 1.3;
+                    }
+                    h2
+                    {
+                        font-size: $font-size-3;
+                    }
+                    h3,
+                    h4,h5,h6
+                    {
+                        font-size: $font-size-2;
+                    }
+                }
+                &.is-level-2{
+                    .section-title{
+                        font-size: $font-size-3 * 1.3;
+                    }
+                    h1
+                    {
+                        font-size: $font-size-2 * 1.3;
+                    }
+                    h2
+                    {
+                        font-size: $font-size-2;
+                    }
+                    h3,
+                    h4,h5,h6
+                    {
+                        font-size: $font-size-1 * 1.5;
+                    }
+                }
+                &.is-level-3{
+                    .section-title{
+                        font-size: $font-size-3;
+                    }
+                    h1
+                    {
+                        font-size: $font-size-2;
+                    }
+                    h2
+                    {
+                        font-size: $font-size-1 * 1.3;
+                    }
+                    h3,
+                    h4,h5,h6
+                    {
+                        font-size: $font-size-1 * 1.1;
+                    }
+                }
+            }
             a
             {
                 line-height: 1.3em;
@@ -201,6 +258,8 @@ $font-stack-sans-serif: Roboto, serif;
                 {
                     color: $color-background;
                     background: $color-secondary-intent;
+                    border-bottom: 1px solid $color-secondary-intent;
+
                 }
             }
             .section-header,
@@ -268,14 +327,6 @@ $font-stack-sans-serif: Roboto, serif;
                     {
                         margin-top: $gutter-medium;
                         margin-bottom: 0;
-                    }
-                    h1
-                    {
-                        font-size: $font-size-3;
-                    }
-                    h2
-                    {
-                        font-size: $font-size-2;
                     }
 
                     figure
@@ -361,16 +412,23 @@ $font-stack-sans-serif: Roboto, serif;
                         }
                         figcaption
                         {
-                            font-size: $font-size-1 * .9;
-                            padding-bottom: $gutter-medium;
-                            padding-left: $gutter-large;
-                            padding-right: $gutter-large;
-                            padding-top: $gutter-small;
+                            width: 100%;
+                            .fig-content{
+                                font-size: $font-size-1 * .8;
+                                padding-bottom: $gutter-medium;
+                                padding-left: $gutter-large;
+                                padding-right: $gutter-large;
+                                padding-top: $gutter-small;
 
-                            opacity: .7;
-                             > *
-                            {
-                                margin: 0;
+                                h4{
+                                    font-size: $font-size-1!important;
+                                }
+
+                                opacity: .7;
+                                 > *
+                                {
+                                    margin: 0;
+                                }
                             }
                         }
                     }
@@ -573,7 +631,7 @@ $font-stack-sans-serif: Roboto, serif;
         margin-bottom: $gutter-large;
         h1
         {
-            font-size: $font-size-3;
+            font-size: $font-size-5;
 
             margin-top: 0;
             margin-bottom: $gutter-small;

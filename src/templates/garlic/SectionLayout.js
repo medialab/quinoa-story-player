@@ -48,9 +48,9 @@ class SectionLayout extends Component {
     } = section;
 
     return (
-      <section className="section">
+      <section className={`section is-level-${metadata.level + 1}`}>
         <div className="section-header">
-          <h2 id={section.id}>{metadata.title || ''}</h2>
+          <h1 className="section-title" id={section.id}>{metadata.title || ''}</h1>
           {
             metadata &&
             metadata.authors &&

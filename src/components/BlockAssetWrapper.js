@@ -57,15 +57,17 @@ const BlockAssetWrapper = ({
           allowInteractions={inNote || fixedPresentationId === assetId}
           onExit={onExit} />
         <figcaption>
-          {resource.metadata.title && <h4>
-            {resource.metadata.title}
-          </h4>}
-          {resource.metadata.description && <p>
-            {resource.metadata.description}
-          </p>}
-          {resource.metadata.source && <p>
-            Source: <i>{resource.metadata.source}</i>
-          </p>}
+          <div className="fig-content">
+            {resource.metadata.title && <h4>
+              {resource.metadata.title}
+            </h4>}
+            {resource.metadata.description && <p>
+              {resource.metadata.description}
+            </p>}
+            {resource.metadata.source && <p>
+              Source: <i>{resource.metadata.source}</i>
+            </p>}
+          </div>
         </figcaption>
       </figure>
     );

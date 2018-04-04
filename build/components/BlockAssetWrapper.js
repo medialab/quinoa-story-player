@@ -62,24 +62,28 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
       _react2.default.createElement(
         'figcaption',
         null,
-        resource.metadata.title && _react2.default.createElement(
-          'h4',
-          null,
-          resource.metadata.title
-        ),
-        resource.metadata.description && _react2.default.createElement(
-          'p',
-          null,
-          resource.metadata.description
-        ),
-        resource.metadata.source && _react2.default.createElement(
-          'p',
-          null,
-          'Source: ',
-          _react2.default.createElement(
-            'i',
+        _react2.default.createElement(
+          'div',
+          { className: 'fig-content' },
+          resource.metadata.title && _react2.default.createElement(
+            'h4',
             null,
-            resource.metadata.source
+            resource.metadata.title
+          ),
+          resource.metadata.description && _react2.default.createElement(
+            'p',
+            null,
+            resource.metadata.description
+          ),
+          resource.metadata.source && _react2.default.createElement(
+            'p',
+            null,
+            'Source: ',
+            _react2.default.createElement(
+              'i',
+              null,
+              resource.metadata.source
+            )
           )
         )
       )
