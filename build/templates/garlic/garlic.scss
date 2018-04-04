@@ -362,9 +362,9 @@ $font-stack-sans-serif: Roboto, serif;
                         figcaption
                         {
                             font-size: $font-size-1 * .9;
-                            width: 100%;
-                            padding: $gutter-medium;
-                            padding-left: $gutter-large * 2;
+                            padding-bottom: $gutter-medium;
+                            padding-left: $gutter-large;
+                            padding-right: $gutter-large;
                             padding-top: $gutter-small;
 
                             opacity: .7;
