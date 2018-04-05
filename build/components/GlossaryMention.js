@@ -12,7 +12,13 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _reactTooltip = require('react-tooltip');
+
+var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var WORDS_LIMIT = 30;
 
 var GlossaryMention = function GlossaryMention(_ref) {
   var resource = _ref.resource,
@@ -27,6 +33,10 @@ var GlossaryMention = function GlossaryMention(_ref) {
       onClick();
     }
   };
+  var descriptionText = resource.metadata.description;
+  if (descriptionText && descriptionText.length && descriptionText.split(' ').length > WORDS_LIMIT) {
+    descriptionText = descriptionText.split(' ').slice(0, WORDS_LIMIT).join(' ') + '...';
+  }
   return _react2.default.createElement(
     'a',
     {
@@ -36,9 +46,10 @@ var GlossaryMention = function GlossaryMention(_ref) {
       className: 'glossary-mention' },
     _react2.default.createElement(
       'span',
-      { className: 'link-content' },
+      { className: 'link-content', 'data-tip': descriptionText },
       name
-    )
+    ),
+    descriptionText && descriptionText.length && _react2.default.createElement(_reactTooltip2.default, { place: 'right', className: 'tooltip-content' })
   );
 };
 GlossaryMention.propTypes = {

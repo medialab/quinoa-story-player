@@ -830,6 +830,9 @@ $font-stack-sans-serif: Roboto, serif;
             }
         }
     }
+    .tooltip-content{
+        font-size: $font-size-1 * .6;
+    }
     .references,
     .glossary-container
     {
