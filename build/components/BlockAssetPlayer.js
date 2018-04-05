@@ -165,6 +165,7 @@ var BlockAssetPlayer = function (_React$Component) {
             } }) : null;
         case 'embed':
           return _react2.default.createElement('div', {
+            className: 'embed-container',
             dangerouslySetInnerHTML: {
               __html: data
             } });

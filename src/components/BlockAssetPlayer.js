@@ -121,6 +121,7 @@ class BlockAssetPlayer extends React.Component {
       case 'embed':
         return (
           <div
+            className="embed-container"
             dangerouslySetInnerHTML={{
               __html: data
             }} />

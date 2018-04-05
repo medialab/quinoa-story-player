@@ -12,6 +12,7 @@ import formatsExample from './formats-example.json';
 import sidenotesExample from './sidenotes-test.json';
 import burnoutExample from './le-burnout.json';
 import titles from './titles-styling.json';
+import embeds from './embeds-test.json';
 
 const withCustomCss = {
   ...burnoutExample,
@@ -93,6 +94,11 @@ storiesOf('Quinoa story - garlic template', module)
   .add('Title tests', () => (
     <Player
       story={titles}
+    />
+  ))
+  .add('Embed tests', () => (
+    <Player
+      story={embeds}
     />
   ))
 // add other templates here
