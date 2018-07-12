@@ -51,7 +51,7 @@ const InlineAssetWrapper = ({
         const text = contextualizer.alias || resource.metadata.title || '*';
         return (
           <a
-            href={resource.data} target="_blank" alt="href"
+            href={resource.data.url} target="_blank" alt="href"
             rel="noopener">
             {text}
           </a>

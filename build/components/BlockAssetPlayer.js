@@ -77,10 +77,11 @@ var BlockAssetPlayer = function (_React$Component) {
       var _props = this.props,
           type = _props.type,
           data = _props.data;
+      var getResourceDataUrl = this.context.getResourceDataUrl;
 
-      if (type === 'table' && data.url) {
+      if (type === 'table') {
         this.setState({ loading: true });
-        (0, _axios.get)(data.url).then(function (res) {
+        (0, _axios.get)(getResourceDataUrl(data)).then(function (res) {
           var columns = (0, _keys2.default)(res.data[0]).map(function (key) {
             return {
               Header: key,
@@ -94,8 +95,8 @@ var BlockAssetPlayer = function (_React$Component) {
           });
         });
       }
-      if (type === 'data-presentation' && data.url) {
-        (0, _axios.get)(data.url).then(function (res) {
+      if (type === 'data-presentation') {
+        (0, _axios.get)(getResourceDataUrl(data)).then(function (res) {
           _this2.setState({
             data: res.data
           });
@@ -122,7 +123,9 @@ var BlockAssetPlayer = function (_React$Component) {
           fixed = _props2.fixed,
           allowInteractions = _props2.allowInteractions,
           onExit = _props2.onExit;
-      var dimensions = this.context.dimensions;
+      var _context = this.context,
+          dimensions = _context.dimensions,
+          getResourceDataUrl = _context.getResourceDataUrl;
 
       switch (type) {
         case 'table':
@@ -140,7 +143,7 @@ var BlockAssetPlayer = function (_React$Component) {
             columns: columns || this.state.columns,
             loading: this.state.loading });
         case 'image':
-          var src = data.base64 || data.src || data.url;
+          var src = data.base64 || data.src || getResourceDataUrl(data);
           return _react2.default.createElement('img', { src: src });
         case 'video':
           return _react2.default.createElement(
@@ -188,7 +191,8 @@ BlockAssetPlayer.propTypes = {
   onExit: _propTypes2.default.func
 };
 BlockAssetPlayer.contextTypes = {
-  dimensions: _propTypes2.default.object
+  dimensions: _propTypes2.default.object,
+  getResourceDataUrl: _propTypes2.default.func
 };
 
 exports.default = BlockAssetPlayer;
