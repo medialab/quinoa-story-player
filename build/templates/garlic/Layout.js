@@ -68,10 +68,6 @@ var _NotesContainer = require('../../components/NotesContainer');
 
 var _NotesContainer2 = _interopRequireDefault(_NotesContainer);
 
-var _ReactDisqusWrapper = require('../../components/ReactDisqusWrapper');
-
-var _ReactDisqusWrapper2 = _interopRequireDefault(_ReactDisqusWrapper);
-
 var _apa = require('raw-loader!../../assets/apa.csl');
 
 var _apa2 = _interopRequireDefault(_apa);
@@ -504,8 +500,7 @@ var GarlicLayout = function (_Component) {
           sectionsOrder = _props$story.sectionsOrder,
           sections = _props$story.sections,
           _props$story$settings = _props$story.settings,
-          settings = _props$story$settings === undefined ? {} : _props$story$settings,
-          id = _props$story.id;
+          settings = _props$story$settings === undefined ? {} : _props$story$settings;
       var _state = this.state,
           inCover = _state.inCover,
           toc = _state.toc,
@@ -515,7 +510,6 @@ var GarlicLayout = function (_Component) {
           coverImage = _state.coverImage;
       var dimensions = this.context.dimensions;
 
-      var location = window.location.href;
       var customCss = settings.css || '';
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
@@ -546,7 +540,6 @@ var GarlicLayout = function (_Component) {
         _this3.toggleIndex();
       };
       var notesPosition = settings.options && settings.options.notesPosition || 'foot';
-      var allowDisqusComments = settings.options && settings.options.allowDisqusComments === 'yes';
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
       var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
       var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
@@ -671,12 +664,7 @@ var GarlicLayout = function (_Component) {
                       );
                     })
                   )
-                ) : null,
-                allowDisqusComments && _react2.default.createElement(_ReactDisqusWrapper2.default, {
-                  shortname: 'quinoa-story-' + id,
-                  identifier: 'quinoa-story-' + id,
-                  title: metadata.title,
-                  url: location })
+                ) : null
               ),
               _react2.default.createElement(
                 'nav',

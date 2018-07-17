@@ -14,7 +14,6 @@ import SectionLayout from './SectionLayout';
 
 import Bibliography from '../../components/Bibliography';
 import NotesContainer from '../../components/NotesContainer';
-import ReactDisqusWrapper from '../../components/ReactDisqusWrapper';
 
 import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
 import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
@@ -634,7 +633,6 @@ class GarlicLayout extends Component {
         sectionsOrder,
         sections,
         settings = {},
-        id
       }
     } = this.props;
     const {
@@ -648,7 +646,6 @@ class GarlicLayout extends Component {
     const {
       dimensions
     } = this.context;
-    const location = window.location.href;
     const customCss = settings.css || '';
     /**
      * callbacks
@@ -685,7 +682,6 @@ class GarlicLayout extends Component {
       this.toggleIndex();
     };
     const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
-    const allowDisqusComments = settings.options && settings.options.allowDisqusComments === 'yes';
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
     const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
     /**
@@ -794,13 +790,6 @@ class GarlicLayout extends Component {
                       </ul>
                     </div>
                 : null}
-
-                {allowDisqusComments
-                && <ReactDisqusWrapper
-                  shortname={'quinoa-story-' + id}
-                  identifier={'quinoa-story-' + id}
-                  title={metadata.title}
-                  url={location} />}
               </section>
 
               <nav
