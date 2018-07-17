@@ -23,7 +23,8 @@ var _GlossaryMention2 = _interopRequireDefault(_GlossaryMention);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
-  var data = _ref.data;
+  var data = _ref.data,
+      children = _ref.children;
   var story = context.story;
 
   var assetId = data.asset && data.asset.id;
@@ -48,19 +49,22 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
             context.onGlossaryMentionClick(assetId);
           }
         };
-        return _react2.default.createElement(_GlossaryMention2.default, {
-          onClick: onGlossaryClick,
-          contextualization: contextualization,
-          contextualizer: contextualizer,
-          resource: resource });
+        return _react2.default.createElement(
+          _GlossaryMention2.default,
+          {
+            onClick: onGlossaryClick,
+            contextualization: contextualization,
+            contextualizer: contextualizer,
+            resource: resource },
+          children
+        );
       case 'webpage':
-        var text = contextualizer.alias || resource.metadata.title || '*';
         return _react2.default.createElement(
           'a',
           {
-            href: resource.data, target: '_blank', alt: 'href',
+            href: resource.data.url, target: '_blank', alt: 'href',
             rel: 'noopener' },
-          text
+          children
         );
       default:
         return null;

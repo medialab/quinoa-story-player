@@ -17,7 +17,8 @@ import GlossaryMention from './GlossaryMention';
  * @return {ReactElement} component - the component
  */
 const InlineAssetWrapper = ({
-  data
+  data,
+  children
 }, context) => {
   const {story} = context;
   const assetId = data.asset && data.asset.id;
@@ -42,18 +43,22 @@ const InlineAssetWrapper = ({
             context.onGlossaryMentionClick(assetId);
           }
         };
-        return (<GlossaryMention
-          onClick={onGlossaryClick}
-          contextualization={contextualization}
-          contextualizer={contextualizer}
-          resource={resource} />);
+        return (
+          <GlossaryMention
+            onClick={onGlossaryClick}
+            contextualization={contextualization}
+            contextualizer={contextualizer}
+            resource={resource}>
+            {children}
+          </GlossaryMention>
+          );
       case 'webpage':
-        const text = contextualizer.alias || resource.metadata.title || '*';
+        // const text = contextualizer.alias || resource.metadata.title || '*';
         return (
           <a
-            href={resource.data} target="_blank" alt="href"
+            href={resource.data.url} target="_blank" alt="href"
             rel="noopener">
-            {text}
+            {children}
           </a>
         );
       default:

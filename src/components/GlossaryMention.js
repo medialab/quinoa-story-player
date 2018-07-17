@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip'
+import ReactTooltip from 'react-tooltip';
 
 
 const WORDS_LIMIT = 30;
@@ -20,11 +20,12 @@ const WORDS_LIMIT = 30;
  */
 const GlossaryMention = ({
   resource,
-  contextualizer,
+  // contextualizer,
   contextualization,
-  onClick
+  onClick,
+  children
 }) => {
-  const name = contextualizer.alias || resource.data && resource.data.name;
+  // const name = contextualizer.alias || resource.data && resource.data.name;
   const handleClick = e => {
     e.preventDefault();
     if (typeof onClick === 'function') {
@@ -40,7 +41,7 @@ const GlossaryMention = ({
     href={'#glossary-entry-' + resource.id}
     onClick={handleClick}
     className="glossary-mention">
-    <span className="link-content" data-tip={descriptionText}>{name}</span>
+    <span className="link-content" data-tip={descriptionText}>{children}</span>
     {descriptionText && descriptionText.length && <ReactTooltip place="right" className="tooltip-content" />}
   </a>);
 };

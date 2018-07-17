@@ -69,7 +69,7 @@ const renderers = {
       return <BlockAssetWrapper key={key} data={data} />;
     },
     INLINE_ASSET: (children, data, {key}) => {
-      return <InlineAssetWrapper data={data} key={key} />;
+      return <InlineAssetWrapper data={data} key={key}>{children}</InlineAssetWrapper>;
     },
     NOTE_POINTER: (children, data, {key}) => {
       return <NotePointer key={key} children={children} noteId={data.noteId} />;
@@ -103,7 +103,8 @@ class Renderer extends Component {
    * @return {ReactElement} default message
    */
   renderWarning() {
-    return <div><p>Nothing to render.</p></div>;
+    return null;
+    /*return <div><p>Nothing to render.</p></div>;*/
   }
 
   /**

@@ -22,11 +22,10 @@ var WORDS_LIMIT = 30;
 
 var GlossaryMention = function GlossaryMention(_ref) {
   var resource = _ref.resource,
-      contextualizer = _ref.contextualizer,
       contextualization = _ref.contextualization,
-      onClick = _ref.onClick;
+      onClick = _ref.onClick,
+      children = _ref.children;
 
-  var name = contextualizer.alias || resource.data && resource.data.name;
   var handleClick = function handleClick(e) {
     e.preventDefault();
     if (typeof onClick === 'function') {
@@ -47,7 +46,7 @@ var GlossaryMention = function GlossaryMention(_ref) {
     _react2.default.createElement(
       'span',
       { className: 'link-content', 'data-tip': descriptionText },
-      name
+      children
     ),
     descriptionText && descriptionText.length && _react2.default.createElement(_reactTooltip2.default, { place: 'right', className: 'tooltip-content' })
   );
