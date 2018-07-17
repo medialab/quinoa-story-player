@@ -39,9 +39,10 @@ class BlockAssetPlayer extends React.Component {
 
   componentDidMount() {
     const {type, data} = this.props;
-    if (type === 'table' && data.url) {
+    const {getResourceDataUrl} = this.context;
+    if (type === 'table') {
       this.setState({loading: true});
-      get(data.url)
+      get(getResourceDataUrl(data))
       .then(res => {
         const columns = Object.keys(res.data[0]).map(key => ({
           Header: key,
@@ -54,8 +55,8 @@ class BlockAssetPlayer extends React.Component {
         });
       });
     }
-    if (type === 'data-presentation' && data.url) {
-      get(data.url)
+    if (type === 'data-presentation') {
+      get(getResourceDataUrl(data))
       .then(res => {
         this.setState({
           data: res.data,
@@ -76,7 +77,7 @@ class BlockAssetPlayer extends React.Component {
   */
   render() {
     const {type, data, options, fixed, allowInteractions, onExit} = this.props;
-    const {dimensions} = this.context;
+    const {dimensions, getResourceDataUrl} = this.context;
     switch (type) {
       case 'table':
         let columns;
@@ -92,7 +93,7 @@ class BlockAssetPlayer extends React.Component {
           loading={this.state.loading} />);
       case 'image':
         // future-proofing possible externally linked images
-        const src = data.base64 || data.src || data.url;
+        const src = data.base64 || data.src || getResourceDataUrl(data);
         return <img src={src} />;
       case 'video':
         return (
@@ -151,7 +152,11 @@ BlockAssetPlayer.propTypes = {
  * Component's context used properties
  */
 BlockAssetPlayer.contextTypes = {
-  dimensions: PropTypes.object
+  dimensions: PropTypes.object,
+  /**
+   * getResourceDataUrl in fonio DataUrlProvider
+   */
+  getResourceDataUrl: PropTypes.func,
 };
 
 export default BlockAssetPlayer;
