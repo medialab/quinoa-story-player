@@ -17,7 +17,7 @@
  */
 
 // 1. variables
-$gutter-small: .7rem;
+$gutter-small: 1;
 $gutter-medium: $gutter-small * 1.666;
 $gutter-large: $gutter-medium * 3;
 $gutter-lateral-large-screens: 25%;
@@ -840,5 +840,74 @@ $font-stack-sans-serif: Roboto, serif;
         {
             margin-bottom: $gutter-medium;
         }
+    }
+
+    @media print
+    {
+      .navbar,
+      .aside-edition-container,
+      .button,
+      .editor-footer,
+      .icon
+      {
+        display: none!important;
+      }
+      div,
+      p,
+      figure,
+      section,
+      blockquote
+      {
+        padding: 0!important;
+        margin: 0!important;
+        overflow: visible!important;
+        background: white!important;
+        position: relative!important;
+        left: unset!important;
+        top: unset!important;
+        width: unset!important;
+        height: unset!important;
+        display: block!important;
+      }
+      figure{
+        align-items: stretch!important;
+        justify-content: stretch!important;
+      }
+      *{
+        font-size: unset!important;
+      }
+      p,
+      li,
+      blockquote
+      {
+        font-size: 10px!important;
+        line-height: 15px!important;
+        margin-bottom: 15px!important;
+      }
+      blockquote
+    {
+        position: relative;
+
+        margin: 0;
+        // padding: $gutter-large;
+
+        quotes: '« ' ' »' '‹ ' ' ›';
+        &:before
+        {
+            position: absolute;
+            top: $gutter-small;
+            left: $gutter-small;
+
+            content: open-quote;
+        }
+        &:after
+        {
+            position: absolute;
+            right: $gutter-small;
+            bottom: $gutter-small;
+
+            content: close-quote;
+        }
+    }
     }
 }

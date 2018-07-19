@@ -4,15 +4,31 @@
  * each story allows to visually assess the lib's component in the browser
  * run `npm storybook` to see them in action
  */
-import React from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
-import Player from '../src/';
+import RealPlayer from '../src/';
 
 import formatsExample from './formats-example.json';
 import sidenotesExample from './sidenotes-test.json';
 import burnoutExample from './le-burnout.json';
 import titles from './titles-styling.json';
 import embeds from './embeds-test.json';
+
+class Player extends Component {
+
+  static childContextTypes = {
+    getResourceDataUrl: PropTypes.func,
+  }
+
+  getChildContext = () =>  ({
+    getResourceDataUrl: (url) => `/assets/${url}`
+  })
+
+  render = () => {
+    return <RealPlayer {...this.props} />
+  }
+}
 
 const withCustomCss = {
   ...burnoutExample,

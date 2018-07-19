@@ -1,6 +1,6 @@
 {
   "name": "quinoa-story-player",
-  "version": "0.2.17",
+  "version": "0.2.18",
   "description": "js module and standalone app for displaying quinoa data stories",
   "main": "build/index.js",
   "scripts": {
