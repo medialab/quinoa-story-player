@@ -12,9 +12,9 @@ var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends7 = require('babel-runtime/helpers/extends');
+var _extends6 = require('babel-runtime/helpers/extends');
 
-var _extends8 = _interopRequireDefault(_extends7);
+var _extends7 = _interopRequireDefault(_extends6);
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
@@ -68,6 +68,10 @@ var _NotesContainer = require('../../components/NotesContainer');
 
 var _NotesContainer2 = _interopRequireDefault(_NotesContainer);
 
+var _resourceToCSLJSON = require('../../utils/resourceToCSLJSON');
+
+var _resourceToCSLJSON2 = _interopRequireDefault(_resourceToCSLJSON);
+
 var _apa = require('raw-loader!../../assets/apa.csl');
 
 var _apa2 = _interopRequireDefault(_apa);
@@ -111,52 +115,69 @@ var GarlicLayout = function (_Component) {
     _this.buildCitations = function (story) {
       var contextualizations = story.contextualizations,
           contextualizers = story.contextualizers,
-          resources = story.resources;
+          resources = story.resources,
+          _story$settings = story.settings,
+          settings = _story$settings === undefined ? {} : _story$settings;
 
-      var assets = (0, _keys2.default)(contextualizations).reduce(function (ass, id) {
-        var contextualization = contextualizations[id];
-        var contextualizer = contextualizers[contextualization.contextualizerId];
-        return (0, _extends8.default)({}, ass, (0, _defineProperty3.default)({}, id, (0, _extends8.default)({}, contextualization, {
-          resource: resources[contextualization.resourceId],
-          contextualizer: contextualizer,
-          type: contextualizer ? contextualizer.type : 'INLINE_ASSET'
-        })));
-      }, {});
-      var bibContextualizations = (0, _keys2.default)(assets).filter(function (assetKey) {
-        return assets[assetKey].type === 'bib';
-      }).map(function (assetKey) {
-        return assets[assetKey];
+      var referenceStatus = settings.options && settings.options.referenceStatus || 'cited';
+      var referenceTypes = settings.options && settings.options.referenceTypes || ['bib'];
+      var citedResources = (0, _keys2.default)(resources).map(function (resourceId) {
+        return resources[resourceId];
+      }).filter(function (resource) {
+        if (referenceTypes.length) {
+          return referenceTypes.indexOf(resource.metadata.type) > -1;
+        }
+        return true;
+      }).filter(function (resource) {
+        if (referenceStatus === 'cited') {
+          return (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
+            return contextualizations[contextualizationId].resourceId === resource.id;
+          }).length > 0;
+        }
+        return true;
       });
-      var citationItems = (0, _keys2.default)(bibContextualizations).reduce(function (finalCitations, key1) {
-        var bibCit = bibContextualizations[key1];
-        var citations = bibCit.resource.data;
-        var newCitations = citations.reduce(function (final2, citation) {
-          return (0, _extends8.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
+      var enrichedCitedResources = citedResources.map(function (resource) {
+        var citations = resource.metadata.type === 'bib' ? resource.data : (0, _resourceToCSLJSON2.default)(resource);
+        return (0, _extends7.default)({}, resource, {
+          citations: citations,
+          citationId: citations[0].id
+        });
+      });
+      var citationItems = enrichedCitedResources.reduce(function (finalCitations1, resource) {
+
+        var newCitations = resource.citations.reduce(function (final2, citation) {
+          return (0, _extends7.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
         }, {});
-        return (0, _extends8.default)({}, finalCitations, newCitations);
+        return (0, _extends7.default)({}, finalCitations1, newCitations);
       }, {});
-      var citationInstances = bibContextualizations 
-      .map(function (bibCit, index) {
-        var key1 = bibCit.id;
-        var contextualization = contextualizations[key1];
+      var noteIndex = 0;
+      var citationInstances = enrichedCitedResources 
+      .reduce(function (result1, resource) {
+        var theseContextualizations = (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
+          return contextualizations[contextualizationId].resourceId === resource.id;
+        }).map(function (contextualizationId) {
+          return contextualizations[contextualizationId];
+        });
 
-        var contextualizer = contextualizers[contextualization.contextualizerId];
-        var resource = resources[contextualization.resourceId];
-        return {
-          citationID: key1,
-          citationItems: resource.data.map(function (ref) {
-            return {
-              locator: contextualizer.locator,
-              prefix: contextualizer.prefix,
-              suffix: contextualizer.suffix,
-              id: ref.id
-            };
-          }),
-          properties: {
-            noteIndex: index + 1
-          }
-        };
-      });
+        return [].concat((0, _toConsumableArray3.default)(result1), (0, _toConsumableArray3.default)(theseContextualizations.reduce(function (result2, contextualization) {
+          var contextualizer = contextualizers[contextualization.contextualizerId];
+          noteIndex++;
+          return {
+            citationID: resource.citationId,
+            citationItems: resource.citations.map(function () {
+              return {
+                locator: contextualizer.locator,
+                prefix: contextualizer.prefix,
+                suffix: contextualizer.suffix,
+                id: contextualizer.id
+              };
+            }),
+            properties: {
+              noteIndex: noteIndex
+            }
+          };
+        }, [])));
+      }, []);
       var citationData = citationInstances.map(function (instance, index) {
         return [instance,
         citationInstances.slice(0, index === 0 ? 0 : index).map(function (oCitation) {
@@ -183,11 +204,11 @@ var GarlicLayout = function (_Component) {
       var stateChanges = {};
 
       if (scrollTop < headerHeight && !_this.state.inCover) {
-        stateChanges = (0, _extends8.default)({}, stateChanges, {
+        stateChanges = (0, _extends7.default)({}, stateChanges, {
           inCover: true
         });
       } else if (scrollTop > headerHeight && _this.state.inCover) {
-        stateChanges = (0, _extends8.default)({}, stateChanges, {
+        stateChanges = (0, _extends7.default)({}, stateChanges, {
           inCover: false
         });
       }
@@ -212,7 +233,7 @@ var GarlicLayout = function (_Component) {
           }
       }
       if (fixedPresentationId !== _this.state.fixedPresentationId) {
-        stateChanges = (0, _extends8.default)({}, stateChanges, {
+        stateChanges = (0, _extends7.default)({}, stateChanges, {
           fixedPresentationId: fixedPresentationId,
           fixedPresentationHeight: fixedPresentationHeight
         });
@@ -221,7 +242,7 @@ var GarlicLayout = function (_Component) {
       }
       if (scrollTop !== _this.state.scrollTop) {
         var toc = _this.buildTOC(_this.props.story, scrollTop);
-        stateChanges = (0, _extends8.default)({}, stateChanges, {
+        stateChanges = (0, _extends7.default)({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
         });
@@ -366,12 +387,12 @@ var GarlicLayout = function (_Component) {
         var contextualizer = contextualizers[contextualizerId];
         return contextualizer && contextualizer.type === 'glossary';
       }).map(function (contextualizationId) {
-        return (0, _extends8.default)({}, contextualizations[contextualizationId], {
+        return (0, _extends7.default)({}, contextualizations[contextualizationId], {
           contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
           resource: resources[contextualizations[contextualizationId].resourceId]
         });
       }).reduce(function (entries, contextualization) {
-        return (0, _extends8.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
+        return (0, _extends7.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
           resource: contextualization.resource,
           mentions: entries[contextualization.resourceId] ? entries[contextualization.resourceId].mentions.concat(contextualization) : [contextualization]
         }));
@@ -514,19 +535,19 @@ var GarlicLayout = function (_Component) {
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
         return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)(sections[sectionId].notesOrder.map(function (noteId) {
-          return (0, _extends8.default)({}, sections[sectionId].notes[noteId], {
+          return (0, _extends7.default)({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++
           });
         })));
       }, []);
       var finalSections = (0, _keys2.default)(sections).reduce(function (res, sectionId) {
-        return (0, _extends8.default)({}, res, (0, _defineProperty3.default)({}, sectionId, (0, _extends8.default)({}, sections[sectionId], {
+        return (0, _extends7.default)({}, res, (0, _defineProperty3.default)({}, sectionId, (0, _extends7.default)({}, sections[sectionId], {
           notes: (0, _keys2.default)(sections[sectionId].notes).reduce(function (tempNotes, noteId) {
             var related = notes.find(function (n) {
               return n.id === noteId;
             });
-            return (0, _extends8.default)({}, tempNotes, (0, _defineProperty3.default)({}, noteId, (0, _extends8.default)({}, sections[sectionId].notes[noteId], {
+            return (0, _extends7.default)({}, tempNotes, (0, _defineProperty3.default)({}, noteId, (0, _extends7.default)({}, sections[sectionId].notes[noteId], {
               finalOrder: related ? related.finalOrder : sections[sectionId].notes[noteId].order
             })));
           }, {})
@@ -548,6 +569,7 @@ var GarlicLayout = function (_Component) {
       var bindHeaderRef = function bindHeaderRef(header) {
         _this3.header = header;
       };
+
       return _react2.default.createElement(
         _reactCiteproc.ReferencesManager,
         {

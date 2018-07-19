@@ -14,6 +14,7 @@ import SectionLayout from './SectionLayout';
 
 import Bibliography from '../../components/Bibliography';
 import NotesContainer from '../../components/NotesContainer';
+import resourceToCSLJSON from '../../utils/resourceToCSLJSON';
 
 import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
 import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
@@ -279,72 +280,83 @@ class GarlicLayout extends Component {
     const {
       contextualizations,
       contextualizers,
-      resources
+      resources,
+      settings = {},
     } = story;
-    /*
-     * Assets preparation
-     */
-    const assets = Object.keys(contextualizations)
-    .reduce((ass, id) => {
-      const contextualization = contextualizations[id];
-      const contextualizer = contextualizers[contextualization.contextualizerId];
-      return {
-        ...ass,
-        [id]: {
-          ...contextualization,
-          resource: resources[contextualization.resourceId],
-          contextualizer,
-          type: contextualizer ? contextualizer.type : 'INLINE_ASSET'
-        }
-      };
-    }, {});
     /*
      * Citations preparation
      */
-    // isolate bib contextualizations
-    const bibContextualizations = Object.keys(assets)
-    .filter(assetKey =>
-        assets[assetKey].type === 'bib'
-      )
-    .map(assetKey => assets[assetKey]);
+    const referenceStatus = (settings.options && settings.options.referenceStatus) || 'cited';
+    const referenceTypes = (settings.options && settings.options.referenceTypes) || ['bib'];
+    const citedResources = Object.keys(resources)
+    .map(resourceId => resources[resourceId])
+    .filter(resource => {
+      if (referenceTypes.length) {
+        return referenceTypes.indexOf(resource.metadata.type) > -1;
+      }
+      return true;
+    })
+    .filter(resource => {
+      if (referenceStatus === 'cited') {
+        return Object.keys(contextualizations)
+          .filter(contextualizationId => contextualizations[contextualizationId].resourceId === resource.id)
+          .length > 0;
+      }
+      return true;
+    });
     // build citations items data
-    const citationItems = Object.keys(bibContextualizations)
-      .reduce((finalCitations, key1) => {
-        const bibCit = bibContextualizations[key1];
-        const citations = bibCit.resource.data;
-        const newCitations = citations.reduce((final2, citation) => {
+    const enrichedCitedResources = citedResources.map(resource => {
+      const citations = resource.metadata.type === 'bib' ?
+          resource.data : resourceToCSLJSON(resource);
+      return {
+        ...resource,
+        citations,
+        citationId: citations[0].id
+      };
+    });
+    const citationItems = enrichedCitedResources
+      .reduce((finalCitations1, resource) => {
+
+        const newCitations = resource.citations.reduce((final2, citation) => {
           return {
             ...final2,
             [citation.id]: citation
           };
         }, {});
         return {
-          ...finalCitations,
+          ...finalCitations1,
           ...newCitations,
         };
       }, {});
+    let noteIndex = 0;
     // build citations's citations data
-    const citationInstances = bibContextualizations // Object.keys(bibContextualizations)
-      .map((bibCit, index) => {
-        const key1 = bibCit.id;
-        const contextualization = contextualizations[key1];
+    const citationInstances = enrichedCitedResources // Object.keys(bibContextualizations)
+      .reduce((result1, resource) => {
+        const theseContextualizations = Object.keys(contextualizations)
+          .filter(contextualizationId => contextualizations[contextualizationId].resourceId === resource.id)
+          .map(contextualizationId => contextualizations[contextualizationId]);
 
-        const contextualizer = contextualizers[contextualization.contextualizerId];
-        const resource = resources[contextualization.resourceId];
-        return {
-          citationID: key1,
-          citationItems: resource.data.map(ref => ({
-            locator: contextualizer.locator,
-            prefix: contextualizer.prefix,
-            suffix: contextualizer.suffix,
-            // ...contextualizer,
-            id: ref.id,
-          })),
-          properties: {
-            noteIndex: index + 1
-          }
-        };
-      });
+        return [
+          ...result1,
+          ...theseContextualizations.reduce((result2, contextualization) => {
+            const contextualizer = contextualizers[contextualization.contextualizerId];
+            noteIndex++;
+            return {
+              citationID: resource.citationId,
+              citationItems: resource.citations.map(() => ({
+                locator: contextualizer.locator,
+                prefix: contextualizer.prefix,
+                suffix: contextualizer.suffix,
+                // ...contextualizer,
+                id: contextualizer.id,
+              })),
+              properties: {
+                noteIndex
+              }
+            };
+          }, [])
+        ];
+      }, []);
     // map them to the clumsy formatting needed by citeProc
     const citationData = citationInstances.map((instance, index) => [
       instance,
@@ -693,6 +705,8 @@ class GarlicLayout extends Component {
     const bindHeaderRef = header => {
       this.header = header;
     };
+
+
     return (
       <ReferencesManager
         style={citationStyle}
