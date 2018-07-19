@@ -529,7 +529,9 @@ var GarlicLayout = function (_Component) {
           glossary = _state.glossary,
           citations = _state.citations,
           coverImage = _state.coverImage;
-      var dimensions = this.context.dimensions;
+      var _context = this.context,
+          dimensions = _context.dimensions,
+          getResourceDataUrl = _context.getResourceDataUrl;
 
       var customCss = settings.css || '';
       var noteCount = 1;
@@ -593,7 +595,7 @@ var GarlicLayout = function (_Component) {
               className: 'header',
               ref: bindHeaderRef,
               style: {
-                backgroundImage: coverImage ? 'url(' + (coverImage.url || coverImage.base64) + ')' : undefined,
+                backgroundImage: coverImage ? 'url(' + (coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64) + ')' : undefined,
                 height: coverImage ? '100%' : '0'
               } }),
             _react2.default.createElement(
@@ -786,7 +788,8 @@ GarlicLayout.propTypes = {
   story: _propTypes2.default.object
 };
 GarlicLayout.contextTypes = {
-  dimensions: _propTypes2.default.object
+  dimensions: _propTypes2.default.object,
+  getResourceDataUrl: _propTypes2.default.func
 };
 GarlicLayout.childContextTypes = {
   fixedPresentationId: _propTypes2.default.string,

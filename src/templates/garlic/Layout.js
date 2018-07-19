@@ -656,7 +656,8 @@ class GarlicLayout extends Component {
       coverImage
     } = this.state;
     const {
-      dimensions
+      dimensions,
+      getResourceDataUrl
     } = this.context;
     const customCss = settings.css || '';
     /**
@@ -725,7 +726,7 @@ class GarlicLayout extends Component {
               className="header"
               ref={bindHeaderRef}
               style={{
-              backgroundImage: coverImage ? 'url(' + (coverImage.url || coverImage.base64) + ')' : undefined,
+              backgroundImage: coverImage ? 'url(' + (coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64) + ')' : undefined,
               height: coverImage ? '100%' : '0'
             }} />
             <section
@@ -889,6 +890,10 @@ GarlicLayout.contextTypes = {
    * dimensions of the container
    */
   dimensions: PropTypes.object,
+  /**
+   * getResourceDataUrl in fonio DataUrlProvider
+   */
+  getResourceDataUrl: PropTypes.func,
 };
 /**
  * Component's context properties provided to children
