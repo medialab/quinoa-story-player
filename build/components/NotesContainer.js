@@ -126,6 +126,7 @@ var NotesContainer = function (_Component) {
       if (this.props.notesPosition !== nextProps.notesPosition && nextProps.notesPosition === 'aside') {
         this.updatePositions();
         setTimeout(this.updatePositions);
+        setTimeout(this.updatePositions, 1000);
       }
     }
 
@@ -139,7 +140,8 @@ var NotesContainer = function (_Component) {
       var _props = this.props,
           notes = _props.notes,
           onNotePointerClick = _props.onNotePointerClick,
-          notesPosition = _props.notesPosition;
+          notesPosition = _props.notesPosition,
+          title = _props.title;
       var notesStyles = this.state.notesStyles;
 
 
@@ -149,7 +151,7 @@ var NotesContainer = function (_Component) {
         notesPosition !== 'aside' && _react2.default.createElement(
           'h3',
           null,
-          'Notes'
+          title
         ),
         _react2.default.createElement(
           'ol',

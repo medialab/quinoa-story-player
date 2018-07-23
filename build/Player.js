@@ -104,6 +104,7 @@ var QuinoaStoryPlayer = function (_Component) {
         switch (template) {
           case 'garlic':
             return _react2.default.createElement(_Layout2.default, {
+              locale: this.props.locale,
               story: this.state.story });
           default:
             return null;

@@ -178,3 +178,5 @@ export const buildGlossary = (story) => {
 
     return glossaryMentions;
   };
+
+export const capitalize = lower => lower.charAt(0).toUpperCase() + lower.substr(1);

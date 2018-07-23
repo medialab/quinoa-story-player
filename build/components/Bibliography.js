@@ -16,7 +16,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 var BibliographyWrapper = function BibliographyWrapper(_ref, _ref2) {
-  var id = _ref.id;
+  var id = _ref.id,
+      title = _ref.title;
   var bibliography = _ref2.bibliography;
 
   return _react2.default.createElement(
@@ -25,7 +26,7 @@ var BibliographyWrapper = function BibliographyWrapper(_ref, _ref2) {
     _react2.default.createElement(
       'h2',
       { id: id },
-      'References'
+      title
     ),
     _react2.default.createElement(
       'div',

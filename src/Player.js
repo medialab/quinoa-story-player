@@ -95,6 +95,7 @@ class QuinoaStoryPlayer extends Component {
         case 'garlic':
           return (
             <GarlicLayout
+              locale={this.props.locale}
               story={this.state.story} />
           );
         default:

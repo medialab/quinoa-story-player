@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.buildGlossary = exports.buildCitations = exports.buildCoverImage = undefined;
+exports.capitalize = exports.buildGlossary = exports.buildCitations = exports.buildCoverImage = undefined;
 
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
@@ -148,4 +148,8 @@ var buildGlossary = exports.buildGlossary = function buildGlossary(story) {
   });
 
   return glossaryMentions;
+};
+
+var capitalize = exports.capitalize = function capitalize(lower) {
+  return lower.charAt(0).toUpperCase() + lower.substr(1);
 };

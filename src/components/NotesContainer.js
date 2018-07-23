@@ -79,6 +79,7 @@ class NotesContainer extends Component {
       // of notes has adjusted to their new container
       // (todo: improve that)
       setTimeout(this.updatePositions);
+      setTimeout(this.updatePositions, 1000);
     }
   }
 
@@ -143,7 +144,8 @@ class NotesContainer extends Component {
     const {
       notes,
       onNotePointerClick,
-      notesPosition
+      notesPosition,
+      title
     } = this.props;
 
     const {
@@ -152,7 +154,7 @@ class NotesContainer extends Component {
 
     return (
       <div className={'notes-container notes-container-position-' + notesPosition}>
-        {notesPosition !== 'aside' && <h3>Notes</h3>}
+        {notesPosition !== 'aside' && <h3>{title}</h3>}
         <ol className="notes-list">
           {
             notes

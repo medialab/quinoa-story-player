@@ -78,6 +78,10 @@ var _englishLocale = require('raw-loader!../../assets/english-locale.xml');
 
 var _englishLocale2 = _interopRequireDefault(_englishLocale);
 
+var _locales = require('./locales.json');
+
+var _locales2 = _interopRequireDefault(_locales);
+
 require('./garlic.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -103,7 +107,8 @@ var GarlicLayout = function (_Component) {
 
     _this.buildTOC = function (story, scrollTop, _ref) {
       var citations = _ref.citations,
-          glossary = _ref.glossary;
+          glossary = _ref.glossary,
+          locale = _ref.locale;
 
       var toc = story.sectionsOrder.map(function (sectionId, sectionIndex) {
         var section = story.sections[sectionId];
@@ -156,7 +161,7 @@ var GarlicLayout = function (_Component) {
           }
           toc.push({
             level: 0,
-            text: 'References',
+            text: (0, _misc.capitalize)(locale.glossary || 'glossary'),
             key: 'references',
             active: referencesActive
           });
@@ -174,7 +179,7 @@ var GarlicLayout = function (_Component) {
           }
           toc.push({
             level: 0,
-            text: 'Glossary',
+            text: (0, _misc.capitalize)(locale.references || 'references'),
             key: 'glossary',
             active: glossaryActive
           });
@@ -256,7 +261,7 @@ var GarlicLayout = function (_Component) {
     _this.scrollToCover = _this.scrollToCover.bind(_this);
     _this.handleSpringUpdate = _this.handleSpringUpdate.bind(_this);
     _this.scrollTop = _this.scrollTop.bind(_this);
-    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 30);
+    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 30, { leading: true, trailing: true, maxWait: 100 });
     _this.scrollToElementId = _this.scrollToElementId.bind(_this);
     _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_this);
     _this.onGlossaryMentionClick = _this.onGlossaryMentionClick.bind(_this);
@@ -287,7 +292,8 @@ var GarlicLayout = function (_Component) {
         fixedPresentationId: this.state.fixedPresentationId,
         onExit: this.onPresentationExit,
         onNoteContentPointerClick: this.onNoteContentPointerClick,
-        onGlossaryMentionClick: this.onGlossaryMentionClick
+        onGlossaryMentionClick: this.onGlossaryMentionClick,
+        locale: this.state.locale
       };
     }
 
@@ -304,7 +310,12 @@ var GarlicLayout = function (_Component) {
           _this2.setState({
             glossary: (0, _misc.buildGlossary)(_this2.props.story),
             citations: (0, _misc.buildCitations)(_this2.props.story),
-            coverImage: (0, _misc.buildCoverImage)(_this2.props.story)
+            coverImage: (0, _misc.buildCoverImage)(_this2.props.story),
+            locale: _this2.props.locale && _locales2.default[_this2.props.locale] ? _locales2.default[_this2.props.locale] : _locales2.default.fr
+          });
+          setTimeout(function () {
+            var toc = _this2.buildTOC(_this2.props.story, 0, _this2.state);
+            _this2.setState({ toc: toc });
           });
         }
       });
@@ -313,11 +324,18 @@ var GarlicLayout = function (_Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
+      var _this3 = this;
+
       if (this.props.story !== nextProps.story) {
         this.setState({
           glossary: (0, _misc.buildGlossary)(nextProps.story),
           citations: (0, _misc.buildCitations)(nextProps.story),
-          coverImage: (0, _misc.buildCoverImage)(nextProps.story)
+          coverImage: (0, _misc.buildCoverImage)(nextProps.story),
+          locale: nextProps.locale && _locales2.default[nextProps.locale] ? _locales2.default[nextProps.locale] : _locales2.default.en
+        });
+        setTimeout(function () {
+          var toc = _this3.buildTOC(_this3.props.story, 0, _this3.state);
+          _this3.setState({ toc: toc });
         });
       }
     }
@@ -427,7 +445,7 @@ var GarlicLayout = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var _props$story = this.props.story,
           metadata = _props$story.metadata,
@@ -441,7 +459,9 @@ var GarlicLayout = function (_Component) {
           indexOpen = _state.indexOpen,
           glossary = _state.glossary,
           citations = _state.citations,
-          coverImage = _state.coverImage;
+          coverImage = _state.coverImage,
+          _state$locale = _state.locale,
+          locale = _state$locale === undefined ? {} : _state$locale;
       var _context = this.context,
           dimensions = _context.dimensions,
           getResourceDataUrl = _context.getResourceDataUrl;
@@ -469,20 +489,20 @@ var GarlicLayout = function (_Component) {
         })));
       }, {});
       var onClickToggle = function onClickToggle() {
-        return _this3.toggleIndex();
+        return _this4.toggleIndex();
       };
       var onClickTitle = function onClickTitle() {
-        _this3.scrollToContents();
-        _this3.toggleIndex();
+        _this4.scrollToContents();
+        _this4.toggleIndex();
       };
       var notesPosition = settings.options && settings.options.notesPosition || 'foot';
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
       var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
       var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
-        _this3.globalScrollbar = scrollbar;
+        _this4.globalScrollbar = scrollbar;
       };
       var bindHeaderRef = function bindHeaderRef(header) {
-        _this3.header = header;
+        _this4.header = header;
       };
 
       return _react2.default.createElement(
@@ -508,7 +528,7 @@ var GarlicLayout = function (_Component) {
               className: 'header',
               ref: bindHeaderRef,
               style: {
-                backgroundImage: coverImage ? 'url(' + (coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64) + ')' : undefined,
+                backgroundImage: coverImage ? 'url(' + (coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64) : undefined,
                 height: coverImage ? '100%' : '0'
               } }),
             _react2.default.createElement(
@@ -546,15 +566,16 @@ var GarlicLayout = function (_Component) {
                 notes && notes.length ? _react2.default.createElement(_NotesContainer2.default, {
                   notes: notes,
                   onNotePointerClick: this.onNotePointerClick,
+                  title: (0, _misc.capitalize)(locale.notes || 'notes'),
                   notesPosition: notesPosition }) : null,
-                citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, { id: 'references' }) : null,
+                citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, { id: 'references', title: (0, _misc.capitalize)(locale.references || 'references') }) : null,
                 glossary && glossary.length ? _react2.default.createElement(
                   'div',
                   { className: 'glossary-container' },
                   _react2.default.createElement(
                     'h2',
                     { id: 'glossary' },
-                    'Glossary'
+                    (0, _misc.capitalize)(locale.glossary || 'glossary')
                   ),
                   _react2.default.createElement(
                     'ul',
@@ -577,7 +598,7 @@ var GarlicLayout = function (_Component) {
                               var target = 'glossary-mention-' + mention.id;
                               var onClick = function onClick(e) {
                                 e.preventDefault();
-                                _this3.scrollToElementId(target);
+                                _this4.scrollToElementId(target);
                               };
                               return _react2.default.createElement(
                                 'a',
@@ -664,8 +685,8 @@ var GarlicLayout = function (_Component) {
                   var onClick = function onClick(e) {
                     e.stopPropagation();
                     e.preventDefault();
-                    _this3.scrollToElementId(item.key);
-                    _this3.toggleIndex();
+                    _this4.scrollToElementId(item.key);
+                    _this4.toggleIndex();
                   };
                   return _react2.default.createElement(
                     'li',
@@ -713,7 +734,9 @@ GarlicLayout.childContextTypes = {
   fixedPresentationId: _propTypes2.default.string,
   onNoteContentPointerClick: _propTypes2.default.func,
   onExit: _propTypes2.default.func,
-  onGlossaryMentionClick: _propTypes2.default.func
+  onGlossaryMentionClick: _propTypes2.default.func,
+
+  locale: _propTypes2.default.object
 };
 
 exports.default = GarlicLayout;

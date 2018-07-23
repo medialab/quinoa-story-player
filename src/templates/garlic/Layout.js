@@ -18,11 +18,14 @@ import NotesContainer from '../../components/NotesContainer';
 import {
   buildCoverImage,
   buildCitations,
-  buildGlossary
+  buildGlossary,
+  capitalize
 } from '../../utils/misc';
 
 import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
 import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
+
+import locales from './locales.json';
 
 import './garlic.scss';
 
@@ -57,7 +60,7 @@ class GarlicLayout extends Component {
     this.scrollToCover = this.scrollToCover.bind(this);
     this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 30, {leading: true, trailing: true, maxWait: 100});
     // this.onScrollUpdate = this.onScrollUpdate.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
@@ -116,6 +119,7 @@ class GarlicLayout extends Component {
       onNoteContentPointerClick: this.onNoteContentPointerClick,
       // callbacks when a glossary mention is clicked
       onGlossaryMentionClick: this.onGlossaryMentionClick,
+      locale: this.state.locale
     };
   }
   /**
@@ -133,7 +137,12 @@ class GarlicLayout extends Component {
         this.setState({
           glossary: buildGlossary(this.props.story),
           citations: buildCitations(this.props.story),
-          coverImage: buildCoverImage(this.props.story)
+          coverImage: buildCoverImage(this.props.story),
+          locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales['fr']
+        });
+        setTimeout(() => {
+          const toc = this.buildTOC(this.props.story, 0, this.state);
+          this.setState({toc})
         });
       }
     });
@@ -149,7 +158,12 @@ class GarlicLayout extends Component {
       this.setState({
         glossary: buildGlossary(nextProps.story),
         citations: buildCitations(nextProps.story),
-        coverImage: buildCoverImage(nextProps.story)
+        coverImage: buildCoverImage(nextProps.story),
+        locale: nextProps.locale && locales[nextProps.locale] ? locales[nextProps.locale] : locales['en']
+      });
+      setTimeout(() => {
+        const toc = this.buildTOC(this.props.story, 0, this.state);
+        this.setState({toc})
       });
     }
   }
@@ -160,7 +174,7 @@ class GarlicLayout extends Component {
    * @param {number} scrollTop - the position of the scroll to use for decidinng which TOC item is active
    * @return {array} tocElements - the toc elements to use for rendering the TOC
    */
-  buildTOC = (story, scrollTop, {citations, glossary}) => {
+  buildTOC = (story, scrollTop, {citations, glossary, locale}) => {
     const toc = story.sectionsOrder
     .map((sectionId, sectionIndex) => {
       const section = story.sections[sectionId];
@@ -232,7 +246,7 @@ class GarlicLayout extends Component {
         }
         toc.push({
           level: 0,
-          text: 'References',
+          text: capitalize(locale.glossary || 'glossary'),
           key: 'references',
           active: referencesActive
         });
@@ -256,7 +270,7 @@ class GarlicLayout extends Component {
         }
         toc.push({
           level: 0,
-          text: 'Glossary',
+          text: capitalize(locale.references || 'references'),
           key: 'glossary',
           active: glossaryActive
         });
@@ -486,7 +500,8 @@ class GarlicLayout extends Component {
       indexOpen,
       glossary,
       citations,
-      coverImage
+      coverImage,
+      locale = {}
     } = this.state;
     const {
       dimensions,
@@ -558,7 +573,7 @@ class GarlicLayout extends Component {
               className="header"
               ref={bindHeaderRef}
               style={{
-              backgroundImage: coverImage ? 'url(' + (coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64) + ')' : undefined,
+              backgroundImage: coverImage ? `url(${coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64}` : undefined,
               height: coverImage ? '100%' : '0'
             }} />
             <section
@@ -593,19 +608,20 @@ class GarlicLayout extends Component {
                   <NotesContainer
                     notes={notes}
                     onNotePointerClick={this.onNotePointerClick}
+                    title={capitalize(locale.notes || 'notes')}
                     notesPosition={notesPosition} />
                 : null}
                 {
                   citations &&
                   citations.citationItems &&
                   Object.keys(citations.citationItems).length ?
-                    <Bibliography id="references" />
+                    <Bibliography id="references" title={capitalize(locale.references || 'references')} />
                 : null}
 
                 {glossary &&
                   glossary.length ?
                     <div className="glossary-container">
-                      <h2 id="glossary">Glossary</h2>
+                      <h2 id="glossary">{capitalize(locale.glossary || 'glossary')}</h2>
                       <ul className="glossary-mentions-container">
                         {
                       glossary.map((entry, index) => {
@@ -757,6 +773,8 @@ GarlicLayout.childContextTypes = {
    * Callbacks when a glossary item is clicked
    */
    onGlossaryMentionClick: PropTypes.func,
+
+   locale: PropTypes.object,
 };
 
 

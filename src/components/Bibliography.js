@@ -16,13 +16,14 @@ import PropTypes from 'prop-types';
  * @return {ReactElement} component - the component
  */
 const BibliographyWrapper = ({
-  id
+  id,
+  title
 }, {
   bibliography,
 }) => {
   return (
     <section className="references">
-      <h2 id={id}>References</h2>
+      <h2 id={id}>{title}</h2>
       <div>{bibliography}</div>
     </section>
   );
