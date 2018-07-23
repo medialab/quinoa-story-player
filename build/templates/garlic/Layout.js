@@ -146,40 +146,77 @@ var GarlicLayout = function (_Component) {
         return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
       }, []);
 
-      if ((0, _keys2.default)(citations.citationItems).length) {
-        var referencesActive = void 0;
+      var hasReferences = (0, _keys2.default)(citations.citationItems).length > 0;
+      var hasGlossary = glossary.length > 0;
+      var notesPosition = story.settings.options && story.settings.options.notesPosition || 'foot';
+      var hasNotes = story.sectionsOrder.find(function (key) {
+        return story.sections[key].notesOrder.length > 0;
+      }) !== undefined;
+      if (notesPosition === 'foot' && hasNotes) {
+        var notesActive = void 0;
         var nextTitleOffsetTop = void 0;
-        var title = document.getElementById('references');
+        var title = document.getElementById('notes');
+
         if (title) {
           var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          var nextTitle = document.getElementById('glossary');
-          if (nextTitle) {
-            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          var nextTitleId = void 0;
+          if (hasReferences) {
+            nextTitleId = 'references';
+          } else if (hasGlossary) {
+            nextTitleId = 'glossary';
+          }
+          if (nextTitleId) {
+            var nextTitle = document.getElementById(nextTitleId);
+            if (nextTitle) {
+              nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+            }
           }
           if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
+            notesActive = true;
+          }
+          toc.push({
+            level: 0,
+            text: (0, _misc.capitalize)(locale.notes || 'notes'),
+            key: 'notes',
+            active: notesActive
+          });
+        }
+      }
+
+      if (hasReferences) {
+        var referencesActive = void 0;
+        var _nextTitleOffsetTop = void 0;
+        var _title = document.getElementById('references');
+        if (_title) {
+          var _titleOffsetTop = _title.offsetTop + _title.offsetParent.offsetParent.offsetTop;
+          var _nextTitle = document.getElementById('glossary');
+          if (_nextTitle) {
+            _nextTitleOffsetTop = _nextTitle.offsetTop + _title.offsetParent.offsetParent.offsetTop;
+          }
+          if (_titleOffsetTop <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop === undefined || _nextTitleOffsetTop >= scrollTop)) {
             referencesActive = true;
           }
           toc.push({
             level: 0,
-            text: (0, _misc.capitalize)(locale.glossary || 'glossary'),
+            text: (0, _misc.capitalize)(locale.references || 'references'),
             key: 'references',
             active: referencesActive
           });
         }
       }
 
-      if (glossary.length) {
+      if (hasGlossary) {
         var glossaryActive = void 0;
-        var _nextTitleOffsetTop = void 0;
-        var _title = document.getElementById('glossary');
-        if (_title) {
-          var _titleOffsetTop = _title.offsetTop + _title.offsetParent.offsetParent.offsetTop;
-          if (_titleOffsetTop <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop === undefined || _nextTitleOffsetTop >= scrollTop)) {
+        var _nextTitleOffsetTop2 = void 0;
+        var _title2 = document.getElementById('glossary');
+        if (_title2) {
+          var _titleOffsetTop2 = _title2.offsetTop + _title2.offsetParent.offsetParent.offsetTop;
+          if (_titleOffsetTop2 <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop2 === undefined || _nextTitleOffsetTop2 >= scrollTop)) {
             glossaryActive = true;
           }
           toc.push({
             level: 0,
-            text: (0, _misc.capitalize)(locale.references || 'references'),
+            text: (0, _misc.capitalize)(locale.glossary || 'glossary'),
             key: 'glossary',
             active: glossaryActive
           });
@@ -311,7 +348,7 @@ var GarlicLayout = function (_Component) {
             glossary: (0, _misc.buildGlossary)(_this2.props.story),
             citations: (0, _misc.buildCitations)(_this2.props.story),
             coverImage: (0, _misc.buildCoverImage)(_this2.props.story),
-            locale: _this2.props.locale && _locales2.default[_this2.props.locale] ? _locales2.default[_this2.props.locale] : _locales2.default.fr
+            locale: _this2.props.locale && _locales2.default[_this2.props.locale] ? _locales2.default[_this2.props.locale] : _locales2.default.en
           });
           setTimeout(function () {
             var toc = _this2.buildTOC(_this2.props.story, 0, _this2.state);
@@ -564,6 +601,7 @@ var GarlicLayout = function (_Component) {
                   return _react2.default.createElement(_SectionLayout2.default, { section: finalSections[thatId], key: thatId });
                 }),
                 notes && notes.length ? _react2.default.createElement(_NotesContainer2.default, {
+                  id: 'notes',
                   notes: notes,
                   onNotePointerClick: this.onNotePointerClick,
                   title: (0, _misc.capitalize)(locale.notes || 'notes'),

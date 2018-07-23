@@ -142,6 +142,7 @@ class NotesContainer extends Component {
    */
   render () {
     const {
+      id,
       notes,
       onNotePointerClick,
       notesPosition,
@@ -154,7 +155,7 @@ class NotesContainer extends Component {
 
     return (
       <div className={'notes-container notes-container-position-' + notesPosition}>
-        {notesPosition !== 'aside' && <h3>{title}</h3>}
+        {notesPosition !== 'aside' && <h2 id={id}>{title}</h2>}
         <ol className="notes-list">
           {
             notes

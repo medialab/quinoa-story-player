@@ -138,11 +138,11 @@ class GarlicLayout extends Component {
           glossary: buildGlossary(this.props.story),
           citations: buildCitations(this.props.story),
           coverImage: buildCoverImage(this.props.story),
-          locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales['fr']
+          locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales.en
         });
         setTimeout(() => {
           const toc = this.buildTOC(this.props.story, 0, this.state);
-          this.setState({toc})
+          this.setState({toc});
         });
       }
     });
@@ -159,11 +159,11 @@ class GarlicLayout extends Component {
         glossary: buildGlossary(nextProps.story),
         citations: buildCitations(nextProps.story),
         coverImage: buildCoverImage(nextProps.story),
-        locale: nextProps.locale && locales[nextProps.locale] ? locales[nextProps.locale] : locales['en']
+        locale: nextProps.locale && locales[nextProps.locale] ? locales[nextProps.locale] : locales.en
       });
       setTimeout(() => {
         const toc = this.buildTOC(this.props.story, 0, this.state);
-        this.setState({toc})
+        this.setState({toc});
       });
     }
   }
@@ -225,7 +225,51 @@ class GarlicLayout extends Component {
       // flatten mini-tocs
       .reduce((result, ar) => [...result, ...ar], []);
 
-    if (Object.keys(citations.citationItems).length) {
+    // adding special items to table of contents
+    const hasReferences = Object.keys(citations.citationItems).length > 0;
+    const hasGlossary = glossary.length > 0;
+    const notesPosition = (story.settings.options && story.settings.options.notesPosition) || 'foot';
+    const hasNotes = story.sectionsOrder.find(key => story.sections[key].notesOrder.length > 0) !== undefined;
+    if (notesPosition === 'foot' && hasNotes) {
+      let notesActive;
+      let nextTitleOffsetTop;
+      // title of the section
+      const title = document.getElementById('notes');
+
+      if (title) {
+        // we will check if scroll is after glossary title
+        const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        let nextTitleId;
+        if (hasReferences) {
+          nextTitleId = 'references';
+        }
+        else if (hasGlossary) {
+          nextTitleId = 'glossary';
+        }
+        if (nextTitleId) {
+          const nextTitle = document.getElementById(nextTitleId);
+          if (nextTitle) {
+            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          }
+        }
+        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
+            (nextTitleOffsetTop === undefined ||
+              nextTitleOffsetTop >= scrollTop
+            )
+          ) {
+          notesActive = true;
+        }
+        toc.push({
+          level: 0,
+          text: capitalize(locale.notes || 'notes'),
+          key: 'notes',
+          active: notesActive
+        });
+      }
+    }
+
+
+    if (hasReferences) {
       let referencesActive;
       let nextTitleOffsetTop;
       // title of the section
@@ -246,14 +290,14 @@ class GarlicLayout extends Component {
         }
         toc.push({
           level: 0,
-          text: capitalize(locale.glossary || 'glossary'),
+          text: capitalize(locale.references || 'references'),
           key: 'references',
           active: referencesActive
         });
       }
     }
 
-    if (glossary.length) {
+    if (hasGlossary) {
       let glossaryActive;
       let nextTitleOffsetTop;
       // title of the section
@@ -270,7 +314,7 @@ class GarlicLayout extends Component {
         }
         toc.push({
           level: 0,
-          text: capitalize(locale.references || 'references'),
+          text: capitalize(locale.glossary || 'glossary'),
           key: 'glossary',
           active: glossaryActive
         });
@@ -606,6 +650,7 @@ class GarlicLayout extends Component {
                 }
                 {notes && notes.length ?
                   <NotesContainer
+                    id="notes"
                     notes={notes}
                     onNotePointerClick={this.onNotePointerClick}
                     title={capitalize(locale.notes || 'notes')}

@@ -138,6 +138,7 @@ var NotesContainer = function (_Component) {
       var _this3 = this;
 
       var _props = this.props,
+          id = _props.id,
           notes = _props.notes,
           onNotePointerClick = _props.onNotePointerClick,
           notesPosition = _props.notesPosition,
@@ -149,8 +150,8 @@ var NotesContainer = function (_Component) {
         'div',
         { className: 'notes-container notes-container-position-' + notesPosition },
         notesPosition !== 'aside' && _react2.default.createElement(
-          'h3',
-          null,
+          'h2',
+          { id: id },
           title
         ),
         _react2.default.createElement(

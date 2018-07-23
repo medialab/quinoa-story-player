@@ -321,9 +321,15 @@ $font-stack-sans-serif: Roboto, serif;
                     h1,
                     h2,
                     h3,
-                    h4,
-                    h5,
-                    h6,
+                    h4{
+                        margin-top: 2em;// setting a margin relative to font size
+                    }
+                    // h1,
+                    // h2,
+                    // h3,
+                    // h4,
+                    // h5,
+                    // h6,
                     .unstyled:first-of-type
                     {
                         margin-top: $gutter-medium;
@@ -744,12 +750,14 @@ $font-stack-sans-serif: Roboto, serif;
         font-size: $font-size-1 * .6;
     }
     .references,
-    .glossary-container
+    .glossary-container,
+    .notes-container
     {
         margin-bottom: $gutter-large;
         h2
         {
-            border-bottom: $font-size-1/5 solid $color-secondary;
+            font-size: $font-size-3;
+            // border-bottom: $font-size-1/5 solid $color-secondary;
         }
         .csl-entry
         {
