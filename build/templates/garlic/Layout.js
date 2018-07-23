@@ -196,7 +196,7 @@ var GarlicLayout = function (_Component) {
         return;
       }
       var scrollTop = evt.scrollTop;
-      var headerHeight = _this.header.offsetHeight;
+      var headerHeight = _this.header.offsetHeight || 20;
       var presentationEls = document.getElementsByClassName('quinoa-presentation-player');
       var presentations = [];
       var fixedPresentationId = void 0;
@@ -689,84 +689,84 @@ var GarlicLayout = function (_Component) {
                     })
                   )
                 ) : null
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'nav',
+            {
+              className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
+              style: {
+                height: dimensions && dimensions.height
+              } },
+            _react2.default.createElement(
+              'div',
+              {
+                className: 'nav-content',
+                style: {
+                  maxHeight: indexOpen || inCover ? '100%' : 0
+                } },
+              _react2.default.createElement(
+                'button',
+                {
+                  className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
+                  style: {
+                    opacity: inCover ? 0 : 1,
+                    maxHeight: inCover ? 0 : '3em',
+                    position: indexOpen ? 'relative' : 'absolute',
+                    left: indexOpen ? 0 : undefined,
+                    top: indexOpen ? 0 : undefined
+                  },
+                  onClick: onClickToggle },
+                _react2.default.createElement(
+                  'span',
+                  { id: 'burger-menu', className: indexOpen || inCover ? 'open' : '' },
+                  _react2.default.createElement('span', null),
+                  _react2.default.createElement('span', null),
+                  _react2.default.createElement('span', null),
+                  _react2.default.createElement('span', null)
+                )
               ),
               _react2.default.createElement(
-                'nav',
+                'ul',
                 {
-                  className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
-                  style: {
-                    position: inCover ? 'relative' : 'fixed',
-                    left: inCover ? '' : dimensions.left,
-                    top: inCover ? '' : dimensions.top,
-                    height: dimensions && dimensions.height
-                  } },
+                  className: 'table-of-contents' },
                 _react2.default.createElement(
-                  'div',
-                  {
-                    className: 'nav-content',
-                    style: {
-                      maxHeight: indexOpen || inCover ? '100%' : 0
-                    } },
+                  'li',
+                  null,
                   _react2.default.createElement(
-                    'button',
+                    'h2',
                     {
-                      className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
-                      style: {
-                        opacity: inCover ? 0 : 1,
-                        maxHeight: inCover ? 0 : '3em'
-                      },
-                      onClick: onClickToggle },
-                    _react2.default.createElement(
-                      'span',
-                      { id: 'burger-menu', className: indexOpen || inCover ? 'open' : '' },
-                      _react2.default.createElement('span', null),
-                      _react2.default.createElement('span', null),
-                      _react2.default.createElement('span', null),
-                      _react2.default.createElement('span', null)
-                    )
-                  ),
-                  _react2.default.createElement(
-                    'ul',
-                    {
-                      className: 'table-of-contents' },
-                    _react2.default.createElement(
-                      'li',
-                      null,
-                      _react2.default.createElement(
-                        'h2',
-                        {
-                          className: 'menu-title',
-                          onClick: onClickTitle },
-                        metadata.title || 'Quinoa story'
-                      )
-                    ),
-                    toc && toc.map(function (item, index) {
-                      var onClick = function onClick(e) {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        _this3.scrollToElementId(item.key);
-                        _this3.toggleIndex();
-                      };
-                      return _react2.default.createElement(
-                        'li',
-                        {
-                          key: index,
-                          className: 'level-' + item.level + (item.active ? ' active' : '') },
-                        _react2.default.createElement(
-                          'a',
-                          {
-                            href: '#' + item.key,
-                            onClick: onClick },
-                          _react2.default.createElement(
-                            'span',
-                            { className: 'link-content' },
-                            item.text || 'Untitled section'
-                          )
-                        )
-                      );
-                    })
+                      className: 'menu-title',
+                      onClick: onClickTitle },
+                    metadata.title || 'Quinoa story'
                   )
-                )
+                ),
+                toc && toc.map(function (item, index) {
+                  var onClick = function onClick(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    _this3.scrollToElementId(item.key);
+                    _this3.toggleIndex();
+                  };
+                  return _react2.default.createElement(
+                    'li',
+                    {
+                      key: index,
+                      className: 'level-' + item.level + (item.active ? ' active' : '') },
+                    _react2.default.createElement(
+                      'a',
+                      {
+                        href: '#' + item.key,
+                        onClick: onClick },
+                      _react2.default.createElement(
+                        'span',
+                        { className: 'link-content' },
+                        item.text || 'Untitled section'
+                      )
+                    )
+                  );
+                })
               )
             )
           )

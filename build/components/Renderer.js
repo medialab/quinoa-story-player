@@ -59,8 +59,8 @@ var _NotePointer2 = _interopRequireDefault(_NotePointer);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var addBreaklines = function addBreaklines(children) {
-  return children.map(function (child) {
-    return [child, _react2.default.createElement('br', null)];
+  return children.map(function (child, index) {
+    return [child, _react2.default.createElement('br', { key: index + 0.5 })];
   });
 };
 

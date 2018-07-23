@@ -17,7 +17,7 @@
  */
 
 // 1. variables
-$gutter-small: 1;
+$gutter-small: .8rem;
 $gutter-medium: $gutter-small * 1.666;
 $gutter-large: $gutter-medium * 3;
 $gutter-lateral-large-screens: 25%;
@@ -31,6 +31,7 @@ $color-secondary-background: rgba(255,255,255,.8);// white desopacified
 $color-primary-background: #f4f4f4;
 $color-strokes: #dddbd9;
 
+$font-size-0: $gutter-small * .8;
 $font-size-1: $gutter-small * 1.1;
 $font-size-2: $font-size-1 * 1.6;
 $font-size-3: $font-size-2 * 1.6;
@@ -315,7 +316,7 @@ $font-stack-sans-serif: Roboto, serif;
                     li
                     {
                         font-size: $font-size-1;
-                        line-height: $font-size-1 * 2.2;
+                        line-height: $font-size-1 * 1.66;
                     }
                     h1,
                     h2,
@@ -445,10 +446,13 @@ $font-stack-sans-serif: Roboto, serif;
                 }
             }
         }
-        .nav
+        
+    }
+    .nav
         {
             font-family: $font-stack-serif;
 
+            padding: $gutter-medium;
             z-index: 3;
 
             display: flex;
@@ -520,7 +524,7 @@ $font-stack-sans-serif: Roboto, serif;
                 }
             }
         }
-    }
+
     .table-of-contents
     {
         font-size: $font-size-1;
@@ -641,7 +645,7 @@ $font-stack-sans-serif: Roboto, serif;
         margin-bottom: $gutter-large;
         h1
         {
-            font-size: $font-size-5;
+            font-size: $font-size-4;
 
             margin-top: 0;
             margin-bottom: $gutter-small;
@@ -671,7 +675,7 @@ $font-stack-sans-serif: Roboto, serif;
     }
     .note-item
     {
-        font-size: $font-size-1;
+        font-size: $font-size-0;
 
         position: relative;
 
@@ -682,11 +686,11 @@ $font-stack-sans-serif: Roboto, serif;
 
         list-style-type: none;
 
-        border-bottom: $font-size-1/5 solid $color-secondary;
+        // border-bottom: $font-size-1/5 solid $color-secondary;
         .unstyled,
         ul
         {
-            line-height: $font-size-1 * 2;
+            line-height: $font-size-0 * 1.66;
         }
          > div
         {
@@ -727,11 +731,33 @@ $font-stack-sans-serif: Roboto, serif;
     {
         margin-left: $gutter-small;
     }
+    
+    .tooltip-content{
+        font-size: $font-size-1 * .6;
+    }
+    .references,
+    .glossary-container
+    {
+        margin-bottom: $gutter-large;
+        h2
+        {
+            border-bottom: $font-size-1/5 solid $color-secondary;
+        }
+        .csl-entry
+        {
+            margin-bottom: $gutter-medium;
+        }
+    }
+
     .index-toggle
     {
         margin-bottom: $gutter-medium;
 
         pointer-events: none;
+
+        left: $gutter-medium;
+        top: $gutter-medium;
+        position: absolute;
     }
     #burger-menu
     {
@@ -823,22 +849,6 @@ $font-stack-sans-serif: Roboto, serif;
                     width: 0;
                 }
             }
-        }
-    }
-    .tooltip-content{
-        font-size: $font-size-1 * .6;
-    }
-    .references,
-    .glossary-container
-    {
-        margin-bottom: $gutter-large;
-        h2
-        {
-            border-bottom: $font-size-1/5 solid $color-secondary;
-        }
-        .csl-entry
-        {
-            margin-bottom: $gutter-medium;
         }
     }
 

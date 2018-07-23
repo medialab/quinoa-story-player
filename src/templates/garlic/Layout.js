@@ -478,7 +478,7 @@ class GarlicLayout extends Component {
       return;
     }
     const scrollTop = evt.scrollTop;
-    const headerHeight = this.header.offsetHeight;
+    const headerHeight = this.header.offsetHeight || 20;
     const presentationEls = document.getElementsByClassName('quinoa-presentation-player');
     const presentations = [];
     let fixedPresentationId;
@@ -707,7 +707,6 @@ class GarlicLayout extends Component {
       this.header = header;
     };
 
-
     return (
       <ReferencesManager
         style={citationStyle}
@@ -807,41 +806,47 @@ class GarlicLayout extends Component {
                 : null}
               </section>
 
-              <nav
-                className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
-                style={{
-                  position: inCover ? 'relative' : 'fixed',
-                  left: inCover ? '' : dimensions.left,
-                  top: inCover ? '' : dimensions.top,
+
+            </section>
+          </Scrollbars>
+          <nav
+            className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
+            style={{
+                  // position: inCover ? 'relative' : 'absolute',
+                  // left: inCover ? '' : dimensions.left,
+                  // top: inCover ? '' : dimensions.top,
                   height: dimensions && dimensions.height,
                 }}>
-                <div
-                  className="nav-content"
-                  style={{
+            <div
+              className="nav-content"
+              style={{
                       maxHeight: (indexOpen || inCover) ? '100%' : 0
                     }}>
-                  <button
-                    className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
-                    style={{
+              <button
+                className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
+                style={{
                       opacity: inCover ? 0 : 1,
-                      maxHeight: inCover ? 0 : '3em'
+                      maxHeight: inCover ? 0 : '3em',
+                      position: indexOpen ? 'relative' : 'absolute',
+                      left: indexOpen ? 0 : undefined,
+                      top: indexOpen ? 0 : undefined,
                     }}
-                    onClick={onClickToggle}>
-                    <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
-                      <span />
-                      <span />
-                      <span />
-                      <span />
-                    </span>
-                  </button>
-                  <ul
-                    className="table-of-contents">
-                    <li>
-                      <h2
-                        className="menu-title"
-                        onClick={onClickTitle}>{metadata.title || 'Quinoa story'}</h2>
-                    </li>
-                    {
+                onClick={onClickToggle}>
+                <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </span>
+              </button>
+              <ul
+                className="table-of-contents">
+                <li>
+                  <h2
+                    className="menu-title"
+                    onClick={onClickTitle}>{metadata.title || 'Quinoa story'}</h2>
+                </li>
+                {
                       toc && toc.map((item, index) => {
                         const onClick = (e) => {
                           e.stopPropagation();
@@ -862,11 +867,9 @@ class GarlicLayout extends Component {
                         );
                       })
                     }
-                  </ul>
-                </div>
-              </nav>
-            </section>
-          </Scrollbars>
+              </ul>
+            </div>
+          </nav>
         </section>
         <style>
           {customCss}

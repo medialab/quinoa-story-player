@@ -20,7 +20,7 @@ import NotePointer from './NotePointer';
 const addBreaklines = (children) =>
   children.map(
     (child, index) =>
-      [child, <br key={index + .5} />]
+      [child, <br key={index + 0.5} />]
     );
 
 /**
