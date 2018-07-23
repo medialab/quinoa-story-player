@@ -19,8 +19,8 @@ import NotePointer from './NotePointer';
 // just a helper to add a <br /> after each block
 const addBreaklines = (children) =>
   children.map(
-    (child) =>
-      [child, <br />]
+    (child, index) =>
+      [child, <br key={index + .5} />]
     );
 
 /**
