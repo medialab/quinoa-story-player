@@ -650,6 +650,14 @@ $font-stack-sans-serif: Roboto, serif;
             margin-top: 0;
             margin-bottom: $gutter-small;
         }
+        h2
+        {
+            font-size: $font-size-3;
+
+            margin-top: 0;
+            margin-bottom: $gutter-small;
+            font-variant: italic;
+        }
         .authors
         {
             font-size: $font-size-2;

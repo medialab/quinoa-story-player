@@ -14,6 +14,7 @@ import sidenotesExample from './sidenotes-test.json';
 import burnoutExample from './le-burnout.json';
 import titles from './titles-styling.json';
 import embeds from './embeds-test.json';
+import newSchema from './new-schema.json';
 
 class Player extends Component {
 
@@ -31,7 +32,7 @@ class Player extends Component {
 }
 
 const withCustomCss = {
-  ...burnoutExample,
+  ...newSchema,
   settings: {
     css: `
 .quinoa-story-player{
@@ -46,7 +47,7 @@ const withCustomCss = {
 };
 
 const withFootnotes = {
-  ...burnoutExample,
+  ...newSchema,
   settings: {
     options: {
       notesPosition: 'foot'      
@@ -55,7 +56,7 @@ const withFootnotes = {
 };
 
 const withComments = {
-  ...burnoutExample,
+  ...newSchema,
   settings: {
     options: {
       allowDisqusComments: 'yes'      
@@ -65,14 +66,14 @@ const withComments = {
 
 
 storiesOf('Quinoa story - garlic template', module)
-  .add('With Footnotes', () => (
+  .add('New schema', () => (
     <Player
-      story={withFootnotes}
+      story={newSchema}
     />
   ))
-  .add('With Sidenotes', () => (
+  .add('With footnotes', () => (
     <Player
-      story={sidenotesExample}
+      story={withFootnotes}
     />
   ))
   .add('With custom css', () => (

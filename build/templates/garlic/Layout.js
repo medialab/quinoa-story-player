@@ -4,21 +4,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends6 = require('babel-runtime/helpers/extends');
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
-var _extends7 = _interopRequireDefault(_extends6);
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
+
+var _extends4 = require('babel-runtime/helpers/extends');
+
+var _extends5 = _interopRequireDefault(_extends4);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -68,9 +68,7 @@ var _NotesContainer = require('../../components/NotesContainer');
 
 var _NotesContainer2 = _interopRequireDefault(_NotesContainer);
 
-var _resourceToCSLJSON = require('../../utils/resourceToCSLJSON');
-
-var _resourceToCSLJSON2 = _interopRequireDefault(_resourceToCSLJSON);
+var _misc = require('../../utils/misc');
 
 var _apa = require('raw-loader!../../assets/apa.csl');
 
@@ -103,94 +101,6 @@ var GarlicLayout = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (GarlicLayout.__proto__ || (0, _getPrototypeOf2.default)(GarlicLayout)).call(this, props));
 
-    _this.buildCoverImage = function (story) {
-      var resources = story.resources,
-          metadata = story.metadata;
-
-      if (metadata.coverImage && metadata.coverImage.resourceId) {
-        if (resources[metadata.coverImage.resourceId]) return resources[metadata.coverImage.resourceId].data;else return null;
-      } else return null;
-    };
-
-    _this.buildCitations = function (story) {
-      var contextualizations = story.contextualizations,
-          contextualizers = story.contextualizers,
-          resources = story.resources,
-          _story$settings = story.settings,
-          settings = _story$settings === undefined ? {} : _story$settings;
-
-      var referenceStatus = settings.options && settings.options.referenceStatus || 'cited';
-      var referenceTypes = settings.options && settings.options.referenceTypes || ['bib'];
-      var citedResources = (0, _keys2.default)(resources).map(function (resourceId) {
-        return resources[resourceId];
-      }).filter(function (resource) {
-        if (referenceTypes.length) {
-          return referenceTypes.indexOf(resource.metadata.type) > -1;
-        }
-        return true;
-      }).filter(function (resource) {
-        if (referenceStatus === 'cited') {
-          return (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
-            return contextualizations[contextualizationId].resourceId === resource.id;
-          }).length > 0;
-        }
-        return true;
-      });
-      var enrichedCitedResources = citedResources.map(function (resource) {
-        var citations = resource.metadata.type === 'bib' ? resource.data : (0, _resourceToCSLJSON2.default)(resource);
-        return (0, _extends7.default)({}, resource, {
-          citations: citations,
-          citationId: citations[0].id
-        });
-      });
-      var citationItems = enrichedCitedResources.reduce(function (finalCitations1, resource) {
-
-        var newCitations = resource.citations.reduce(function (final2, citation) {
-          return (0, _extends7.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
-        }, {});
-        return (0, _extends7.default)({}, finalCitations1, newCitations);
-      }, {});
-      var noteIndex = 0;
-      var citationInstances = enrichedCitedResources 
-      .reduce(function (result1, resource) {
-        var theseContextualizations = (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
-          return contextualizations[contextualizationId].resourceId === resource.id;
-        }).map(function (contextualizationId) {
-          return contextualizations[contextualizationId];
-        });
-
-        return [].concat((0, _toConsumableArray3.default)(result1), (0, _toConsumableArray3.default)(theseContextualizations.reduce(function (result2, contextualization) {
-          var contextualizer = contextualizers[contextualization.contextualizerId];
-          noteIndex++;
-          return {
-            citationID: resource.citationId,
-            citationItems: resource.citations.map(function () {
-              return {
-                locator: contextualizer.locator,
-                prefix: contextualizer.prefix,
-                suffix: contextualizer.suffix,
-                id: contextualizer.id
-              };
-            }),
-            properties: {
-              noteIndex: noteIndex
-            }
-          };
-        }, [])));
-      }, []);
-      var citationData = citationInstances.map(function (instance, index) {
-        return [instance,
-        citationInstances.slice(0, index === 0 ? 0 : index).map(function (oCitation) {
-          return [oCitation.citationID, oCitation.properties.noteIndex];
-        }), []
-        ];
-      });
-      return {
-        citationData: citationData,
-        citationItems: citationItems
-      };
-    };
-
     _this.onScrollUpdate = function (evt) {
       if (!_this.header) {
         return;
@@ -204,11 +114,11 @@ var GarlicLayout = function (_Component) {
       var stateChanges = {};
 
       if (scrollTop < headerHeight && !_this.state.inCover) {
-        stateChanges = (0, _extends7.default)({}, stateChanges, {
+        stateChanges = (0, _extends5.default)({}, stateChanges, {
           inCover: true
         });
       } else if (scrollTop > headerHeight && _this.state.inCover) {
-        stateChanges = (0, _extends7.default)({}, stateChanges, {
+        stateChanges = (0, _extends5.default)({}, stateChanges, {
           inCover: false
         });
       }
@@ -233,7 +143,7 @@ var GarlicLayout = function (_Component) {
           }
       }
       if (fixedPresentationId !== _this.state.fixedPresentationId) {
-        stateChanges = (0, _extends7.default)({}, stateChanges, {
+        stateChanges = (0, _extends5.default)({}, stateChanges, {
           fixedPresentationId: fixedPresentationId,
           fixedPresentationHeight: fixedPresentationHeight
         });
@@ -242,7 +152,7 @@ var GarlicLayout = function (_Component) {
       }
       if (scrollTop !== _this.state.scrollTop) {
         var toc = _this.buildTOC(_this.props.story, scrollTop);
-        stateChanges = (0, _extends7.default)({}, stateChanges, {
+        stateChanges = (0, _extends5.default)({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
         });
@@ -311,9 +221,9 @@ var GarlicLayout = function (_Component) {
       setTimeout(function () {
         if (_this2.props.story) {
           _this2.setState({
-            glossary: _this2.buildGlossary(_this2.props.story),
-            citations: _this2.buildCitations(_this2.props.story),
-            coverImage: _this2.buildCoverImage(_this2.props.story)
+            glossary: (0, _misc.buildGlossary)(_this2.props.story),
+            citations: (0, _misc.buildCitations)(_this2.props.story),
+            coverImage: (0, _misc.buildCoverImage)(_this2.props.story)
           });
         }
       });
@@ -324,9 +234,9 @@ var GarlicLayout = function (_Component) {
     value: function componentWillReceiveProps(nextProps) {
       if (this.props.story !== nextProps.story) {
         this.setState({
-          glossary: this.buildGlossary(nextProps.story),
-          citations: this.buildCitations(nextProps.story),
-          coverImage: this.buildCoverImage(nextProps.story)
+          glossary: (0, _misc.buildGlossary)(nextProps.story),
+          citations: (0, _misc.buildCitations)(nextProps.story),
+          coverImage: (0, _misc.buildCoverImage)(nextProps.story)
         });
       }
     }
@@ -371,44 +281,6 @@ var GarlicLayout = function (_Component) {
       .reduce(function (result, ar) {
         return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
       }, []);
-    }
-
-  }, {
-    key: 'buildGlossary',
-
-
-    value: function buildGlossary(story) {
-      var contextualizations = story.contextualizations,
-          contextualizers = story.contextualizers,
-          resources = story.resources;
-
-      var glossaryMentions = (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
-        var contextualizerId = contextualizations[contextualizationId].contextualizerId;
-        var contextualizer = contextualizers[contextualizerId];
-        return contextualizer && contextualizer.type === 'glossary';
-      }).map(function (contextualizationId) {
-        return (0, _extends7.default)({}, contextualizations[contextualizationId], {
-          contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
-          resource: resources[contextualizations[contextualizationId].resourceId]
-        });
-      }).reduce(function (entries, contextualization) {
-        return (0, _extends7.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
-          resource: contextualization.resource,
-          mentions: entries[contextualization.resourceId] ? entries[contextualization.resourceId].mentions.concat(contextualization) : [contextualization]
-        }));
-      }, {});
-
-      glossaryMentions = (0, _keys2.default)(glossaryMentions).map(function (id) {
-        return glossaryMentions[id];
-      }).sort(function (a, b) {
-        if (a.resource.data.name > b.resource.data.name) {
-          return -1;
-        } else {
-          return 1;
-        }
-      });
-
-      return glossaryMentions;
     }
 
 
@@ -537,19 +409,19 @@ var GarlicLayout = function (_Component) {
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
         return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)(sections[sectionId].notesOrder.map(function (noteId) {
-          return (0, _extends7.default)({}, sections[sectionId].notes[noteId], {
+          return (0, _extends5.default)({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++
           });
         })));
       }, []);
       var finalSections = (0, _keys2.default)(sections).reduce(function (res, sectionId) {
-        return (0, _extends7.default)({}, res, (0, _defineProperty3.default)({}, sectionId, (0, _extends7.default)({}, sections[sectionId], {
+        return (0, _extends5.default)({}, res, (0, _defineProperty3.default)({}, sectionId, (0, _extends5.default)({}, sections[sectionId], {
           notes: (0, _keys2.default)(sections[sectionId].notes).reduce(function (tempNotes, noteId) {
             var related = notes.find(function (n) {
               return n.id === noteId;
             });
-            return (0, _extends7.default)({}, tempNotes, (0, _defineProperty3.default)({}, noteId, (0, _extends7.default)({}, sections[sectionId].notes[noteId], {
+            return (0, _extends5.default)({}, tempNotes, (0, _defineProperty3.default)({}, noteId, (0, _extends5.default)({}, sections[sectionId].notes[noteId], {
               finalOrder: related ? related.finalOrder : sections[sectionId].notes[noteId].order
             })));
           }, {})
@@ -613,6 +485,11 @@ var GarlicLayout = function (_Component) {
                     'h1',
                     null,
                     metadata.title || 'Quinoa story'
+                  ),
+                  metadata.subtitle && _react2.default.createElement(
+                    'h2',
+                    { className: 'header-subtitle' },
+                    metadata.subtitle
                   ),
                   metadata.authors && metadata.authors.length ? _react2.default.createElement(
                     'div',
