@@ -36,11 +36,11 @@ export default function resourceToCslJSON (resource) {
     id: resource.id,
     URL: (resource.data && resource.data.url) || resource.metadata.url,
     abstract: resource.metadata.description,
-    // issued: resource.metadata.date && {raw: resource.metadata.date},
+    issued: resource.metadata.date && {raw: resource.metadata.date},
     author: (
-              resource.metadata.creators &&
-              Array.isArray(resource.metadata.creators) &&
-              resource.metadata.creators.map(author => {
+              resource.metadata.authors &&
+              Array.isArray(resource.metadata.authors) &&
+              resource.metadata.authors.map(author => {
                 if (typeof author === 'string') {
                   return {family: author};
                 }
