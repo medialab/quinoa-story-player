@@ -59,7 +59,6 @@ class GarlicLayout extends Component {
     this.scrollTop = this.scrollTop.bind(this);
     this.onScrollUpdate = debounce(this.onScrollUpdate, 30);
     // this.onScrollUpdate = this.onScrollUpdate.bind(this);
-    this.buildTOC = this.buildTOC.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
     this.onGlossaryMentionClick = this.onGlossaryMentionClick.bind(this);
@@ -161,8 +160,8 @@ class GarlicLayout extends Component {
    * @param {number} scrollTop - the position of the scroll to use for decidinng which TOC item is active
    * @return {array} tocElements - the toc elements to use for rendering the TOC
    */
-  buildTOC (story, scrollTop) {
-    return story.sectionsOrder
+  buildTOC = (story, scrollTop, {citations, glossary}) => {
+    const toc = story.sectionsOrder
     .map((sectionId, sectionIndex) => {
       const section = story.sections[sectionId];
       const sectionLevel = section.metadata.level + 1;
@@ -203,56 +202,6 @@ class GarlicLayout extends Component {
         key: section.id,
         active: sectionActive
       };
-      // const headerItems = headers ? headers
-      //   .map((block, index) => {
-      //     const {type, text, key} = block;
-      //     const levelStr = type.split('header-').pop();
-      //     let level;
-      //     switch (levelStr) {
-      //       case 'one':
-      //         level = sectionLevel + 1;
-      //         break;
-      //       case 'two':
-      //         level = sectionLevel + 2;
-      //         break;
-      //       case 'three':
-      //         level = sectionLevel + 3;
-      //         break;
-      //       case 'four':
-      //         level = sectionLevel + 4;
-      //         break;
-      //       case 'five':
-      //         level = sectionLevel + 5;
-      //         break;
-      //       case 'six':
-      //       default:
-      //         level = sectionLevel + 6;
-      //         break;
-      //     }
-
-      //     title = document.getElementById(key);
-      //     titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-      //     // nextTitleOffsetTop;
-      //     if (index < headers.length - 1) {
-      //       const next = headers[index + 1];
-      //       const nextTitle = document.getElementById(next.key);
-      //       nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-      //     }
-      //     let headerActive;
-      //     if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
-      //         (nextTitleOffsetTop === undefined ||
-      //           nextTitleOffsetTop >= scrollTop
-      //         )
-      //       ) {
-      //       headerActive = true;
-      //     }
-      //     return {
-      //       level,
-      //       text,
-      //       key,
-      //       active: headerActive
-      //     };
-      //   }) : [];
       return [
         sectionHeader,
         // ...headerItems
@@ -261,6 +210,59 @@ class GarlicLayout extends Component {
       .filter(el => el !== undefined)
       // flatten mini-tocs
       .reduce((result, ar) => [...result, ...ar], []);
+
+    if (Object.keys(citations.citationItems).length) {
+      let referencesActive;
+      let nextTitleOffsetTop;
+      // title of the section
+      const title = document.getElementById('references');
+      if (title) {
+        // we will check if scroll is after glossary title
+        const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        const nextTitle = document.getElementById('glossary');
+        if (nextTitle) {
+          nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        }
+        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
+            (nextTitleOffsetTop === undefined ||
+              nextTitleOffsetTop >= scrollTop
+            )
+          ) {
+          referencesActive = true;
+        }
+        toc.push({
+          level: 0,
+          text: 'References',
+          key: 'references',
+          active: referencesActive
+        });
+      }
+    }
+
+    if (glossary.length) {
+      let glossaryActive;
+      let nextTitleOffsetTop;
+      // title of the section
+      const title = document.getElementById('glossary');
+      if (title) {
+        // we will check if scroll is after glossary title
+        const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
+            (nextTitleOffsetTop === undefined ||
+              nextTitleOffsetTop >= scrollTop
+            )
+          ) {
+          glossaryActive = true;
+        }
+        toc.push({
+          level: 0,
+          text: 'Glossary',
+          key: 'glossary',
+          active: glossaryActive
+        });
+      }
+    }
+    return toc;
   }
 
 
@@ -373,7 +375,7 @@ class GarlicLayout extends Component {
     // at each update, we should split buildTOC in two functions
     // to handle the change of active element separately, for better performances)
     if (scrollTop !== this.state.scrollTop) {
-      const toc = this.buildTOC(this.props.story, scrollTop);
+      const toc = this.buildTOC(this.props.story, scrollTop, this.state);
       stateChanges = {
         ...stateChanges,
         toc,
@@ -597,13 +599,13 @@ class GarlicLayout extends Component {
                   citations &&
                   citations.citationItems &&
                   Object.keys(citations.citationItems).length ?
-                    <Bibliography />
+                    <Bibliography id="references" />
                 : null}
 
                 {glossary &&
                   glossary.length ?
                     <div className="glossary-container">
-                      <h2>Glossary</h2>
+                      <h2 id="glossary">Glossary</h2>
                       <ul className="glossary-mentions-container">
                         {
                       glossary.map((entry, index) => {
@@ -630,8 +632,8 @@ class GarlicLayout extends Component {
                                   .reduce((prev, curr) => [prev, ', ', curr])
                                 })</i>
                             </h3>
-                            {entry.resource.metadata.description && <p>
-                              {entry.resource.metadata.description}
+                            {entry.resource.data.description && <p>
+                              {entry.resource.data.description}
                             </p>}
                           </li>
                         );

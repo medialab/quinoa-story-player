@@ -15,15 +15,16 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 
-var BibliographyWrapper = function BibliographyWrapper(unusedProps, _ref) {
-  var bibliography = _ref.bibliography;
+var BibliographyWrapper = function BibliographyWrapper(_ref, _ref2) {
+  var id = _ref.id;
+  var bibliography = _ref2.bibliography;
 
   return _react2.default.createElement(
     'section',
     { className: 'references' },
     _react2.default.createElement(
       'h2',
-      null,
+      { id: id },
       'References'
     ),
     _react2.default.createElement(

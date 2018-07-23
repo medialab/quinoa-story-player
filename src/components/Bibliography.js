@@ -15,12 +15,14 @@ import PropTypes from 'prop-types';
  * @param {array} context.bibliography - an array of strings & react elements representing each reference
  * @return {ReactElement} component - the component
  */
-const BibliographyWrapper = (unusedProps, {
+const BibliographyWrapper = ({
+  id
+}, {
   bibliography,
 }) => {
   return (
     <section className="references">
-      <h2>References</h2>
+      <h2 id={id}>References</h2>
       <div>{bibliography}</div>
     </section>
   );

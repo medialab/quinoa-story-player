@@ -8,17 +8,17 @@ var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+var _extends4 = require('babel-runtime/helpers/extends');
 
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+var _extends5 = _interopRequireDefault(_extends4);
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _extends4 = require('babel-runtime/helpers/extends');
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
-var _extends5 = _interopRequireDefault(_extends4);
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -101,6 +101,88 @@ var GarlicLayout = function (_Component) {
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (GarlicLayout.__proto__ || (0, _getPrototypeOf2.default)(GarlicLayout)).call(this, props));
 
+    _this.buildTOC = function (story, scrollTop, _ref) {
+      var citations = _ref.citations,
+          glossary = _ref.glossary;
+
+      var toc = story.sectionsOrder.map(function (sectionId, sectionIndex) {
+        var section = story.sections[sectionId];
+        var sectionLevel = section.metadata.level + 1;
+
+        var sectionActive = void 0;
+        var nextTitleOffsetTop = void 0;
+        var title = document.getElementById(section.id);
+        if (!title) {
+          return undefined;
+        }
+        var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        if (sectionIndex < story.sectionsOrder.length - 1) {
+          var next = story.sectionsOrder[sectionIndex + 1];
+          var nextTitle = document.getElementById(next);
+          if (nextTitle) {
+            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          }
+        }
+        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
+          sectionActive = true;
+        }
+        var sectionHeader = {
+          level: sectionLevel,
+          text: section.metadata.title || '',
+          key: section.id,
+          active: sectionActive
+        };
+        return [sectionHeader];
+      }
+      ).filter(function (el) {
+        return el !== undefined;
+      })
+      .reduce(function (result, ar) {
+        return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
+      }, []);
+
+      if ((0, _keys2.default)(citations.citationItems).length) {
+        var referencesActive = void 0;
+        var nextTitleOffsetTop = void 0;
+        var title = document.getElementById('references');
+        if (title) {
+          var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          var nextTitle = document.getElementById('glossary');
+          if (nextTitle) {
+            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          }
+          if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
+            referencesActive = true;
+          }
+          toc.push({
+            level: 0,
+            text: 'References',
+            key: 'references',
+            active: referencesActive
+          });
+        }
+      }
+
+      if (glossary.length) {
+        var glossaryActive = void 0;
+        var _nextTitleOffsetTop = void 0;
+        var _title = document.getElementById('glossary');
+        if (_title) {
+          var _titleOffsetTop = _title.offsetTop + _title.offsetParent.offsetParent.offsetTop;
+          if (_titleOffsetTop <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop === undefined || _nextTitleOffsetTop >= scrollTop)) {
+            glossaryActive = true;
+          }
+          toc.push({
+            level: 0,
+            text: 'Glossary',
+            key: 'glossary',
+            active: glossaryActive
+          });
+        }
+      }
+      return toc;
+    };
+
     _this.onScrollUpdate = function (evt) {
       if (!_this.header) {
         return;
@@ -151,7 +233,7 @@ var GarlicLayout = function (_Component) {
         return;
       }
       if (scrollTop !== _this.state.scrollTop) {
-        var toc = _this.buildTOC(_this.props.story, scrollTop);
+        var toc = _this.buildTOC(_this.props.story, scrollTop, _this.state);
         stateChanges = (0, _extends5.default)({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
@@ -175,7 +257,6 @@ var GarlicLayout = function (_Component) {
     _this.handleSpringUpdate = _this.handleSpringUpdate.bind(_this);
     _this.scrollTop = _this.scrollTop.bind(_this);
     _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 30);
-    _this.buildTOC = _this.buildTOC.bind(_this);
     _this.scrollToElementId = _this.scrollToElementId.bind(_this);
     _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_this);
     _this.onGlossaryMentionClick = _this.onGlossaryMentionClick.bind(_this);
@@ -243,49 +324,9 @@ var GarlicLayout = function (_Component) {
 
 
   }, {
-    key: 'buildTOC',
-    value: function buildTOC(story, scrollTop) {
-      return story.sectionsOrder.map(function (sectionId, sectionIndex) {
-        var section = story.sections[sectionId];
-        var sectionLevel = section.metadata.level + 1;
-
-        var sectionActive = void 0;
-        var nextTitleOffsetTop = void 0;
-        var title = document.getElementById(section.id);
-        if (!title) {
-          return undefined;
-        }
-        var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-        if (sectionIndex < story.sectionsOrder.length - 1) {
-          var next = story.sectionsOrder[sectionIndex + 1];
-          var nextTitle = document.getElementById(next);
-          if (nextTitle) {
-            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          }
-        }
-        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
-          sectionActive = true;
-        }
-        var sectionHeader = {
-          level: sectionLevel,
-          text: section.metadata.title || '',
-          key: section.id,
-          active: sectionActive
-        };
-
-        return [sectionHeader];
-      }
-      ).filter(function (el) {
-        return el !== undefined;
-      })
-      .reduce(function (result, ar) {
-        return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
-      }, []);
-    }
-
-
-  }, {
     key: 'handleSpringUpdate',
+
+
     value: function handleSpringUpdate(spring) {
       var val = spring.getCurrentValue();
       if (val !== undefined && this.globalScrollbar) {
@@ -506,13 +547,13 @@ var GarlicLayout = function (_Component) {
                   notes: notes,
                   onNotePointerClick: this.onNotePointerClick,
                   notesPosition: notesPosition }) : null,
-                citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, null) : null,
+                citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, { id: 'references' }) : null,
                 glossary && glossary.length ? _react2.default.createElement(
                   'div',
                   { className: 'glossary-container' },
                   _react2.default.createElement(
                     'h2',
-                    null,
+                    { id: 'glossary' },
                     'Glossary'
                   ),
                   _react2.default.createElement(
@@ -557,10 +598,10 @@ var GarlicLayout = function (_Component) {
                             ')'
                           )
                         ),
-                        entry.resource.metadata.description && _react2.default.createElement(
+                        entry.resource.data.description && _react2.default.createElement(
                           'p',
                           null,
-                          entry.resource.metadata.description
+                          entry.resource.data.description
                         )
                       );
                     })
