@@ -869,9 +869,15 @@ $font-stack-sans-serif: Roboto, serif;
         }
     }
 
+    .glossary-entry{
+        h3{
+            font-size: $font-size-3;
+        }
+    }
+
     @media print
     {
-      .navbar,
+      .nav,
       .aside-edition-container,
       .button,
       .editor-footer,
@@ -900,9 +906,8 @@ $font-stack-sans-serif: Roboto, serif;
         align-items: stretch!important;
         justify-content: stretch!important;
       }
-      *{
-        font-size: unset!important;
-      }
+
+
       p,
       li,
       blockquote
@@ -936,5 +941,49 @@ $font-stack-sans-serif: Roboto, serif;
             content: close-quote;
         }
     }
+    .csl-entry{
+        font-size: 10px!important;
+        margin-bottom: 15px!important;
     }
+    h1{
+        font-size: 20px!important;
+    }
+    h2{
+        font-size: 18px!important;
+    }
+    h3{
+        font-size: 16px!important;
+    }
+    h4{
+        font-size: 14px!important;
+    }
+    h1,h2,h3,h4{
+        margin-bottom: 14px!important;
+    }
+    iframe{
+        display: none!important;
+    }
+    figcaption{
+        background: rgba(0,0,0,0.1);
+        padding: 5px!important;
+    }
+    .header{
+        position: absolute;
+        left: 0;
+        top: 0;
+        max-height: 100%;
+      }
+      .header-titles{
+        padding-top: 4cm!important;
+        page-break-after: always;
+        h1{
+            font-size: 50px!important;
+        }
+        h2{
+            font-size: 30px!important;
+        }
+      }
+    }
+
+
 }
