@@ -984,6 +984,19 @@ $font-stack-sans-serif: Roboto, serif;
         }
       }
     }
+}
 
-
+@media print{
+    .quinoa-story-player{
+        padding: 0!important;
+        margin: 0!important;
+        overflow: visible!important;
+        background: white!important;
+        position: relative!important;
+        left: unset!important;
+        top: unset!important;
+        width: unset!important;
+        height: unset!important;
+        display: block!important;
+    }
 }
