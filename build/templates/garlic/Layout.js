@@ -511,11 +511,7 @@ var GarlicLayout = function (_Component) {
                 {
                   className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
                   style: {
-                    opacity: inCover ? 0 : 1,
-                    maxHeight: '3em',
-                    position: indexOpen ? 'relative' : 'absolute',
-                    left: indexOpen ? 0 : undefined,
-                    top: indexOpen ? 0 : undefined
+                    opacity: inCover ? 0 : 1
                   },
                   onClick: onClickToggle },
                 _react2.default.createElement(
@@ -530,7 +526,10 @@ var GarlicLayout = function (_Component) {
               _react2.default.createElement(
                 'ul',
                 {
-                  className: 'table-of-contents' },
+                  className: 'table-of-contents',
+                  style: {
+                    marginTop: inCover ? 0 : '2em'
+                  } },
                 _react2.default.createElement(
                   'li',
                   null,

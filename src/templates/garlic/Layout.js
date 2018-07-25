@@ -734,11 +734,7 @@ class GarlicLayout extends Component {
               <button
                 className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
                 style={{
-                      opacity: inCover ? 0 : 1,
-                      maxHeight: '3em',
-                      position: indexOpen ? 'relative' : 'absolute',
-                      left: indexOpen ? 0 : undefined,
-                      top: indexOpen ? 0 : undefined,
+                      opacity: inCover ? 0 : 1
                     }}
                 onClick={onClickToggle}>
                 <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
@@ -749,7 +745,10 @@ class GarlicLayout extends Component {
                 </span>
               </button>
               <ul
-                className="table-of-contents">
+                className="table-of-contents"
+                style={{
+                  marginTop: inCover ? 0 : '2em'
+                }}>
                 <li>
                   <h2
                     className="menu-title"

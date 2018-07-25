@@ -774,6 +774,7 @@ $font-stack-sans-serif: Roboto, serif;
         left: $gutter-medium;
         top: $gutter-medium;
         position: absolute;
+        max-height: $gutter-medium * 2;
     }
     #burger-menu
     {
