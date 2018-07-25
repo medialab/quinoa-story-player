@@ -15,6 +15,7 @@ import burnoutExample from './le-burnout.json';
 import titles from './titles-styling.json';
 import embeds from './embeds-test.json';
 import newSchema from './new-schema.json';
+import testCover from './test-cover.json';
 
 class Player extends Component {
 
@@ -81,9 +82,9 @@ storiesOf('Quinoa story - garlic template', module)
       story={withCustomCss}
     />
   ))
-  .add('With comments', () => (
+  .add('Test cover', () => (
     <Player
-      story={withComments}
+      story={testCover}
     />
   ))
   .add('Within another page (container-relative positionning)', () => (

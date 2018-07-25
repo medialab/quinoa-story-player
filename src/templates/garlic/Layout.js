@@ -60,7 +60,7 @@ class GarlicLayout extends Component {
     this.scrollToCover = this.scrollToCover.bind(this);
     this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    this.onScrollUpdate = debounce(this.onScrollUpdate, 30, {leading: true, trailing: true, maxWait: 100});
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 10, {leading: true, trailing: true, maxWait: 100});
     // this.onScrollUpdate = this.onScrollUpdate.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
@@ -174,7 +174,7 @@ class GarlicLayout extends Component {
    * @param {number} scrollTop - the position of the scroll to use for decidinng which TOC item is active
    * @return {array} tocElements - the toc elements to use for rendering the TOC
    */
-  buildTOC = (story, scrollTop, {citations, glossary, locale}) => {
+  buildTOC = (story, scrollTop, {citations, glossary, locale = {}}) => {
     const toc = story.sectionsOrder
     .map((sectionId, sectionIndex) => {
       const section = story.sections[sectionId];
@@ -376,17 +376,26 @@ class GarlicLayout extends Component {
     let fixedPresentationHeight;
     let stateChanges = {};
 
+    const inCover = scrollTop < headerHeight;
+
     // check if we are in the cover of the story
-    if (scrollTop < headerHeight && !this.state.inCover) {
+    if (inCover && !this.state.inCover) {
       stateChanges = {
         ...stateChanges,
         inCover: true,
       };
     }
-    else if (scrollTop > headerHeight && this.state.inCover) {
+    else if (!inCover && this.state.inCover) {
       stateChanges = {
         ...stateChanges,
         inCover: false,
+        navPosition: undefined
+      };
+    }
+    if (inCover) {
+      stateChanges = {
+        ...stateChanges,
+        navPosition: headerHeight -  scrollTop
       };
     }
     // applying state changes if needed
@@ -529,7 +538,7 @@ class GarlicLayout extends Component {
    * Renders the component
    * @return {ReactElement} component - the component
    */
-  render() {
+  render = () => {
     const {
       story: {
         metadata,
@@ -545,7 +554,8 @@ class GarlicLayout extends Component {
       glossary,
       citations,
       coverImage,
-      locale = {}
+      locale = {},
+      navPosition
     } = this.state;
     const {
       dimensions,
@@ -712,8 +722,8 @@ class GarlicLayout extends Component {
             className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
             style={{
                   // position: inCover ? 'relative' : 'absolute',
-                  // left: inCover ? '' : dimensions.left,
-                  // top: inCover ? '' : dimensions.top,
+                  left: inCover ? '' : dimensions.left,
+                  top: inCover ? navPosition : dimensions.top,
                   height: dimensions && dimensions.height,
                 }}>
             <div
@@ -725,7 +735,7 @@ class GarlicLayout extends Component {
                 className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
                 style={{
                       opacity: inCover ? 0 : 1,
-                      maxHeight: inCover ? 0 : '3em',
+                      maxHeight: '3em',
                       position: indexOpen ? 'relative' : 'absolute',
                       left: indexOpen ? 0 : undefined,
                       top: indexOpen ? 0 : undefined,
