@@ -495,8 +495,8 @@ var GarlicLayout = function (_Component) {
             {
               className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
               style: {
-                left: inCover ? '' : dimensions.left,
-                top: inCover ? navPosition : dimensions.top,
+                left: 0,
+                top: inCover ? navPosition : 0,
                 height: dimensions && dimensions.height
               } },
             _react2.default.createElement(

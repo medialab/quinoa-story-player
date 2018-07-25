@@ -395,7 +395,7 @@ class GarlicLayout extends Component {
     if (inCover) {
       stateChanges = {
         ...stateChanges,
-        navPosition: headerHeight -  scrollTop
+        navPosition: headerHeight - scrollTop
       };
     }
     // applying state changes if needed
@@ -722,8 +722,8 @@ class GarlicLayout extends Component {
             className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
             style={{
                   // position: inCover ? 'relative' : 'absolute',
-                  left: inCover ? '' : dimensions.left,
-                  top: inCover ? navPosition : dimensions.top,
+                  left: 0,
+                  top: inCover ? navPosition : 0,
                   height: dimensions && dimensions.height,
                 }}>
             <div
