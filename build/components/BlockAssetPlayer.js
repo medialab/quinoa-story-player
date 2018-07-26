@@ -79,7 +79,7 @@ var BlockAssetPlayer = function (_React$Component) {
           data = _props.data;
       var getResourceDataUrl = this.context.getResourceDataUrl;
 
-      if (type === 'table') {
+      if (type === 'table' && data.filePath && typeof getResourceDataUrl === 'function') {
         this.setState({ loading: true });
         (0, _axios.get)(getResourceDataUrl(data)).then(function (res) {
           var columns = (0, _keys2.default)(res.data[0]).map(function (key) {
@@ -95,7 +95,7 @@ var BlockAssetPlayer = function (_React$Component) {
           });
         });
       }
-      if (type === 'data-presentation') {
+      if (type === 'data-presentation' && data.filePath && typeof getResourceDataUrl === 'function') {
         (0, _axios.get)(getResourceDataUrl(data)).then(function (res) {
           _this2.setState({
             data: res.data
@@ -143,7 +143,12 @@ var BlockAssetPlayer = function (_React$Component) {
             columns: columns || this.state.columns,
             loading: this.state.loading });
         case 'image':
-          var src = data.base64 || data.src || getResourceDataUrl(data);
+          var src = void 0;
+          if (typeof getResourceDataUrl === 'function' && data.filePath) {
+            src = getResourceDataUrl(data);
+          } else {
+            src = data.base64 || data.src;
+          }
           return _react2.default.createElement('img', { src: src });
         case 'video':
           return _react2.default.createElement(

@@ -40,7 +40,7 @@ class BlockAssetPlayer extends React.Component {
   componentDidMount() {
     const {type, data} = this.props;
     const {getResourceDataUrl} = this.context;
-    if (type === 'table') {
+    if (type === 'table' && data.filePath && typeof getResourceDataUrl === 'function') {
       this.setState({loading: true});
       get(getResourceDataUrl(data))
       .then(res => {
@@ -55,7 +55,7 @@ class BlockAssetPlayer extends React.Component {
         });
       });
     }
-    if (type === 'data-presentation') {
+    if (type === 'data-presentation' && data.filePath && typeof getResourceDataUrl === 'function') {
       get(getResourceDataUrl(data))
       .then(res => {
         this.setState({
@@ -93,7 +93,13 @@ class BlockAssetPlayer extends React.Component {
           loading={this.state.loading} />);
       case 'image':
         // future-proofing possible externally linked images
-        const src = data.base64 || data.src || getResourceDataUrl(data);
+        let src;
+        if (typeof getResourceDataUrl === 'function' && data.filePath) {
+          src = getResourceDataUrl(data);
+        }
+        else {
+          src = data.base64 || data.src;
+        }
         return <img src={src} />;
       case 'video':
         return (
