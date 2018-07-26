@@ -33,7 +33,7 @@ const BlockAssetWrapper = ({
   const fixedPresentationId = context.fixedPresentationId;
   const onExit = context.onExit;
   const inNote = context.inNote;
-  if (asset && asset.resource.data) {
+  if (asset && asset.resource.data && !inNote) {
     const resource = asset.resource;
     const assetType = asset.contextualizer.type;
     // todo: we could later on embed more data coming
