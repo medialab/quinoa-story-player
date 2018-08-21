@@ -62,7 +62,10 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
         return _react2.default.createElement(
           'a',
           {
-            href: resource.data.url, target: '_blank', alt: 'href',
+            href: resource.data.url,
+            target: '_blank',
+            className: 'content-a',
+            alt: 'href',
             rel: 'noopener' },
           children
         );

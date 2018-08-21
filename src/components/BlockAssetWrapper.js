@@ -41,7 +41,7 @@ const BlockAssetWrapper = ({
     // involved in displaying the embed
     return (
       <figure
-        className={asset.contextualizer.type}
+        className={`content-figure ${asset.contextualizer.type}`}
         style={{
           position: 'relative',
           minHeight: (asset.contextualizer.type === 'data-presentation' && dimensions && dimensions.height) || '10em'
@@ -56,15 +56,15 @@ const BlockAssetWrapper = ({
           fixed={fixedPresentationId === assetId}
           allowInteractions={inNote || fixedPresentationId === assetId}
           onExit={onExit} />
-        <figcaption>
-          <div className="fig-content">
-            {resource.metadata.title && <h4>
+        <figcaption className="figure-caption-container">
+          <div className="figure-caption-content">
+            {resource.metadata.title && <h4 className="figure-caption-title">
               {resource.metadata.title}
             </h4>}
-            {resource.metadata.description && <p>
+            {resource.metadata.description && <p className="figure-caption-description">
               {resource.metadata.description}
             </p>}
-            {resource.metadata.source && <p>
+            {resource.metadata.source && <p className="figure-caption-source">
               Source: <i>{resource.metadata.source}</i>
             </p>}
           </div>

@@ -42,7 +42,10 @@ const GlossaryMention = ({
     onClick={handleClick}
     className="glossary-mention">
     <span className="link-content" data-tip={descriptionText}>{children}</span>
-    {descriptionText && descriptionText.length && <ReactTooltip place="right" className="tooltip-content" />}
+    {
+      descriptionText
+      && descriptionText.length
+      && <ReactTooltip place="right" className="tooltip-content" />}
   </a>);
 };
 /**

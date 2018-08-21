@@ -1,8 +1,6 @@
 /**
  * quinoa-story-player garlic template style definitions
  * ============
- * Please keep style definitions nested in order to ease
- * scss code reading accross files
  */
 // @import url('https://fonts.googleapis.com/css?family=Lora:400,400i,700');
 // @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i');
@@ -21,7 +19,6 @@ $gutter-small: .8rem;
 $gutter-medium: $gutter-small * 1.666;
 $gutter-large: $gutter-medium * 3;
 $gutter-lateral-large-screens: 25%;
-
 $color-primary: #414e4d; // blued dark grey
 $color-secondary: #f32e36; // fresh red
 $color-secondary-intent: #87240e; // bordeaux red
@@ -30,19 +27,22 @@ $color-secondary-background: rgba(255,255,255,.8);// white desopacified
 // #e5e7e6;
 $color-primary-background: #f4f4f4;
 $color-strokes: #dddbd9;
-
+$color-header-background: rgba(0,0,0,.7);
+$color-interactive-item-active-background: #d6cfc4;
+$color-interactive-item-intent-background: #d6cfc4;
 $font-size-0: $gutter-small * .8;
 $font-size-1: $gutter-small * 1.1;
 $font-size-2: $font-size-1 * 1.6;
 $font-size-3: $font-size-2 * 1.6;
 $font-size-4: $font-size-3 * 1.6;
 $font-size-5: $font-size-4 * 1.6;
-
 $burger-measure: $font-size-2;
-
-
 $font-stack-serif: Merriweather, serif;
 $font-stack-sans-serif: Roboto, serif;
+
+$timer-short: 100ms;
+$timer-medium: 500ms;
+$timer-long: 1s;
 
 // 2. mixins
 @mixin transition($args...)
@@ -78,14 +78,14 @@ $font-stack-sans-serif: Roboto, serif;
 
 .interactive-item-active
 {
-    color: #333;// todo: parametrize that
-    background: #d6cfc4;// todo: parametrize that
+    color: $color-primary;
+    background: $color-interactive-item-active-background;
 }
 
 .interactive-item-active-intent
 {
-    color: #333;// todo: parametrize that
-    background: #c3baac;// todo: parametrize that
+    color: $color-primary;
+    background: $color-interactive-item-intent-background;
 }
 /**
  * template styling
@@ -101,12 +101,12 @@ $font-stack-sans-serif: Roboto, serif;
 
     display: flex;
     overflow: hidden;
-    align-items: stretch;
-    flex-flow: column nowrap;
 
     color: $color-primary;
     background: $color-background;
 
+    align-items: stretch;
+    flex-flow: column nowrap;
     @extend .absolute-fill;
     *::selection
     {
@@ -119,7 +119,49 @@ $font-stack-sans-serif: Roboto, serif;
         background: $color-secondary;
     }
     /**
-     * Nested children
+     * ========================================
+     * LAYOUT RULES
+     * ========================================
+     */
+    /**
+      * General layout rules for contents elements
+      */
+    .content-h1,
+    .content-h2,
+    .content-h3,
+    .content-h4,
+    .content-h5,
+    .content-h6,
+    .content-paragraph,
+    .content-ul,
+    .content-ol,
+    .content-blockquote,
+    .content-pre
+    {
+        margin-right: $gutter-lateral-large-screens;
+        margin-bottom: $gutter-medium;
+        margin-left: $gutter-lateral-large-screens;
+    }
+    /**
+     * pre layout
+     */
+    pre{
+        overflow: hidden;
+        overflow-x: auto;
+
+        padding: $gutter-medium;
+
+        background: $color-secondary-background;
+    }
+    /**
+     * blockquote layout
+     */
+    blockquote{
+        padding: $gutter-medium;
+
+    }
+    /**
+     * global wrapper layout
      */
     .wrapper
     {
@@ -127,45 +169,85 @@ $font-stack-sans-serif: Roboto, serif;
 
         width: 100%;
         height: 100%;
-        .header
-        {
-            position: relative;
-
-            display: flex;
-            align-items: center;
-            flex-flow: row nowrap;
-
-            cursor: pointer;
-
-            background: rgba(0,0,0,.7);// todo: parametrize that
-            background: $color-secondary-background;
-            background-repeat: no-repeat;
-            background-size: cover;
-
-            @extend .absolute-fill;
-            .header-content
-            {
-                display: flex;
-                flex-flow: column nowrap;
-                justify-content: center;
-
-                width: 100%; // - $gutter-lateral-large-screens * 2;
-                height: 100%;
-                padding: 0;
-
-                text-align: center;
-
-                color: white;
-                background: rgba(0,0,0,.7);// todo: parametrize that
-                h1
-                {
-                    font-size: $font-size-4;
-                    font-variant: small-caps;
-                    line-height: $font-size-1;
-                }
-            }
-        }
     }
+    /**
+     * Story header background image layout
+     */
+    .header-background
+    {
+        position: relative;
+        top: 0;
+        left: 0;
+
+        display: flex;
+
+        max-height: 100%;
+
+        align-items: center;
+        flex-flow: row nowrap;
+        @extend .absolute-fill;
+    }
+    /**
+     * Header titles layout
+     */
+    .header-titles,
+    .header-story-title,
+    .header-story-subtitle,
+    {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    /**
+     * header story title layout
+     */
+    .header-story-title{
+        margin-top: 0;
+        margin-bottom: $gutter-small;
+    }
+    /**
+     * header story subtitle layout
+     */
+    .header-story-subtitle{
+        margin-top: 0;
+        margin-bottom: $gutter-small;
+    }
+    /**
+     * Nav layout
+     */
+    .nav
+    {
+        z-index: 3;
+
+        display: flex;
+        overflow-x: hidden;
+
+        width: $gutter-lateral-large-screens * .9;
+        height: 100%;
+        padding: 0;
+
+        flex-flow: column nowrap;
+        justify-content: stretch;
+        @extend .absolute-fill;
+    }
+    /**
+     * Nav content layout
+     */
+    .nav-content
+    {
+        display: flex;
+        overflow: hidden;
+            padding: $gutter-medium;
+
+        flex-flow: column nowrap;
+        justify-content: stretch;
+    }
+    .menu-layout{
+       margin: 0;
+    }
+    
+    /**
+     * body wrapper contains everything but the nav and the header background
+     */
     .body-wrapper
     {
         position: relative;
@@ -173,387 +255,52 @@ $font-stack-sans-serif: Roboto, serif;
         width: 100%;
         min-height: 100%;
         padding-top: $gutter-medium;
-        .contents-wrapper
-        {
-            font-size: $font-size-2;
-
-            padding-top: $gutter-medium;
-
-            @extend .absolute-fill;
-            text-rendering: optimizeLegibility;
-
-            .section{
-                &.is-level-1{
-                    .section-title{
-                        font-size: $font-size-4;
-                    }
-                    h1
-                    {
-                        font-size: $font-size-3 * 1.3;
-                    }
-                    h2
-                    {
-                        font-size: $font-size-3;
-                    }
-                    h3,
-                    h4,h5,h6
-                    {
-                        font-size: $font-size-2;
-                    }
-                }
-                &.is-level-2{
-                    .section-title{
-                        font-size: $font-size-3 * 1.3;
-                    }
-                    h1
-                    {
-                        font-size: $font-size-2 * 1.3;
-                    }
-                    h2
-                    {
-                        font-size: $font-size-2;
-                    }
-                    h3,
-                    h4,h5,h6
-                    {
-                        font-size: $font-size-1 * 1.5;
-                    }
-                }
-                &.is-level-3{
-                    .section-title{
-                        font-size: $font-size-3;
-                    }
-                    h1
-                    {
-                        font-size: $font-size-2;
-                    }
-                    h2
-                    {
-                        font-size: $font-size-1 * 1.3;
-                    }
-                    h3,
-                    h4,h5,h6
-                    {
-                        font-size: $font-size-1 * 1.1;
-                    }
-                }
-            }
-            a
-            {
-                line-height: 1.3em;
-
-                position: relative;
-
-                text-decoration: none;
-
-                color: inherit;
-                border-bottom: 1px solid $color-secondary;
-                outline: none;
-
-                @include transition(all .5s ease);
-                u
-                {
-                    text-decoration: none!important;
-                }
-                &:hover
-                {
-                    color: $color-background;
-                    background: $color-secondary-intent;
-                    border-bottom: 1px solid $color-secondary-intent;
-
-                }
-            }
-            .section-header,
-            .section-footer,
-            .notes-container,
-            .references,
-            .glossary-container,
-            .header-titles
-            {
-                font-size: $font-size-1;
-
-                margin-right: $gutter-lateral-large-screens;
-                margin-left: $gutter-lateral-large-screens;
-            }
-            .section-body
-            {
-                 > div
-                {
-                    padding-bottom: $gutter-large;
-                     > h1,
-                     > h2,
-                     > h3,
-                     > h4,
-                     > h5,
-                     > h6,
-                     > .unstyled,
-                     > ul,
-                     > ol,
-                     > blockquote,
-                     > pre
-                    {
-                        margin-right: $gutter-lateral-large-screens;
-                        margin-bottom: $gutter-medium;
-                        margin-left: $gutter-lateral-large-screens;
-                    }
-                    pre
-                    {
-                        overflow: hidden;
-                        overflow-x: auto;
-
-                        padding: $gutter-medium;
-
-                        background: $color-secondary-background;
-                    }
-
-                    blockquote{
-                        padding: $gutter-medium;
-                        border-left: 2px solid $color-strokes;
-                        font-size: $font-size-1;
-                    }
-
-                     > .unstyled,
-                    li
-                    {
-                        font-size: $font-size-1;
-                        line-height: $font-size-1 * 1.66;
-                    }
-                    h1,
-                    h2,
-                    h3,
-                    h4{
-                        margin-top: 2em;// setting a margin relative to font size
-                    }
-                    // h1,
-                    // h2,
-                    // h3,
-                    // h4,
-                    // h5,
-                    // h6,
-                    .unstyled:first-of-type
-                    {
-                        margin-top: $gutter-medium;
-                        margin-bottom: 0;
-                    }
-
-                    figure
-                    {
-                        position: relative;
-                        z-index: 3;
-
-                        margin: 0;
-
-                        display: flex;
-                        flex-flow: column nowrap;
-                        align-items: center;
-
-
-                        iframe
-                        {
-                            width: 100%;
-                            max-width: 100%;
-
-                            border: none;
-                        }
-                        img
-                        {
-                            // width : 100%;
-                            display: inline-block;
-
-                            max-width: 100%;
-                            max-height: 100%;
-                        }
-                        .leaflet-container
-                        {
-                            img
-                            {
-                                max-width: none !important;
-                                max-height: none !important;
-                            }
-                        }
-
-                        &.embed,
-                        &.image,
-                        &.video
-                        {
-                            margin-left: $gutter-lateral-large-screens * .8;
-                            margin-right: $gutter-lateral-large-screens * .8;
-                             // -webkit-box-shadow: 0 1em 5em .5em rgba(0,0,0,.2);
-                             //        box-shadow: 0 1em 5em .5em rgba(0,0,0,.2);
-                        }
-                        // hide legend for bulgur-made data presentations because it is embedded
-                        &.data-presentation
-                        {
-                            margin-top: $gutter-large;
-                            margin-bottom: $gutter-large;
-
-                            -webkit-box-shadow: 0 1em 5em .5em rgba(0,0,0,.2);
-                                    box-shadow: 0 1em 5em .5em rgba(0,0,0,.2);
-                             > figcaption
-                            {
-                                display: none;
-                            }
-                        }
-                        .quinoa-presentation-player
-                        {
-                            font-size: $font-size-1;
-
-                            pointer-events: none;
-
-                            background: $color-background;
-                            figcaption
-                            {
-                                margin-left: $gutter-large;
-                                .caption-header
-                                {
-                                    padding-top: $gutter-medium;
-                                }
-                            }
-                        }
-                        .ReactTable
-                        {
-                            font-size: $font-size-1;
-
-                            margin-right: $gutter-lateral-large-screens;
-                            margin-left: $gutter-lateral-large-screens;
-                        }
-                        .embed-container{
-                            width: 100%;
-                            min-height: 30rem;
-                            max-height: 50rem;
-                            display: flex;
-                            flex-flow: row nowrap;
-                            align-items: stretch;
-                            justify-content: stretch;
-                            overflow:auto;
-                        }
-                        figcaption
-                        {
-                            width: 100%;
-                            .fig-content{
-                                font-size: $font-size-1 * .8;
-                                padding-bottom: $gutter-medium;
-                                padding-left: $gutter-large;
-                                padding-right: $gutter-large;
-                                padding-top: $gutter-small;
-
-                                h4{
-                                    font-size: $font-size-1!important;
-                                }
-
-                                opacity: .7;
-                                 > *
-                                {
-                                    margin: 0;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
     }
-    .nav
-        {
-            font-family: $font-stack-serif;
-
-            padding: $gutter-medium;
-            z-index: 3;
-
-            display: flex;
-            overflow-x: hidden;
-            flex-flow: column nowrap;
-            justify-content: stretch;
-
-            width: $gutter-lateral-large-screens * .9;// todo: parametrize that
-            height: 100%;
-            padding: 0;
-
-            pointer-events: none;
-
-            @extend .absolute-fill;
-            .nav-content
-            {
-                display: flex;
-                overflow: hidden;
-                flex-flow: column nowrap;
-                justify-content: stretch;
-
-                padding: $gutter-medium;
-
-                @include transition(.5s all  ease);
-                .table-of-content
-                {
-                    flex: 1;
-                }
-            }
-            &.active,
-            &:not(.fixed)
-            {
-                background: $color-background;
-            }
-            &.fixed.active
-            {
-                -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
-                        box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
-            }
-            h2
-            {
-                margin: 0;
-
-                pointer-events: all;
-
-                @extend .interactive-item;
-                @include transition(all .5s ease);// todo: parametrize that
-                &:hover
-                {
-                    color: $color-secondary-intent;
-                }
-            }
-            button
-            {
-                padding: 0;
-
-                text-align: left;
-                pointer-events: all;
-
-                border: none;
-                outline: none;
-                background: transparent;
-
-                @include transition(all .5s ease);// todo: parametrize that
-                &:hover,
-                &.active
-                {
-                    color: $color-secondary-intent;
-                }
-            }
-        }
-
-    .table-of-contents
+    /**
+     * Content wrapper layout
+     */
+    .contents-wrapper
     {
-        font-size: $font-size-1;
+        @extend .absolute-fill;
+    }
+    /**
+     * Main column containers layout
+     */
+    .section-header,
+    .section-footer,
+    .notes-container,
+    .references,
+    .glossary-container,
+    .header-titles
+    {
 
+        margin-right: $gutter-lateral-large-screens;
+        margin-left: $gutter-lateral-large-screens;
+    }
+    /**
+     * Table of contents layout
+     */
+     .table-of-contents{
         overflow: auto;
 
         margin: 0;
         padding: 0;
+        flex: 1;
 
-        pointer-events: all;
-
-        @include transition(.5s all  ease);
-        li
-        {
-            margin: 0;
+     }
+     /**
+      * Table of contents title layout
+      */
+    .table-of-contents-title{
+        margin-top: 0;
+    }
+    /**
+     * Table of contents item layout
+     */
+    .table-of-contents-item{
+         margin: 0;
             padding: 0;
             padding-bottom: $gutter-medium;
-
-            list-style: none;
-
-            opacity: .2;// todo: parametrize that
-
-            @include transition(all .5s ease);// todo: parametrize that
             &:hover
             {
                 opacity: 1;
@@ -564,57 +311,294 @@ $font-stack-sans-serif: Roboto, serif;
             }
             &.level-2
             {
-                padding-left: .3rem;// todo: parametrize that
+                padding-left: $gutter-small * .5;
             }
             &.level-3
             {
-                padding-left: .6rem;// todo: parametrize that
+                padding-left: $gutter-small;
             }
             &.level-4
             {
-                padding-left: .9rem;// todo: parametrize that
+                padding-left: $gutter-small * 1.5;
             }
             &.level-5
             {
-                padding-left: 1.2rem;// todo: parametrize that
+                padding-left: $gutter-small * 2;
             }
             &.level-6
             {
-                padding-left: 1.5rem;// todo: parametrize that
+                padding-left: $gutter-small * 2.5;
             }
-            a
-            {
-                text-decoration: none;
+    }
+    /**
+     * Section title layout
+     */
+    .section-title
+    {
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 0;
+    }
 
-                color: $color-primary;
 
-                @include transition(all .5s ease);// todo: parametrize that
-                &:hover
-                {
-                    color: $color-secondary-intent;
-                }
-            }
-            &.active
-            {
-                opacity: .5;// todo: parametrize that
-                a
-                {
-                    color: $color-secondary-intent;
-                }
-            }
-        }
-        .menu-title
+    /**
+     * Content titles layout
+     */
+    .content-title
+    {
+        margin-top: 1em;// setting a margin relative to font size
+    }
+
+    /**
+     * Content paragraph layout
+     */
+    .content-paragraph:first-of-type
+    {
+        margin-top: $gutter-medium;
+        margin-bottom: 0;
+    }
+    /**
+     * Content figure layout
+     */
+    .content-figure
+    {
+        position: relative;
+        z-index: 3;
+
+        display: flex;
+
+        margin: 0;
+
+        flex-flow: column nowrap;
+        align-items: center;
+    }
+    /**
+     * Figure iframes layout (normalization)
+     */
+    .content-figure iframe
+    {
+        width: 100%;
+        max-width: 100%;
+
+        border: none;
+        height: unset;
+        min-height: 30rem;
+        flex: 1;
+    }
+    /**
+     * Content images layout
+     */
+    .content-image
+    {
+        // width : 100%;
+        display: inline-block;
+
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    /**
+     * Figures contents layout
+     */
+    .content-figure.embed,
+    .content-figure.image,
+    .content-figure.video
+    {
+        margin-right: $gutter-lateral-large-screens * .8;
+        margin-left: $gutter-lateral-large-screens * .8;
+    }
+
+    /**
+     * Embed contextualization container layout
+     */
+     .embed-container
+    {
+        display: flex;
+        overflow: auto;
+
+        width: 100%;
+        min-height: 30rem;
+        max-height: 50rem;
+
+        flex-flow: row nowrap;
+        align-items: stretch;
+        justify-content: stretch;
+    }
+    /**
+     * Figure caption container layout
+     */
+    .figure-caption-container{
+        width: 100%;
+    }
+
+    /**
+     * Figure caption title layout
+     */
+    .figure-caption-title
+    {
+        margin-top: 0;
+    }
+
+    /**
+     * Figure caption content layout
+     */
+    .figure-caption-content{
+                                
+        padding-top: $gutter-small;
+        padding-right: $gutter-large;
+        padding-bottom: $gutter-medium;
+        padding-left: $gutter-large;
+    }
+    /**
+     * Interctive table layout
+     */
+    .ReactTable
+    {
+
+        margin-right: $gutter-lateral-large-screens;
+        margin-left: $gutter-lateral-large-screens;
+    }
+    /*
+     * References manager layout
+     */
+    .references-manager
+    {
+        @extend .absolute-fill;
+    }
+    /**
+     * Glossary mentions layout
+     */
+    .glossary-mentions-container{
+
+            padding: 0;
+    }
+    /**
+     * Glossary entry layout
+     */
+     .glossary-entry{
+        margin-bottom: $gutter-medium;
+                padding: 0;
+     }
+     /**
+      * Note container position when notes in position aside
+      */
+    .notes-container-position-aside
+    {
+        position: absolute;
+        top: 0;
+        left: -$gutter-lateral-large-screens * .8;
+
+        width: $gutter-lateral-large-screens * .7;
+    }
+     /**
+      * Notes list styling
+      */
+    .notes-list{
+        padding: 0;
+    }
+    /**
+     * Note item layout
+     */
+    .note-item{
+        position: relative;
+
+        overflow: visible;
+
+        margin-bottom: $gutter-medium;
+        padding-bottom: $gutter-small;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+        justify-contents: stretch;
+        .contents-container
         {
-            -webkit-transition-delay: 1s;
-                    transition-delay: 1s;
+            flex: 1;
 
-            opacity: 1;
-
-            @include transition(.5s all ease);
+            margin-left: $gutter-small;
+            //  > *
+            // {
+            //     display: inline;
+            // }
+        }
+        .content-h1,
+        .content-h2,
+        .content-h3,
+        .content-h4,
+        .content-h5,
+        .content-h6,
+        .content-paragraph,
+        .content-ul,
+        .content-ol,
+        .content-blockquote,
+        .content-pre
+        {
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 0;
         }
     }
     /**
-     * Components
+     * Note pointers layout
+     */
+    .note-content-pointer,
+    .note-block-pointer
+    {
+        display: inline-block;
+
+        width: $font-size-2 * 1.4*.5;
+        height: $font-size-2 * 1.4*.5;
+    }
+    /**
+     * Note content pointer layout
+     */
+    .note-content-pointer
+    {
+        margin-left: $gutter-small;
+    }
+    /**
+     * Bottom elements layout
+     */
+    .references,
+    .glossary-container,
+    .notes-container
+    {
+        margin-bottom: $gutter-large;
+        
+    }
+    /**
+     * Citation entry layout
+     */
+    .csl-entry
+    {
+        margin-bottom: $gutter-medium;
+    }
+    /**
+     * Index toggle layout
+     */
+
+    .index-toggle
+    {
+        pointer-events: none;
+        margin: 0;
+        padding: 0;
+        max-height: 0;
+    }
+    .nav.fixed .index-toggle{
+        max-height: 100%;
+    }
+    
+    
+
+    
+
+    /**
+     * ========================================
+     * STYLING RULES (colors, background, fontsizes, transition, pointer-event)
+     * ========================================
+     */
+
+    /**
+     * Titles general styling
      */
     h1,
     h2,
@@ -626,107 +610,340 @@ $font-stack-sans-serif: Roboto, serif;
         font-family: $font-stack-sans-serif;
         font-weight: 900;
     }
-    .references-manager
+    /**
+     * Content blockquote styling
+     */
+    .content-blockquote
     {
-        @extend .absolute-fill;
+        font-size: $font-size-1;
+        border-left: 2px solid $color-strokes;
     }
-    .glossary-container
+    /**
+     * Content paragraphs and list elements styling
+     */
+    .content-paragraph,
+    .content-li
     {
-        ul
+        font-size: $font-size-1;
+        line-height: $font-size-1 * 1.66;
+    }
+
+    /**
+     * Figure caption content styling
+     */
+    .figure-caption-content{
+        font-size: $font-size-1;
+        opacity: .7;
+    }
+    /**
+     * Figure caption title styling
+     */
+    .figure-caption-title
+    {
+        font-size: $font-size-1;
+    }
+
+    /**
+     * Interactive table styling
+     */
+    .ReactTable{
+        font-size: $font-size-1;
+    }
+
+
+    /**
+     * Specific elements
+     */
+    /**
+     * Header styling
+     */
+    .header
+    {
+        cursor: pointer;
+
+        background: $color-header-background;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    /**
+     * Header content styling
+     */
+    .header-content
+    {
+        text-align: center;
+
+        color: white;
+        background: $color-header-background;
+    }
+    /**
+     * Contents wrapper styling
+     */
+    .contents-wrapper
+    {
+        font-size: $font-size-2;
+
+        padding-top: $gutter-medium;
+
+        text-rendering: optimizeLegibility;
+    }
+    /**
+     * Header story title styling
+     */
+    .header-story-title
+    {
+        font-size: $font-size-4;
+    }
+    /**
+     * Header subtitle styling
+     */
+    .header-story-subtitle
+    {
+        font-size: $font-size-3;
+        font-variant: italic;
+
+        
+    }
+    /**
+     * Header authors styling
+     */
+    .header-authors
+    {
+        font-size: $font-size-2;
+        font-style: italic;
+
+        opacity: .8;
+    }
+    /**
+     * Nav styling
+     */
+    .nav
+    {
+        font-family: $font-stack-serif;
+
+
+        pointer-events: none;
+
+        &.active,
+        &:not(.fixed)
         {
-            padding: 0;
-            li
+            background: $color-background;
+        }
+        &.fixed.active
+        {
+            -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
+                    box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
+        }
+    }
+    /**
+     * Nav content styling
+     */
+    .nav-content
+    {
+        @include transition($timer-medium all  ease);
+    }
+    /**
+     * Table of contents styling
+     */
+    .table-of-contents{
+
+        font-size: $font-size-1;
+        pointer-events: all;
+        @include transition($timer-medium all  ease);
+    }
+    /**
+     * Table of contents title styling
+     */
+     .table-of-contents-title-container
+    {
+        -webkit-transition-delay: 1s;
+                transition-delay: 1s;
+
+        opacity: 1;
+
+        @include transition($timer-medium all ease);
+        pointer-events: all;
+
+        @extend .interactive-item;
+        @include transition(all $timer-medium ease);
+        &:hover
+        {
+            color: $color-secondary-intent;
+        }
+    }
+    /**
+     * Table of contents item styling
+     */
+    .table-of-contents-item{
+            list-style: none;
+            opacity: .2;// todo: parametrize that
+            @include transition(all $timer-medium ease);
+    
+        &.active
             {
-                font-size: $font-size-1;
-
-                margin-bottom: $gutter-medium;
-                padding: 0;
-
-                list-style-type: none;
+                opacity: .5;// todo: parametrize that
+                .table-of-contents-link
+                {
+                    color: $color-secondary-intent;
+                }
             }
+    }
+    /**
+     * Table of contents link styling
+     */
+    .table-of-contents-link
+    {
+        text-decoration: none;
+
+        color: $color-primary;
+
+        @include transition(all $timer-medium ease);
+        &:hover
+        {
+            color: $color-secondary-intent;
         }
     }
-    .header-titles
+
+    /**
+     * Titles styling for level 1 sections
+     */
+    .is-level-1 .section-title
     {
-        margin-bottom: $gutter-large;
-        h1
-        {
-            font-size: $font-size-4;
-
-            margin-top: 0;
-            margin-bottom: $gutter-small;
-        }
-        h2
-        {
-            font-size: $font-size-3;
-
-            margin-top: 0;
-            margin-bottom: $gutter-small;
-            font-variant: italic;
-        }
-        .authors
-        {
-            font-size: $font-size-2;
-            font-style: italic;
-
-            opacity: .8;
-        }
+        font-size: $font-size-4;
     }
-    .notes-container
-    {
-        .notes-list
-        {
-            padding: 0;
-        }
-    }
-    .notes-container-position-aside
-    {
-        position: absolute;
-        top: 0;
-        left: -$gutter-lateral-large-screens * .8;
 
-        width: $gutter-lateral-large-screens * .7;
-    }
-    .note-item
+    .is-level-1 .content-h1
     {
-        font-size: $font-size-0;
+        font-size: $font-size-3 * 1.3;
+    }
+    .is-level-1 .content-h2
+    {
+        font-size: $font-size-3;
+    }
+    .is-level-1 .content-h3,
+    .is-level-1 .content-h4,
+    .is-level-1 .content-h5,
+    .is-level-1 .content-h6
+    {
+        font-size: $font-size-2;
+    }
+    /**
+     * Titles styling for level 2 sections
+     */
+    .is-level-2 .section-title
+    {
+        font-size: $font-size-3;
+    }
+
+    .is-level-2 .content-h1
+    {
+        font-size: $font-size-2 * 1.3;
+    }
+    .is-level-2 .content-h2
+    {
+        font-size: $font-size-2;
+    }
+    .is-level-2 .content-h3,
+    .is-level-2 .content-h4,
+    .is-level-2 .content-h5,
+    .is-level-2 .content-h6
+    {
+        font-size: $font-size-1 * 1.5;
+    }
+    /**
+     * Titles styling for level 3 sections
+     */
+    .is-level-3 .section-title
+    {
+        font-size: $font-size-2 * 1.3;
+    }
+    .is-level-3 .content-h1
+    {
+        font-size: $font-size-2;
+    }
+    .is-level-3 .content-h2
+    {
+        font-size: $font-size-1 * 1.3;
+    }
+    .is-level-3 .content-h3,
+    .is-level-3 .content-h4,
+    .is-level-3 .content-h5,
+    .is-level-3 .content-h6
+    {
+        font-size: $font-size-1 * 1.1;
+    }
+
+    /**
+     *
+     */
+    .contents-wrapper .content-a,
+    .glossary-mention-backlink
+    {
+        line-height: 1.3em;
 
         position: relative;
 
-        overflow: visible;
+        text-decoration: none;
 
-        margin-bottom: $gutter-medium;
-        padding-bottom: $gutter-small;
+        color: inherit;
+        border-bottom: 1px solid $color-secondary;
+        outline: none;
 
+        @include transition(all .5s ease);
+        u
+        {
+            text-decoration: none!important;
+        }
+        &:hover
+        {
+            color: $color-background;
+            border-bottom: 1px solid $color-secondary-intent;
+            background: $color-secondary-intent;
+        }
+    }
+    /**
+     * Glossary title styling
+     */
+    .glossary-title{
+        font-size: $font-size-3;
+    }
+    
+    /**
+     * Glossary entry styling
+     */
+    .glossary-entry{
+        font-size: $font-size-1;
         list-style-type: none;
+    }
+    /**
+     * Glossary entry title styling
+     */
+    .glossary-entry-title{
+        font-size: $font-size-2;
+    }
 
-        // border-bottom: $font-size-1/5 solid $color-secondary;
-        .unstyled,
-        ul
+    /**
+     * Note item styling
+     */
+    .note-item{
+        font-size: $font-size-0;
+        
+        list-style-type: none;
+        .content-paragraph,
+        .content-ul,
+        .content-ol
         {
             line-height: $font-size-0 * 1.66;
         }
-         > div
-        {
-            display: inline;
-
-            margin-left: $gutter-small;
-             > *
-            {
-                display: inline;
-            }
-        }
     }
+
+    /**
+     * Note pointers styling
+     */
     .note-content-pointer,
     .note-block-pointer
     {
         font-size: $font-size-1*.5;
         line-height: $font-size-1*2.3*.5;
-
-        display: inline-block;
-
-        width: $font-size-2 * 1.4*.5;
-        height: $font-size-2 * 1.4*.5;
 
         cursor: pointer;
         text-align: center;
@@ -735,47 +952,53 @@ $font-stack-sans-serif: Roboto, serif;
         color: $color-background;
         border-radius: 50%;// todo: parametrize that
         background: $color-secondary;
-        cursor: pointer;
         &:hover
         {
             background: $color-secondary-intent;
         }
     }
-    .note-content-pointer
-    {
-        margin-left: $gutter-small;
-    }
     
-    .tooltip-content{
+    /**
+     * tooltip content layout
+     */
+    .tooltip-content
+    {
         font-size: $font-size-1 * .6;
     }
-    .references,
-    .glossary-container,
-    .notes-container
+
+    /**
+     * Citation entry layout
+     */
+    .csl-entry
     {
-        margin-bottom: $gutter-large;
-        h2
-        {
-            font-size: $font-size-3;
-            // border-bottom: $font-size-1/5 solid $color-secondary;
-        }
-        .csl-entry
-        {
-            margin-bottom: $gutter-medium;
-        }
+        font-size: $font-size-1;
     }
 
+    /**
+     * Index toggle styling
+     */
     .index-toggle
     {
-        margin-bottom: $gutter-medium;
-
         pointer-events: none;
 
-        left: $gutter-medium;
-        top: $gutter-medium;
-        position: absolute;
-        max-height: $gutter-medium * 2;
+        text-align: left;
+        pointer-events: all;
+
+        border: none;
+        outline: none;
+        background: transparent;
+
+        @include transition(all $timer-medium ease);
+        &:hover,
+        &.active
+        {
+            color: $color-secondary-intent;
+        }
     }
+
+    /**
+     * Burger menu styling
+     */
     #burger-menu
     {
         position: relative;
@@ -869,134 +1092,150 @@ $font-stack-sans-serif: Roboto, serif;
         }
     }
 
-    .glossary-entry{
-        h3{
-            font-size: $font-size-3;
-        }
-    }
-
+    /**
+     * =============================================
+     * PRINT CSS STYLING
+     * =============================================
+     */
     @media print
     {
-      .nav,
-      .aside-edition-container,
-      .button,
-      .editor-footer,
-      .icon
-      {
-        display: none!important;
-      }
-      div,
-      p,
-      figure,
-      section,
-      blockquote
-      {
-        padding: 0!important;
-        margin: 0!important;
-        overflow: visible!important;
-        background: white!important;
-        position: relative!important;
-        left: unset!important;
-        top: unset!important;
-        width: unset!important;
-        height: unset!important;
-        display: block!important;
-      }
-      figure{
-        align-items: stretch!important;
-        justify-content: stretch!important;
-      }
+            position: relative!important;
+            top: unset!important;
+            left: unset!important;
 
+            display: block!important;
+            overflow: visible!important;
 
-      p,
-      li,
-      blockquote
-      {
-        font-size: 10px!important;
-        line-height: 15px!important;
-        margin-bottom: 15px!important;
-      }
-      blockquote
-    {
-        position: relative;
+            width: unset!important;
+            height: unset!important;
+            margin: 0!important;
+            padding: 0!important;
 
-        margin: 0;
-        // padding: $gutter-large;
-
-        quotes: '« ' ' »' '‹ ' ' ›';
-        &:before
+            background: white!important;
+        .header-titles
         {
-            position: absolute;
-            top: $gutter-small;
-            left: $gutter-small;
+            padding-top: 4cm;/* todo wtf */
 
-            content: open-quote;
+            page-break-after: always;
+            .header-story-title
+            {
+                font-size: 50px;
+            }
+            .header-story-subtitle
+            {
+                font-size: 30px;
+            }
         }
-        &:after
+
+        .nav,
+        .aside-edition-container,
+        .button,
+        .editor-footer,
+        .icon
         {
-            position: absolute;
-            right: $gutter-small;
-            bottom: $gutter-small;
+            display: none!important;
+        }
+        div,
+        p,
+        figure,
+        section,
+        blockquote
+        {
+            position: relative!important;
+            top: unset!important;
+            left: unset!important;
 
-            content: close-quote;
+            display: block!important;
+            overflow: visible!important;
+
+            width: unset!important;
+            height: unset!important;
+            margin: 0!important;
+            padding: 0!important;
+
+            background: white!important;
+        }
+        figure
+        {
+            align-items: stretch!important;
+            justify-content: stretch!important;
+        }
+
+        p,
+        li,
+        blockquote
+        {
+            font-size: 10px!important;
+            line-height: 15px!important;
+
+            margin-bottom: 15px!important;
+        }
+        blockquote
+        {
+            position: relative;
+
+            margin: 0;
+            // padding: $gutter-large;
+
+            quotes: '« ' ' »' '‹ ' ' ›';
+            &:before
+            {
+                position: absolute;
+                top: $gutter-small;
+                left: $gutter-small;
+
+                content: open-quote;
+            }
+            &:after
+            {
+                position: absolute;
+                right: $gutter-small;
+                bottom: $gutter-small;
+
+                content: close-quote;
+            }
+        }
+        .csl-entry
+        {
+            font-size: 10px!important;
+
+            margin-bottom: 15px!important;
+        }
+        h1
+        {
+            font-size: 20px!important;
+        }
+        h2
+        {
+            font-size: 18px!important;
+        }
+        h3
+        {
+            font-size: 16px!important;
+        }
+        h4
+        {
+            font-size: 14px!important;
+        }
+        h1,
+        h2,
+        h3,
+        h4
+        {
+            margin-bottom: 14px!important;
+        }
+        iframe
+        {
+            display: none!important;
+        }
+        figcaption
+        {
+            padding: 5px!important;
+
+            background: rgba(0,0,0,.1);
         }
     }
-    .csl-entry{
-        font-size: 10px!important;
-        margin-bottom: 15px!important;
-    }
-    h1{
-        font-size: 20px!important;
-    }
-    h2{
-        font-size: 18px!important;
-    }
-    h3{
-        font-size: 16px!important;
-    }
-    h4{
-        font-size: 14px!important;
-    }
-    h1,h2,h3,h4{
-        margin-bottom: 14px!important;
-    }
-    iframe{
-        display: none!important;
-    }
-    figcaption{
-        background: rgba(0,0,0,0.1);
-        padding: 5px!important;
-    }
-    .header{
-        position: absolute;
-        left: 0;
-        top: 0;
-        max-height: 100%;
-      }
-      .header-titles{
-        padding-top: 4cm!important;
-        page-break-after: always;
-        h1{
-            font-size: 50px!important;
-        }
-        h2{
-            font-size: 30px!important;
-        }
-      }
-    }
+    
 }
 
-@media print{
-    .quinoa-story-player{
-        padding: 0!important;
-        margin: 0!important;
-        overflow: visible!important;
-        background: white!important;
-        position: relative!important;
-        left: unset!important;
-        top: unset!important;
-        width: unset!important;
-        height: unset!important;
-        display: block!important;
-    }
-}
+    

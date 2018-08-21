@@ -103,8 +103,8 @@ var renderers = {
     'unstyled': function unstyled(children) {
       return children.map(function (child, index) {
         return _react2.default.createElement(
-          'p',
-          { className: 'unstyled', key: index },
+          'div',
+          { className: 'content-paragraph', key: index },
           child
         );
       });
@@ -112,7 +112,7 @@ var renderers = {
     'blockquote': function blockquote(children) {
       return _react2.default.createElement(
         'blockquote',
-        null,
+        { className: 'content-blockquote' },
         addBreaklines(children)
       );
     },
@@ -121,7 +121,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h1',
-          { key: index, id: keys[index] },
+          { className: 'content-title content-h1', key: index, id: keys[index] },
           child
         );
       });
@@ -131,7 +131,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h2',
-          { key: index, id: keys[index] },
+          { className: 'content-h2', key: index, id: keys[index] },
           child
         );
       });
@@ -141,7 +141,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h3',
-          { key: index, id: keys[index] },
+          { className: 'content-title content-h3', key: index, id: keys[index] },
           child
         );
       });
@@ -151,7 +151,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h4',
-          { key: index, id: keys[index] },
+          { className: 'content-title content-h4', key: index, id: keys[index] },
           child
         );
       });
@@ -161,7 +161,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h5',
-          { key: index, id: keys[index] },
+          { className: 'content-title content-h5', key: index, id: keys[index] },
           child
         );
       });
@@ -171,7 +171,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h6',
-          { key: index, id: keys[index] },
+          { className: 'content-title content-h6', key: index, id: keys[index] },
           child
         );
       });
@@ -181,7 +181,7 @@ var renderers = {
       var keys = _ref11.keys;
       return _react2.default.createElement(
         'pre',
-        { key: keys[0] },
+        { className: 'content-pre', key: keys[0] },
         addBreaklines(children)
       );
     },
@@ -190,11 +190,11 @@ var renderers = {
           keys = _ref12.keys;
       return _react2.default.createElement(
         'ul',
-        { key: keys[keys.length - 1], className: 'ul-level-' + depth },
+        { key: keys[keys.length - 1], className: 'content-ul ul-level-' + depth },
         children.map(function (child, index) {
           return _react2.default.createElement(
             'li',
-            { key: index },
+            { className: 'content-li', key: index },
             child
           );
         })
@@ -205,11 +205,11 @@ var renderers = {
           keys = _ref13.keys;
       return _react2.default.createElement(
         'ol',
-        { key: keys.join('|'), className: 'ol-level-' + depth },
+        { key: keys.join('|'), className: 'content-ol ol-level-' + depth },
         children.map(function (child, index) {
           return _react2.default.createElement(
             'li',
-            { key: keys[index] },
+            { className: 'content-li', key: keys[index] },
             child
           );
         })
@@ -221,7 +221,7 @@ var renderers = {
       return children.map(function (child, i) {
         return _react2.default.createElement(
           'div',
-          (0, _extends3.default)({ className: 'atomic-container', key: keys[i] }, data[i]),
+          (0, _extends3.default)({ className: 'content-atomic-container', key: keys[i] }, data[i]),
           child
         );
       });
@@ -297,7 +297,7 @@ var Renderer = function (_Component) {
       }
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'contents-container' },
         rendered
       );
     }

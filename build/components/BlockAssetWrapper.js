@@ -44,7 +44,7 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
     return _react2.default.createElement(
       'figure',
       {
-        className: asset.contextualizer.type,
+        className: 'content-figure ' + asset.contextualizer.type,
         style: {
           position: 'relative',
           minHeight: asset.contextualizer.type === 'data-presentation' && dimensions && dimensions.height || '10em'
@@ -61,23 +61,23 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
         onExit: onExit }),
       _react2.default.createElement(
         'figcaption',
-        null,
+        { className: 'figure-caption-container' },
         _react2.default.createElement(
           'div',
-          { className: 'fig-content' },
+          { className: 'figure-caption-content' },
           resource.metadata.title && _react2.default.createElement(
             'h4',
-            null,
+            { className: 'figure-caption-title' },
             resource.metadata.title
           ),
           resource.metadata.description && _react2.default.createElement(
             'p',
-            null,
+            { className: 'figure-caption-description' },
             resource.metadata.description
           ),
           resource.metadata.source && _react2.default.createElement(
             'p',
-            null,
+            { className: 'figure-caption-source' },
             'Source: ',
             _react2.default.createElement(
               'i',

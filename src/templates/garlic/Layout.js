@@ -624,7 +624,7 @@ class GarlicLayout extends Component {
             universal>
             <header
               onClick={this.scrollToContents}
-              className="header"
+              className="header-background"
               ref={bindHeaderRef}
               style={{
               backgroundImage: coverImage ? `url(${coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64}` : undefined,
@@ -635,17 +635,17 @@ class GarlicLayout extends Component {
               <section className="contents-wrapper">
                 <div
                   className="header-titles">
-                  <h1>
+                  <h1 className="header-story-title">
                     {metadata.title || 'Quinoa story'}
                   </h1>
                   {metadata.subtitle &&
-                    <h2 className="header-subtitle">
+                    <h2 className="header-story-subtitle">
                       {metadata.subtitle}
                     </h2>
                   }
                   {
                   metadata.authors && metadata.authors.length ?
-                    <div className="authors">
+                    <div className="header-authors">
                       {
                       metadata.authors.map(author => author).join(', ')
                     }
@@ -676,14 +676,14 @@ class GarlicLayout extends Component {
                 {glossary &&
                   glossary.length ?
                     <div className="glossary-container">
-                      <h2 id="glossary">{capitalize(locale.glossary || 'glossary')}</h2>
+                      <h2 className="glossary-title" id="glossary">{capitalize(locale.glossary || 'glossary')}</h2>
                       <ul className="glossary-mentions-container">
                         {
                       glossary.map((entry, index) => {
                         const entryName = entry.resource.data.name;
                         return (
-                          <li key={index} id={'glossary-entry-' + entry.resource.id}>
-                            <h3>{entryName} <i>({
+                          <li className="glossary-entry" key={index} id={'glossary-entry-' + entry.resource.id}>
+                            <h3 className="glossary-entry-title">{entryName} <i>({
                                   entry.mentions.map((mention, count) => {
                                     const target = 'glossary-mention-' + mention.id;
                                     const onClick = e => {
@@ -694,6 +694,7 @@ class GarlicLayout extends Component {
                                       <a
                                         key={mention.id}
                                         onClick={onClick}
+                                        className="glossary-mention-backlink"
                                         id={'glossary-mention-backlink-' + mention.id}
                                         href={'#' + target}>
                                         <span className="link-content">{count + 1}</span>
@@ -747,11 +748,11 @@ class GarlicLayout extends Component {
               <ul
                 className="table-of-contents"
                 style={{
-                  marginTop: inCover ? 0 : '2em'
+                  // marginTop: inCover ? 0 : '2em'
                 }}>
-                <li>
+                <li className="table-of-contents-title-container">
                   <h2
-                    className="menu-title"
+                    className="table-of-contents-title"
                     onClick={onClickTitle}>{metadata.title || 'Quinoa story'}</h2>
                 </li>
                 {
@@ -765,8 +766,9 @@ class GarlicLayout extends Component {
                         return (
                           <li
                             key={index}
-                            className={'level-' + item.level + (item.active ? ' active' : '')}>
+                            className={'table-of-contents-item level-' + item.level + (item.active ? ' active' : '')}>
                             <a
+                              className="table-of-contents-link"
                               href={'#' + item.key}
                               onClick={onClick}>
                               <span className="link-content">{item.text || 'Untitled section'}</span>

@@ -42,21 +42,21 @@ const renderers = {
    * Note that children are an array of blocks with same styling,
    */
   blocks: {
-    'unstyled': (children) => children.map((child, index) => <p className="unstyled" key={index}>{child}</p>),
-    'blockquote': (children) => <blockquote >{addBreaklines(children)}</blockquote>,
-    'header-one': (children, {keys}) => children.map((child, index) => <h1 key={index} id={keys[index]}>{child}</h1>),
-    'header-two': (children, {keys}) => children.map((child, index) => <h2 key={index} id={keys[index]}>{child}</h2>),
-    'header-three': (children, {keys}) => children.map((child, index) => <h3 key={index} id={keys[index]}>{child}</h3>),
-    'header-four': (children, {keys}) => children.map((child, index) => <h4 key={index} id={keys[index]}>{child}</h4>),
-    'header-five': (children, {keys}) => children.map((child, index) => <h5 key={index} id={keys[index]}>{child}</h5>),
-    'header-six': (children, {keys}) => children.map((child, index) => <h6 key={index} id={keys[index]}>{child}</h6>),
+    'unstyled': (children) => children.map((child, index) => <div className="content-paragraph" key={index}>{child}</div>),
+    'blockquote': (children) => <blockquote className="content-blockquote" >{addBreaklines(children)}</blockquote>,
+    'header-one': (children, {keys}) => children.map((child, index) => <h1 className="content-title content-h1" key={index} id={keys[index]}>{child}</h1>),
+    'header-two': (children, {keys}) => children.map((child, index) => <h2 className="content-h2" key={index} id={keys[index]}>{child}</h2>),
+    'header-three': (children, {keys}) => children.map((child, index) => <h3 className="content-title content-h3" key={index} id={keys[index]}>{child}</h3>),
+    'header-four': (children, {keys}) => children.map((child, index) => <h4 className="content-title content-h4" key={index} id={keys[index]}>{child}</h4>),
+    'header-five': (children, {keys}) => children.map((child, index) => <h5 className="content-title content-h5" key={index} id={keys[index]}>{child}</h5>),
+    'header-six': (children, {keys}) => children.map((child, index) => <h6 className="content-title content-h6" key={index} id={keys[index]}>{child}</h6>),
 
     // You can also access the original keys of the blocks
-    'code-block': (children, {keys}) => <pre key={keys[0]} >{addBreaklines(children)}</pre>,
+    'code-block': (children, {keys}) => <pre className="content-pre" key={keys[0]} >{addBreaklines(children)}</pre>,
     // or depth for nested lists
-    'unordered-list-item': (children, {depth, keys}) => <ul key={keys[keys.length - 1]} className={`ul-level-${depth}`}>{children.map((child, index) => <li key={index}>{child}</li>)}</ul>,
-    'ordered-list-item': (children, {depth, keys}) => <ol key={keys.join('|')} className={`ol-level-${depth}`}>{children.map((child, index) => <li key={keys[index]}>{child}</li>)}</ol>,
-    'atomic': (children, {keys, data}) => children.map((child, i) => <div className="atomic-container" key={keys[i]} {...data[i]}>{child}</div>),
+    'unordered-list-item': (children, {depth, keys}) => <ul key={keys[keys.length - 1]} className={`content-ul ul-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={index}>{child}</li>)}</ul>,
+    'ordered-list-item': (children, {depth, keys}) => <ol key={keys.join('|')} className={`content-ol ol-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={keys[index]}>{child}</li>)}</ol>,
+    'atomic': (children, {keys, data}) => children.map((child, i) => <div className="content-atomic-container" key={keys[i]} {...data[i]}>{child}</div>),
   },
   /**
    * Entities receive children and the entity data
@@ -124,7 +124,7 @@ class Renderer extends Component {
       return this.renderWarning();
     }
     return (
-      <div>
+      <div className="contents-container">
         {rendered}
       </div>
     );

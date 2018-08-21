@@ -38,10 +38,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactMediaPlayer = require('react-media-player');
 
-var _quinoaPresentationPlayer = require('quinoa-presentation-player');
-
-var _quinoaPresentationPlayer2 = _interopRequireDefault(_quinoaPresentationPlayer);
-
 var _reactTable = require('react-table');
 
 var _reactTable2 = _interopRequireDefault(_reactTable);
@@ -118,14 +114,8 @@ var BlockAssetPlayer = function (_React$Component) {
     value: function render() {
       var _props2 = this.props,
           type = _props2.type,
-          data = _props2.data,
-          options = _props2.options,
-          fixed = _props2.fixed,
-          allowInteractions = _props2.allowInteractions,
-          onExit = _props2.onExit;
-      var _context = this.context,
-          dimensions = _context.dimensions,
-          getResourceDataUrl = _context.getResourceDataUrl;
+          data = _props2.data;
+      var getResourceDataUrl = this.context.getResourceDataUrl;
 
       switch (type) {
         case 'table':
@@ -149,28 +139,13 @@ var BlockAssetPlayer = function (_React$Component) {
           } else {
             src = data.base64 || data.src;
           }
-          return _react2.default.createElement('img', { src: src });
+          return _react2.default.createElement('img', { className: 'content-image', src: src });
         case 'video':
           return _react2.default.createElement(
             _reactMediaPlayer.Media,
             null,
             _react2.default.createElement(_reactMediaPlayer.Player, { src: data.url })
           );
-        case 'data-presentation':
-          var usableData = data.json || this.state.data;
-          return usableData ? _react2.default.createElement(_quinoaPresentationPlayer2.default, {
-            presentation: usableData,
-            template: options && options.template,
-            onWheel: this.onWheel,
-            onExit: onExit,
-            style: {
-              position: fixed ? 'fixed' : 'absolute',
-              left: fixed ? dimensions.left : '0',
-              top: fixed ? dimensions.top : '0',
-              width: fixed ? dimensions.width : '',
-              height: fixed ? dimensions.height : '',
-              pointerEvents: allowInteractions ? 'all' : 'none'
-            } }) : null;
         case 'embed':
           return _react2.default.createElement('div', {
             className: 'embed-container',
@@ -184,6 +159,7 @@ var BlockAssetPlayer = function (_React$Component) {
   }]);
   return BlockAssetPlayer;
 }(_react2.default.Component);
+
 
 
 

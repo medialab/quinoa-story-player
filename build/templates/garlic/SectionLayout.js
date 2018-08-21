@@ -76,7 +76,7 @@ var SectionLayout = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'section-header' },
-          _react2.default.createElement(
+          metadata.title && metadata.title.trim().length && _react2.default.createElement(
             'h1',
             { className: 'section-title', id: section.id },
             metadata.title || ''

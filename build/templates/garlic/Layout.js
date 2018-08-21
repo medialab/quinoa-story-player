@@ -383,7 +383,7 @@ var GarlicLayout = function (_Component) {
               universal: true },
             _react2.default.createElement('header', {
               onClick: _this.scrollToContents,
-              className: 'header',
+              className: 'header-background',
               ref: bindHeaderRef,
               style: {
                 backgroundImage: coverImage ? 'url(' + (coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64) : undefined,
@@ -402,17 +402,17 @@ var GarlicLayout = function (_Component) {
                     className: 'header-titles' },
                   _react2.default.createElement(
                     'h1',
-                    null,
+                    { className: 'header-story-title' },
                     metadata.title || 'Quinoa story'
                   ),
                   metadata.subtitle && _react2.default.createElement(
                     'h2',
-                    { className: 'header-subtitle' },
+                    { className: 'header-story-subtitle' },
                     metadata.subtitle
                   ),
                   metadata.authors && metadata.authors.length ? _react2.default.createElement(
                     'div',
-                    { className: 'authors' },
+                    { className: 'header-authors' },
                     metadata.authors.map(function (author) {
                       return author;
                     }).join(', ')
@@ -433,7 +433,7 @@ var GarlicLayout = function (_Component) {
                   { className: 'glossary-container' },
                   _react2.default.createElement(
                     'h2',
-                    { id: 'glossary' },
+                    { className: 'glossary-title', id: 'glossary' },
                     (0, _misc.capitalize)(locale.glossary || 'glossary')
                   ),
                   _react2.default.createElement(
@@ -443,10 +443,10 @@ var GarlicLayout = function (_Component) {
                       var entryName = entry.resource.data.name;
                       return _react2.default.createElement(
                         'li',
-                        { key: index, id: 'glossary-entry-' + entry.resource.id },
+                        { className: 'glossary-entry', key: index, id: 'glossary-entry-' + entry.resource.id },
                         _react2.default.createElement(
                           'h3',
-                          null,
+                          { className: 'glossary-entry-title' },
                           entryName,
                           ' ',
                           _react2.default.createElement(
@@ -464,6 +464,7 @@ var GarlicLayout = function (_Component) {
                                 {
                                   key: mention.id,
                                   onClick: onClick,
+                                  className: 'glossary-mention-backlink',
                                   id: 'glossary-mention-backlink-' + mention.id,
                                   href: '#' + target },
                                 _react2.default.createElement(
@@ -528,15 +529,14 @@ var GarlicLayout = function (_Component) {
                 {
                   className: 'table-of-contents',
                   style: {
-                    marginTop: inCover ? 0 : '2em'
                   } },
                 _react2.default.createElement(
                   'li',
-                  null,
+                  { className: 'table-of-contents-title-container' },
                   _react2.default.createElement(
                     'h2',
                     {
-                      className: 'menu-title',
+                      className: 'table-of-contents-title',
                       onClick: onClickTitle },
                     metadata.title || 'Quinoa story'
                   )
@@ -552,10 +552,11 @@ var GarlicLayout = function (_Component) {
                     'li',
                     {
                       key: index,
-                      className: 'level-' + item.level + (item.active ? ' active' : '') },
+                      className: 'table-of-contents-item level-' + item.level + (item.active ? ' active' : '') },
                     _react2.default.createElement(
                       'a',
                       {
+                        className: 'table-of-contents-link',
                         href: '#' + item.key,
                         onClick: onClick },
                       _react2.default.createElement(

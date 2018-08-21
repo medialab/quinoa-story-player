@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Media, Player} from 'react-media-player';
-import QuinoaPresentationPlayer from 'quinoa-presentation-player';
+// import QuinoaPresentationPlayer from 'quinoa-presentation-player';
 import ReactTable from 'react-table';
 import {get} from 'axios';
 import 'react-table/react-table.css';
@@ -76,8 +76,19 @@ class BlockAssetPlayer extends React.Component {
   * Investigate needed: wrap switch render inside a div will cause an issue on QuinoaPresentationPlayer lost pointer interaction
   */
   render() {
-    const {type, data, options, fixed, allowInteractions, onExit} = this.props;
-    const {dimensions, getResourceDataUrl} = this.context;
+    const {
+      type,
+      data,
+      // related to bulgur player
+      // options,
+      // fixed,
+      // allowInteractions,
+      // onExit
+    } = this.props;
+    const {
+      // dimensions,
+      getResourceDataUrl
+    } = this.context;
     switch (type) {
       case 'table':
         let columns;
@@ -100,31 +111,31 @@ class BlockAssetPlayer extends React.Component {
         else {
           src = data.base64 || data.src;
         }
-        return <img src={src} />;
+        return <img className="content-image" src={src} />;
       case 'video':
         return (
           <Media>
             <Player src={data.url} />
           </Media>
         );
-      case 'data-presentation':
-        const usableData = data.json || this.state.data;
-        return (
-          usableData ?
-            <QuinoaPresentationPlayer
-              presentation={usableData}
-              template={(options && options.template)}
-              onWheel={this.onWheel}
-              onExit={onExit}
-              style={{
-                position: fixed ? 'fixed' : 'absolute',
-                left: fixed ? dimensions.left : '0',
-                top: fixed ? dimensions.top : '0',
-                width: fixed ? dimensions.width : '',
-                height: fixed ? dimensions.height : '',
-                pointerEvents: allowInteractions ? 'all' : 'none'
-              }} /> : null
-        );
+      // case 'data-presentation':
+      //   const usableData = data.json || this.state.data;
+      //   return (
+      //     usableData ?
+      //       <QuinoaPresentationPlayer
+      //         presentation={usableData}
+      //         template={(options && options.template)}
+      //         onWheel={this.onWheel}
+      //         onExit={onExit}
+      //         style={{
+      //           position: fixed ? 'fixed' : 'absolute',
+      //           left: fixed ? dimensions.left : '0',
+      //           top: fixed ? dimensions.top : '0',
+      //           width: fixed ? dimensions.width : '',
+      //           height: fixed ? dimensions.height : '',
+      //           pointerEvents: allowInteractions ? 'all' : 'none'
+      //         }} /> : null
+      //   );
       case 'embed':
         return (
           <div
