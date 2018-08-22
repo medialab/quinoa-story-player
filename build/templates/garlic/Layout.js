@@ -242,7 +242,6 @@ var GarlicLayout = function (_Component) {
       var bindHeaderRef = function bindHeaderRef(header) {
         _this.header = header;
       };
-
       return _react2.default.createElement(
         _reactCiteproc.ReferencesManager,
         {
@@ -301,9 +300,20 @@ var GarlicLayout = function (_Component) {
                 onClickToggle: onClickToggle,
                 onClickTitle: onClickTitle,
                 metadata: metadata,
-                toc: toc })
+                toc: toc,
+                isDisplayed: coverImage && inCover })
             )
-          )
+          ),
+          _react2.default.createElement(_Nav2.default, {
+            indexOpen: indexOpen,
+            inCover: inCover,
+            coverImage: coverImage,
+            dimensions: dimensions,
+            onClickToggle: onClickToggle,
+            onClickTitle: onClickTitle,
+            metadata: metadata,
+            isDisplayed: !coverImage || !inCover,
+            toc: toc })
         ),
         _react2.default.createElement(
           'style',

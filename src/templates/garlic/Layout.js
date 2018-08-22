@@ -1,4 +1,4 @@
-/**
+/*
  * This module exports a stateful garlic layout component
  * ============
  * @module quinoa-story-player/templates/garlic
@@ -424,7 +424,7 @@ class GarlicLayout extends Component {
         }, {})
       }
     }), {});
-    const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
+    let notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
     const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
     /**
@@ -448,7 +448,6 @@ class GarlicLayout extends Component {
     const bindHeaderRef = header => {
       this.header = header;
     };
-
     return (
       <ReferencesManager
         style={citationStyle}
@@ -519,12 +518,6 @@ class GarlicLayout extends Component {
                       scrollToElementId={scrollToElementId} />
                   : null}
               </section>
-
-              {
-                /**
-                 * Nav bar
-                 */
-              }
               <Nav
                 indexOpen={indexOpen}
                 inCover={inCover}
@@ -533,9 +526,29 @@ class GarlicLayout extends Component {
                 onClickToggle={onClickToggle}
                 onClickTitle={onClickTitle}
                 metadata={metadata}
-                toc={toc} />
+                toc={toc} 
+                isDisplayed={coverImage && inCover}
+              />
+              
             </section>
           </Scrollbars>
+
+          {
+            /**
+             * Nav bar
+             */
+          }
+          <Nav
+            indexOpen={indexOpen}
+            inCover={inCover}
+            coverImage={coverImage}
+            dimensions={dimensions}
+            onClickToggle={onClickToggle}
+            onClickTitle={onClickTitle}
+            metadata={metadata}
+            isDisplayed={!coverImage || !inCover}
+            toc={toc} />
+            
 
         </section>
         <style>

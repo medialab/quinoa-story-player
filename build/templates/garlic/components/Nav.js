@@ -22,6 +22,7 @@ var Nav = function Nav(_ref) {
       onClickToggle = _ref.onClickToggle,
       onClickTitle = _ref.onClickTitle,
       metadata = _ref.metadata,
+      isDisplayed = _ref.isDisplayed,
       toc = _ref.toc;
 
   return _react2.default.createElement(
@@ -29,8 +30,10 @@ var Nav = function Nav(_ref) {
     {
       className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
       style: {
-        position: inCover && coverImage ? 'relative' : 'fixed',
+        position: inCover && coverImage ? 'relative' : 'absolute',
         left: 0,
+        opacity: isDisplayed ? 1 : 0,
+        pointerEvents: isDisplayed ? 'all' : 'none',
         marginTop: inCover && coverImage || !inCover ? 0 : '3rem',
         height: dimensions && dimensions.height
       } },
