@@ -9,14 +9,15 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import RealPlayer from '../src/';
 
-import formatsExample from './formats-example.json';
-import sidenotesExample from './sidenotes-test.json';
-import burnoutExample from './le-burnout.json';
-import titles from './titles-styling.json';
-import embeds from './embeds-test.json';
-import newSchema from './new-schema.json';
+// import formatsExample from './formats-example.json';
+// import sidenotesExample from './sidenotes-test.json';
+// import burnoutExample from './le-burnout.json';
+// import titles from './titles-styling.json';
+// import embeds from './embeds-test.json';
+// import newSchema from './new-schema.json';
 
 import stylesTest from './story-styles-test';
+import contextualizationsTest from './story-contextualizations-test';
 import testCover from './test-cover.json';
 
 class Player extends Component {
@@ -69,6 +70,11 @@ storiesOf('Quinoa story - garlic template', module)
       story={stylesTest}
     />
   ))
+  .add('Story with all contextualizations and variants', () => (
+    <Player
+      story={contextualizationsTest}
+    />
+  ))
   .add('Story With footnotes', () => (
     <Player
       story={withFootnotes}
@@ -84,10 +90,13 @@ storiesOf('Quinoa story - garlic template', module)
       story={testCover}
     />
   ))
-  .add('Within another page (container-relative positionning)', () => (
+  .add('Story within another page (container-relative positionning)', () => (
     <div
       style={{
-        background: 'grey'
+        background: 'grey',
+        position: 'fixed',
+        width: '100%',
+        height: '100%'
       }}
     >
       <div 
@@ -101,19 +110,9 @@ storiesOf('Quinoa story - garlic template', module)
         }}
       >
         <Player
-          story={formatsExample}
+          story={contextualizationsTest}
         />
       </div>
     </div>
-  ))
-  .add('Title tests', () => (
-    <Player
-      story={titles}
-    />
-  ))
-  .add('Embed tests', () => (
-    <Player
-      story={embeds}
-    />
   ))
 // add other templates here
