@@ -4,10 +4,10 @@
  * ============
  * @module quinoa-story-player/templates/garlic
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Renderer from '../../components/Renderer';
+import Renderer from '../../../components/Renderer';
 
 /**
  * SectionLayout class for building a garlic-related section react component instances

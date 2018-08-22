@@ -3,17 +3,20 @@
  * ============
  * @module quinoa-story-player/templates/garlic
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {Scrollbars} from 'react-custom-scrollbars';
-import {SpringSystem, MathUtil} from 'rebound';
-import {debounce} from 'lodash';
-import {ReferencesManager} from 'react-citeproc';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { SpringSystem, MathUtil } from 'rebound';
+import { debounce } from 'lodash';
+import { ReferencesManager } from 'react-citeproc';
 
-import SectionLayout from './SectionLayout';
 
 import Bibliography from '../../components/Bibliography';
 import NotesContainer from '../../components/NotesContainer';
+import SectionLayout from './components/SectionLayout';
+import Nav from './components/Nav';
+import Glossary from './components/Glossary';
+import Header from './components/Header';
 
 import {
   buildCoverImage,
@@ -21,31 +24,13 @@ import {
   buildGlossary,
   capitalize
 } from '../../utils/misc';
+import { buildTOC, getOffset } from './utils';
 
 import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
 import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
-
 import locales from './locales.json';
-
 import './garlic.scss';
 
-/**
- * Retrieves the absolute offset of an element
- * (this avoids to use an additionnal lib such as jquery to handle the operation)
- * (todo: this should be stored in a separate utils file)
- * @param {DOMElement} el - the element to inspect
- * @return {object} offset - the absolute offset of the element
- */
-function getOffset(el) {
-    let _x = 0;
-    let _y = 0;
-    while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-        _x += el.offsetLeft; // - el.scrollLeft;
-        _y += el.offsetTop; // - el.scrollTop;
-        el = el.offsetParent;
-    }
-    return {top: _y, left: _x};
-}
 /**
  * GarlicLayout class for building a story-player template react component instances
  */
@@ -60,7 +45,7 @@ class GarlicLayout extends Component {
     this.scrollToCover = this.scrollToCover.bind(this);
     this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    this.onScrollUpdate = debounce(this.onScrollUpdate, 10, {leading: true, trailing: true, maxWait: 100});
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 10, { leading: true, trailing: true, maxWait: 100 });
     // this.onScrollUpdate = this.onScrollUpdate.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
@@ -130,7 +115,7 @@ class GarlicLayout extends Component {
     // (e.g. note pointer clicked or click in the table of contents)
     this.springSystem = new SpringSystem();
     this.spring = this.springSystem.createSpring();
-    this.spring.addListener({onSpringUpdate: this.handleSpringUpdate});
+    this.spring.addListener({ onSpringUpdate: this.handleSpringUpdate });
     // todo: why did I have to wrap that in a setTimeout ?
     setTimeout(() => {
       if (this.props.story) {
@@ -141,8 +126,8 @@ class GarlicLayout extends Component {
           locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales.en
         });
         setTimeout(() => {
-          const toc = this.buildTOC(this.props.story, 0, this.state);
-          this.setState({toc});
+          const toc = buildTOC(this.props.story, 0, this.state);
+          this.setState({ toc });
         });
       }
     });
@@ -162,165 +147,10 @@ class GarlicLayout extends Component {
         locale: nextProps.locale && locales[nextProps.locale] ? locales[nextProps.locale] : locales.en
       });
       setTimeout(() => {
-        const toc = this.buildTOC(this.props.story, 0, this.state);
-        this.setState({toc});
+        const toc = buildTOC(this.props.story, 0, this.state);
+        this.setState({ toc });
       });
     }
-  }
-
-  /**
-   * Builds component-consumable table of contents data
-   * @param {object} story - the story to process
-   * @param {number} scrollTop - the position of the scroll to use for decidinng which TOC item is active
-   * @return {array} tocElements - the toc elements to use for rendering the TOC
-   */
-  buildTOC = (story, scrollTop, {citations, glossary, locale = {}}) => {
-    const toc = story.sectionsOrder
-    .map((sectionId, sectionIndex) => {
-      const section = story.sections[sectionId];
-      const sectionLevel = section.metadata.level + 1;
-      // const content = section.contents;
-      // we retrieve all the 'header-#' blocks
-      // in the draft-js raw representation of each section
-      // const headers = content && content.blocks && content.blocks
-      // .filter(block => block.type.indexOf('header') === 0);
-
-      let sectionActive;
-      let nextTitleOffsetTop;
-      // title of the section
-      const title = document.getElementById(section.id);
-      if (!title) {
-        return undefined;
-      }
-      // we will check if scroll is in this section's part of the page height
-      const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-      // to do that we need the offset of the next element
-      if (sectionIndex < story.sectionsOrder.length - 1) {
-        const next = story.sectionsOrder[sectionIndex + 1];
-        const nextTitle = document.getElementById(next);
-        if (nextTitle) {
-          nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-        }
-      }
-      if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
-          (nextTitleOffsetTop === undefined ||
-            nextTitleOffsetTop >= scrollTop
-          )
-        ) {
-        sectionActive = true;
-      }
-      // eventually we format the headers for display
-      const sectionHeader = {
-        level: sectionLevel,
-        text: section.metadata.title || '',
-        key: section.id,
-        active: sectionActive
-      };
-      return [
-        sectionHeader,
-        // ...headerItems
-        ];
-      })
-      .filter(el => el !== undefined)
-      // flatten mini-tocs
-      .reduce((result, ar) => [...result, ...ar], []);
-
-    // adding special items to table of contents
-    const hasReferences = Object.keys(citations.citationItems).length > 0;
-    const hasGlossary = glossary.length > 0;
-    const notesPosition = (story.settings.options && story.settings.options.notesPosition) || 'foot';
-    const hasNotes = story.sectionsOrder.find(key => story.sections[key].notesOrder.length > 0) !== undefined;
-    if (notesPosition === 'foot' && hasNotes) {
-      let notesActive;
-      let nextTitleOffsetTop;
-      // title of the section
-      const title = document.getElementById('notes');
-
-      if (title) {
-        // we will check if scroll is after glossary title
-        const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-        let nextTitleId;
-        if (hasReferences) {
-          nextTitleId = 'references';
-        }
-        else if (hasGlossary) {
-          nextTitleId = 'glossary';
-        }
-        if (nextTitleId) {
-          const nextTitle = document.getElementById(nextTitleId);
-          if (nextTitle) {
-            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          }
-        }
-        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
-            (nextTitleOffsetTop === undefined ||
-              nextTitleOffsetTop >= scrollTop
-            )
-          ) {
-          notesActive = true;
-        }
-        toc.push({
-          level: 0,
-          text: capitalize(locale.notes || 'notes'),
-          key: 'notes',
-          active: notesActive
-        });
-      }
-    }
-
-
-    if (hasReferences) {
-      let referencesActive;
-      let nextTitleOffsetTop;
-      // title of the section
-      const title = document.getElementById('references');
-      if (title) {
-        // we will check if scroll is after glossary title
-        const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-        const nextTitle = document.getElementById('glossary');
-        if (nextTitle) {
-          nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-        }
-        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
-            (nextTitleOffsetTop === undefined ||
-              nextTitleOffsetTop >= scrollTop
-            )
-          ) {
-          referencesActive = true;
-        }
-        toc.push({
-          level: 0,
-          text: capitalize(locale.references || 'references'),
-          key: 'references',
-          active: referencesActive
-        });
-      }
-    }
-
-    if (hasGlossary) {
-      let glossaryActive;
-      let nextTitleOffsetTop;
-      // title of the section
-      const title = document.getElementById('glossary');
-      if (title) {
-        // we will check if scroll is after glossary title
-        const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
-            (nextTitleOffsetTop === undefined ||
-              nextTitleOffsetTop >= scrollTop
-            )
-          ) {
-          glossaryActive = true;
-        }
-        toc.push({
-          level: 0,
-          text: capitalize(locale.glossary || 'glossary'),
-          key: 'glossary',
-          active: glossaryActive
-        });
-      }
-    }
-    return toc;
   }
 
 
@@ -389,13 +219,11 @@ class GarlicLayout extends Component {
       stateChanges = {
         ...stateChanges,
         inCover: false,
-        navPosition: undefined
       };
     }
     if (inCover) {
       stateChanges = {
         ...stateChanges,
-        navPosition: headerHeight - scrollTop
       };
     }
     // applying state changes if needed
@@ -442,7 +270,7 @@ class GarlicLayout extends Component {
     // at each update, we should split buildTOC in two functions
     // to handle the change of active element separately, for better performances)
     if (scrollTop !== this.state.scrollTop) {
-      const toc = this.buildTOC(this.props.story, scrollTop, this.state);
+      const toc = buildTOC(this.props.story, scrollTop, this.state);
       stateChanges = {
         ...stateChanges,
         toc,
@@ -540,31 +368,36 @@ class GarlicLayout extends Component {
    */
   render = () => {
     const {
-      story: {
-        metadata,
-        sectionsOrder,
-        sections,
-        settings = {},
-      }
-    } = this.props;
-    const {
-      inCover,
-      toc,
-      indexOpen,
-      glossary,
-      citations,
-      coverImage,
-      locale = {},
-      navPosition
-    } = this.state;
-    const {
-      dimensions,
-      getResourceDataUrl
-    } = this.context;
-    const customCss = settings.css || '';
+      props: {
+        story: {
+          metadata,
+          sectionsOrder,
+          sections,
+          settings = {},
+        }
+      },
+      state: {
+        inCover,
+        toc,
+        indexOpen,
+        glossary,
+        citations,
+        coverImage,
+        locale = {},
+      },
+      context: {
+        dimensions,
+        getResourceDataUrl
+      },
+      scrollToElementId,
+      scrollToContents,
+    } = this;
     /**
-     * callbacks
+     * ==========================================
+     * Local rendering-related variables
+     * ==========================================
      */
+    const customCss = settings.css || '';
     let noteCount = 1;
     const notes = sectionsOrder.reduce((nf, sectionId) => [
       ...nf,
@@ -591,16 +424,23 @@ class GarlicLayout extends Component {
         }, {})
       }
     }), {});
+    const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
+    const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
+    const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
+    /**
+     * ==========================================
+     * Callbacks
+     * ==========================================
+     */
     const onClickToggle = () => this.toggleIndex();
     const onClickTitle = () => {
       this.scrollToContents();
       this.toggleIndex();
     };
-    const notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
-    const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
-    const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
     /**
+     * ==========================================
      * References binding
+     * ==========================================
      */
     const bindGlobalScrollbarRef = scrollbar => {
       this.globalScrollbar = scrollbar;
@@ -622,164 +462,81 @@ class GarlicLayout extends Component {
             autoHide
             onUpdate={this.onScrollUpdate}
             universal>
-            <header
-              onClick={this.scrollToContents}
-              className="header-background"
-              ref={bindHeaderRef}
-              style={{
-              backgroundImage: coverImage ? `url(${coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64}` : undefined,
-              height: coverImage ? '100%' : '0'
-            }} />
+            <Header
+              scrollToContents={scrollToContents}
+              coverImage={coverImage}
+              getResourceDataUrl={getResourceDataUrl}
+              metadata={metadata}
+              bindRef={bindHeaderRef} />
             <section
               className="body-wrapper">
               <section className="contents-wrapper">
-                <div
-                  className="header-titles">
-                  <h1 className="header-story-title">
-                    {metadata.title || 'Quinoa story'}
-                  </h1>
-                  {metadata.subtitle &&
-                    <h2 className="header-story-subtitle">
-                      {metadata.subtitle}
-                    </h2>
-                  }
-                  {
-                  metadata.authors && metadata.authors.length ?
-                    <div className="header-authors">
-                      {
-                      metadata.authors.map(author => author).join(', ')
-                    }
-                    </div>
-                  : null
-                }
-                </div>
+
                 {
-                sectionsOrder.map((thatId) => (
-                  <SectionLayout section={finalSections[thatId]} key={thatId} />
-                ))
+                  /**
+                   * Sections display
+                   */
+                  sectionsOrder.map((thatId) => (
+                    <SectionLayout section={finalSections[thatId]} key={thatId} />
+                  ))
                 }
-                {notes && notes.length ?
-                  <NotesContainer
-                    id="notes"
-                    notes={notes}
-                    onNotePointerClick={this.onNotePointerClick}
-                    title={capitalize(locale.notes || 'notes')}
-                    notesPosition={notesPosition} />
-                : null}
                 {
+                  /**
+                   * End notes
+                   */
+                  notes &&
+                  notes.length ?
+                    <NotesContainer
+                      id="notes"
+                      notes={notes}
+                      onNotePointerClick={this.onNotePointerClick}
+                      title={capitalize(locale.notes || 'notes')}
+                      notesPosition={notesPosition} />
+                :
+                  null
+                }
+                {
+                  /**
+                   * References
+                   */
                   citations &&
                   citations.citationItems &&
                   Object.keys(citations.citationItems).length ?
                     <Bibliography id="references" title={capitalize(locale.references || 'references')} />
-                : null}
+                :
+                  null
+                }
 
-                {glossary &&
+                {
+                  /**
+                   * Glossary
+                   */
+                  glossary &&
                   glossary.length ?
-                    <div className="glossary-container">
-                      <h2 className="glossary-title" id="glossary">{capitalize(locale.glossary || 'glossary')}</h2>
-                      <ul className="glossary-mentions-container">
-                        {
-                      glossary.map((entry, index) => {
-                        const entryName = entry.resource.data.name;
-                        return (
-                          <li className="glossary-entry" key={index} id={'glossary-entry-' + entry.resource.id}>
-                            <h3 className="glossary-entry-title">{entryName} <i>({
-                                  entry.mentions.map((mention, count) => {
-                                    const target = 'glossary-mention-' + mention.id;
-                                    const onClick = e => {
-                                      e.preventDefault();
-                                      this.scrollToElementId(target);
-                                    };
-                                    return (
-                                      <a
-                                        key={mention.id}
-                                        onClick={onClick}
-                                        className="glossary-mention-backlink"
-                                        id={'glossary-mention-backlink-' + mention.id}
-                                        href={'#' + target}>
-                                        <span className="link-content">{count + 1}</span>
-                                      </a>
-                                    );
-                                  })
-                                  .reduce((prev, curr) => [prev, ', ', curr])
-                                })</i>
-                            </h3>
-                            {entry.resource.data.description && <p>
-                              {entry.resource.data.description}
-                            </p>}
-                          </li>
-                        );
-                      })
-                     }
-                      </ul>
-                    </div>
-                : null}
+                    <Glossary
+                      locale={locale}
+                      glossary={glossary}
+                      scrollToElementId={scrollToElementId} />
+                  : null}
               </section>
 
-
+              {
+                /**
+                 * Nav bar
+                 */
+              }
+              <Nav
+                indexOpen={indexOpen}
+                inCover={inCover}
+                coverImage={coverImage}
+                dimensions={dimensions}
+                onClickToggle={onClickToggle}
+                onClickTitle={onClickTitle}
+                metadata={metadata}
+                toc={toc} />
             </section>
           </Scrollbars>
-          <nav
-            className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
-            style={{
-                  // position: inCover ? 'relative' : 'absolute',
-                  left: 0,
-                  top: inCover ? navPosition : 0,
-                  height: dimensions && dimensions.height,
-                }}>
-            <div
-              className="nav-content"
-              style={{
-                      maxHeight: (indexOpen || inCover) ? '100%' : 0
-                    }}>
-              <button
-                className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
-                style={{
-                      opacity: inCover ? 0 : 1
-                    }}
-                onClick={onClickToggle}>
-                <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                </span>
-              </button>
-              <ul
-                className="table-of-contents"
-                style={{
-                  // marginTop: inCover ? 0 : '2em'
-                }}>
-                <li className="table-of-contents-title-container">
-                  <h2
-                    className="table-of-contents-title"
-                    onClick={onClickTitle}>{metadata.title || 'Quinoa story'}</h2>
-                </li>
-                {
-                      toc && toc.map((item, index) => {
-                        const onClick = (e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          this.scrollToElementId(item.key);
-                          this.toggleIndex();
-                        };
-                        return (
-                          <li
-                            key={index}
-                            className={'table-of-contents-item level-' + item.level + (item.active ? ' active' : '')}>
-                            <a
-                              className="table-of-contents-link"
-                              href={'#' + item.key}
-                              onClick={onClick}>
-                              <span className="link-content">{item.text || 'Untitled section'}</span>
-                            </a>
-                          </li>
-                        );
-                      })
-                    }
-              </ul>
-            </div>
-          </nav>
+
         </section>
         <style>
           {customCss}
