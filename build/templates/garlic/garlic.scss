@@ -999,8 +999,9 @@ $timer-long: 1s;
         &:hover
         {
             color: $color-background;
-            border-bottom: 1px solid $color-secondary-intent;
-            background: $color-secondary-intent;
+            background: $color-secondary;
+            border-bottom: none;// 1px solid $color-secondary-intent;
+            // background: $color-secondary-intent;
         }
     }
     /**
@@ -1025,7 +1026,8 @@ $timer-long: 1s;
      */
     .glossary-entry-title
     {
-        font-size: $font-size-2;
+        font-size: $font-size-1;
+        font-family: $font-stack-serif;
     }
 
     /**
