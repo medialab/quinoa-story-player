@@ -3,6 +3,8 @@ import React from 'react';
 const TableOfContents = ({
   onClickTitle,
   metadata,
+  toggleIndex,
+  scrollToElementId,
   toc
 }) => {
   return (
@@ -21,8 +23,8 @@ const TableOfContents = ({
                       const onClick = (e) => {
                         e.stopPropagation();
                         e.preventDefault();
-                        this.scrollToElementId(item.key);
-                        this.toggleIndex();
+                        scrollToElementId(item.key);
+                        toggleIndex();
                       };
                       return (
                         <li

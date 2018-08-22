@@ -11,6 +11,8 @@ const Nav = ({
   onClickTitle,
   metadata,
   isDisplayed,
+  toggleIndex,
+  scrollToElementId,
   toc
 }) => {
   const menuOpened = (indexOpen || inCover);
@@ -23,7 +25,7 @@ const Nav = ({
                     opacity: isDisplayed ? 1 : 0,
                     pointerEvents: isDisplayed ? undefined : 'none',
                     marginTop: (inCover && coverImage) || !inCover ? 0 : '3rem',
-                    height: dimensions && dimensions.height,
+                    height: !(inCover && dimensions.width <= 700) ? dimensions && dimensions.height : 0,
                   }}>
       <div
         className="nav-content"
@@ -51,6 +53,8 @@ const Nav = ({
         <TableOfContents
           onClickTitle={onClickTitle}
           metadata={metadata}
+          toggleIndex={toggleIndex}
+          scrollToElementId={scrollToElementId}
           toc={toc} />
       </div>
     </nav>

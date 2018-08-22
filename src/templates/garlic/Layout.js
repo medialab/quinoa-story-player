@@ -391,6 +391,7 @@ class GarlicLayout extends Component {
       },
       scrollToElementId,
       scrollToContents,
+      toggleIndex
     } = this;
     /**
      * ==========================================
@@ -450,6 +451,7 @@ class GarlicLayout extends Component {
     const bindHeaderRef = header => {
       this.header = header;
     };
+
     return (
       <ReferencesManager
         style={citationStyle}
@@ -528,8 +530,10 @@ class GarlicLayout extends Component {
                 onClickToggle={onClickToggle}
                 onClickTitle={onClickTitle}
                 metadata={metadata}
+                scrollToElementId={scrollToElementId}
                 toc={toc}
-                isDisplayed={coverImage && inCover} />
+                isDisplayed={coverImage && inCover} 
+              />
 
             </section>
           </Scrollbars>
@@ -547,6 +551,8 @@ class GarlicLayout extends Component {
             onClickToggle={onClickToggle}
             onClickTitle={onClickTitle}
             metadata={metadata}
+            scrollToElementId={scrollToElementId}
+            toggleIndex={toggleIndex}
             isDisplayed={((!coverImage && dimensions.width > 700) || !inCover)}
             toc={toc} />
 
