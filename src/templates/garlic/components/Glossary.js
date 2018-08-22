@@ -14,7 +14,14 @@ const Glossary = ({
       <h2 className="glossary-title" id="glossary">{capitalize(locale.glossary || 'glossary')}</h2>
       <ul className="glossary-mentions-container">
         {
-      glossary.map((entry, index) => {
+      glossary
+      .sort((a, b) => {
+        if (a.resource.data.name > b.resource.data.name) {
+          return 1;
+        }
+        return -1;
+      })
+      .map((entry, index) => {
         const entryName = entry.resource.data.name;
         return (
           <li className="glossary-entry" key={index} id={'glossary-entry-' + entry.resource.id}>
