@@ -227,6 +227,7 @@ var GarlicLayout = function (_Component) {
         })));
       }, {});
       var notesPosition = settings.options && settings.options.notesPosition || 'foot';
+      notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
       var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
       var onClickToggle = function onClickToggle() {
@@ -312,7 +313,7 @@ var GarlicLayout = function (_Component) {
             onClickToggle: onClickToggle,
             onClickTitle: onClickTitle,
             metadata: metadata,
-            isDisplayed: !coverImage || !inCover,
+            isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
             toc: toc })
         ),
         _react2.default.createElement(

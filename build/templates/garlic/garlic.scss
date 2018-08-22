@@ -21,6 +21,7 @@ $gutter-small: .8rem;
 $gutter-medium: $gutter-small * 1.666;
 $gutter-large: $gutter-medium * 3;
 $gutter-lateral-large-screens: 25%;
+$gutter-lateral-small-screens: $gutter-large;
 $color-primary: #414e4d; // blued dark grey
 $color-secondary: #f32e36; // fresh red
 $color-secondary-intent: #87240e; // bordeaux red
@@ -621,6 +622,44 @@ $timer-long: 1s;
     .nav.fixed .index-toggle
     {
         max-height: 100%;
+    }
+
+
+    @media screen and (max-width: 700px) {
+        /**
+          * General layout rules for contents blocks elements
+          */
+        .content-h1,
+        .content-h2,
+        .content-h3,
+        .content-h4,
+        .content-h5,
+        .content-h6,
+        .content-paragraph,
+        .content-ul,
+        .content-ol,
+        .content-blockquote,
+        .content-pre,
+        .header-contents,
+        .section-header,
+        .section-footer,
+        .notes-container,
+        .references,
+        .glossary-container,
+        .content-figure.embed,
+        .content-figure.image,
+        .content-figure.video,
+        .ReactTable
+        {
+            margin-right: $gutter-lateral-small-screens;
+            margin-left: $gutter-lateral-small-screens;
+        }
+
+        .nav{
+           width: 50%;
+        }
+
+
     }
 
 

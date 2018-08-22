@@ -25,6 +25,7 @@ var Nav = function Nav(_ref) {
       isDisplayed = _ref.isDisplayed,
       toc = _ref.toc;
 
+  var menuOpened = indexOpen || inCover;
   return _react2.default.createElement(
     'nav',
     {
@@ -33,7 +34,7 @@ var Nav = function Nav(_ref) {
         position: inCover && coverImage ? 'relative' : 'absolute',
         left: 0,
         opacity: isDisplayed ? 1 : 0,
-        pointerEvents: isDisplayed ? 'all' : 'none',
+        pointerEvents: isDisplayed ? undefined : 'none',
         marginTop: inCover && coverImage || !inCover ? 0 : '3rem',
         height: dimensions && dimensions.height
       } },
@@ -42,19 +43,19 @@ var Nav = function Nav(_ref) {
       {
         className: 'nav-content',
         style: {
-          maxHeight: indexOpen || inCover ? '100%' : 0
+          maxHeight: menuOpened ? '100%' : 0
         } },
       _react2.default.createElement(
         'button',
         {
-          className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
+          className: 'index-toggle ' + (menuOpened ? 'active' : ''),
           style: {
             opacity: inCover ? 0 : 1
           },
           onClick: onClickToggle },
         _react2.default.createElement(
           'span',
-          { id: 'burger-menu', className: indexOpen || inCover ? 'open' : '' },
+          { id: 'burger-menu', className: menuOpened ? 'open' : '' },
           _react2.default.createElement('span', null),
           _react2.default.createElement('span', null),
           _react2.default.createElement('span', null),

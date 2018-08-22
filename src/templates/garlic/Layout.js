@@ -425,6 +425,8 @@ class GarlicLayout extends Component {
       }
     }), {});
     let notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
+    // "responsive" notes positionning
+    notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
     const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
     /**
@@ -526,10 +528,9 @@ class GarlicLayout extends Component {
                 onClickToggle={onClickToggle}
                 onClickTitle={onClickTitle}
                 metadata={metadata}
-                toc={toc} 
-                isDisplayed={coverImage && inCover}
-              />
-              
+                toc={toc}
+                isDisplayed={coverImage && inCover} />
+
             </section>
           </Scrollbars>
 
@@ -546,9 +547,9 @@ class GarlicLayout extends Component {
             onClickToggle={onClickToggle}
             onClickTitle={onClickTitle}
             metadata={metadata}
-            isDisplayed={!coverImage || !inCover}
+            isDisplayed={((!coverImage && dimensions.width > 700) || !inCover)}
             toc={toc} />
-            
+
 
         </section>
         <style>

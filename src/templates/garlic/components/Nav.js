@@ -13,6 +13,7 @@ const Nav = ({
   isDisplayed,
   toc
 }) => {
+  const menuOpened = (indexOpen || inCover);
   return (
     <nav
       className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
@@ -20,22 +21,22 @@ const Nav = ({
                     position: inCover && coverImage ? 'relative' : 'absolute',
                     left: 0,
                     opacity: isDisplayed ? 1 : 0,
-                    pointerEvents: isDisplayed ? 'all': 'none',
+                    pointerEvents: isDisplayed ? undefined : 'none',
                     marginTop: (inCover && coverImage) || !inCover ? 0 : '3rem',
                     height: dimensions && dimensions.height,
                   }}>
       <div
         className="nav-content"
         style={{
-                        maxHeight: (indexOpen || inCover) ? '100%' : 0
+                        maxHeight: menuOpened ? '100%' : 0
                       }}>
         <button
-          className={'index-toggle ' + ((indexOpen || inCover) ? 'active' : '')}
+          className={'index-toggle ' + (menuOpened ? 'active' : '')}
           style={{
                         opacity: inCover ? 0 : 1
                       }}
           onClick={onClickToggle}>
-          <span id="burger-menu" className={(indexOpen || inCover) ? 'open' : ''}>
+          <span id="burger-menu" className={menuOpened ? 'open' : ''}>
             <span />
             <span />
             <span />
