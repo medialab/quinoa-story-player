@@ -29,7 +29,8 @@ $color-secondary-background: rgba(255,255,255,.8);// white desopacified
 // #e5e7e6;
 $color-primary-background: #f4f4f4;
 $color-strokes: #dddbd9;
-$color-header-background: rgba(0,0,0,.7);
+$color-header-container: rgba(0,0,0,.5);
+$color-header-container-intent: rgba(0,0,0,.7);
 $color-interactive-item-active-background: #d6cfc4;
 $color-interactive-item-intent-background: #d6cfc4;
 $font-size-0: $gutter-small * .8;
@@ -41,7 +42,6 @@ $font-size-5: $font-size-4 * 1.6;
 $burger-measure: $font-size-2;
 $font-stack-serif: Merriweather, serif;
 $font-stack-sans-serif: Roboto, serif;
-
 $timer-short: 100ms;
 $timer-medium: 500ms;
 $timer-long: 1s;
@@ -125,6 +125,7 @@ $timer-long: 1s;
      * LAYOUT RULES
      * ========================================
      */
+
     /**
       * General layout rules for contents elements
       */
@@ -147,7 +148,8 @@ $timer-long: 1s;
     /**
      * pre layout
      */
-    pre{
+    pre
+    {
         overflow: hidden;
         overflow-x: auto;
 
@@ -158,9 +160,9 @@ $timer-long: 1s;
     /**
      * blockquote layout
      */
-    blockquote{
+    blockquote
+    {
         padding: $gutter-medium;
-
     }
     /**
      * global wrapper layout
@@ -173,9 +175,9 @@ $timer-long: 1s;
         height: 100%;
     }
     /**
-     * Story header background image layout
+     * Story header container layout
      */
-    .header-background
+    .header-container
     {
         position: relative;
         top: 0;
@@ -183,18 +185,46 @@ $timer-long: 1s;
 
         display: flex;
 
+        height: auto;
         max-height: 100%;
 
         align-items: center;
         flex-flow: row nowrap;
         @extend .absolute-fill;
+
+        &.with-cover
+        {
+            height: 100%;
+        }
+    }
+
+    /**
+     * Headers contents layout
+     */
+    .header-contents
+    {
+        margin-top: $gutter-large;
+        margin-right: $gutter-lateral-large-screens;
+        margin-left: $gutter-lateral-large-screens;
+    }
+    .header-container.with-cover .header-contents
+    {
+        display: flex;
+
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding-right: 25%;
+        padding-left: 25%;
+
+        flex-flow: column nowrap;
+        justify-content: center;
     }
     /**
      * Header titles layout
      */
-    .header-titles,
     .header-story-title,
-    .header-story-subtitle,
+    .header-story-subtitle
     {
         margin-right: 0;
         margin-left: 0;
@@ -202,14 +232,16 @@ $timer-long: 1s;
     /**
      * header story title layout
      */
-    .header-story-title{
+    .header-story-title
+    {
         margin-top: 0;
         margin-bottom: $gutter-small;
     }
     /**
      * header story subtitle layout
      */
-    .header-story-subtitle{
+    .header-story-subtitle
+    {
         margin-top: 0;
         margin-bottom: $gutter-small;
     }
@@ -238,15 +270,17 @@ $timer-long: 1s;
     {
         display: flex;
         overflow: hidden;
-            padding: $gutter-medium;
+
+        padding: $gutter-medium;
 
         flex-flow: column nowrap;
         justify-content: stretch;
     }
-    .menu-layout{
-       margin: 0;
+    .menu-layout
+    {
+        margin: 0;
     }
-    
+
     /**
      * body wrapper contains everything but the nav and the header background
      */
@@ -272,65 +306,66 @@ $timer-long: 1s;
     .section-footer,
     .notes-container,
     .references,
-    .glossary-container,
-    .header-titles
+    .glossary-container
     {
-
         margin-right: $gutter-lateral-large-screens;
         margin-left: $gutter-lateral-large-screens;
     }
     /**
      * Table of contents layout
      */
-     .table-of-contents{
+    .table-of-contents
+    {
         overflow: auto;
 
         margin: 0;
         padding: 0;
-        flex: 1;
 
-     }
-     /**
+        flex: 1;
+    }
+    /**
       * Table of contents title layout
       */
-    .table-of-contents-title{
+    .table-of-contents-title
+    {
         margin-top: 0;
     }
     /**
      * Table of contents item layout
      */
-    .table-of-contents-item{
-         margin: 0;
-            padding: 0;
-            padding-bottom: $gutter-medium;
-            &:hover
-            {
-                opacity: 1;
-            }
-            &.level-1
-            {
-                padding-left: 0;
-            }
-            &.level-2
-            {
-                padding-left: $gutter-small;
-            }
-            &.level-3
-            {
-                padding-left: $gutter-small * 2;
-            }
-            &.level-4
-            {
-                padding-left: $gutter-small * 3;
-            }
-            &.level-5
-            {
-                padding-left: $gutter-small * 4;
-            }
-            &.level-6
-            {
-                padding-left: $gutter-small * 5;
-            }
+    .table-of-contents-item
+    {
+        margin: 0;
+        padding: 0;
+        padding-bottom: $gutter-medium;
+        &:hover
+        {
+            opacity: 1;
+        }
+        &.level-1
+        {
+            padding-left: 0;
+        }
+        &.level-2
+        {
+            padding-left: $gutter-small;
+        }
+        &.level-3
+        {
+            padding-left: $gutter-small * 2;
+        }
+        &.level-4
+        {
+            padding-left: $gutter-small * 3;
+        }
+        &.level-5
+        {
+            padding-left: $gutter-small * 4;
+        }
+        &.level-6
+        {
+            padding-left: $gutter-small * 5;
+        }
     }
     /**
      * Section title layout
@@ -338,8 +373,8 @@ $timer-long: 1s;
     .section-title
     {
         margin-right: 0;
-        margin-left: 0;
         margin-bottom: 0;
+        margin-left: 0;
     }
 
 
@@ -381,10 +416,11 @@ $timer-long: 1s;
     {
         width: 100%;
         max-width: 100%;
-
-        border: none;
         height: unset;
         min-height: 30rem;
+
+        border: none;
+
         flex: 1;
     }
     /**
@@ -413,7 +449,7 @@ $timer-long: 1s;
     /**
      * Embed contextualization container layout
      */
-     .embed-container
+    .embed-container
     {
         display: flex;
         overflow: auto;
@@ -429,7 +465,8 @@ $timer-long: 1s;
     /**
      * Figure caption container layout
      */
-    .figure-caption-container{
+    .figure-caption-container
+    {
         width: 100%;
     }
 
@@ -444,8 +481,8 @@ $timer-long: 1s;
     /**
      * Figure caption content layout
      */
-    .figure-caption-content{
-                                
+    .figure-caption-content
+    {
         padding-top: $gutter-small;
         padding-right: $gutter-large;
         padding-bottom: $gutter-medium;
@@ -456,7 +493,6 @@ $timer-long: 1s;
      */
     .ReactTable
     {
-
         margin-right: $gutter-lateral-large-screens;
         margin-left: $gutter-lateral-large-screens;
     }
@@ -470,18 +506,19 @@ $timer-long: 1s;
     /**
      * Glossary mentions layout
      */
-    .glossary-mentions-container{
-
-            padding: 0;
+    .glossary-mentions-container
+    {
+        padding: 0;
     }
     /**
      * Glossary entry layout
      */
-     .glossary-entry{
+    .glossary-entry
+    {
         margin-bottom: $gutter-medium;
-                padding: 0;
-     }
-     /**
+        padding: 0;
+    }
+    /**
       * Note container position when notes in position aside
       */
     .notes-container-position-aside
@@ -492,31 +529,34 @@ $timer-long: 1s;
 
         width: $gutter-lateral-large-screens * .7;
     }
-     /**
+    /**
       * Notes list styling
       */
-    .notes-list{
+    .notes-list
+    {
         padding: 0;
     }
     /**
      * Note item layout
      */
-    .note-item{
+    .note-item
+    {
         position: relative;
 
+        display: flex;
         overflow: visible;
 
         margin-bottom: $gutter-medium;
         padding-bottom: $gutter-small;
-        display: flex;
+
         flex-flow: row nowrap;
         align-items: flex-start;
         justify-contents: stretch;
         .contents-container
         {
-            flex: 1;
-
             margin-left: $gutter-small;
+
+            flex: 1;
             //  > *
             // {
             //     display: inline;
@@ -534,9 +574,9 @@ $timer-long: 1s;
         .content-blockquote,
         .content-pre
         {
-            margin-left: 0;
-            margin-right: 0;
             margin-top: 0;
+            margin-right: 0;
+            margin-left: 0;
         }
     }
     /**
@@ -565,7 +605,6 @@ $timer-long: 1s;
     .notes-container
     {
         margin-bottom: $gutter-large;
-        
     }
     /**
      * Citation entry layout
@@ -580,18 +619,19 @@ $timer-long: 1s;
 
     .index-toggle
     {
-        pointer-events: none;
+        max-height: 0;
         margin: 0;
         padding: 0;
-        max-height: 0;
+
+        pointer-events: none;
     }
-    .nav.fixed .index-toggle{
+    .nav.fixed .index-toggle
+    {
         max-height: 100%;
     }
-    
-    
 
-    
+
+
 
     /**
      * ========================================
@@ -618,6 +658,7 @@ $timer-long: 1s;
     .content-blockquote
     {
         font-size: $font-size-1;
+
         border-left: 2px solid $color-strokes;
     }
     /**
@@ -633,8 +674,10 @@ $timer-long: 1s;
     /**
      * Figure caption content styling
      */
-    .figure-caption-content{
+    .figure-caption-content
+    {
         font-size: $font-size-1;
+
         opacity: .7;
     }
     /**
@@ -648,7 +691,8 @@ $timer-long: 1s;
     /**
      * Interactive table styling
      */
-    .ReactTable{
+    .ReactTable
+    {
         font-size: $font-size-1;
     }
 
@@ -659,23 +703,35 @@ $timer-long: 1s;
     /**
      * Header styling
      */
-    .header
+    .header-container
     {
-        cursor: pointer;
+        &.with-cover
+        {
+            cursor: pointer;
 
-        background: $color-header-background;
-        background-repeat: no-repeat;
-        background-size: cover;
+            background: $color-header-container;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
     }
     /**
      * Header content styling
      */
-    .header-content
+    .header-contents
     {
-        text-align: center;
+        @include transition($timer-medium all  ease);
+    }
+    .header-container.with-cover .header-contents
+    {
+        cursor: pointer;
 
-        color: white;
-        background: $color-header-background;
+        color: $color-background;
+        background: $color-header-container;
+
+        &:hover
+        {
+            background: $color-header-container-intent;
+        }
     }
     /**
      * Contents wrapper styling
@@ -702,8 +758,6 @@ $timer-long: 1s;
     {
         font-size: $font-size-3;
         font-variant: italic;
-
-        
     }
     /**
      * Header authors styling
@@ -721,7 +775,6 @@ $timer-long: 1s;
     .nav
     {
         font-family: $font-stack-serif;
-
 
         pointer-events: none;
 
@@ -746,25 +799,26 @@ $timer-long: 1s;
     /**
      * Table of contents styling
      */
-    .table-of-contents{
-
+    .table-of-contents
+    {
         font-size: $font-size-1;
+
         pointer-events: all;
+
         @include transition($timer-medium all  ease);
     }
     /**
      * Table of contents title styling
      */
-     .table-of-contents-title-container
+    .table-of-contents-title-container
     {
         -webkit-transition-delay: 1s;
                 transition-delay: 1s;
+        pointer-events: all;
 
         opacity: 1;
 
         @include transition($timer-medium all ease);
-        pointer-events: all;
-
         @extend .interactive-item;
         @include transition(all $timer-medium ease);
         &:hover
@@ -775,19 +829,22 @@ $timer-long: 1s;
     /**
      * Table of contents item styling
      */
-    .table-of-contents-item{
-            list-style: none;
-            opacity: .2;// todo: parametrize that
-            @include transition(all $timer-medium ease);
-    
+    .table-of-contents-item
+    {
+        list-style: none;
+
+        opacity: .2;// todo: parametrize that
+
+        @include transition(all $timer-medium ease);
+
         &.active
+        {
+            opacity: .5;// todo: parametrize that
+            .table-of-contents-link
             {
-                opacity: .5;// todo: parametrize that
-                .table-of-contents-link
-                {
-                    color: $color-secondary-intent;
-                }
+                color: $color-secondary-intent;
             }
+        }
     }
     /**
      * Table of contents link styling
@@ -879,7 +936,8 @@ $timer-long: 1s;
      */
     .contents-wrapper .content-a,
     .glossary-mention,
-    .glossary-mention-backlink
+    .glossary-mention-backlink,
+    .csl-entry a
     {
         line-height: 1.3em;
 
@@ -906,30 +964,35 @@ $timer-long: 1s;
     /**
      * Glossary title styling
      */
-    .glossary-title{
+    .glossary-title
+    {
         font-size: $font-size-3;
     }
-    
+
     /**
      * Glossary entry styling
      */
-    .glossary-entry{
+    .glossary-entry
+    {
         font-size: $font-size-1;
+
         list-style-type: none;
     }
     /**
      * Glossary entry title styling
      */
-    .glossary-entry-title{
+    .glossary-entry-title
+    {
         font-size: $font-size-2;
     }
 
     /**
      * Note item styling
      */
-    .note-item{
+    .note-item
+    {
         font-size: $font-size-0;
-        
+
         list-style-type: none;
         .content-paragraph,
         .content-ul,
@@ -960,7 +1023,7 @@ $timer-long: 1s;
             background: $color-secondary-intent;
         }
     }
-    
+
     /**
      * tooltip content layout
      */
@@ -982,9 +1045,8 @@ $timer-long: 1s;
      */
     .index-toggle
     {
-        pointer-events: none;
-
         text-align: left;
+        pointer-events: none;
         pointer-events: all;
 
         border: none;
@@ -1102,20 +1164,20 @@ $timer-long: 1s;
      */
     @media print
     {
-            position: relative!important;
-            top: unset!important;
-            left: unset!important;
+        position: relative!important;
+        top: unset!important;
+        left: unset!important;
 
-            display: block!important;
-            overflow: visible!important;
+        display: block!important;
+        overflow: visible!important;
 
-            width: unset!important;
-            height: unset!important;
-            margin: 0!important;
-            padding: 0!important;
+        width: unset!important;
+        height: unset!important;
+        margin: 0!important;
+        padding: 0!important;
 
-            background: white!important;
-        .header-titles
+        background: white!important;
+        .header-contents
         {
             padding-top: 4cm;/* todo wtf */
 
@@ -1238,7 +1300,4 @@ $timer-long: 1s;
             background: rgba(0,0,0,.1);
         }
     }
-    
 }
-
-    

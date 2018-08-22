@@ -32,7 +32,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Renderer = require('../../components/Renderer');
+var _Renderer = require('../../../components/Renderer');
 
 var _Renderer2 = _interopRequireDefault(_Renderer);
 

@@ -1,0 +1,69 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _TableOfContents = require('./TableOfContents');
+
+var _TableOfContents2 = _interopRequireDefault(_TableOfContents);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Nav = function Nav(_ref) {
+  var indexOpen = _ref.indexOpen,
+      inCover = _ref.inCover,
+      coverImage = _ref.coverImage,
+      dimensions = _ref.dimensions,
+      onClickToggle = _ref.onClickToggle,
+      onClickTitle = _ref.onClickTitle,
+      metadata = _ref.metadata,
+      toc = _ref.toc;
+
+  return _react2.default.createElement(
+    'nav',
+    {
+      className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
+      style: {
+        position: inCover && coverImage ? 'relative' : 'fixed',
+        left: 0,
+        marginTop: inCover && coverImage || !inCover ? 0 : '3rem',
+        height: dimensions && dimensions.height
+      } },
+    _react2.default.createElement(
+      'div',
+      {
+        className: 'nav-content',
+        style: {
+          maxHeight: indexOpen || inCover ? '100%' : 0
+        } },
+      _react2.default.createElement(
+        'button',
+        {
+          className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
+          style: {
+            opacity: inCover ? 0 : 1
+          },
+          onClick: onClickToggle },
+        _react2.default.createElement(
+          'span',
+          { id: 'burger-menu', className: indexOpen || inCover ? 'open' : '' },
+          _react2.default.createElement('span', null),
+          _react2.default.createElement('span', null),
+          _react2.default.createElement('span', null),
+          _react2.default.createElement('span', null)
+        )
+      ),
+      _react2.default.createElement(_TableOfContents2.default, {
+        onClickTitle: onClickTitle,
+        metadata: metadata,
+        toc: toc })
+    )
+  );
+};
+
+exports.default = Nav;

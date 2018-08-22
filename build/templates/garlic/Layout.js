@@ -8,17 +8,17 @@ var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends4 = require('babel-runtime/helpers/extends');
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
-var _extends5 = _interopRequireDefault(_extends4);
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+var _extends4 = require('babel-runtime/helpers/extends');
 
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+var _extends5 = _interopRequireDefault(_extends4);
 
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
@@ -56,10 +56,6 @@ var _lodash = require('lodash');
 
 var _reactCiteproc = require('react-citeproc');
 
-var _SectionLayout = require('./SectionLayout');
-
-var _SectionLayout2 = _interopRequireDefault(_SectionLayout);
-
 var _Bibliography = require('../../components/Bibliography');
 
 var _Bibliography2 = _interopRequireDefault(_Bibliography);
@@ -68,7 +64,25 @@ var _NotesContainer = require('../../components/NotesContainer');
 
 var _NotesContainer2 = _interopRequireDefault(_NotesContainer);
 
+var _SectionLayout = require('./components/SectionLayout');
+
+var _SectionLayout2 = _interopRequireDefault(_SectionLayout);
+
+var _Nav = require('./components/Nav');
+
+var _Nav2 = _interopRequireDefault(_Nav);
+
+var _Glossary = require('./components/Glossary');
+
+var _Glossary2 = _interopRequireDefault(_Glossary);
+
+var _Header = require('./components/Header');
+
+var _Header2 = _interopRequireDefault(_Header);
+
 var _misc = require('../../utils/misc');
+
+var _utils = require('./utils');
 
 var _apa = require('raw-loader!../../assets/apa.csl');
 
@@ -86,17 +100,6 @@ require('./garlic.scss');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function getOffset(el) {
-  var _x = 0;
-  var _y = 0;
-  while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-    _x += el.offsetLeft; 
-    _y += el.offsetTop; 
-    el = el.offsetParent;
-  }
-  return { top: _y, left: _x };
-}
-
 var GarlicLayout = function (_Component) {
   (0, _inherits3.default)(GarlicLayout, _Component);
 
@@ -104,127 +107,6 @@ var GarlicLayout = function (_Component) {
     (0, _classCallCheck3.default)(this, GarlicLayout);
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (GarlicLayout.__proto__ || (0, _getPrototypeOf2.default)(GarlicLayout)).call(this, props));
-
-    _this.buildTOC = function (story, scrollTop, _ref) {
-      var citations = _ref.citations,
-          glossary = _ref.glossary,
-          _ref$locale = _ref.locale,
-          locale = _ref$locale === undefined ? {} : _ref$locale;
-
-      var toc = story.sectionsOrder.map(function (sectionId, sectionIndex) {
-        var section = story.sections[sectionId];
-        var sectionLevel = section.metadata.level + 1;
-
-        var sectionActive = void 0;
-        var nextTitleOffsetTop = void 0;
-        var title = document.getElementById(section.id);
-        if (!title) {
-          return undefined;
-        }
-        var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-        if (sectionIndex < story.sectionsOrder.length - 1) {
-          var next = story.sectionsOrder[sectionIndex + 1];
-          var nextTitle = document.getElementById(next);
-          if (nextTitle) {
-            nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          }
-        }
-        if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
-          sectionActive = true;
-        }
-        var sectionHeader = {
-          level: sectionLevel,
-          text: section.metadata.title || '',
-          key: section.id,
-          active: sectionActive
-        };
-        return [sectionHeader];
-      }
-      ).filter(function (el) {
-        return el !== undefined;
-      })
-      .reduce(function (result, ar) {
-        return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
-      }, []);
-
-      var hasReferences = (0, _keys2.default)(citations.citationItems).length > 0;
-      var hasGlossary = glossary.length > 0;
-      var notesPosition = story.settings.options && story.settings.options.notesPosition || 'foot';
-      var hasNotes = story.sectionsOrder.find(function (key) {
-        return story.sections[key].notesOrder.length > 0;
-      }) !== undefined;
-      if (notesPosition === 'foot' && hasNotes) {
-        var notesActive = void 0;
-        var nextTitleOffsetTop = void 0;
-        var title = document.getElementById('notes');
-
-        if (title) {
-          var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-          var nextTitleId = void 0;
-          if (hasReferences) {
-            nextTitleId = 'references';
-          } else if (hasGlossary) {
-            nextTitleId = 'glossary';
-          }
-          if (nextTitleId) {
-            var nextTitle = document.getElementById(nextTitleId);
-            if (nextTitle) {
-              nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
-            }
-          }
-          if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
-            notesActive = true;
-          }
-          toc.push({
-            level: 0,
-            text: (0, _misc.capitalize)(locale.notes || 'notes'),
-            key: 'notes',
-            active: notesActive
-          });
-        }
-      }
-
-      if (hasReferences) {
-        var referencesActive = void 0;
-        var _nextTitleOffsetTop = void 0;
-        var _title = document.getElementById('references');
-        if (_title) {
-          var _titleOffsetTop = _title.offsetTop + _title.offsetParent.offsetParent.offsetTop;
-          var _nextTitle = document.getElementById('glossary');
-          if (_nextTitle) {
-            _nextTitleOffsetTop = _nextTitle.offsetTop + _title.offsetParent.offsetParent.offsetTop;
-          }
-          if (_titleOffsetTop <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop === undefined || _nextTitleOffsetTop >= scrollTop)) {
-            referencesActive = true;
-          }
-          toc.push({
-            level: 0,
-            text: (0, _misc.capitalize)(locale.references || 'references'),
-            key: 'references',
-            active: referencesActive
-          });
-        }
-      }
-
-      if (hasGlossary) {
-        var glossaryActive = void 0;
-        var _nextTitleOffsetTop2 = void 0;
-        var _title2 = document.getElementById('glossary');
-        if (_title2) {
-          var _titleOffsetTop2 = _title2.offsetTop + _title2.offsetParent.offsetParent.offsetTop;
-          if (_titleOffsetTop2 <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop2 === undefined || _nextTitleOffsetTop2 >= scrollTop)) {
-            glossaryActive = true;
-          }
-          toc.push({
-            level: 0,
-            text: (0, _misc.capitalize)(locale.glossary || 'glossary'),
-            key: 'glossary',
-            active: glossaryActive
-          });
-        }
-      }
-      return toc;
-    };
 
     _this.onScrollUpdate = function (evt) {
       if (!_this.header) {
@@ -246,14 +128,11 @@ var GarlicLayout = function (_Component) {
         });
       } else if (!inCover && _this.state.inCover) {
         stateChanges = (0, _extends5.default)({}, stateChanges, {
-          inCover: false,
-          navPosition: undefined
+          inCover: false
         });
       }
       if (inCover) {
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
-          navPosition: headerHeight - scrollTop
-        });
+        stateChanges = (0, _extends5.default)({}, stateChanges);
       }
       if ((0, _keys2.default)(stateChanges).length) {
         _this.setState(stateChanges);
@@ -284,7 +163,7 @@ var GarlicLayout = function (_Component) {
         return;
       }
       if (scrollTop !== _this.state.scrollTop) {
-        var toc = _this.buildTOC(_this.props.story, scrollTop, _this.state);
+        var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop, _this.state);
         stateChanges = (0, _extends5.default)({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
@@ -298,7 +177,7 @@ var GarlicLayout = function (_Component) {
     _this.onNotePointerClick = function (note) {
       var noteElId = 'note-content-pointer-' + note.id;
       var el = document.getElementById(noteElId);
-      var offset = getOffset(el);
+      var offset = (0, _utils.getOffset)(el);
       var top = offset.top - _this.context.dimensions.height / 2;
       _this.scrollTop(top);
     };
@@ -309,8 +188,8 @@ var GarlicLayout = function (_Component) {
           sectionsOrder = _this$props$story.sectionsOrder,
           sections = _this$props$story.sections,
           _this$props$story$set = _this$props$story.settings,
-          settings = _this$props$story$set === undefined ? {} : _this$props$story$set;
-      var _this$state = _this.state,
+          settings = _this$props$story$set === undefined ? {} : _this$props$story$set,
+          _this$state = _this.state,
           inCover = _this$state.inCover,
           toc = _this$state.toc,
           indexOpen = _this$state.indexOpen,
@@ -319,10 +198,11 @@ var GarlicLayout = function (_Component) {
           coverImage = _this$state.coverImage,
           _this$state$locale = _this$state.locale,
           locale = _this$state$locale === undefined ? {} : _this$state$locale,
-          navPosition = _this$state.navPosition;
-      var _this$context = _this.context,
+          _this$context = _this.context,
           dimensions = _this$context.dimensions,
-          getResourceDataUrl = _this$context.getResourceDataUrl;
+          getResourceDataUrl = _this$context.getResourceDataUrl,
+          scrollToElementId = _this.scrollToElementId,
+          scrollToContents = _this.scrollToContents;
 
       var customCss = settings.css || '';
       var noteCount = 1;
@@ -346,6 +226,9 @@ var GarlicLayout = function (_Component) {
           }, {})
         })));
       }, {});
+      var notesPosition = settings.options && settings.options.notesPosition || 'foot';
+      var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
+      var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
       var onClickToggle = function onClickToggle() {
         return _this.toggleIndex();
       };
@@ -353,9 +236,6 @@ var GarlicLayout = function (_Component) {
         _this.scrollToContents();
         _this.toggleIndex();
       };
-      var notesPosition = settings.options && settings.options.notesPosition || 'foot';
-      var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
-      var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
       var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
         _this.globalScrollbar = scrollbar;
       };
@@ -381,14 +261,12 @@ var GarlicLayout = function (_Component) {
               autoHide: true,
               onUpdate: _this.onScrollUpdate,
               universal: true },
-            _react2.default.createElement('header', {
-              onClick: _this.scrollToContents,
-              className: 'header-background',
-              ref: bindHeaderRef,
-              style: {
-                backgroundImage: coverImage ? 'url(' + (coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64) : undefined,
-                height: coverImage ? '100%' : '0'
-              } }),
+            _react2.default.createElement(_Header2.default, {
+              scrollToContents: scrollToContents,
+              coverImage: coverImage,
+              getResourceDataUrl: getResourceDataUrl,
+              metadata: metadata,
+              bindRef: bindHeaderRef }),
             _react2.default.createElement(
               'section',
               {
@@ -396,178 +274,34 @@ var GarlicLayout = function (_Component) {
               _react2.default.createElement(
                 'section',
                 { className: 'contents-wrapper' },
-                _react2.default.createElement(
-                  'div',
-                  {
-                    className: 'header-titles' },
-                  _react2.default.createElement(
-                    'h1',
-                    { className: 'header-story-title' },
-                    metadata.title || 'Quinoa story'
-                  ),
-                  metadata.subtitle && _react2.default.createElement(
-                    'h2',
-                    { className: 'header-story-subtitle' },
-                    metadata.subtitle
-                  ),
-                  metadata.authors && metadata.authors.length ? _react2.default.createElement(
-                    'div',
-                    { className: 'header-authors' },
-                    metadata.authors.map(function (author) {
-                      return author;
-                    }).join(', ')
-                  ) : null
-                ),
+
                 sectionsOrder.map(function (thatId) {
                   return _react2.default.createElement(_SectionLayout2.default, { section: finalSections[thatId], key: thatId });
                 }),
+
                 notes && notes.length ? _react2.default.createElement(_NotesContainer2.default, {
                   id: 'notes',
                   notes: notes,
                   onNotePointerClick: _this.onNotePointerClick,
                   title: (0, _misc.capitalize)(locale.notes || 'notes'),
                   notesPosition: notesPosition }) : null,
+
                 citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, { id: 'references', title: (0, _misc.capitalize)(locale.references || 'references') }) : null,
-                glossary && glossary.length ? _react2.default.createElement(
-                  'div',
-                  { className: 'glossary-container' },
-                  _react2.default.createElement(
-                    'h2',
-                    { className: 'glossary-title', id: 'glossary' },
-                    (0, _misc.capitalize)(locale.glossary || 'glossary')
-                  ),
-                  _react2.default.createElement(
-                    'ul',
-                    { className: 'glossary-mentions-container' },
-                    glossary.map(function (entry, index) {
-                      var entryName = entry.resource.data.name;
-                      return _react2.default.createElement(
-                        'li',
-                        { className: 'glossary-entry', key: index, id: 'glossary-entry-' + entry.resource.id },
-                        _react2.default.createElement(
-                          'h3',
-                          { className: 'glossary-entry-title' },
-                          entryName,
-                          ' ',
-                          _react2.default.createElement(
-                            'i',
-                            null,
-                            '(',
-                            entry.mentions.map(function (mention, count) {
-                              var target = 'glossary-mention-' + mention.id;
-                              var onClick = function onClick(e) {
-                                e.preventDefault();
-                                _this.scrollToElementId(target);
-                              };
-                              return _react2.default.createElement(
-                                'a',
-                                {
-                                  key: mention.id,
-                                  onClick: onClick,
-                                  className: 'glossary-mention-backlink',
-                                  id: 'glossary-mention-backlink-' + mention.id,
-                                  href: '#' + target },
-                                _react2.default.createElement(
-                                  'span',
-                                  { className: 'link-content' },
-                                  count + 1
-                                )
-                              );
-                            }).reduce(function (prev, curr) {
-                              return [prev, ', ', curr];
-                            }),
-                            ')'
-                          )
-                        ),
-                        entry.resource.data.description && _react2.default.createElement(
-                          'p',
-                          null,
-                          entry.resource.data.description
-                        )
-                      );
-                    })
-                  )
-                ) : null
-              )
-            )
-          ),
-          _react2.default.createElement(
-            'nav',
-            {
-              className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
-              style: {
-                left: 0,
-                top: inCover ? navPosition : 0,
-                height: dimensions && dimensions.height
-              } },
-            _react2.default.createElement(
-              'div',
-              {
-                className: 'nav-content',
-                style: {
-                  maxHeight: indexOpen || inCover ? '100%' : 0
-                } },
-              _react2.default.createElement(
-                'button',
-                {
-                  className: 'index-toggle ' + (indexOpen || inCover ? 'active' : ''),
-                  style: {
-                    opacity: inCover ? 0 : 1
-                  },
-                  onClick: onClickToggle },
-                _react2.default.createElement(
-                  'span',
-                  { id: 'burger-menu', className: indexOpen || inCover ? 'open' : '' },
-                  _react2.default.createElement('span', null),
-                  _react2.default.createElement('span', null),
-                  _react2.default.createElement('span', null),
-                  _react2.default.createElement('span', null)
-                )
+
+                glossary && glossary.length ? _react2.default.createElement(_Glossary2.default, {
+                  locale: locale,
+                  glossary: glossary,
+                  scrollToElementId: scrollToElementId }) : null
               ),
-              _react2.default.createElement(
-                'ul',
-                {
-                  className: 'table-of-contents',
-                  style: {
-                  } },
-                _react2.default.createElement(
-                  'li',
-                  { className: 'table-of-contents-title-container' },
-                  _react2.default.createElement(
-                    'h2',
-                    {
-                      className: 'table-of-contents-title',
-                      onClick: onClickTitle },
-                    metadata.title || 'Quinoa story'
-                  )
-                ),
-                toc && toc.map(function (item, index) {
-                  var onClick = function onClick(e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    _this.scrollToElementId(item.key);
-                    _this.toggleIndex();
-                  };
-                  return _react2.default.createElement(
-                    'li',
-                    {
-                      key: index,
-                      className: 'table-of-contents-item level-' + item.level + (item.active ? ' active' : '') },
-                    _react2.default.createElement(
-                      'a',
-                      {
-                        className: 'table-of-contents-link',
-                        href: '#' + item.key,
-                        onClick: onClick },
-                      _react2.default.createElement(
-                        'span',
-                        { className: 'link-content' },
-                        item.text || 'Untitled section'
-                      )
-                    )
-                  );
-                })
-              )
+              _react2.default.createElement(_Nav2.default, {
+                indexOpen: indexOpen,
+                inCover: inCover,
+                coverImage: coverImage,
+                dimensions: dimensions,
+                onClickToggle: onClickToggle,
+                onClickTitle: onClickTitle,
+                metadata: metadata,
+                toc: toc })
             )
           )
         ),
@@ -636,7 +370,7 @@ var GarlicLayout = function (_Component) {
             locale: _this2.props.locale && _locales2.default[_this2.props.locale] ? _locales2.default[_this2.props.locale] : _locales2.default.en
           });
           setTimeout(function () {
-            var toc = _this2.buildTOC(_this2.props.story, 0, _this2.state);
+            var toc = (0, _utils.buildTOC)(_this2.props.story, 0, _this2.state);
             _this2.setState({ toc: toc });
           });
         }
@@ -656,7 +390,7 @@ var GarlicLayout = function (_Component) {
           locale: nextProps.locale && _locales2.default[nextProps.locale] ? _locales2.default[nextProps.locale] : _locales2.default.en
         });
         setTimeout(function () {
-          var toc = _this3.buildTOC(_this3.props.story, 0, _this3.state);
+          var toc = (0, _utils.buildTOC)(_this3.props.story, 0, _this3.state);
           _this3.setState({ toc: toc });
         });
       }
@@ -665,8 +399,6 @@ var GarlicLayout = function (_Component) {
 
   }, {
     key: 'handleSpringUpdate',
-
-
     value: function handleSpringUpdate(spring) {
       var val = spring.getCurrentValue();
       if (val !== undefined && this.globalScrollbar) {
@@ -726,7 +458,7 @@ var GarlicLayout = function (_Component) {
     value: function onNoteContentPointerClick(noteId) {
       var noteElId = 'note-block-pointer-' + noteId;
       var el = document.getElementById(noteElId);
-      var offset = getOffset(el);
+      var offset = (0, _utils.getOffset)(el);
       var top = offset.top - this.context.dimensions.height / 2;
       this.scrollTop(top);
     }
