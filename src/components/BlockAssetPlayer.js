@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Media, Player } from 'react-media-player';
+import Player from 'react-player';
 // import QuinoaPresentationPlayer from 'quinoa-presentation-player';
 import ReactTable from 'react-table';
 import { get } from 'axios';
@@ -114,9 +114,7 @@ class BlockAssetPlayer extends React.Component {
         return <img className="content-image" src={src} />;
       case 'video':
         return (
-          <Media>
-            <Player src={data.url} />
-          </Media>
+          <Player url={data.url} />
         );
       // case 'data-presentation':
       //   const usableData = data.json || this.state.data;

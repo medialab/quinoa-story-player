@@ -36,7 +36,9 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactMediaPlayer = require('react-media-player');
+var _reactPlayer = require('react-player');
+
+var _reactPlayer2 = _interopRequireDefault(_reactPlayer);
 
 var _reactTable = require('react-table');
 
@@ -141,11 +143,7 @@ var BlockAssetPlayer = function (_React$Component) {
           }
           return _react2.default.createElement('img', { className: 'content-image', src: src });
         case 'video':
-          return _react2.default.createElement(
-            _reactMediaPlayer.Media,
-            null,
-            _react2.default.createElement(_reactMediaPlayer.Player, { src: data.url })
-          );
+          return _react2.default.createElement(_reactPlayer2.default, { url: data.url });
         case 'embed':
           return _react2.default.createElement('div', {
             className: 'embed-container',
