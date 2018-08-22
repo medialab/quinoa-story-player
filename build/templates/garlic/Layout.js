@@ -202,7 +202,8 @@ var GarlicLayout = function (_Component) {
           dimensions = _this$context.dimensions,
           getResourceDataUrl = _this$context.getResourceDataUrl,
           scrollToElementId = _this.scrollToElementId,
-          scrollToContents = _this.scrollToContents;
+          scrollToContents = _this.scrollToContents,
+          toggleIndex = _this.toggleIndex;
 
       var customCss = settings.css || '';
       var noteCount = 1;
@@ -243,6 +244,7 @@ var GarlicLayout = function (_Component) {
       var bindHeaderRef = function bindHeaderRef(header) {
         _this.header = header;
       };
+
       return _react2.default.createElement(
         _reactCiteproc.ReferencesManager,
         {
@@ -301,6 +303,7 @@ var GarlicLayout = function (_Component) {
                 onClickToggle: onClickToggle,
                 onClickTitle: onClickTitle,
                 metadata: metadata,
+                scrollToElementId: scrollToElementId,
                 toc: toc,
                 isDisplayed: coverImage && inCover })
             )
@@ -313,6 +316,8 @@ var GarlicLayout = function (_Component) {
             onClickToggle: onClickToggle,
             onClickTitle: onClickTitle,
             metadata: metadata,
+            scrollToElementId: scrollToElementId,
+            toggleIndex: toggleIndex,
             isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
             toc: toc })
         ),

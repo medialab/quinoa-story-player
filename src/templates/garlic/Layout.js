@@ -532,8 +532,7 @@ class GarlicLayout extends Component {
                 metadata={metadata}
                 scrollToElementId={scrollToElementId}
                 toc={toc}
-                isDisplayed={coverImage && inCover} 
-              />
+                isDisplayed={coverImage && inCover} />
 
             </section>
           </Scrollbars>

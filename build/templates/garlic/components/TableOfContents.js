@@ -13,6 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var TableOfContents = function TableOfContents(_ref) {
   var onClickTitle = _ref.onClickTitle,
       metadata = _ref.metadata,
+      toggleIndex = _ref.toggleIndex,
+      scrollToElementId = _ref.scrollToElementId,
       toc = _ref.toc;
 
   return _react2.default.createElement(
@@ -36,8 +38,8 @@ var TableOfContents = function TableOfContents(_ref) {
       var onClick = function onClick(e) {
         e.stopPropagation();
         e.preventDefault();
-        undefined.scrollToElementId(item.key);
-        undefined.toggleIndex();
+        scrollToElementId(item.key);
+        toggleIndex();
       };
       return _react2.default.createElement(
         "li",

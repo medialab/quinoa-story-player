@@ -670,6 +670,8 @@ $timer-long: 1s;
      * STYLING RULES (colors, background, fontsizes, transition, pointer-event)
      * ========================================
      */
+
+
     *::selection
     {
         color: $color-background;
@@ -679,6 +681,19 @@ $timer-long: 1s;
     {
         color: $color-background;
         background: $color-secondary;
+    }
+    /**
+     * Resets
+     */
+    strong,
+    em,
+    a{
+        color: inherit;
+    }
+    strong > em,
+    em > strong{
+        font-weight: 900;
+        font-variant: italic;
     }
 
     /**
@@ -820,10 +835,11 @@ $timer-long: 1s;
 
         pointer-events: none;
 
-        &.active,
-        &:not(.fixed)
+        background: $color-background;
+
+        &:not(.active)
         {
-            background: $color-background;
+            background: transparent;
         }
         &.fixed.active
         {

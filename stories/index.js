@@ -15,6 +15,8 @@ import burnoutExample from './le-burnout.json';
 import titles from './titles-styling.json';
 import embeds from './embeds-test.json';
 import newSchema from './new-schema.json';
+
+import stylesTest from './story-styles-test';
 import testCover from './test-cover.json';
 
 class Player extends Component {
@@ -33,22 +35,27 @@ class Player extends Component {
 }
 
 const withCustomCss = {
-  ...newSchema,
+  ...stylesTest,
   settings: {
     css: `
-.quinoa-story-player{
-  font-size : 1.5rem;
+.content-paragraph{
+  font-size: 10px;
 }
 
-.quinoa-story-player h1{
-  color: brown;
-  }
+.wrapper, .nav{
+  background: white;
+}
+
+.content-h1,.content-h2,.section-title
+{
+  color: blue;
+}
 `
   }
 };
 
 const withFootnotes = {
-  ...newSchema,
+  ...stylesTest,
   settings: {
     options: {
       notesPosition: 'foot'      
@@ -56,33 +63,23 @@ const withFootnotes = {
   }
 };
 
-const withComments = {
-  ...newSchema,
-  settings: {
-    options: {
-      allowDisqusComments: 'yes'      
-    }
-  }
-};
-
-
 storiesOf('Quinoa story - garlic template', module)
-  .add('New schema', () => (
+  .add('Story with all plain styles', () => (
     <Player
-      story={newSchema}
+      story={stylesTest}
     />
   ))
-  .add('With footnotes', () => (
+  .add('Story With footnotes', () => (
     <Player
       story={withFootnotes}
     />
   ))
-  .add('With custom css', () => (
+  .add('Story with custom css', () => (
     <Player
       story={withCustomCss}
     />
   ))
-  .add('Test cover', () => (
+  .add('Story with cover', () => (
     <Player
       story={testCover}
     />

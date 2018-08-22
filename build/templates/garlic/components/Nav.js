@@ -23,6 +23,8 @@ var Nav = function Nav(_ref) {
       onClickTitle = _ref.onClickTitle,
       metadata = _ref.metadata,
       isDisplayed = _ref.isDisplayed,
+      toggleIndex = _ref.toggleIndex,
+      scrollToElementId = _ref.scrollToElementId,
       toc = _ref.toc;
 
   var menuOpened = indexOpen || inCover;
@@ -36,7 +38,7 @@ var Nav = function Nav(_ref) {
         opacity: isDisplayed ? 1 : 0,
         pointerEvents: isDisplayed ? undefined : 'none',
         marginTop: inCover && coverImage || !inCover ? 0 : '3rem',
-        height: dimensions && dimensions.height
+        height: !(inCover && dimensions.width <= 700) ? dimensions && dimensions.height : 0
       } },
     _react2.default.createElement(
       'div',
@@ -65,6 +67,8 @@ var Nav = function Nav(_ref) {
       _react2.default.createElement(_TableOfContents2.default, {
         onClickTitle: onClickTitle,
         metadata: metadata,
+        toggleIndex: toggleIndex,
+        scrollToElementId: scrollToElementId,
         toc: toc })
     )
   );
