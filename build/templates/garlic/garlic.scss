@@ -110,24 +110,44 @@ $timer-long: 1s;
     align-items: stretch;
     flex-flow: column nowrap;
     @extend .absolute-fill;
-    *::selection
-    {
-        color: $color-background;
-        background: $color-secondary;
-    }
-    *::-moz-selection
-    {
-        color: $color-background;
-        background: $color-secondary;
-    }
+    
     /**
      * ========================================
-     * LAYOUT RULES
+     * LAYOUT RULES (positionning, margins, padding)
      * ========================================
      */
 
     /**
-      * General layout rules for contents elements
+     * global wrapper layout
+     */
+    .wrapper
+    {
+        overflow: auto;
+
+        width: 100%;
+        height: 100%;
+    }
+    /**
+     * body wrapper contains everything but the nav and the header background
+     */
+    .body-wrapper
+    {
+        position: relative;
+
+        width: 100%;
+        min-height: 100%;
+        padding-top: $gutter-medium;
+    }
+    /**
+     * Content wrapper layout
+     */
+    .contents-wrapper
+    {
+        @extend .absolute-fill;
+    }
+
+    /**
+      * General layout rules for contents blocks elements
       */
     .content-h1,
     .content-h2,
@@ -148,7 +168,7 @@ $timer-long: 1s;
     /**
      * pre layout
      */
-    pre
+    .content-pre
     {
         overflow: hidden;
         overflow-x: auto;
@@ -160,20 +180,11 @@ $timer-long: 1s;
     /**
      * blockquote layout
      */
-    blockquote
+    .content-blockquote
     {
         padding: $gutter-medium;
     }
-    /**
-     * global wrapper layout
-     */
-    .wrapper
-    {
-        overflow: auto;
 
-        width: 100%;
-        height: 100%;
-    }
     /**
      * Story header container layout
      */
@@ -207,6 +218,9 @@ $timer-long: 1s;
         margin-right: $gutter-lateral-large-screens;
         margin-left: $gutter-lateral-large-screens;
     }
+    /**
+     * Header contents when cover image layout
+     */
     .header-container.with-cover .header-contents
     {
         display: flex;
@@ -276,29 +290,8 @@ $timer-long: 1s;
         flex-flow: column nowrap;
         justify-content: stretch;
     }
-    .menu-layout
-    {
-        margin: 0;
-    }
 
-    /**
-     * body wrapper contains everything but the nav and the header background
-     */
-    .body-wrapper
-    {
-        position: relative;
-
-        width: 100%;
-        min-height: 100%;
-        padding-top: $gutter-medium;
-    }
-    /**
-     * Content wrapper layout
-     */
-    .contents-wrapper
-    {
-        @extend .absolute-fill;
-    }
+    
     /**
      * Main column containers layout
      */
@@ -638,6 +631,16 @@ $timer-long: 1s;
      * STYLING RULES (colors, background, fontsizes, transition, pointer-event)
      * ========================================
      */
+    *::selection
+    {
+        color: $color-background;
+        background: $color-secondary;
+    }
+    *::-moz-selection
+    {
+        color: $color-background;
+        background: $color-secondary;
+    }
 
     /**
      * Titles general styling
