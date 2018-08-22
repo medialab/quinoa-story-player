@@ -37,7 +37,11 @@ gulp.task('build', function(){
     .pipe(gulp.dest('build'));
 
   gulp.src([
-      'src/**/*.scss'
+      'src/**/*.scss',
+      'src/**/*.css',
+      'src/**/*.ttf',
+      'src/**/*.woff',
+      'src/**/*.woff2',
     ])
     .pipe(gulp.dest('build'));
 });
