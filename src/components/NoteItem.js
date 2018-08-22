@@ -5,7 +5,7 @@
  * @module quinoa-story-player/components/NoteItem
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Renderer from './Renderer';

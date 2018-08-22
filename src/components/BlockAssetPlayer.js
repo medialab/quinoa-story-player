@@ -7,10 +7,10 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Media, Player} from 'react-media-player';
+import { Media, Player } from 'react-media-player';
 // import QuinoaPresentationPlayer from 'quinoa-presentation-player';
 import ReactTable from 'react-table';
-import {get} from 'axios';
+import { get } from 'axios';
 import 'react-table/react-table.css';
 
 /**
@@ -38,10 +38,10 @@ class BlockAssetPlayer extends React.Component {
   }
 
   componentDidMount() {
-    const {type, data} = this.props;
-    const {getResourceDataUrl} = this.context;
+    const { type, data } = this.props;
+    const { getResourceDataUrl } = this.context;
     if (type === 'table' && data.filePath && typeof getResourceDataUrl === 'function') {
-      this.setState({loading: true});
+      this.setState({ loading: true });
       get(getResourceDataUrl(data))
       .then(res => {
         const columns = Object.keys(res.data[0]).map(key => ({

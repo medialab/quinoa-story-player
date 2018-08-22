@@ -7,7 +7,7 @@
  * @module quinoa-story-player/components/NotesContainer
  */
 
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import NoteItem from './NoteItem';
@@ -27,7 +27,7 @@ function getOffset(el) {
         _y += el.offsetTop - el.scrollTop;
         el = el.offsetParent;
     }
-    return {top: _y, left: _x};
+    return { top: _y, left: _x };
 }
 
 
@@ -134,7 +134,7 @@ class NotesContainer extends Component {
         left: 0
       };
     }
-    this.setState({notesStyles});
+    this.setState({ notesStyles });
   }
   /**
    * Renders the component

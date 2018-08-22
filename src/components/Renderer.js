@@ -6,7 +6,7 @@
  * ============
  * @module quinoa-story-player/components/Renderer
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import redraft from 'redraft';
 import Link from './Link';
@@ -32,10 +32,10 @@ const renderers = {
    */
   inline: {
     // The key passed here is just an index based on rendering order inside a block
-    BOLD: (children, {key}) => <strong key={key}>{children}</strong>,
-    ITALIC: (children, {key}) => <em key={key}>{children}</em>,
-    UNDERLINE: (children, {key}) => <u key={key}>{children}</u>,
-    CODE: (children, {key}) => <span key={key}>{children}</span>,
+    BOLD: (children, { key }) => <strong key={key}>{children}</strong>,
+    ITALIC: (children, { key }) => <em key={key}>{children}</em>,
+    UNDERLINE: (children, { key }) => <u key={key}>{children}</u>,
+    CODE: (children, { key }) => <span key={key}>{children}</span>,
   },
   /**
    * Blocks receive children and depth
@@ -44,34 +44,34 @@ const renderers = {
   blocks: {
     'unstyled': (children) => children.map((child, index) => <div className="content-paragraph" key={index}>{child}</div>),
     'blockquote': (children) => <blockquote className="content-blockquote" >{addBreaklines(children)}</blockquote>,
-    'header-one': (children, {keys}) => children.map((child, index) => <h1 className="content-title content-h1" key={index} id={keys[index]}>{child}</h1>),
-    'header-two': (children, {keys}) => children.map((child, index) => <h2 className="content-h2" key={index} id={keys[index]}>{child}</h2>),
-    'header-three': (children, {keys}) => children.map((child, index) => <h3 className="content-title content-h3" key={index} id={keys[index]}>{child}</h3>),
-    'header-four': (children, {keys}) => children.map((child, index) => <h4 className="content-title content-h4" key={index} id={keys[index]}>{child}</h4>),
-    'header-five': (children, {keys}) => children.map((child, index) => <h5 className="content-title content-h5" key={index} id={keys[index]}>{child}</h5>),
-    'header-six': (children, {keys}) => children.map((child, index) => <h6 className="content-title content-h6" key={index} id={keys[index]}>{child}</h6>),
+    'header-one': (children, { keys }) => children.map((child, index) => <h1 className="content-title content-h1" key={index} id={keys[index]}>{child}</h1>),
+    'header-two': (children, { keys }) => children.map((child, index) => <h2 className="content-h2" key={index} id={keys[index]}>{child}</h2>),
+    'header-three': (children, { keys }) => children.map((child, index) => <h3 className="content-title content-h3" key={index} id={keys[index]}>{child}</h3>),
+    'header-four': (children, { keys }) => children.map((child, index) => <h4 className="content-title content-h4" key={index} id={keys[index]}>{child}</h4>),
+    'header-five': (children, { keys }) => children.map((child, index) => <h5 className="content-title content-h5" key={index} id={keys[index]}>{child}</h5>),
+    'header-six': (children, { keys }) => children.map((child, index) => <h6 className="content-title content-h6" key={index} id={keys[index]}>{child}</h6>),
 
     // You can also access the original keys of the blocks
-    'code-block': (children, {keys}) => <pre className="content-pre" key={keys[0]} >{addBreaklines(children)}</pre>,
+    'code-block': (children, { keys }) => <pre className="content-pre" key={keys[0]} >{addBreaklines(children)}</pre>,
     // or depth for nested lists
-    'unordered-list-item': (children, {depth, keys}) => <ul key={keys[keys.length - 1]} className={`content-ul ul-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={index}>{child}</li>)}</ul>,
-    'ordered-list-item': (children, {depth, keys}) => <ol key={keys.join('|')} className={`content-ol ol-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={keys[index]}>{child}</li>)}</ol>,
-    'atomic': (children, {keys, data}) => children.map((child, i) => <div className="content-atomic-container" key={keys[i]} {...data[i]}>{child}</div>),
+    'unordered-list-item': (children, { depth, keys }) => <ul key={keys[keys.length - 1]} className={`content-ul ul-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={index}>{child}</li>)}</ul>,
+    'ordered-list-item': (children, { depth, keys }) => <ol key={keys.join('|')} className={`content-ol ol-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={keys[index]}>{child}</li>)}</ol>,
+    'atomic': (children, { keys, data }) => children.map((child, i) => <div className="content-atomic-container" key={keys[i]} {...data[i]}>{child}</div>),
   },
   /**
    * Entities receive children and the entity data
    */
   entities: {
   //   // key is the entity key value from raw
-    LINK: (children, data, {key}) =>
+    LINK: (children, data, { key }) =>
       <Link key={key} to={data.url}>{children}</Link>,
-    BLOCK_ASSET: (children, data, {key}) => {
+    BLOCK_ASSET: (children, data, { key }) => {
       return <BlockAssetWrapper key={key} data={data} />;
     },
-    INLINE_ASSET: (children, data, {key}) => {
+    INLINE_ASSET: (children, data, { key }) => {
       return <InlineAssetWrapper data={data} key={key}>{children}</InlineAssetWrapper>;
     },
-    NOTE_POINTER: (children, data, {key}) => {
+    NOTE_POINTER: (children, data, { key }) => {
       return <NotePointer key={key} children={children} noteId={data.noteId} />;
     },
   },

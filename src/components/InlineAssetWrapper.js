@@ -20,7 +20,7 @@ const InlineAssetWrapper = ({
   data,
   children
 }, context) => {
-  const {story} = context;
+  const { story } = context;
   const assetId = data.asset && data.asset.id;
   if (!assetId || !story) {
     return null;

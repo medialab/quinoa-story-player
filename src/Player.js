@@ -8,7 +8,7 @@
  * a specific layout / set of interactions.
  * @module quinoa-story-player/Player
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Measure from 'react-measure';
@@ -116,13 +116,13 @@ class QuinoaStoryPlayer extends Component {
   render() {
     // called when container's dimensions change (resize, ...)
     const onMeasure = (contentRect) => {
-      this.setState({dimensions: contentRect.bounds});
+      this.setState({ dimensions: contentRect.bounds });
     };
     return (
       <Measure
         bounds
         onResize={onMeasure}>
-        {({measureRef}) => (
+        {({ measureRef }) => (
           <div ref={measureRef} className="quinoa-story-player">
             {this.renderComponent()}
           </div>
