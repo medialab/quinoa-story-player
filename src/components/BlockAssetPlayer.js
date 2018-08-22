@@ -114,7 +114,9 @@ class BlockAssetPlayer extends React.Component {
         return <img className="content-image" src={src} />;
       case 'video':
         return (
-          <Player url={data.url} />
+          <div className="media-player-container">
+            <Player url={data.url} />
+          </div>
         );
       // case 'data-presentation':
       //   const usableData = data.json || this.state.data;
@@ -139,7 +141,7 @@ class BlockAssetPlayer extends React.Component {
           <div
             className="embed-container"
             dangerouslySetInnerHTML={{
-              __html: data
+              __html: data.html
             }} />
         );
       default:
