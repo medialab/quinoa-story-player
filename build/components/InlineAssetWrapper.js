@@ -12,13 +12,11 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _CitationContainer = require('./CitationContainer');
+var _glossary = require('../contextualizers/glossary');
 
-var _CitationContainer2 = _interopRequireDefault(_CitationContainer);
+var _bib = require('../contextualizers/bib');
 
-var _GlossaryMention = require('./GlossaryMention');
-
-var _GlossaryMention2 = _interopRequireDefault(_GlossaryMention);
+var _webpage = require('../contextualizers/webpage');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,7 +40,7 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
 
     switch (contextualizerType) {
       case 'bib':
-        return _react2.default.createElement(_CitationContainer2.default, { data: data });
+        return _react2.default.createElement(_bib.Inline, { data: data });
       case 'glossary':
         var onGlossaryClick = function onGlossaryClick() {
           if (typeof context.onGlossaryMentionClick === 'function') {
@@ -50,7 +48,7 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
           }
         };
         return _react2.default.createElement(
-          _GlossaryMention2.default,
+          _glossary.Inline,
           {
             onClick: onGlossaryClick,
             contextualization: contextualization,
@@ -60,13 +58,8 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
         );
       case 'webpage':
         return _react2.default.createElement(
-          'a',
-          {
-            href: resource.data.url,
-            target: '_blank',
-            className: 'content-a',
-            alt: 'href',
-            rel: 'noopener' },
+          _webpage.Inline,
+          { resource: resource },
           children
         );
       default:
@@ -75,6 +68,7 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
   }
   return null;
 };
+
 
 InlineAssetWrapper.propTypes = {
   data: _propTypes2.default.shape({

@@ -43,8 +43,10 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
   var onExit = context.onExit;
   var inNote = context.inNote;
   if (asset && asset.resource.data && !inNote) {
-    var resource = asset.resource;
-    var assetType = asset.contextualizer.type;
+    var resource = asset.resource,
+        contextualizer = asset.contextualizer;
+
+    var assetType = contextualizer.type;
 
     var buildInfo = function buildInfo() {
       if (!(resource.metadata.description && resource.metadata.description.length) || !(resource.metadata.source && resource.metadata.source.length)) {
@@ -68,6 +70,9 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
       _react2.default.createElement(_BlockAssetPlayer2.default, {
         type: assetType,
         data: resource.data,
+        resource: resource,
+        contextualizer: contextualizer,
+        contextualization: contextualization,
         options: {
           template: 'scroller'
         },

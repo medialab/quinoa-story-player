@@ -7,10 +7,14 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Player from 'react-player';
-// import QuinoaPresentationPlayer from 'quinoa-presentation-player';
-import ReactTable from 'react-table';
-import { get } from 'axios';
+
+import { Block as Image } from '../contextualizers/image';
+import { Block as Video } from '../contextualizers/video';
+import { Block as Embed } from '../contextualizers/embed';
+import { Block as Table } from '../contextualizers/table';
+// import {Block as DataPresentation} from '../contextualizers/data-presentation';
+
+
 import 'react-table/react-table.css';
 
 /**
@@ -29,41 +33,10 @@ import 'react-table/react-table.css';
 class BlockAssetPlayer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      data: undefined,
-      loading: false,
-      columns: []
-    };
     this.onWheel = this.onWheel.bind(this);
   }
 
-  componentDidMount() {
-    const { type, data } = this.props;
-    const { getResourceDataUrl } = this.context;
-    if (type === 'table' && data.filePath && typeof getResourceDataUrl === 'function') {
-      this.setState({ loading: true });
-      get(getResourceDataUrl(data))
-      .then(res => {
-        const columns = Object.keys(res.data[0]).map(key => ({
-          Header: key,
-          accessor: key
-        }));
-        this.setState({
-          loading: false,
-          data: res.data,
-          columns
-        });
-      });
-    }
-    if (type === 'data-presentation' && data.filePath && typeof getResourceDataUrl === 'function') {
-      get(getResourceDataUrl(data))
-      .then(res => {
-        this.setState({
-          data: res.data,
-        });
-      });
-    }
-  }
+  shouldComponentUpdate = () => true;
 
   onWheel (e) {
     if (this.props.fixed) {
@@ -77,73 +50,48 @@ class BlockAssetPlayer extends React.Component {
   */
   render() {
     const {
-      type,
-      data,
+      // type,
+      // data,
+      resource = {},
+      contextualizer = {},
+      contextualization = {},
       // related to bulgur player
       // options,
       // fixed,
       // allowInteractions,
       // onExit
     } = this.props;
-    const {
-      // dimensions,
-      getResourceDataUrl
-    } = this.context;
+    const { type } = contextualizer;
     switch (type) {
       case 'table':
-        let columns;
-        if (data.json) {
-          columns = Object.keys(data.json[0]).map(key => ({
-            Header: key,
-            accessor: key
-          }));
-        }
-        return (<ReactTable
-          data={data.json || this.state.data}
-          columns={columns || this.state.columns}
-          loading={this.state.loading} />);
+        return <Table resource={resource} contextualizer={contextualizer} contextualization={contextualization} />;
       case 'image':
-        // future-proofing possible externally linked images
-        let src;
-        if (typeof getResourceDataUrl === 'function' && data.filePath) {
-          src = getResourceDataUrl(data);
-        }
-        else {
-          src = data.base64 || data.src;
-        }
-        return <img className="content-image" src={src} />;
+        return <Image resource={resource} contextualizer={contextualizer} contextualization={contextualization} />;
       case 'video':
+        return (<Video resource={resource} contextualizer={contextualizer} contextualization={contextualization} />);
+
+      case 'embed':
         return (
-          <div className="media-player-container">
-            <Player url={data.url} />
-          </div>
+          <Embed resource={resource} contextualizer={contextualizer} contextualization={contextualization} />
         );
       // case 'data-presentation':
-      //   const usableData = data.json || this.state.data;
       //   return (
-      //     usableData ?
-      //       <QuinoaPresentationPlayer
-      //         presentation={usableData}
-      //         template={(options && options.template)}
-      //         onWheel={this.onWheel}
-      //         onExit={onExit}
-      //         style={{
+      //     <DataPresentation
+      //       resource={resource}
+      //       contextualizer={contextualizer}
+      //       contextualization={contextualization}
+      //       onWheel={this.onWheel}
+      //       onExit={onExit}
+      //       style={{
       //           position: fixed ? 'fixed' : 'absolute',
       //           left: fixed ? dimensions.left : '0',
       //           top: fixed ? dimensions.top : '0',
       //           width: fixed ? dimensions.width : '',
       //           height: fixed ? dimensions.height : '',
       //           pointerEvents: allowInteractions ? 'all' : 'none'
-      //         }} /> : null
+      //       }}
+      //     />
       //   );
-      case 'embed':
-        return (
-          <div
-            className="embed-container"
-            dangerouslySetInnerHTML={{
-              __html: data.html
-            }} />
-        );
       default:
         return null;
     }
@@ -170,10 +118,6 @@ BlockAssetPlayer.propTypes = {
  */
 BlockAssetPlayer.contextTypes = {
   dimensions: PropTypes.object,
-  /**
-   * getResourceDataUrl in fonio DataUrlProvider
-   */
-  getResourceDataUrl: PropTypes.func,
 };
 
 export default BlockAssetPlayer;

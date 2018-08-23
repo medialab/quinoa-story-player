@@ -6,8 +6,11 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import CitationContainer from './CitationContainer';
-import GlossaryMention from './GlossaryMention';
+// import CitationContainer from './CitationContainer';
+// import GlossaryMention from './GlossaryMention';
+import { Inline as GlossaryMention } from '../contextualizers/glossary';
+import { Inline as CitationContainer } from '../contextualizers/bib';
+import { Inline as Link } from '../contextualizers/webpage';
 
 /**
  * Renders a block asset wrapper as a pure component
@@ -55,14 +58,9 @@ const InlineAssetWrapper = ({
       case 'webpage':
         // const text = contextualizer.alias || resource.metadata.title || '*';
         return (
-          <a
-            href={resource.data.url}
-            target="_blank"
-            className="content-a"
-            alt="href"
-            rel="noopener">
+          <Link resource={resource}>
             {children}
-          </a>
+          </Link>
         );
       default:
         return null;

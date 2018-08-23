@@ -40,7 +40,7 @@ const GlossaryMention = ({
     id={'glossary-mention-' + contextualization.id}
     href={'#glossary-entry-' + resource.id}
     onClick={handleClick}
-    className="glossary-mention">
+    className="quinoa-contextualization inline glossary glossary-mention">
     <span className="link-content" data-tip={descriptionText}>{children}</span>
     {
       descriptionText

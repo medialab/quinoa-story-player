@@ -35,8 +35,10 @@ const BlockAssetWrapper = ({
   const onExit = context.onExit;
   const inNote = context.inNote;
   if (asset && asset.resource.data && !inNote) {
-    const resource = asset.resource;
-    const assetType = asset.contextualizer.type;
+    const { resource, contextualizer } = asset;
+    // const resource = asset.resource;
+    // const contextualizer = asset.contextualizer;
+    const assetType = contextualizer.type;
 
     const buildInfo = () => {
       if (
@@ -79,6 +81,9 @@ const BlockAssetWrapper = ({
         <BlockAssetPlayer
           type={assetType}
           data={resource.data}
+          resource={resource}
+          contextualizer={contextualizer}
+          contextualization={contextualization}
           options={{
             template: 'scroller'
           }}

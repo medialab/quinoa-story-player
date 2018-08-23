@@ -23,7 +23,7 @@ const CitationContainer = ({
     if (citation) {
       const CitComponent = citation.Component;
       return (
-        <cite id={id}>
+        <cite className="quinoa-contextualization inline bib" id={id}>
           {CitComponent}
         </cite>
       );

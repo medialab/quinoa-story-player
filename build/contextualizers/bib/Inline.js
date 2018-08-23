@@ -25,7 +25,7 @@ var CitationContainer = function CitationContainer(_ref, context) {
       var CitComponent = citation.Component;
       return _react2.default.createElement(
         'cite',
-        { id: id },
+        { className: 'quinoa-contextualization inline bib', id: id },
         CitComponent
       );
     }
