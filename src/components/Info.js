@@ -9,14 +9,13 @@ const Info = ({
     <span
       className="info-pill"
       data-for="tooltip"
-      data-html={true}
+      data-html
       data-tip={message}
       data-effect={'float'}
-      data-place={place}
-    >
+      data-place={place}>
       i
     </span>
-  )
-}
+  );
+};
 
 export default Info;

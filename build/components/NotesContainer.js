@@ -85,7 +85,7 @@ var NotesContainer = function (_Component) {
         if (wantedHeight > y + prevHeight) {
           y = wantedHeight;
         } else {
-          y = y + prevHeight + 10;
+          y = y + prevHeight;
         }
         var noteItem = _this.notes[component.noteId];
         prevHeight = noteItem.component.offsetHeight;

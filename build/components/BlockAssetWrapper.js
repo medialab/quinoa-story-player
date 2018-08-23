@@ -16,6 +16,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _Info = require('./Info');
+
+var _Info2 = _interopRequireDefault(_Info);
+
 var _BlockAssetPlayer = require('./BlockAssetPlayer');
 
 var _BlockAssetPlayer2 = _interopRequireDefault(_BlockAssetPlayer);
@@ -41,6 +45,17 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
   if (asset && asset.resource.data && !inNote) {
     var resource = asset.resource;
     var assetType = asset.contextualizer.type;
+
+    var buildInfo = function buildInfo() {
+      if (!(resource.metadata.description && resource.metadata.description.length) || !(resource.metadata.source && resource.metadata.source.length)) {
+        return undefined;
+      }
+      var description = resource.metadata.description ? '\n        <div class="info-description">\n          ' + resource.metadata.description.replace('\n', '<br/>') + '\n        </div>\n      ' : '';
+      var source = resource.metadata.source ? '\n        <div class="info-source">\n          <i>Source: ' + resource.metadata.source + '</i>\n        </div>\n      ' : '';
+
+      return '\n      <div class="info-container">\n        ' + description + '\n        ' + source + '\n      </div>\n            ';
+    };
+    var info = buildInfo();
     return _react2.default.createElement(
       'figure',
       {
@@ -68,22 +83,8 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
           resource.metadata.title && _react2.default.createElement(
             'h4',
             { className: 'figure-caption-title' },
-            resource.metadata.title
-          ),
-          resource.metadata.description && _react2.default.createElement(
-            'p',
-            { className: 'figure-caption-description' },
-            resource.metadata.description
-          ),
-          resource.metadata.source && _react2.default.createElement(
-            'p',
-            { className: 'figure-caption-source' },
-            'Source: ',
-            _react2.default.createElement(
-              'i',
-              null,
-              resource.metadata.source
-            )
+            resource.metadata.title,
+            info && _react2.default.createElement(_Info2.default, { message: info })
           )
         )
       )

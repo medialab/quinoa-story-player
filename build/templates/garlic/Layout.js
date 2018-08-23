@@ -56,6 +56,10 @@ var _lodash = require('lodash');
 
 var _reactCiteproc = require('react-citeproc');
 
+var _reactTooltip = require('react-tooltip');
+
+var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
 var _Bibliography = require('../../components/Bibliography');
 
 var _Bibliography2 = _interopRequireDefault(_Bibliography);
@@ -325,7 +329,8 @@ var GarlicLayout = function (_Component) {
           'style',
           null,
           customCss
-        )
+        ),
+        _react2.default.createElement(_reactTooltip2.default, { id: 'tooltip' })
       );
     };
 

@@ -9,6 +9,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { SpringSystem, MathUtil } from 'rebound';
 import { debounce } from 'lodash';
 import { ReferencesManager } from 'react-citeproc';
+import Tooltip from 'react-tooltip';
 
 
 import Bibliography from '../../components/Bibliography';
@@ -560,6 +561,7 @@ class GarlicLayout extends Component {
         <style>
           {customCss}
         </style>
+        <Tooltip id="tooltip" />
       </ReferencesManager>
     );
   }

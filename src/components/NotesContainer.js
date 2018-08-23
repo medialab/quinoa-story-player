@@ -122,7 +122,7 @@ class NotesContainer extends Component {
         y = wantedHeight;
       }
       else {
-        y = y + prevHeight + 10;
+        y = y + prevHeight;
       }
       // update prevHeight with current component
       const noteItem = this.notes[component.noteId];

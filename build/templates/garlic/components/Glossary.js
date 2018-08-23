@@ -28,7 +28,12 @@ var Glossary = function Glossary(_ref) {
     _react2.default.createElement(
       'ul',
       { className: 'glossary-mentions-container' },
-      glossary.map(function (entry, index) {
+      glossary.sort(function (a, b) {
+        if (a.resource.data.name > b.resource.data.name) {
+          return 1;
+        }
+        return -1;
+      }).map(function (entry, index) {
         var entryName = entry.resource.data.name;
         return _react2.default.createElement(
           'li',
