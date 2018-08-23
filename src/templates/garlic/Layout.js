@@ -30,7 +30,8 @@ import { buildTOC, getOffset } from './utils';
 import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
 import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
 import locales from './locales.json';
-import './garlic.scss';
+// import './garlic.scss';
+import templateCss from '!raw-loader!sass-loader!./garlic.scss';
 
 /**
  * GarlicLayout class for building a story-player template react component instances
@@ -124,10 +125,10 @@ class GarlicLayout extends Component {
           glossary: buildGlossary(this.props.story),
           citations: buildCitations(this.props.story),
           coverImage: buildCoverImage(this.props.story),
-          locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales.en
+          locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales.en,
         });
         setTimeout(() => {
-          const toc = buildTOC(this.props.story, 0, this.state);
+          const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
           this.setState({ toc });
         });
       }
@@ -148,7 +149,7 @@ class GarlicLayout extends Component {
         locale: nextProps.locale && locales[nextProps.locale] ? locales[nextProps.locale] : locales.en
       });
       setTimeout(() => {
-        const toc = buildTOC(this.props.story, 0, this.state);
+        const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
         this.setState({ toc });
       });
     }
@@ -185,7 +186,7 @@ class GarlicLayout extends Component {
    * @param {string} id - the id of the item to scroll to
    */
   scrollToElementId (id) {
-    const title = document.getElementById(id);
+    const title = this.props.usedDocument.getElementById(id);
     if (title) {
       this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop - this.context.dimensions.height / 2);
     }
@@ -201,13 +202,14 @@ class GarlicLayout extends Component {
     }
     const scrollTop = evt.scrollTop;
     const headerHeight = this.header.offsetHeight || 20;
-    const presentationEls = document.getElementsByClassName('quinoa-presentation-player');
+    const presentationEls = this.props.usedDocument.getElementsByClassName('quinoa-presentation-player');
     const presentations = [];
     let fixedPresentationId;
     let fixedPresentationHeight;
     let stateChanges = {};
 
     const inCover = scrollTop < headerHeight;
+
 
     // check if we are in the cover of the story
     if (inCover && !this.state.inCover) {
@@ -271,7 +273,7 @@ class GarlicLayout extends Component {
     // at each update, we should split buildTOC in two functions
     // to handle the change of active element separately, for better performances)
     if (scrollTop !== this.state.scrollTop) {
-      const toc = buildTOC(this.props.story, scrollTop, this.state);
+      const toc = buildTOC(this.props.story, scrollTop, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
       stateChanges = {
         ...stateChanges,
         toc,
@@ -312,7 +314,7 @@ class GarlicLayout extends Component {
    */
   onNoteContentPointerClick(noteId) {
     const noteElId = 'note-block-pointer-' + noteId;
-    const el = document.getElementById(noteElId);
+    const el = this.props.usedDocument.getElementById(noteElId);
     const offset = getOffset(el);
     const top = offset.top - this.context.dimensions.height / 2;
     this.scrollTop(top);
@@ -324,7 +326,7 @@ class GarlicLayout extends Component {
    */
   onNotePointerClick = (note) => {
     const noteElId = 'note-content-pointer-' + note.id;
-    const el = document.getElementById(noteElId);
+    const el = this.props.usedDocument.getElementById(noteElId);
     const offset = getOffset(el);
     const top = offset.top - this.context.dimensions.height / 2;
     this.scrollTop(top);
@@ -375,7 +377,10 @@ class GarlicLayout extends Component {
           sectionsOrder,
           sections,
           settings = {},
-        }
+
+        },
+        usedDocument,
+        // usedWindow
       },
       state: {
         inCover,
@@ -493,6 +498,7 @@ class GarlicLayout extends Component {
                     <NotesContainer
                       id="notes"
                       notes={notes}
+                      usedDocument={usedDocument}
                       onNotePointerClick={this.onNotePointerClick}
                       title={capitalize(locale.notes || 'notes')}
                       notesPosition={notesPosition} />
@@ -559,6 +565,7 @@ class GarlicLayout extends Component {
 
         </section>
         <style>
+          {templateCss}
           {customCss}
         </style>
         <Tooltip id="tooltip" />

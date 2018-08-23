@@ -8,7 +8,9 @@ import {
  * @param {number} scrollTop - the position of the scroll to use for decidinng which TOC item is active
  * @return {array} tocElements - the toc elements to use for rendering the TOC
  */
-export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} }) => {
+export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} }, jsElements = {}) => {
+  const usedDocument = jsElements.usedDocument;
+  const usedWindow = jsElements.usedWindow;
   const toc = story.sectionsOrder
   .map((sectionId, sectionIndex) => {
     const section = story.sections[sectionId];
@@ -22,7 +24,7 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} })
     let sectionActive;
     let nextTitleOffsetTop;
     // title of the section
-    const title = document.getElementById(section.id);
+    const title = usedDocument.getElementById(section.id);
     if (!title) {
       return undefined;
     }
@@ -31,12 +33,12 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} })
     // to do that we need the offset of the next element
     if (sectionIndex < story.sectionsOrder.length - 1) {
       const next = story.sectionsOrder[sectionIndex + 1];
-      const nextTitle = document.getElementById(next);
+      const nextTitle = usedDocument.getElementById(next);
       if (nextTitle) {
         nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
       }
     }
-    if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
+    if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
         (nextTitleOffsetTop === undefined ||
           nextTitleOffsetTop >= scrollTop
         )
@@ -68,7 +70,7 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} })
     let notesActive;
     let nextTitleOffsetTop;
     // title of the section
-    const title = document.getElementById('notes');
+    const title = usedDocument.getElementById('notes');
 
     if (title) {
       // we will check if scroll is after glossary title
@@ -81,7 +83,7 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} })
         nextTitleId = 'glossary';
       }
       if (nextTitleId) {
-        const nextTitle = document.getElementById(nextTitleId);
+        const nextTitle = usedDocument.getElementById(nextTitleId);
         if (nextTitle) {
           nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
         }
@@ -107,11 +109,11 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} })
     let referencesActive;
     let nextTitleOffsetTop;
     // title of the section
-    const title = document.getElementById('references');
+    const title = usedDocument.getElementById('references');
     if (title) {
       // we will check if scroll is after glossary title
       const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-      const nextTitle = document.getElementById('glossary');
+      const nextTitle = usedDocument.getElementById('glossary');
       if (nextTitle) {
         nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
       }
@@ -135,11 +137,11 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} })
     let glossaryActive;
     let nextTitleOffsetTop;
     // title of the section
-    const title = document.getElementById('glossary');
+    const title = usedDocument.getElementById('glossary');
     if (title) {
       // we will check if scroll is after glossary title
       const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-      if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
+      if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
           (nextTitleOffsetTop === undefined ||
             nextTitleOffsetTop >= scrollTop
           )

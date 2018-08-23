@@ -97,7 +97,7 @@ class NotesContainer extends Component {
         return -1;
       })
       .map(note => {
-        const component = document.getElementById('note-content-pointer-' + note.id);
+        const component = this.props.usedDocument.getElementById('note-content-pointer-' + note.id);
         // const position = component.getBoundingClientRect();
         const position = getOffset(component);
         return {

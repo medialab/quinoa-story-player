@@ -96,7 +96,9 @@ class QuinoaStoryPlayer extends Component {
           return (
             <GarlicLayout
               locale={this.props.locale}
-              story={this.state.story} />
+              story={this.state.story}
+              usedDocument={this.props.usedDocument || document}
+              usedWindow={this.props.usedWindow || window} />
           );
         default:
           return null;
