@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
 import get from 'axios';
+// import tableStyles from '!raw-loader!sass-loader!react-table/react-table.css'
+// import tableStyles from '!raw-loader!sass-loader!react-table/react-table.css'
 
 export default class Table extends Component {
   static contextTypes = {
@@ -64,11 +66,13 @@ export default class Table extends Component {
         accessor: key
       }));
     }
-    return (<ReactTable
+    return [<ReactTable
+      key={1}
       className="quinoa-contextualization block table"
       data={data.json || this.state.data}
       columns={columns || this.state.columns}
-      loading={loading} />
-    );
+      loading={loading} />,
+      // <style key={2}>{tableStyles}</style>
+    ];
   }
 }
