@@ -100,11 +100,19 @@ var _locales = require('./locales.json');
 
 var _locales2 = _interopRequireDefault(_locales);
 
+var _reactTable = require('!raw-loader!sass-loader!react-table/react-table.css');
+
+var _reactTable2 = _interopRequireDefault(_reactTable);
+
 var _garlic = require('!raw-loader!sass-loader!./garlic.scss');
 
 var _garlic2 = _interopRequireDefault(_garlic);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var contextualizersStyles = [_reactTable2.default].join('\n\n');
+
+
 
 var GarlicLayout = function (_Component) {
   (0, _inherits3.default)(GarlicLayout, _Component);
@@ -333,6 +341,7 @@ var GarlicLayout = function (_Component) {
         _react2.default.createElement(
           'style',
           null,
+          contextualizersStyles,
           _garlic2.default,
           customCss
         ),
@@ -526,7 +535,6 @@ var GarlicLayout = function (_Component) {
   }]);
   return GarlicLayout;
 }(_react.Component);
-
 
 
 

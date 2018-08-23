@@ -30,7 +30,7 @@ import { buildTOC, getOffset } from './utils';
 import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
 import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
 import locales from './locales.json';
-import tableStyles from '!raw-loader!sass-loader!react-table/react-table.css'
+import tableStyles from '!raw-loader!sass-loader!react-table/react-table.css';
 
 // import './garlic.scss';
 import templateCss from '!raw-loader!sass-loader!./garlic.scss';

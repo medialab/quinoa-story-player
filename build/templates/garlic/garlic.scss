@@ -507,8 +507,11 @@ $timer-long: 1s;
         margin-right: $gutter-lateral-large-screens;
         margin-left: $gutter-lateral-large-screens;
         max-width: 100%;
-        height: 30rem;
-        max-height: 30rem;
+        .-pagination{
+           height: 5rem;
+        }
+        // height: 30rem;
+        // max-height: 30rem;
     }
     /*
      * References manager layout
@@ -609,7 +612,10 @@ $timer-long: 1s;
      */
     .note-content-pointer
     {
-        margin-left: $gutter-small;
+        margin-left: 0;//$gutter-small * .5;
+        position: relative;
+        top: -$gutter-small * .5;
+        transform: scale(0.8);
     }
     /**
      * Bottom elements layout
@@ -729,11 +735,12 @@ $timer-long: 1s;
     em,
     a{
         color: inherit;
+        word-break: break-all;
     }
     strong > em,
     em > strong{
         font-weight: 900;
-        font-variant: italic;
+        font-style: italic;
     }
 
     /**
@@ -1304,6 +1311,11 @@ $timer-long: 1s;
 
         background: white!important;
 
+        @page{
+            margin: 2cm;
+        }
+
+
         .section-header,
         .section-footer,
         .notes-container,
@@ -1377,16 +1389,31 @@ $timer-long: 1s;
             justify-content: stretch!important;
         }
 
-        p,
-        li,
-        blockquote
+        .note-content-pointer
+        {
+            width: auto;
+            height: auto;
+            font-size: $font-size-0;
+            margin: 0;
+        }
+
+        .content-p,
+        .content-li,
+        .content-blockquote
         {
             font-size: 10px!important;
             line-height: 15px!important;
 
             margin-bottom: 15px!important;
         }
-        blockquote
+        .note-item{
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .note-item .content-p{
+            margin-bottom: 0!important;
+        }
+        .content-blockquote
         {
             position: relative;
 

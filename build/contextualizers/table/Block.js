@@ -49,6 +49,7 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+
 var Table = (_temp = _class = function (_Component) {
   (0, _inherits3.default)(Table, _Component);
 
@@ -122,11 +123,12 @@ var Table = (_temp = _class = function (_Component) {
         };
       });
     }
-    return _react2.default.createElement(_reactTable2.default, {
+    return [_react2.default.createElement(_reactTable2.default, {
+      key: 1,
       className: 'quinoa-contextualization block table',
       data: data.json || _this2.state.data,
       columns: columns || _this2.state.columns,
-      loading: loading });
+      loading: loading })];
   };
 }, _temp);
 exports.default = Table;
