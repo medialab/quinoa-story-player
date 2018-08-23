@@ -22,26 +22,29 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
       glossary = _ref.glossary,
       _ref$locale = _ref.locale,
       locale = _ref$locale === undefined ? {} : _ref$locale;
+  var jsElements = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
+  var usedDocument = jsElements.usedDocument;
+  var usedWindow = jsElements.usedWindow;
   var toc = story.sectionsOrder.map(function (sectionId, sectionIndex) {
     var section = story.sections[sectionId];
     var sectionLevel = section.metadata.level + 1;
 
     var sectionActive = void 0;
     var nextTitleOffsetTop = void 0;
-    var title = document.getElementById(section.id);
+    var title = usedDocument.getElementById(section.id);
     if (!title) {
       return undefined;
     }
     var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
     if (sectionIndex < story.sectionsOrder.length - 1) {
       var next = story.sectionsOrder[sectionIndex + 1];
-      var nextTitle = document.getElementById(next);
+      var nextTitle = usedDocument.getElementById(next);
       if (nextTitle) {
         nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
       }
     }
-    if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
+    if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
       sectionActive = true;
     }
     var sectionHeader = {
@@ -68,7 +71,7 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
   if (notesPosition === 'foot' && hasNotes) {
     var notesActive = void 0;
     var nextTitleOffsetTop = void 0;
-    var title = document.getElementById('notes');
+    var title = usedDocument.getElementById('notes');
 
     if (title) {
       var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
@@ -79,7 +82,7 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
         nextTitleId = 'glossary';
       }
       if (nextTitleId) {
-        var nextTitle = document.getElementById(nextTitleId);
+        var nextTitle = usedDocument.getElementById(nextTitleId);
         if (nextTitle) {
           nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
         }
@@ -99,10 +102,10 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
   if (hasReferences) {
     var referencesActive = void 0;
     var _nextTitleOffsetTop = void 0;
-    var _title = document.getElementById('references');
+    var _title = usedDocument.getElementById('references');
     if (_title) {
       var _titleOffsetTop = _title.offsetTop + _title.offsetParent.offsetParent.offsetTop;
-      var _nextTitle = document.getElementById('glossary');
+      var _nextTitle = usedDocument.getElementById('glossary');
       if (_nextTitle) {
         _nextTitleOffsetTop = _nextTitle.offsetTop + _title.offsetParent.offsetParent.offsetTop;
       }
@@ -121,10 +124,10 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
   if (hasGlossary) {
     var glossaryActive = void 0;
     var _nextTitleOffsetTop2 = void 0;
-    var _title2 = document.getElementById('glossary');
+    var _title2 = usedDocument.getElementById('glossary');
     if (_title2) {
       var _titleOffsetTop2 = _title2.offsetTop + _title2.offsetParent.offsetParent.offsetTop;
-      if (_titleOffsetTop2 <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop2 === undefined || _nextTitleOffsetTop2 >= scrollTop)) {
+      if (_titleOffsetTop2 <= scrollTop + usedWindow.innerHeight / 2 && (_nextTitleOffsetTop2 === undefined || _nextTitleOffsetTop2 >= scrollTop)) {
         glossaryActive = true;
       }
       toc.push({

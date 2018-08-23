@@ -100,7 +100,9 @@ var _locales = require('./locales.json');
 
 var _locales2 = _interopRequireDefault(_locales);
 
-require('./garlic.scss');
+var _garlic = require('!raw-loader!sass-loader!./garlic.scss');
+
+var _garlic2 = _interopRequireDefault(_garlic);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -118,7 +120,7 @@ var GarlicLayout = function (_Component) {
       }
       var scrollTop = evt.scrollTop;
       var headerHeight = _this.header.offsetHeight || 20;
-      var presentationEls = document.getElementsByClassName('quinoa-presentation-player');
+      var presentationEls = _this.props.usedDocument.getElementsByClassName('quinoa-presentation-player');
       var presentations = [];
       var fixedPresentationId = void 0;
       var fixedPresentationHeight = void 0;
@@ -167,7 +169,7 @@ var GarlicLayout = function (_Component) {
         return;
       }
       if (scrollTop !== _this.state.scrollTop) {
-        var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop, _this.state);
+        var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop, _this.state, { usedDocument: _this.props.usedDocument, usedWindow: _this.props.usedWindow });
         stateChanges = (0, _extends5.default)({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
@@ -180,19 +182,21 @@ var GarlicLayout = function (_Component) {
 
     _this.onNotePointerClick = function (note) {
       var noteElId = 'note-content-pointer-' + note.id;
-      var el = document.getElementById(noteElId);
+      var el = _this.props.usedDocument.getElementById(noteElId);
       var offset = (0, _utils.getOffset)(el);
       var top = offset.top - _this.context.dimensions.height / 2;
       _this.scrollTop(top);
     };
 
     _this.render = function () {
-      var _this$props$story = _this.props.story,
+      var _this$props = _this.props,
+          _this$props$story = _this$props.story,
           metadata = _this$props$story.metadata,
           sectionsOrder = _this$props$story.sectionsOrder,
           sections = _this$props$story.sections,
           _this$props$story$set = _this$props$story.settings,
           settings = _this$props$story$set === undefined ? {} : _this$props$story$set,
+          usedDocument = _this$props.usedDocument,
           _this$state = _this.state,
           inCover = _this$state.inCover,
           toc = _this$state.toc,
@@ -288,6 +292,7 @@ var GarlicLayout = function (_Component) {
                 notes && notes.length ? _react2.default.createElement(_NotesContainer2.default, {
                   id: 'notes',
                   notes: notes,
+                  usedDocument: usedDocument,
                   onNotePointerClick: _this.onNotePointerClick,
                   title: (0, _misc.capitalize)(locale.notes || 'notes'),
                   notesPosition: notesPosition }) : null,
@@ -328,6 +333,7 @@ var GarlicLayout = function (_Component) {
         _react2.default.createElement(
           'style',
           null,
+          _garlic2.default,
           customCss
         ),
         _react2.default.createElement(_reactTooltip2.default, { id: 'tooltip' })
@@ -391,7 +397,7 @@ var GarlicLayout = function (_Component) {
             locale: _this2.props.locale && _locales2.default[_this2.props.locale] ? _locales2.default[_this2.props.locale] : _locales2.default.en
           });
           setTimeout(function () {
-            var toc = (0, _utils.buildTOC)(_this2.props.story, 0, _this2.state);
+            var toc = (0, _utils.buildTOC)(_this2.props.story, 0, _this2.state, { usedDocument: _this2.props.usedDocument, usedWindow: _this2.props.usedWindow });
             _this2.setState({ toc: toc });
           });
         }
@@ -411,7 +417,7 @@ var GarlicLayout = function (_Component) {
           locale: nextProps.locale && _locales2.default[nextProps.locale] ? _locales2.default[nextProps.locale] : _locales2.default.en
         });
         setTimeout(function () {
-          var toc = (0, _utils.buildTOC)(_this3.props.story, 0, _this3.state);
+          var toc = (0, _utils.buildTOC)(_this3.props.story, 0, _this3.state, { usedDocument: _this3.props.usedDocument, usedWindow: _this3.props.usedWindow });
           _this3.setState({ toc: toc });
         });
       }
@@ -443,7 +449,7 @@ var GarlicLayout = function (_Component) {
   }, {
     key: 'scrollToElementId',
     value: function scrollToElementId(id) {
-      var title = document.getElementById(id);
+      var title = this.props.usedDocument.getElementById(id);
       if (title) {
         this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop - this.context.dimensions.height / 2);
       }
@@ -478,7 +484,7 @@ var GarlicLayout = function (_Component) {
     key: 'onNoteContentPointerClick',
     value: function onNoteContentPointerClick(noteId) {
       var noteElId = 'note-block-pointer-' + noteId;
-      var el = document.getElementById(noteElId);
+      var el = this.props.usedDocument.getElementById(noteElId);
       var offset = (0, _utils.getOffset)(el);
       var top = offset.top - this.context.dimensions.height / 2;
       this.scrollTop(top);
@@ -520,6 +526,7 @@ var GarlicLayout = function (_Component) {
   }]);
   return GarlicLayout;
 }(_react.Component);
+
 
 
 

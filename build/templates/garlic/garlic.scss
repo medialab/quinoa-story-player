@@ -290,6 +290,7 @@ $timer-long: 1s;
 
         flex-flow: column nowrap;
         justify-content: stretch;
+        flex: 1;
     }
 
     
@@ -756,6 +757,13 @@ $timer-long: 1s;
         font-size: $font-size-1;
 
         border-left: 2px solid $color-strokes;
+    }
+    /**
+     * Content pre styling
+     */
+    .content-pre{
+        font-size: $font-size-1;
+        background: $color-secondary-background;
     }
     /**
      * Content paragraphs and list elements styling
@@ -1295,6 +1303,31 @@ $timer-long: 1s;
         padding: 0!important;
 
         background: white!important;
+
+        .section-header,
+        .section-footer,
+        .notes-container,
+        .references,
+        .glossary-container,
+        .content-h1,
+        .content-h2,
+        .content-h3,
+        .content-h4,
+        .content-h5,
+        .content-h6,
+        .content-paragraph,
+        .content-ul,
+        .content-ol,
+        .content-blockquote,
+        .content-pre,
+        .header-contents
+        {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .notes-container{
+            page-break-inside: avoid;
+        }
         .header-contents
         {
             padding-top: 4cm;/* todo wtf */

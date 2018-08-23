@@ -65,7 +65,7 @@ var NotesContainer = function (_Component) {
         }
         return -1;
       }).map(function (note) {
-        var component = document.getElementById('note-content-pointer-' + note.id);
+        var component = _this.props.usedDocument.getElementById('note-content-pointer-' + note.id);
         var position = getOffset(component);
         return {
           order: note.finalOrder,
