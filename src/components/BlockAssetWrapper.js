@@ -7,6 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Info from './Info';
 import BlockAssetPlayer from './BlockAssetPlayer';
 
 /**
@@ -36,6 +37,34 @@ const BlockAssetWrapper = ({
   if (asset && asset.resource.data && !inNote) {
     const resource = asset.resource;
     const assetType = asset.contextualizer.type;
+
+    const buildInfo = () => {
+      if (
+        !(resource.metadata.description && resource.metadata.description.length)
+        ||
+        !(resource.metadata.source && resource.metadata.source.length)
+      ) {
+        return undefined;
+      }
+      const description = resource.metadata.description ? `
+        <div class="info-description">
+          ${resource.metadata.description.replace('\n', '<br/>')}
+        </div>
+      ` : '';
+      const source = resource.metadata.source ? `
+        <div class="info-source">
+          <i>Source: ${resource.metadata.source}</i>
+        </div>
+      ` : '';
+
+      return `
+      <div class="info-container">
+        ${description}
+        ${source}
+      </div>
+            `;
+    };
+    const info = buildInfo();
     // todo: we could later on embed more data coming
     // from the contextualization (and not just the resource)
     // involved in displaying the embed
@@ -59,14 +88,14 @@ const BlockAssetWrapper = ({
         <figcaption className="figure-caption-container">
           <div className="figure-caption-content">
             {resource.metadata.title && <h4 className="figure-caption-title">
-              {resource.metadata.title}
+              {resource.metadata.title}{info && <Info message={info} />}
             </h4>}
-            {resource.metadata.description && <p className="figure-caption-description">
+            {/*{resource.metadata.description && <p className="figure-caption-description">
               {resource.metadata.description}
             </p>}
             {resource.metadata.source && <p className="figure-caption-source">
               Source: <i>{resource.metadata.source}</i>
-            </p>}
+            </p>}*/}
           </div>
         </figcaption>
       </figure>
