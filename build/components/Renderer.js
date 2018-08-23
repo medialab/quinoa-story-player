@@ -104,7 +104,7 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'div',
-          { className: 'content-paragraph', key: index },
+          { className: 'content-p', key: index },
           child
         );
       });

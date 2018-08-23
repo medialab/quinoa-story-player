@@ -156,7 +156,7 @@ $timer-long: 1s;
     .content-h4,
     .content-h5,
     .content-h6,
-    .content-paragraph,
+    .content-p,
     .content-ul,
     .content-ol,
     .content-blockquote,
@@ -384,7 +384,7 @@ $timer-long: 1s;
     /**
      * Content paragraph layout
      */
-    .content-paragraph:first-of-type
+    .content-p:first-of-type
     {
         margin-top: $gutter-medium;
         margin-bottom: 0;
@@ -582,7 +582,7 @@ $timer-long: 1s;
         .content-h4,
         .content-h5,
         .content-h6,
-        .content-paragraph,
+        .content-p,
         .content-ul,
         .content-ol,
         .content-blockquote,
@@ -675,7 +675,7 @@ $timer-long: 1s;
         .content-h4,
         .content-h5,
         .content-h6,
-        .content-paragraph,
+        .content-p,
         .content-ul,
         .content-ol,
         .content-blockquote,
@@ -768,7 +768,7 @@ $timer-long: 1s;
     /**
      * Content paragraphs and list elements styling
      */
-    .content-paragraph,
+    .content-p,
     .content-li
     {
         font-size: $font-size-1;
@@ -1119,7 +1119,7 @@ $timer-long: 1s;
         opacity: .8;
 
         list-style-type: none;
-        .content-paragraph,
+        .content-p,
         .content-ul,
         .content-ol
         {
@@ -1315,7 +1315,7 @@ $timer-long: 1s;
         .content-h4,
         .content-h5,
         .content-h6,
-        .content-paragraph,
+        .content-p,
         .content-ul,
         .content-ol,
         .content-blockquote,
