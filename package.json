@@ -1,6 +1,6 @@
 {
   "name": "quinoa-story-player",
-  "version": "0.2.33",
+  "version": "0.2.35",
   "description": "js module and standalone app for displaying quinoa data stories",
   "main": "build/index.js",
   "scripts": {
@@ -30,7 +30,6 @@
   "homepage": "https://github.com/medialab/quinoa-story-player#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "quinoa-presentation-player": "^0.2.3",
     "raw-loader": "^0.5.1",
     "react": "^16.2.0",
     "react-citeproc": "^0.1.0",
