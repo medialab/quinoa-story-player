@@ -2,6 +2,7 @@ import {
   capitalize
 } from '../../utils/misc';
 
+
 /**
  * Builds component-consumable table of contents data
  * @param {object} story - the story to process

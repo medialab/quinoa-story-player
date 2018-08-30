@@ -44,6 +44,10 @@ var _Link = require('./Link');
 
 var _Link2 = _interopRequireDefault(_Link);
 
+var _desantagleEntityRanges = require('../utils/desantagleEntityRanges');
+
+var _desantagleEntityRanges2 = _interopRequireDefault(_desantagleEntityRanges);
+
 var _BlockAssetWrapper = require('./BlockAssetWrapper');
 
 var _BlockAssetWrapper2 = _interopRequireDefault(_BlockAssetWrapper);
@@ -190,11 +194,15 @@ var renderers = {
           keys = _ref12.keys;
       return _react2.default.createElement(
         'ul',
-        { key: keys[keys.length - 1], className: 'content-ul ul-level-' + depth },
+        {
+          key: keys[keys.length - 1] + '-' + depth,
+          className: 'content-ul ul-level-' + depth },
         children.map(function (child, index) {
           return _react2.default.createElement(
             'li',
-            { className: 'content-li', key: index },
+            {
+              key: index + '-' + depth,
+              className: 'content-li' },
             child
           );
         })
@@ -246,7 +254,7 @@ var renderers = {
 
       return _react2.default.createElement(
         _InlineAssetWrapper2.default,
-        { data: data, key: key },
+        { data: data, key: key + '-' + data.asset.id },
         children
       );
     },
@@ -291,7 +299,11 @@ var Renderer = function (_Component) {
       if (!raw) {
         return this.renderWarning();
       }
-      var rendered = (0, _redraft2.default)(raw, renderers);
+      var safeRaw = raw;
+      if (raw) {
+        safeRaw = (0, _desantagleEntityRanges2.default)(raw);
+      }
+      var rendered = (0, _redraft2.default)(safeRaw, renderers);
       if (!rendered) {
         return this.renderWarning();
       }

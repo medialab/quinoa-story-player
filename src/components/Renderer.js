@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import redraft from 'redraft';
 import Link from './Link';
+import desantagleEntityRanges from '../utils/desantagleEntityRanges';
 
 import BlockAssetWrapper from './BlockAssetWrapper';
 import InlineAssetWrapper from './InlineAssetWrapper';
@@ -54,7 +55,18 @@ const renderers = {
     // You can also access the original keys of the blocks
     'code-block': (children, { keys }) => <pre className="content-pre" key={keys[0]} >{addBreaklines(children)}</pre>,
     // or depth for nested lists
-    'unordered-list-item': (children, { depth, keys }) => <ul key={keys[keys.length - 1]} className={`content-ul ul-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={index}>{child}</li>)}</ul>,
+    'unordered-list-item': (children, { depth, keys }) =>
+      (<ul
+        key={`${keys[keys.length - 1]}-${depth}`}
+        className={`content-ul ul-level-${depth}`}>
+        {children.map((child, index) =>
+          (<li
+            key={`${index}-${depth}`}
+            className="content-li">
+            {child}
+          </li>))
+          }
+      </ul>),
     'ordered-list-item': (children, { depth, keys }) => <ol key={keys.join('|')} className={`content-ol ol-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={keys[index]}>{child}</li>)}</ol>,
     'atomic': (children, { keys, data }) => children.map((child, i) => <div className="content-atomic-container" key={keys[i]} {...data[i]}>{child}</div>),
   },
@@ -69,7 +81,7 @@ const renderers = {
       return <BlockAssetWrapper key={key} data={data} />;
     },
     INLINE_ASSET: (children, data, { key }) => {
-      return <InlineAssetWrapper data={data} key={key}>{children}</InlineAssetWrapper>;
+      return <InlineAssetWrapper data={data} key={`${key}-${data.asset.id}`}>{children}</InlineAssetWrapper>;
     },
     NOTE_POINTER: (children, data, { key }) => {
       return <NotePointer key={key} children={children} noteId={data.noteId} />;
@@ -118,7 +130,15 @@ class Renderer extends Component {
     if (!raw) {
       return this.renderWarning();
     }
-    const rendered = redraft(raw, renderers);
+    let safeRaw = raw;
+    /**
+     * @todo investigate if this causes performance issues
+     * see if https://github.com/medialab/fonio/issues/210 could not be fixed upstream
+     */
+    if (raw) {
+      safeRaw = desantagleEntityRanges(raw);
+    }
+    const rendered = redraft(safeRaw, renderers);
     // redraft can return a null if there's nothing to render
     if (!rendered) {
       return this.renderWarning();
