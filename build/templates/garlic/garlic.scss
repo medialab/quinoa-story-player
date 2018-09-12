@@ -166,6 +166,52 @@ $timer-long: 1s;
         margin-bottom: $gutter-medium;
         margin-left: $gutter-lateral-large-screens;
     }
+
+    .content-ul.ul-level-1,
+    .content-ul.ul-level-2,
+    .content-ul.ul-level-3,
+    .content-ul.ul-level-4,
+    .content-ul.ul-level-5,
+    .content-ul.ul-level-6,
+    .content-ol.ol-level-1,
+    .content-ol.ol-level-2,
+    .content-ol.ol-level-3,
+    .content-ol.ol-level-4,
+    .content-ol.ol-level-5,
+    .content-ol.ol-level-6{
+        margin: 0;
+        padding: 0;
+    }
+    .content-ol.ol-level-1,
+    .content-ul.ul-level-1
+    {
+        padding-left: $gutter-small * 1;
+    }
+    .content-ol.ol-level-2,
+    .content-ul.ul-level-2
+    {
+        padding-left: $gutter-small * 2;
+    }
+    .content-ol.ol-level-3,
+    .content-ul.ul-level-3
+    {
+        padding-left: $gutter-small * 3;
+    }
+    .content-ol.ol-level-4,
+    .content-ul.ul-level-4
+    {
+        padding-left: $gutter-small * 4;
+    }
+    .content-ol.ol-level-5,
+    .content-ul.ul-level-5
+    {
+        padding-left: $gutter-small * 5;
+    }
+    .content-ol.ol-level-6,
+    .content-ul.ul-level-6
+    {
+        padding-left: $gutter-small * 6;
+    }
     /**
      * pre layout
      */
@@ -1308,6 +1354,10 @@ $timer-long: 1s;
 
         @page{
             margin: 2cm;
+        }
+
+        .__react_component_tooltip{
+            display: none;
         }
 
 
