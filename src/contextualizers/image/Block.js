@@ -15,7 +15,11 @@ const ImageBlock = ({
   else {
     src = data.base64 || data.src;
   }
-  return <img className="quinoa-contextualization block image content-image" src={src} />;
+  return (
+    <div className="quinoa-contextualization block image content-image">
+      <img src={src} />
+    </div>
+  );
 };
 
 ImageBlock.contextTypes = {

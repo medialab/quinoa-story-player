@@ -25,7 +25,11 @@ var ImageBlock = function ImageBlock(_ref, _ref2) {
   } else {
     src = data.base64 || data.src;
   }
-  return _react2.default.createElement('img', { className: 'quinoa-contextualization block image content-image', src: src });
+  return _react2.default.createElement(
+    'div',
+    { className: 'quinoa-contextualization block image content-image' },
+    _react2.default.createElement('img', { src: src })
+  );
 };
 
 ImageBlock.contextTypes = {
