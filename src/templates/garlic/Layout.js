@@ -296,7 +296,7 @@ class GarlicLayout extends Component {
    */
   scrollToContents () {
     if (this.header) {
-      this.scrollTop(this.header.offsetHeight);
+      this.scrollTop(this.header.offsetHeight + 10);
       this.setState({
         inCover: false,
       });

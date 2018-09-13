@@ -471,7 +471,7 @@ var GarlicLayout = function (_Component) {
 
     value: function scrollToContents() {
       if (this.header) {
-        this.scrollTop(this.header.offsetHeight);
+        this.scrollTop(this.header.offsetHeight + 10);
         this.setState({
           inCover: false
         });
