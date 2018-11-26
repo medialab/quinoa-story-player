@@ -1,0 +1,10 @@
+{
+  "id": "cinamon",
+  "name": "Cinamon",
+  "description": "Multi-pages representation",
+  "acceptsOptions" : [
+    "notesPosition",
+    "referenceTypes",
+    "referenceStatus"
+  ]
+}

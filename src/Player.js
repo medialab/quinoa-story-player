@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 
 import GarlicLayout from './templates/garlic/Layout';
+import CinamonLayout from './templates/cinamon/Layout';
 
 /**
  * QuinoaStoryPlayer class for building QuinoaStoryPlayer react component instances
@@ -97,6 +98,15 @@ class QuinoaStoryPlayer extends Component {
             <GarlicLayout
               locale={this.props.locale}
               story={this.state.story}
+              usedDocument={this.props.usedDocument || document}
+              usedWindow={this.props.usedWindow || window} />
+          );
+        case 'cinamon':
+          return (
+            <CinamonLayout
+              locale={this.props.locale}
+              story={this.state.story}
+              previewMode={this.props.previewMode || true}
               usedDocument={this.props.usedDocument || document}
               usedWindow={this.props.usedWindow || window} />
           );

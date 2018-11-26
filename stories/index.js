@@ -67,6 +67,20 @@ const withFootnotes = {
   }
 };
 
+storiesOf('Quinoa story - cinamon template', module)
+.add('Radical', () => (
+    <Player
+      story={{
+        ...radical,
+        settings: {
+          ...radical.settings,
+          template: 'cinamon'
+        }
+      }}
+
+    />
+  ))
+
 storiesOf('Quinoa story - garlic template', module)
   .add('Story with all plain styles', () => (
     <Player

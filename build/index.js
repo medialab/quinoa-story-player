@@ -11,7 +11,7 @@ var _Player2 = _interopRequireDefault(_Player);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var templateInfo = [require('./templates/garlic/info')];
+var templateInfo = [require('./templates/garlic/info'), require('./templates/cinamon/info')];
 var templates = exports.templates = templateInfo;
 
 exports.default = _Player2.default;

@@ -40,6 +40,10 @@ var _Layout = require('./templates/garlic/Layout');
 
 var _Layout2 = _interopRequireDefault(_Layout);
 
+var _Layout3 = require('./templates/cinamon/Layout');
+
+var _Layout4 = _interopRequireDefault(_Layout3);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var QuinoaStoryPlayer = function (_Component) {
@@ -106,6 +110,13 @@ var QuinoaStoryPlayer = function (_Component) {
             return _react2.default.createElement(_Layout2.default, {
               locale: this.props.locale,
               story: this.state.story,
+              usedDocument: this.props.usedDocument || document,
+              usedWindow: this.props.usedWindow || window });
+          case 'cinamon':
+            return _react2.default.createElement(_Layout4.default, {
+              locale: this.props.locale,
+              story: this.state.story,
+              previewMode: this.props.previewMode || true,
               usedDocument: this.props.usedDocument || document,
               usedWindow: this.props.usedWindow || window });
           default:
