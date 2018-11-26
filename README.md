@@ -19,7 +19,7 @@ npm run build # builds component to ./build dir
 npm run lint # lints code (auto fix on) according to linting settings in package.json
 npm run comb # prettifies scss code
 npm run test # run mocha testing on each *.spec.js files in ./src dir
-npm run storybook # starts a storybook instance to live test the component in several implementation scenarii (see ./stories folder)
+npm run dev # starts a storybook instance to live test the component in several implementation scenarii (see ./stories folder)
 npm run build-storybook # initializes storybook
 npm run git-add-build # adds build to the current git record
 ```
@@ -44,7 +44,7 @@ npm run build-storybook
 The project uses [storybook](https://storybook.js.org/) to visually test the possible implementations of the component.
 
 ```
-npm run storybook
+npm run dev
 ```
 
 # Module API
