@@ -111,7 +111,10 @@ class GarlicLayout extends Component {
       onNoteContentPointerClick: this.onNoteContentPointerClick,
       // callbacks when a glossary mention is clicked
       onGlossaryMentionClick: this.onGlossaryMentionClick,
-      locale: this.state.locale
+      locale: this.state.locale,
+
+      citationLocale: (this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data) || defaultCitationLocale,
+      citationStyle: (this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data) || defaultCitationStyle,
     };
   }
   /**
@@ -289,6 +292,7 @@ class GarlicLayout extends Component {
     if (Object.keys(stateChanges).length) {
       this.setState(stateChanges);
     }
+    Tooltip.rebuild();
   }
 
   /**
@@ -574,7 +578,7 @@ class GarlicLayout extends Component {
           {templateCss}
           {customCss}
         </style>
-        <Tooltip id="tooltip" />
+        <Tooltip id="tooltip" effect="solid" />
       </ReferencesManager>
     );
   }
@@ -622,6 +626,10 @@ GarlicLayout.childContextTypes = {
    onGlossaryMentionClick: PropTypes.func,
 
    locale: PropTypes.object,
+
+   citationStyle: PropTypes.string,
+
+   citationLocale: PropTypes.string,
 };
 
 

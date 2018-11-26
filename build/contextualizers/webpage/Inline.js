@@ -20,7 +20,10 @@ var Link = function Link(_ref) {
       target: "_blank",
       className: "quinoa-contextualization inline webpage content-a",
       alt: "href",
-      rel: "noopener" },
+      rel: "noopener",
+
+      "data-for": "tooltip",
+      "data-tip": resource.metadata.title + " (" + resource.data.url + ")" },
     children
   );
 }; 

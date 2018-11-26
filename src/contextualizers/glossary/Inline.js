@@ -5,10 +5,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactTooltip from 'react-tooltip';
 
-
-const WORDS_LIMIT = 30;
 
 /**
  * Renders a block asset wrapper as a pure component
@@ -32,21 +29,22 @@ const GlossaryMention = ({
       onClick();
     }
   };
-  let descriptionText = resource.metadata.description;
-  if (descriptionText && descriptionText.length && descriptionText.split(' ').length > WORDS_LIMIT) {
-    descriptionText = descriptionText.split(' ').slice(0, WORDS_LIMIT).join(' ') + '...';
-  }
-  return (<a
-    id={'glossary-mention-' + contextualization.id}
-    href={'#glossary-entry-' + resource.id}
-    onClick={handleClick}
-    className="quinoa-contextualization inline glossary glossary-mention">
-    <span className="link-content" data-tip={descriptionText}>{children}</span>
-    {
-      descriptionText
-      && descriptionText.length
-      && <ReactTooltip place="right" className="tooltip-content" />}
-  </a>);
+  // let descriptionText = resource.data.description;
+  // if (descriptionText && descriptionText.length && descriptionText.split(' ').length > WORDS_LIMIT) {
+  //   descriptionText = descriptionText.split(' ').slice(0, WORDS_LIMIT).join(' ') + '...';
+  // }
+
+  return (
+    <a
+      id={'glossary-mention-' + contextualization.id}
+      href={'#glossary-entry-' + resource.id}
+      onClick={handleClick}
+      className="quinoa-contextualization inline glossary glossary-mention"
+      data-for="tooltip"
+      data-tip={resource.data.description ? resource.data.description : undefined}>
+      <span className="link-content">{children}</span>
+    </a>
+  );
 };
 /**
  * Component's properties types

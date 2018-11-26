@@ -40,7 +40,7 @@ var InlineAssetWrapper = function InlineAssetWrapper(_ref, context) {
 
     switch (contextualizerType) {
       case 'bib':
-        return _react2.default.createElement(_bib.Inline, { data: data });
+        return _react2.default.createElement(_bib.Inline, { resource: resource, data: data });
       case 'glossary':
         var onGlossaryClick = function onGlossaryClick() {
           if (typeof context.onGlossaryMentionClick === 'function') {

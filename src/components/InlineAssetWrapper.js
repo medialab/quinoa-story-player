@@ -39,7 +39,7 @@ const InlineAssetWrapper = ({
 
     switch (contextualizerType) {
       case 'bib':
-        return <CitationContainer data={data} />;
+        return <CitationContainer resource={resource} data={data} />;
       case 'glossary':
         const onGlossaryClick = () => {
           if (typeof context.onGlossaryMentionClick === 'function') {

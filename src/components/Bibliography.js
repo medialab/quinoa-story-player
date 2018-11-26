@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
  */
 const BibliographyWrapper = ({
   id,
-  title
+  title,
 }, {
   bibliography,
 }) => {

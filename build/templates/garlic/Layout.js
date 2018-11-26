@@ -186,6 +186,7 @@ var GarlicLayout = function (_Component) {
       if ((0, _keys2.default)(stateChanges).length) {
         _this.setState(stateChanges);
       }
+      _reactTooltip2.default.rebuild();
     };
 
     _this.onNotePointerClick = function (note) {
@@ -345,7 +346,7 @@ var GarlicLayout = function (_Component) {
           _garlic2.default,
           customCss
         ),
-        _react2.default.createElement(_reactTooltip2.default, { id: 'tooltip' })
+        _react2.default.createElement(_reactTooltip2.default, { id: 'tooltip', effect: 'solid' })
       );
     };
 
@@ -385,7 +386,10 @@ var GarlicLayout = function (_Component) {
         onExit: this.onPresentationExit,
         onNoteContentPointerClick: this.onNoteContentPointerClick,
         onGlossaryMentionClick: this.onGlossaryMentionClick,
-        locale: this.state.locale
+        locale: this.state.locale,
+
+        citationLocale: this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data || _englishLocale2.default,
+        citationStyle: this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data || _apa2.default
       };
     }
 
@@ -551,7 +555,11 @@ GarlicLayout.childContextTypes = {
   onExit: _propTypes2.default.func,
   onGlossaryMentionClick: _propTypes2.default.func,
 
-  locale: _propTypes2.default.object
+  locale: _propTypes2.default.object,
+
+  citationStyle: _propTypes2.default.string,
+
+  citationLocale: _propTypes2.default.string
 };
 
 exports.default = GarlicLayout;
