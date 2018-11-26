@@ -10,6 +10,7 @@ import { SpringSystem, MathUtil } from 'rebound';
 import { debounce } from 'lodash';
 import { ReferencesManager } from 'react-citeproc';
 import Tooltip from 'react-tooltip';
+import { BrowserRouter, Route, Link } from "react-router-dom";
 
 
 import Bibliography from '../../components/Bibliography';
@@ -34,6 +35,37 @@ import tableStyles from '!raw-loader!sass-loader!react-table/react-table.css';
 
 // import './garlic.scss';
 import templateCss from '!raw-loader!sass-loader!./cinamon.scss';
+
+
+const RoutedLayout = ({
+
+}) => {
+  return (
+    <BrowserRouter>
+      <Route path="/" component={() => <div>home</div>} />
+      <Route path="/section/:id" component={() => <div>section</div>} />
+      <Route path="/references" component={() => <div>references</div>} />
+    </BrowserRouter>
+  )
+};
+
+class PreviewLayout extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentViewId: 'home',
+      currentViewParams: {}
+    }
+  }
+
+  render = () => {
+    return (
+      <div>
+        Preview
+      </div>
+    )
+  }
+}
 
 const contextualizersStyles = [
 tableStyles
@@ -375,6 +407,23 @@ class GarlicLayout extends Component {
    * @return {ReactElement} component - the component
    */
   render = () => {
+
+    const {
+      props: {
+        previewMode = true,
+        ...otherProps,
+      }
+    } = this;
+
+    const Layout = previewMode ? PreviewLayout : RoutedLayout;
+
+    return (
+      <div>
+        falut, fava ?
+        <Layout />
+      </div>
+    )
+
     const {
       props: {
         story: {
