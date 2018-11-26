@@ -1,0 +1,3399 @@
+﻿{
+    "type": "quinoa-story",
+    "metadata":
+    {
+        "title": "test",
+        "subtitle": "",
+        "authors": [],
+        "abstract": "",
+        "level": 0
+    },
+    "sections":
+    {
+        "227511d6-8ac0-47dc-ae67-010983659aea":
+        {
+            "metadata":
+            {
+                "title": "Introduction",
+                "authors": [],
+                "level": 0
+            },
+            "contents":
+            {
+                "blocks": [
+                {
+                    "key": "bf7j9",
+                    "text": "\n\n",
+                    "type": "unstyled",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "cgnss",
+                    "text": "accueil",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 7,
+                        "key": 0
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "4t5h6",
+                    "text": "numéro du mois",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 14,
+                        "key": 1
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "5s819",
+                    "text": "archives",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 8,
+                        "key": 2
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "f2jg",
+                    "text": "manière de voir",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 15,
+                        "key": 3
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "hi3r",
+                    "text": "blogs",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 5,
+                        "key": 4
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "di1g",
+                    "text": "cartes",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 6,
+                        "key": 5
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "4l9s3",
+                    "text": "publications",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 12,
+                        "key": 6
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "an2c0",
+                    "text": "à propos",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 8,
+                        "key": 7
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "er3lc",
+                    "text": "",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "eretc",
+                    "text": "←\n→\n>> Juin 2018, page 3",
+                    "type": "unstyled",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 1,
+                        "key": 8
+                    },
+                    {
+                        "offset": 2,
+                        "length": 1,
+                        "key": 9
+                    },
+                    {
+                        "offset": 4,
+                        "length": 1,
+                        "key": 10
+                    },
+                    {
+                        "offset": 5,
+                        "length": 19,
+                        "key": 11
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "hc91",
+                    "text": "L’écosocialisme, une idée qui vient de loin\nKarl Marx et l’exploitation de la nature\nPour certains, la crise écologique invaliderait les analyses de Karl Marx, coupable d’avoir délaissé la question environnementale. Le productivisme débridé des régimes se réclamant de lui a paru conforter cette critique. D’autres, tel l’intellectuel américain John Bellamy Foster, suggèrent au contraire que socialisme et écologie forment, chez lui, les deux volets d’un même projet.\npar John Bellamy Foster  \n\n\nMichaël Borremans. — « Red Hand, Green Hand » (Main rouge, main verte), 2010\nPhotographie : Peter Cox - Zeno X Gallery, AnversCes dernières années, l’influence croissante des questions écologiques s’est notamment manifestée par la relecture à travers le prisme de l’écologie de nombreux penseurs, de Platon à Mohandas Karamchand Gandhi. Mais, de tous, c’est sans aucun doute Karl Marx qui a suscité la littérature la plus abondante et la plus polémique. Anthony Giddens a ainsi affirmé que Marx, bien qu’il ait témoigné d’une sensibilité écologique particulièrement développée dans ses premiers écrits, avait ensuite adopté une « attitude prométhéenne » envers la nature (1). De la même manière, Michael Redclift remarque que, pour lui, l’environnement avait pour fonction de « rendre les choses possibles, mais toute valeur découlait de la force de travail (2)  ».Enfin, selon Alec Nove, Marx croyait que « le problème de la production avait été “résolu” par le capitalisme et que la future société des producteurs associés n’aurait donc pas à prendre au sérieux le problème de l’usage des ressources rares », ce qui signifie qu’il était inutile que le socialisme ait une quelconque « conscience écologique » (3). Ces critiques se justifient-elles ?\nAu cours des années 1830 à 1870, la diminution de la fertilité des sols par la perte de leurs nutriments constitua la préoccupation écologique majeure de la société capitaliste, tant en Europe qu’en Amérique du Nord. L’inquiétude suscitée par ce problème ne pouvait être comparée qu’à celle provoquée par la pollution croissante des villes, la déforestation de continents entiers et les craintes malthusiennes de la surpopulation. Dans les années 1820 et 1830, au Royaume-Uni, et peu après dans les autres économies capitalistes en expansion de l’Europe et de l’Amérique du Nord, l’inquiétude générale concernant l’épuisement des sols conduisit à une augmentation phénoménale de la demande d’engrais. Le premier bateau chargé de guano péruvien débarqua à Liverpool en 1835 ; en 1841, c’étaient 1 700 tonnes qui étaient importées et, en 1847, 220 000. Au cours de cette période, les agriculteurs retournèrent les champs de bataille napoléoniens, comme ceux de Waterloo et d’Austerlitz, dans une quête désespérée d’ossements à répandre sur leurs champs.\n[S’intéressant aux États-Unis, le chimiste allemand] Justus von Liebig remarquait qu’il pouvait y avoir des centaines, voire des milliers, de kilomètres entre les centres de production de céréales et leurs marchés. Les éléments constitutifs de l’humus étaient donc envoyés très loin de leur lieu d’origine, rendant d’autant plus difficile la reproduction de la fertilité des sols.\nEmpester la Tamise\nLoin d’être aveugle à l’écologie, Marx devait, sous l’influence des travaux de Liebig de la fin des années 1850 et du début des années 1860, développer à propos de la terre une critique systématique de l’« exploitation » capitaliste, au sens du vol de ses nutriments ou de l’incapacité à assurer sa régénération. Marx concluait ses deux principales analyses de l’agriculture capitaliste par une explication de la façon dont l’industrie et l’agriculture à grande échelle se combinaient pour appauvrir les sols et les travailleurs. L’essentiel de la critique qui en découle est résumé dans un passage situé à la fin du traitement de « La genèse de la rente foncière capitaliste », dans le troisième livre du Capital : « La grande propriété foncière réduit la population agricole à un minimum, à un chiffre qui baisse constamment en face d’une population industrielle concentrée dans les grandes villes et qui s’accroît sans cesse ; elle crée ainsi des conditions qui provoquent un hiatus irrémédiable dans l’équilibre complexe du métabolisme social composé par les lois naturelles de la vie ; il s’ensuit un gaspillage des forces du sol, gaspillage que le commerce transfère bien au-delà des frontières du pays considéré. (…) La grande industrie et la grande agriculture exploitée industriellement agissent dans le même sens. Si, à l’origine, elles se distinguent parce que la première ravage et ruine davantage la force de travail, donc la force naturelle de l’homme, l’autre plus directement la force naturelle de la terre, elles finissent, en se développant, par se donner la main : le système industriel à la campagne finissant aussi par débiliter les ouvriers, et l’industrie et le commerce, de leur côté, fournissant à l’agriculture les moyens d’exploiter la terre. »\nLa clé de toute l’approche théorique de Marx dans ce domaine est le concept de métabolisme (Stoffwechsel) socio-écologique, lequel est ancré dans sa compréhension du procès de travail. Dans sa définition générique du procès de travail (par opposition à ses manifestations historiques spécifiques), Marx a utilisé le concept de métabolisme pour décrire la relation de l’être humain à la nature à travers le travail : « Le travail est d’abord un procès qui se passe entre l’homme et la nature, un procès dans lequel l’homme règle et contrôle son métabolisme avec la nature par la médiation de sa propre action. Il se présente face à la matière naturelle comme une puissance naturelle lui-même. Il met en mouvement les forces naturelles de sa personne physique, ses bras et ses jambes, sa tête et ses mains, pour s’approprier la matière naturelle sous une forme utile à sa propre vie. Mais, en agissant sur la nature extérieure et en la modifiant par ce mouvement, il modifie aussi sa propre nature. (…) Le procès de travail (…) est la condition naturelle éternelle de la vie des hommes (4).  »\nPour lui comme pour Liebig, l’incapacité à restituer au sol ses nutriments trouvait sa contrepartie dans la pollution des villes et l’irrationalité des systèmes d’égouts modernes. Dans Le Capital, il a cette remarque : « À Londres, par exemple, on n’a trouvé rien de mieux à faire de l’engrais provenant de quatre millions et demi d’hommes que de s’en servir pour empester, à frais énormes, la Tamise. » Selon lui, les « résidus résultant des échanges physiologiques naturels de l’homme » devaient, aussi bien que les déchets de la production industrielle et de la consommation, être réintroduits dans le cycle de la production, au sein d’un cycle métabolique complet (5). L’antagonisme entre la ville et la campagne, et la rupture métabolique qu’il entraînait étaient également évidents au niveau mondial : des colonies entières voyaient leurs terres, leurs ressources et leur sol volés pour soutenir l’industrialisation des pays colonisateurs. « Depuis un siècle et demi,écrivait Marx, l’Angleterre a indirectement exporté le sol irlandais, sans même accorder à ceux qui le cultivent les moyens de remplacer les composantes du sol (6).  »\nLes considérations de Marx sur l’agriculture capitaliste et la nécessité de restituer au sol ses nutriments (et notamment les déchets organiques des villes) le conduisirent ainsi à une idée plus générale de durabilité écologique — idée dont il pensait qu’elle ne pouvait avoir qu’une pertinence pratique très limitée dans une société capitaliste, par définition incapable d’une telle action rationnelle et cohérente, mais idée au contraire essentielle à une société future de producteurs associés. « Le fait, pour la culture des divers produits du sol, de dépendre des fluctuations des prix du marché, qui entraînent un perpétuel changement de ces cultures, l’esprit même de la production capitaliste, axé sur le profit le plus immédiat, sont en contradiction avec l’agriculture, qui doit mener sa production en tenant compte de l’ensemble des conditions d’existence permanentes des générations humaines qui se succèdent. »\nEn soulignant la nécessité de préserver la terre pour « les générations suivantes », Marx saisissait l’essence de l’idée contemporaine de développement durable, dont la définition la plus célèbre a été donnée par le rapport Brundtland : « Un développement qui répond aux besoins du présent sans compromettre la capacité des générations futures à satisfaire leurs propres besoins (7).  » Pour lui, il est nécessaire que la terre soit « consciemment et rationnellement traitée comme la propriété perpétuelle de la collectivité, la condition inaliénable d’existence et de reproduction de la série des générations successives ». Ainsi, dans un passage fameux du Capital, il écrivait que, « du point de vue d’une organisation économique supérieure de la société, le droit de propriété de certains individus sur des parties du globe paraîtra tout aussi absurde que le droit de propriété d’un individu sur son prochain ».\nOn reproche aussi souvent à Marx d’avoir été aveugle au rôle de la nature dans la création de la valeur : il aurait développé une théorie selon laquelle toute valeur découlerait du travail, la nature étant considérée comme un « don » fait au capital. Mais cette critique repose sur un contresens. Marx n’a pas inventé l’idée que la terre serait un « cadeau » de la nature au capital. C’est Thomas Malthus et David Ricardo qui ont avancé cette idée, l’une des thèses centrales de leurs ouvrages économiques. Marx avait conscience des contradictions socio-écologiques inhérentes à de telles conceptions et, dans son Manuscrit économique de 1861-1863, il reproche à Malthus de tomber de façon récurrente dans l’idée « physiocratique » selon laquelle l’environnement est « un don de la nature à l’homme », sans prise en considération de la manière dont cela était lié à l’ensemble spécifique de relations sociales mis en place par le capital.\nCertes, Marx s’accordait avec les économistes libéraux pour dire que, selon la loi de la valeur du capitalisme, aucune valeur n’est reconnue à la nature. Comme dans le cas de toute marchandise dans le capitalisme, la valeur du blé découle du travail nécessaire pour le produire. Mais, pour lui, cela ne faisait que refléter la conception étroite et limitée de la richesse inhérente aux relations marchandes capitalistes, dans un système construit autour de la valeur d’échange. La véritable richesse consistait en valeurs d’usage — qui caractérisent la production en général, au-delà de sa forme capitaliste. Par conséquent, la nature, qui contribuait à la production de valeurs d’usage, était autant une source de richesse que le travail. Dans sa Critique du programme de Gotha, Marx tance les socialistes qui attribuent ce qu’il appelle une « puissance de création surnaturelle » au travail en le considérant comme la seule source de richesse et en ne prenant pas en compte le rôle de la nature.\nJohn Bellamy Foster\nRédacteur en chef de la Monthly Review, New York. Ce texte est extrait de Marx écologiste, Éditions Amsterdam, Paris, 2011.\n(1) Anthony Giddens, A Contemporary Critique of Historical Materialism, University of California Press, Berkeley, 1981.\n(2) Michael Redclift, Development and the Environmental Crisis : Red or Green Alternatives ?, Methuen, Londres, 1984.\n(3) Alec Nove, « Socialism », dans John Eatwell, Murray Milgate et Peter Newman (sous la dir. de), The New Palgrave : A Dictionary of Economics, vol. 4, Stockton, New York, 1987.\n(4) Karl Marx, Le Capital, livre I, Éditions sociales, Paris, 1978.\n(5) Karl Marx, Le Capital, livre III, Éditions sociales, 1978.\n(6) Karl Marx, Le Capital, livre I, op. cit.\n(7) « Notre avenir à tous », rapport rédigé en 1987 par la Commission mondiale sur l’environnement et le développement de l’Organisation des Nations unies sous la direction de la première ministre norvégienne Gro Harlem Brundtland [note de la rédaction].\n\nen perspective\n",
+                    "type": "unstyled",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                    {
+                        "offset": 1125,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1127,
+                        "length": 21,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1149,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1273,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1275,
+                        "length": 79,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1360,
+                        "length": 2,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1403,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1405,
+                        "length": 199,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1605,
+                        "length": 2,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1681,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1683,
+                        "length": 21,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 1705,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 2800,
+                        "length": 52,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 3404,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 3406,
+                        "length": 12,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 3419,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 3906,
+                        "length": 7,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 3916,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 3918,
+                        "length": 209,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 4128,
+                        "length": 160,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 4289,
+                        "length": 130,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 4424,
+                        "length": 545,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 4970,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 5063,
+                        "length": 14,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 5388,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 5390,
+                        "length": 578,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 5973,
+                        "length": 20,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 5998,
+                        "length": 57,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 6062,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 6249,
+                        "length": 11,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 6283,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 6285,
+                        "length": 180,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 6466,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 6483,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 6485,
+                        "length": 65,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 6551,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 7010,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 7012,
+                        "length": 25,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 7052,
+                        "length": 144,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 7203,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 7703,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 7705,
+                        "length": 421,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8127,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8183,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8185,
+                        "length": 25,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8211,
+                        "length": 2,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8366,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8368,
+                        "length": 139,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8514,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8562,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8564,
+                        "length": 186,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8751,
+                        "length": 2,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8787,
+                        "length": 8,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8813,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 8815,
+                        "length": 225,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9041,
+                        "length": 2,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9270,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9272,
+                        "length": 3,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9276,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9392,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9394,
+                        "length": 6,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9401,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9658,
+                        "length": 34,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9757,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9759,
+                        "length": 14,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9774,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9811,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9813,
+                        "length": 29,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 9843,
+                        "length": 2,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 10731,
+                        "length": 31,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 10826,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 10828,
+                        "length": 34,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 10863,
+                        "length": 1,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11025,
+                        "length": 15,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11075,
+                        "length": 16,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11146,
+                        "length": 50,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11267,
+                        "length": 68,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11336,
+                        "length": 2,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11462,
+                        "length": 45,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11557,
+                        "length": 11,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11625,
+                        "length": 11,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11688,
+                        "length": 11,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11709,
+                        "length": 8,
+                        "style": "ITALIC"
+                    },
+                    {
+                        "offset": 11949,
+                        "length": 23,
+                        "style": "ITALIC"
+                    }],
+                    "entityRanges": [
+                    {
+                        "offset": 493,
+                        "length": 1,
+                        "key": 12
+                    },
+                    {
+                        "offset": 1169,
+                        "length": 1,
+                        "key": 13
+                    },
+                    {
+                        "offset": 1356,
+                        "length": 1,
+                        "key": 14
+                    },
+                    {
+                        "offset": 1708,
+                        "length": 1,
+                        "key": 15
+                    },
+                    {
+                        "offset": 6057,
+                        "length": 1,
+                        "key": 16
+                    },
+                    {
+                        "offset": 6733,
+                        "length": 1,
+                        "key": 17
+                    },
+                    {
+                        "offset": 7198,
+                        "length": 1,
+                        "key": 18
+                    },
+                    {
+                        "offset": 8509,
+                        "length": 1,
+                        "key": 19
+                    },
+                    {
+                        "offset": 11126,
+                        "length": 1,
+                        "key": 20
+                    },
+                    {
+                        "offset": 11246,
+                        "length": 1,
+                        "key": 21
+                    },
+                    {
+                        "offset": 11364,
+                        "length": 1,
+                        "key": 22
+                    },
+                    {
+                        "offset": 11543,
+                        "length": 1,
+                        "key": 23
+                    },
+                    {
+                        "offset": 11611,
+                        "length": 1,
+                        "key": 24
+                    },
+                    {
+                        "offset": 11674,
+                        "length": 1,
+                        "key": 25
+                    },
+                    {
+                        "offset": 11719,
+                        "length": 1,
+                        "key": 26
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "16at9",
+                    "text": "Repeindre le capitalisme en vert\nAurélien Bernier, septembre 2016\nVitalité du marché des éoliennes, diffusion des démarches « éco-responsables », multiplication des labels « bio »… tout indique que les entreprises pourraient devenir les meilleures amies de l’écologie. Pourtant, la (...) →",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 32,
+                        "key": 27
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "c65in",
+                    "text": "Murray Bookchin, écologie ou barbarie\nBenjamin Fernandez, juillet 2016\nÀ la mort de Murray Bookchin, en 2006, le Parti des travailleurs du Kurdistan (PKK) a promis de fonder la première société qui établirait un confédéralisme démocratique inspiré des réflexions du théoricien de l’écologie sociale et du municipalisme libertaire. Une reconnaissance tardive pour ce militant américain auteur d’un projet égalitaire et humaniste. →",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 37,
+                        "key": 28
+                    },
+                    {
+                        "offset": 38,
+                        "length": 32,
+                        "key": 28
+                    },
+                    {
+                        "offset": 71,
+                        "length": 359,
+                        "key": 28
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "avhhi",
+                    "text": "Créer de la richesse, pas de la valeur\nJean-Marie Harribey, décembre 2013\nD’où vient cette pratique consistant à attribuer à la nature une valeur économique fondée sur l’utilisation de ses bienfaits par l’homme ? →",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 38,
+                        "key": 29
+                    },
+                    {
+                        "offset": 39,
+                        "length": 34,
+                        "key": 29
+                    },
+                    {
+                        "offset": 74,
+                        "length": 140,
+                        "key": 29
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "3ma4p",
+                    "text": "\nIdées Marxisme Écologie Pollution Économie Capitalisme LibéralismeEnvironnement\n\n partager cet article /\n sur Facebook sur Twitter sur Zinc\n\n\njuin 2018, page 3\nDossier population : bouleversement démographique en Europe ; le diktat iraniende Donald Trump ; Karl Marx et l’exploitation de la nature ; les paysans mozambicains font reculer l’agro-industrie ; en Corée, la politique du rayon de soleil ; une libération très calculée pour les Saoudiennes ; comment papa m’a fait entrer à Harvard ; au Mexique, la tentation de l’espoir ; le second printemps arménien ; vaine réforme policière à Kiev ; bataille pour la paix au Pays basque ; le terroir ne ment pas ; François Ruffin : déjouer la résignation, retour sur une victoireélectorale ; pour les socialistes en déroute, l’échec, c’est les autres... Bonne sieste à la bibliothèque ; grèves en chaîne (…)←\nArticle précédent\n« Précision », page 223\n→\nArticle suivant\n« Les paysans mozambicains font reculer l’agro-industrie », pages 4 et 5\nà la « une »\n",
+                    "type": "unstyled",
+                    "depth": 0,
+                    "inlineStyleRanges": [
+                    {
+                        "offset": 143,
+                        "length": 4,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 161,
+                        "length": 20,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 214,
+                        "length": 6,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 226,
+                        "length": 14,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 292,
+                        "length": 6,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 305,
+                        "length": 20,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 361,
+                        "length": 5,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 440,
+                        "length": 11,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 485,
+                        "length": 7,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 498,
+                        "length": 7,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 544,
+                        "length": 18,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 591,
+                        "length": 4,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 623,
+                        "length": 11,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 640,
+                        "length": 7,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 719,
+                        "length": 8,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 749,
+                        "length": 11,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 820,
+                        "length": 12,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 845,
+                        "length": 6,
+                        "style": "BOLD"
+                    }],
+                    "entityRanges": [
+                    {
+                        "offset": 1,
+                        "length": 5,
+                        "key": 30
+                    },
+                    {
+                        "offset": 7,
+                        "length": 8,
+                        "key": 31
+                    },
+                    {
+                        "offset": 16,
+                        "length": 8,
+                        "key": 32
+                    },
+                    {
+                        "offset": 25,
+                        "length": 9,
+                        "key": 33
+                    },
+                    {
+                        "offset": 35,
+                        "length": 8,
+                        "key": 34
+                    },
+                    {
+                        "offset": 44,
+                        "length": 11,
+                        "key": 35
+                    },
+                    {
+                        "offset": 56,
+                        "length": 11,
+                        "key": 36
+                    },
+                    {
+                        "offset": 67,
+                        "length": 13,
+                        "key": 37
+                    },
+                    {
+                        "offset": 107,
+                        "length": 12,
+                        "key": 38
+                    },
+                    {
+                        "offset": 120,
+                        "length": 11,
+                        "key": 39
+                    },
+                    {
+                        "offset": 132,
+                        "length": 8,
+                        "key": 40
+                    },
+                    {
+                        "offset": 143,
+                        "length": 17,
+                        "key": 41
+                    },
+                    {
+                        "offset": 161,
+                        "length": 694,
+                        "key": 41
+                    },
+                    {
+                        "offset": 855,
+                        "length": 1,
+                        "key": 42
+                    },
+                    {
+                        "offset": 857,
+                        "length": 17,
+                        "key": 42
+                    },
+                    {
+                        "offset": 875,
+                        "length": 21,
+                        "key": 42
+                    },
+                    {
+                        "offset": 896,
+                        "length": 1,
+                        "key": 43
+                    },
+                    {
+                        "offset": 897,
+                        "length": 1,
+                        "key": 44
+                    },
+                    {
+                        "offset": 899,
+                        "length": 1,
+                        "key": 45
+                    },
+                    {
+                        "offset": 901,
+                        "length": 15,
+                        "key": 45
+                    },
+                    {
+                        "offset": 917,
+                        "length": 72,
+                        "key": 45
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "fsccq",
+                    "text": "",
+                    "type": "unordered-list-item",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "9eveq",
+                    "text": "",
+                    "type": "unordered-list-item",
+                    "depth": 1,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "3hrh9",
+                    "text": "",
+                    "type": "unordered-list-item",
+                    "depth": 2,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "ada5a",
+                    "text": "\nLibéraux contre populistes, un clivage trompeur\nSerge Halimi & Pierre Rimbert, septembre 2018  \nLongtemps perçues comme la forme ultime de gouvernement, les démocraties libérales sont sur la défensive. Face aux « élites » urbaines, les droites nationalistes mènent une contre-révolution culturelle sur le terrain de l’immigration et des valeurs traditionnelles. Mais elles poursuivent le même projet économique que leurs rivales. La médiatisation à outrance de ce clivage vise à contraindre les populations à choisir l’un de ces deux maux. →",
+                    "type": "unordered-list-item",
+                    "depth": 3,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 1,
+                        "length": 47,
+                        "key": 46
+                    },
+                    {
+                        "offset": 49,
+                        "length": 47,
+                        "key": 46
+                    },
+                    {
+                        "offset": 97,
+                        "length": 445,
+                        "key": 46
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "8j53i",
+                    "text": "",
+                    "type": "unstyled",
+                    "depth": 3,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "71d0j",
+                    "text": "",
+                    "type": "unordered-list-item",
+                    "depth": 2,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "93jf2",
+                    "text": "Saumon, du mets de luxe au fléau écologique\nCédric Gouverneur, septembre 2018 ",
+                    "type": "unordered-list-item",
+                    "depth": 3,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 43,
+                        "key": 47
+                    },
+                    {
+                        "offset": 44,
+                        "length": 34,
+                        "key": 47
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "7jo70",
+                    "text": "Pékin et Moscou, complices mais pas alliés\nIsabelle Facon, août 2018",
+                    "type": "unordered-list-item",
+                    "depth": 3,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 42,
+                        "key": 48
+                    },
+                    {
+                        "offset": 43,
+                        "length": 25,
+                        "key": 48
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "dcrk4",
+                    "text": "Karl Marx et l’exploitation de la nature\nJohn Bellamy Foster, juin 2018",
+                    "type": "unordered-list-item",
+                    "depth": 3,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [
+                    {
+                        "offset": 0,
+                        "length": 40,
+                        "key": 49
+                    },
+                    {
+                        "offset": 41,
+                        "length": 30,
+                        "key": 49
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "f45it",
+                    "text": "",
+                    "type": "unstyled",
+                    "depth": 3,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "8pk33",
+                    "text": "",
+                    "type": "unordered-list-item",
+                    "depth": 2,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "1fo4b",
+                    "text": "",
+                    "type": "unstyled",
+                    "depth": 2,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "2r1r1",
+                    "text": "",
+                    "type": "unordered-list-item",
+                    "depth": 1,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "6cfs2",
+                    "text": "\nLibéraux contre populistes, un clivage trompeur ; lobby israélien aux États-Unis, le documentaire interdit ; quand la Russie rêvait d’Europe ; où est née la mondialisation ? En Colombie, la paix « réduite en miettes » ? ; Israëldevient une « ethnocratie » ; le nouveau champion des militaires pakis",
+                    "type": "unordered-list-item",
+                    "depth": 2,
+                    "inlineStyleRanges": [
+                    {
+                        "offset": 32,
+                        "length": 16,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 86,
+                        "length": 21,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 119,
+                        "length": 6,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 158,
+                        "length": 14,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 178,
+                        "length": 8,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 223,
+                        "length": 6,
+                        "style": "BOLD"
+                    },
+                    {
+                        "offset": 283,
+                        "length": 16,
+                        "style": "BOLD"
+                    }],
+                    "entityRanges": [
+                    {
+                        "offset": 1,
+                        "length": 298,
+                        "key": 50
+                    }],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "1vnio",
+                    "text": "",
+                    "type": "unstyled",
+                    "depth": 2,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "4jeut",
+                    "text": "",
+                    "type": "unstyled",
+                    "depth": 1,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                },
+                {
+                    "key": "64bk2",
+                    "text": "",
+                    "type": "unstyled",
+                    "depth": 0,
+                    "inlineStyleRanges": [],
+                    "entityRanges": [],
+                    "data":
+                    {}
+                }],
+                "entityMap":
+                {
+                    "0":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "116ed996-b448-4b58-b3fc-8117a9924d67"
+                            }
+                        }
+                    },
+                    "1":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "d8d47568-89e4-4163-b91a-8d8614d03c40"
+                            }
+                        }
+                    },
+                    "2":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "5fad6746-01a7-4c59-aeb4-a8f394d42da0"
+                            }
+                        }
+                    },
+                    "3":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "d66873f4-a600-4d5d-bfb1-02e58afc5bfc"
+                            }
+                        }
+                    },
+                    "4":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "3d789eec-5398-40fd-954f-2f707b778601"
+                            }
+                        }
+                    },
+                    "5":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "d83967bb-1823-44c6-8895-c955df6594ac"
+                            }
+                        }
+                    },
+                    "6":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "f376a90f-ca99-4ed5-9ed7-0c52c461d70a"
+                            }
+                        }
+                    },
+                    "7":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "8ba5566d-d412-4e64-96c1-0e0d955b6286"
+                            }
+                        }
+                    },
+                    "8":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "d1e4c28c-468a-43dc-95eb-b513a301ecf9"
+                            }
+                        }
+                    },
+                    "9":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "8c830acd-9307-4d4d-a3cf-934a6741465a"
+                            }
+                        }
+                    },
+                    "10":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "9db79b1f-14ab-4b13-88a9-5efec763b95e"
+                            }
+                        }
+                    },
+                    "11":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "34751baf-b965-49ec-92e0-f27f49ecd622"
+                            }
+                        }
+                    },
+                    "12":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "c1bedf0e-71b9-403c-8deb-5950f35f17fe"
+                            }
+                        }
+                    },
+                    "13":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "024dc048-e87f-4ba0-8421-5c0ab22fa970"
+                            }
+                        }
+                    },
+                    "14":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "5ce11800-bac9-405f-9539-08df61273bbc"
+                            }
+                        }
+                    },
+                    "15":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "456db0b2-ea5a-4b5b-8257-f31f050a0dea"
+                            }
+                        }
+                    },
+                    "16":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "a0116268-6c8f-4796-9b8c-1f3571bd71c2"
+                            }
+                        }
+                    },
+                    "17":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "ba402ab8-a4e4-47d5-a127-2ea608ee5a74"
+                            }
+                        }
+                    },
+                    "18":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "fa231c99-144b-4703-b253-22813ea00089"
+                            }
+                        }
+                    },
+                    "19":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "548f3fce-d7bd-4dea-84a7-c8123568f1d4"
+                            }
+                        }
+                    },
+                    "20":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "adf765d6-5ade-4588-b6f5-6e229fff1d2f"
+                            }
+                        }
+                    },
+                    "21":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "88700726-d4c4-4de4-be9c-cf84095774f7"
+                            }
+                        }
+                    },
+                    "22":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "7ab66718-97df-48dc-9f76-7f3bbe3f5020"
+                            }
+                        }
+                    },
+                    "23":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "b9eab796-76d2-4464-bae6-aac17918a9c5"
+                            }
+                        }
+                    },
+                    "24":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "d2c62543-2348-4cbd-a2fd-33b1047bd35a"
+                            }
+                        }
+                    },
+                    "25":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "0d8339fc-cbda-4feb-ad8f-fa77eb87ae57"
+                            }
+                        }
+                    },
+                    "26":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "4311db4e-c922-4af5-86d8-861150eb6d66"
+                            }
+                        }
+                    },
+                    "27":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "d0b3d1ad-739d-4942-bd5c-b704267c6154"
+                            }
+                        }
+                    },
+                    "28":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "17739c62-d11a-4485-9bfe-bd6ccec36a0d"
+                            }
+                        }
+                    },
+                    "29":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "38ea23f8-7250-418f-8167-a9b3c1a684f6"
+                            }
+                        }
+                    },
+                    "30":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "152c8f5c-5b76-41a5-bcf4-a7b30a6369ce"
+                            }
+                        }
+                    },
+                    "31":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "86268c97-84a3-4f3d-8d84-6071e125ea0c"
+                            }
+                        }
+                    },
+                    "32":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "b95a7c76-8ba4-45a5-909c-536ff142b13f"
+                            }
+                        }
+                    },
+                    "33":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "327ba94b-d348-4312-aa7a-aa4b6d822a5d"
+                            }
+                        }
+                    },
+                    "34":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "88b7bbab-7afc-45ab-9613-05dab254ecd8"
+                            }
+                        }
+                    },
+                    "35":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "5a9fb5ad-39c7-420f-9043-aadffbbf8f8e"
+                            }
+                        }
+                    },
+                    "36":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "0b1a3301-d1d9-465a-b938-61419881e730"
+                            }
+                        }
+                    },
+                    "37":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "494d5ee4-81ee-4bdd-859c-dcf7f07b78fb"
+                            }
+                        }
+                    },
+                    "38":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "e301d818-e1ec-4e9a-bd69-3f06216e84fd"
+                            }
+                        }
+                    },
+                    "39":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "05ee365f-b1b4-46ec-8dc6-57c80e2a2b49"
+                            }
+                        }
+                    },
+                    "40":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "1a68c030-811d-4fc1-a2de-2f0cd81e9820"
+                            }
+                        }
+                    },
+                    "41":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "9e0dc897-0587-4ee1-aeb9-701d2ce07494"
+                            }
+                        }
+                    },
+                    "42":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "f6dec280-2a21-491d-aa1a-5ba311e88c2b"
+                            }
+                        }
+                    },
+                    "43":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "f5cbe423-b0e5-470d-aabc-f8d8c5970931"
+                            }
+                        }
+                    },
+                    "44":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "c661aab0-4f53-4f06-ac39-2c93305a7589"
+                            }
+                        }
+                    },
+                    "45":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "3cc5f82a-1529-4951-bef3-c61b577ddec7"
+                            }
+                        }
+                    },
+                    "46":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "721a9a63-594e-4c49-a1e4-95813750e01c"
+                            }
+                        }
+                    },
+                    "47":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "d2326433-9e81-4d60-aea2-7f4749b03b77"
+                            }
+                        }
+                    },
+                    "48":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "2c80539f-4a7d-4862-a59d-7b88ebaff9f2"
+                            }
+                        }
+                    },
+                    "49":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "3d690d33-7e54-483e-8fc4-ecb5f9cdf9ea"
+                            }
+                        }
+                    },
+                    "50":
+                    {
+                        "type": "INLINE_ASSET",
+                        "mutability": "MUTABLE",
+                        "data":
+                        {
+                            "asset":
+                            {
+                                "id": "856a6c13-983e-42f2-8bbe-9ad2e3caeef1"
+                            }
+                        }
+                    }
+                }
+            },
+            "notes":
+            {},
+            "notesOrder": [],
+            "id": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "lastUpdateAt": 1535644340343
+        }
+    },
+    "sectionsOrder": ["227511d6-8ac0-47dc-ae67-010983659aea"],
+    "resources":
+    {
+        "8ff39331-ba6d-427d-8bf8-7e42d934ec32":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333965,
+                "lastModifiedAt": 1535644333965,
+                "title": "https://www.monde-diplomatique.fr/"
+            },
+            "id": "8ff39331-ba6d-427d-8bf8-7e42d934ec32",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/"
+            },
+            "lastUpdateAt": 1535644334329
+        },
+        "be5bceb0-e327-455d-8f75-a1bf7bb57aac":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333966,
+                "lastModifiedAt": 1535644333966,
+                "title": "https://www.monde-diplomatique.fr/2018/09/"
+            },
+            "id": "be5bceb0-e327-455d-8f75-a1bf7bb57aac",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/09/"
+            },
+            "lastUpdateAt": 1535644334375
+        },
+        "10b95d9c-85e3-4593-b3fa-d61d2a56b771":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333967,
+                "lastModifiedAt": 1535644333967,
+                "title": "https://www.monde-diplomatique.fr/archives"
+            },
+            "id": "10b95d9c-85e3-4593-b3fa-d61d2a56b771",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/archives"
+            },
+            "lastUpdateAt": 1535644334411
+        },
+        "8a4b8a35-0dc4-4df6-94b1-7ce823039c1a":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333968,
+                "lastModifiedAt": 1535644333968,
+                "title": "https://www.monde-diplomatique.fr/mav/"
+            },
+            "id": "8a4b8a35-0dc4-4df6-94b1-7ce823039c1a",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/mav/"
+            },
+            "lastUpdateAt": 1535644334467
+        },
+        "57b45ccf-ddd1-442b-807c-3792c4bd34a2":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333968,
+                "lastModifiedAt": 1535644333968,
+                "title": "https://blog.mondediplo.net/"
+            },
+            "id": "57b45ccf-ddd1-442b-807c-3792c4bd34a2",
+            "data":
+            {
+                "url": "https://blog.mondediplo.net/"
+            },
+            "lastUpdateAt": 1535644334526
+        },
+        "bc10aeec-de01-4f2e-b237-982d40bb6382":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333968,
+                "lastModifiedAt": 1535644333968,
+                "title": "https://www.monde-diplomatique.fr/cartes/"
+            },
+            "id": "bc10aeec-de01-4f2e-b237-982d40bb6382",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/cartes/"
+            },
+            "lastUpdateAt": 1535644334565
+        },
+        "944a2d3c-0133-478c-a676-ae442de55198":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333968,
+                "lastModifiedAt": 1535644333968,
+                "title": "https://www.monde-diplomatique.fr/publications"
+            },
+            "id": "944a2d3c-0133-478c-a676-ae442de55198",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/publications"
+            },
+            "lastUpdateAt": 1535644334599
+        },
+        "1685e88f-1754-4d58-8b16-91000479e3d8":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333968,
+                "lastModifiedAt": 1535644333968,
+                "title": "https://www.monde-diplomatique.fr/diplo/apropos"
+            },
+            "id": "1685e88f-1754-4d58-8b16-91000479e3d8",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/diplo/apropos"
+            },
+            "lastUpdateAt": 1535644334633
+        },
+        "3605a2be-ae95-4c63-8955-369986014e64":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333968,
+                "lastModifiedAt": 1535644333968,
+                "title": "https://www.monde-diplomatique.fr/2018/06/A/58761"
+            },
+            "id": "3605a2be-ae95-4c63-8955-369986014e64",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/A/58761"
+            },
+            "lastUpdateAt": 1535644334665
+        },
+        "73784f75-7e95-4fbb-a377-48019b23c3ad":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333969,
+                "lastModifiedAt": 1535644333969,
+                "title": "https://www.monde-diplomatique.fr/2018/06/LIBERTI/58745"
+            },
+            "id": "73784f75-7e95-4fbb-a377-48019b23c3ad",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/LIBERTI/58745"
+            },
+            "lastUpdateAt": 1535644334696
+        },
+        "c8fda844-f193-42d0-a0bb-73fcf8dd497f":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333969,
+                "lastModifiedAt": 1535644333969,
+                "title": "https://www.monde-diplomatique.fr/2018/06/"
+            },
+            "id": "c8fda844-f193-42d0-a0bb-73fcf8dd497f",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/"
+            },
+            "lastUpdateAt": 1535644334731
+        },
+        "c2303ffd-5882-4667-91f8-d492df2318f9":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333970,
+                "lastModifiedAt": 1535644333970,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#partage"
+            },
+            "id": "c2303ffd-5882-4667-91f8-d492df2318f9",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#partage"
+            },
+            "lastUpdateAt": 1535644334763
+        },
+        "c8976cdb-b9b9-4f06-a938-246e0efbee2c":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333971,
+                "lastModifiedAt": 1535644333971,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb1"
+            },
+            "id": "c8976cdb-b9b9-4f06-a938-246e0efbee2c",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb1"
+            },
+            "lastUpdateAt": 1535644334794
+        },
+        "a8f48695-b884-4d2a-95ef-acae854aa291":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333971,
+                "lastModifiedAt": 1535644333971,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb2"
+            },
+            "id": "a8f48695-b884-4d2a-95ef-acae854aa291",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb2"
+            },
+            "lastUpdateAt": 1535644334828
+        },
+        "228b8994-9436-43d8-a578-90df5fc96b2a":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333972,
+                "lastModifiedAt": 1535644333972,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb3"
+            },
+            "id": "228b8994-9436-43d8-a578-90df5fc96b2a",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb3"
+            },
+            "lastUpdateAt": 1535644334859
+        },
+        "edf468e4-9a5e-425a-9cb8-776255d2f2c7":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333976,
+                "lastModifiedAt": 1535644333976,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb4"
+            },
+            "id": "edf468e4-9a5e-425a-9cb8-776255d2f2c7",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb4"
+            },
+            "lastUpdateAt": 1535644334893
+        },
+        "b6a5cab4-b206-4552-89af-6091f915e805":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333977,
+                "lastModifiedAt": 1535644333977,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb5"
+            },
+            "id": "b6a5cab4-b206-4552-89af-6091f915e805",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb5"
+            },
+            "lastUpdateAt": 1535644334924
+        },
+        "e7f07a38-3053-4242-a1a8-e251ae02f24d":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333977,
+                "lastModifiedAt": 1535644333977,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb6"
+            },
+            "id": "e7f07a38-3053-4242-a1a8-e251ae02f24d",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb6"
+            },
+            "lastUpdateAt": 1535644334955
+        },
+        "af84e392-a87b-44a3-b1dd-dcb7434f6828":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333980,
+                "lastModifiedAt": 1535644333980,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb7"
+            },
+            "id": "af84e392-a87b-44a3-b1dd-dcb7434f6828",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nb7"
+            },
+            "lastUpdateAt": 1535644334986
+        },
+        "c560afe1-01e3-4c83-a4ee-a338b1205500":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333983,
+                "lastModifiedAt": 1535644333983,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh1"
+            },
+            "id": "c560afe1-01e3-4c83-a4ee-a338b1205500",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh1"
+            },
+            "lastUpdateAt": 1535644335016
+        },
+        "07bd796d-8d12-4cc3-ae42-816a71d4e6e6":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333983,
+                "lastModifiedAt": 1535644333983,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh2"
+            },
+            "id": "07bd796d-8d12-4cc3-ae42-816a71d4e6e6",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh2"
+            },
+            "lastUpdateAt": 1535644335047
+        },
+        "c6c5cbf4-9f87-4b53-8e6a-290c853831fb":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333983,
+                "lastModifiedAt": 1535644333983,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh3"
+            },
+            "id": "c6c5cbf4-9f87-4b53-8e6a-290c853831fb",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh3"
+            },
+            "lastUpdateAt": 1535644335082
+        },
+        "91eb2bd4-1d38-4b80-9b0e-b82c093f61ab":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333984,
+                "lastModifiedAt": 1535644333984,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh4"
+            },
+            "id": "91eb2bd4-1d38-4b80-9b0e-b82c093f61ab",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh4"
+            },
+            "lastUpdateAt": 1535644335112
+        },
+        "23924d4f-21e4-45d1-bd30-655387125d12":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333984,
+                "lastModifiedAt": 1535644333984,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh5"
+            },
+            "id": "23924d4f-21e4-45d1-bd30-655387125d12",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh5"
+            },
+            "lastUpdateAt": 1535644335141
+        },
+        "11fe3c86-c094-4bf0-9288-d528b2fc44ff":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333984,
+                "lastModifiedAt": 1535644333984,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh6"
+            },
+            "id": "11fe3c86-c094-4bf0-9288-d528b2fc44ff",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh6"
+            },
+            "lastUpdateAt": 1535644335172
+        },
+        "059552aa-ce31-4daf-9481-1ff60f46b7cb":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333984,
+                "lastModifiedAt": 1535644333984,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh7"
+            },
+            "id": "059552aa-ce31-4daf-9481-1ff60f46b7cb",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734#nh7"
+            },
+            "lastUpdateAt": 1535644335203
+        },
+        "d009f958-4998-401b-abd7-5bd98275a666":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333986,
+                "lastModifiedAt": 1535644333986,
+                "title": "https://www.monde-diplomatique.fr/publications/manuel_d_economie_critique/a57052"
+            },
+            "id": "d009f958-4998-401b-abd7-5bd98275a666",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/publications/manuel_d_economie_critique/a57052"
+            },
+            "lastUpdateAt": 1535644335233
+        },
+        "2c494724-6073-4bb4-b90f-284beb13edcf":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333987,
+                "lastModifiedAt": 1535644333987,
+                "title": "https://www.monde-diplomatique.fr/2016/07/FERNANDEZ/55910"
+            },
+            "id": "2c494724-6073-4bb4-b90f-284beb13edcf",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2016/07/FERNANDEZ/55910"
+            },
+            "lastUpdateAt": 1535644335262
+        },
+        "d2133ea9-59b6-40d0-a27d-4de9bcee6a98":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333987,
+                "lastModifiedAt": 1535644333987,
+                "title": "https://www.monde-diplomatique.fr/2013/12/HARRIBEY/49937"
+            },
+            "id": "d2133ea9-59b6-40d0-a27d-4de9bcee6a98",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2013/12/HARRIBEY/49937"
+            },
+            "lastUpdateAt": 1535644335294
+        },
+        "88f44ba1-b8e0-463a-90d3-90132ba0fb62":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333988,
+                "lastModifiedAt": 1535644333988,
+                "title": "https://www.monde-diplomatique.fr/index/sujet/idees"
+            },
+            "id": "88f44ba1-b8e0-463a-90d3-90132ba0fb62",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/index/sujet/idees"
+            },
+            "lastUpdateAt": 1535644335328
+        },
+        "de3b39a3-a05f-42aa-ad9d-e4d5ee2cd47a":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333988,
+                "lastModifiedAt": 1535644333988,
+                "title": "https://www.monde-diplomatique.fr/index/sujet/marxisme"
+            },
+            "id": "de3b39a3-a05f-42aa-ad9d-e4d5ee2cd47a",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/index/sujet/marxisme"
+            },
+            "lastUpdateAt": 1535644335358
+        },
+        "a6977684-b11a-48eb-aa92-51b5f0e1e659":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333988,
+                "lastModifiedAt": 1535644333988,
+                "title": "https://www.monde-diplomatique.fr/index/sujet/ecologie"
+            },
+            "id": "a6977684-b11a-48eb-aa92-51b5f0e1e659",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/index/sujet/ecologie"
+            },
+            "lastUpdateAt": 1535644335389
+        },
+        "d9a98323-bc6f-4381-b096-1c1cb82e9abb":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333989,
+                "lastModifiedAt": 1535644333989,
+                "title": "https://www.monde-diplomatique.fr/index/sujet/pollution"
+            },
+            "id": "d9a98323-bc6f-4381-b096-1c1cb82e9abb",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/index/sujet/pollution"
+            },
+            "lastUpdateAt": 1535644335419
+        },
+        "5d483ad2-1f8e-4b3b-8e42-5fb4173fe8b3":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333989,
+                "lastModifiedAt": 1535644333989,
+                "title": "https://www.monde-diplomatique.fr/index/sujet/economie"
+            },
+            "id": "5d483ad2-1f8e-4b3b-8e42-5fb4173fe8b3",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/index/sujet/economie"
+            },
+            "lastUpdateAt": 1535644335448
+        },
+        "4d351217-bead-4c9a-8eb0-3a215fbac9a5":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333990,
+                "lastModifiedAt": 1535644333990,
+                "title": "https://www.monde-diplomatique.fr/index/sujet/capitalisme"
+            },
+            "id": "4d351217-bead-4c9a-8eb0-3a215fbac9a5",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/index/sujet/capitalisme"
+            },
+            "lastUpdateAt": 1535644335481
+        },
+        "7defca5d-207e-47dd-bb13-537baa0f4c8f":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333990,
+                "lastModifiedAt": 1535644333990,
+                "title": "https://www.monde-diplomatique.fr/index/sujet/liberalisme"
+            },
+            "id": "7defca5d-207e-47dd-bb13-537baa0f4c8f",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/index/sujet/liberalisme"
+            },
+            "lastUpdateAt": 1535644335511
+        },
+        "96d903dc-ae02-488e-bc1c-eb38f871b75c":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333990,
+                "lastModifiedAt": 1535644333990,
+                "title": "https://www.monde-diplomatique.fr/index/sujet/environnement"
+            },
+            "id": "96d903dc-ae02-488e-bc1c-eb38f871b75c",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/index/sujet/environnement"
+            },
+            "lastUpdateAt": 1535644335545
+        },
+        "0867b6ce-3f28-4e68-b1f5-6205d6ebfda2":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333991,
+                "lastModifiedAt": 1535644333991,
+                "title": "https://www.facebook.com/sharer/sharer.php?u=https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734"
+            },
+            "id": "0867b6ce-3f28-4e68-b1f5-6205d6ebfda2",
+            "data":
+            {
+                "url": "https://www.facebook.com/sharer/sharer.php?u=https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734"
+            },
+            "lastUpdateAt": 1535644335578
+        },
+        "c8da9509-71c3-4d4d-8b92-7052ce0c4528":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333991,
+                "lastModifiedAt": 1535644333991,
+                "title": "https://twitter.com/intent/tweet/?url=https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734&text=Karl%20Marx%20et%20l%E2%80%99exploitation%20de%20la%20nature%2C%20par%20John%20Bellamy%20Foster%20%28acc%C3%A8s%20libre%2C%20juin%202018%29"
+            },
+            "id": "c8da9509-71c3-4d4d-8b92-7052ce0c4528",
+            "data":
+            {
+                "url": "https://twitter.com/intent/tweet/?url=https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734&text=Karl%20Marx%20et%20l%E2%80%99exploitation%20de%20la%20nature%2C%20par%20John%20Bellamy%20Foster%20%28acc%C3%A8s%20libre%2C%20juin%202018%29"
+            },
+            "lastUpdateAt": 1535644335609
+        },
+        "a1d4399d-a08d-4ea1-a87b-0a62d598a8bf":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333991,
+                "lastModifiedAt": 1535644333991,
+                "title": "javascript:var%20titre=document.title;var%20txt='';var%20desc=document.querySelector('meta[name=\\'description\\']');if(desc){txt=desc.getAttribute('content');}var%20logo='';var%20ogImage=document.querySelector('meta[property=\\'og:image\\']');if(ogImage){logo=ogImage.getAttribute('content');}var%20url=document.location+'';void(btw=window.open('http://zinc.mondediplo.net/#ajouter='+encodeURIComponent(titre)+'&url_site='+encodeURIComponent(url.replace('%2520','+'))+'&logo='+encodeURIComponent(logo.replace('%2520','+'))+'&extrait='+encodeURIComponent(txt)))"
+            },
+            "id": "a1d4399d-a08d-4ea1-a87b-0a62d598a8bf",
+            "data":
+            {
+                "url": "javascript:var%20titre=document.title;var%20txt='';var%20desc=document.querySelector('meta[name=\\'description\\']');if(desc){txt=desc.getAttribute('content');}var%20logo='';var%20ogImage=document.querySelector('meta[property=\\'og:image\\']');if(ogImage){logo=ogImage.getAttribute('content');}var%20url=document.location+'';void(btw=window.open('http://zinc.mondediplo.net/#ajouter='+encodeURIComponent(titre)+'&url_site='+encodeURIComponent(url.replace('%2520','+'))+'&logo='+encodeURIComponent(logo.replace('%2520','+'))+'&extrait='+encodeURIComponent(txt)))"
+            },
+            "lastUpdateAt": 1535644335639
+        },
+        "f87a3a64-681b-4f44-8c4e-0aa1aa08eaf6":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333992,
+                "lastModifiedAt": 1535644333992,
+                "title": "https://www.monde-diplomatique.fr/t/mdv160p"
+            },
+            "id": "f87a3a64-681b-4f44-8c4e-0aa1aa08eaf6",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/t/mdv160p"
+            },
+            "lastUpdateAt": 1535644335671
+        },
+        "d7fa58af-1dda-4e27-904e-7dc24f26fd5f":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333994,
+                "lastModifiedAt": 1535644333994,
+                "title": "https://www.monde-diplomatique.fr/2018/06/journal#!/p_2"
+            },
+            "id": "d7fa58af-1dda-4e27-904e-7dc24f26fd5f",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/journal#!/p_2"
+            },
+            "lastUpdateAt": 1535644335701
+        },
+        "4f44b3c4-069a-48ff-b035-30de6db8633b":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333995,
+                "lastModifiedAt": 1535644333995,
+                "title": "https://www.monde-diplomatique.fr/2018/06/journal#!/p_3"
+            },
+            "id": "4f44b3c4-069a-48ff-b035-30de6db8633b",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/journal#!/p_3"
+            },
+            "lastUpdateAt": 1535644335733
+        },
+        "a23fcf9e-b290-4c25-83cd-27e3b3fc728a":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333995,
+                "lastModifiedAt": 1535644333995,
+                "title": "https://www.monde-diplomatique.fr/2018/09/HALIMI/59046"
+            },
+            "id": "a23fcf9e-b290-4c25-83cd-27e3b3fc728a",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/09/HALIMI/59046"
+            },
+            "lastUpdateAt": 1535644335763
+        },
+        "9f65c894-4c22-40a8-93fc-94250a3706fb":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333996,
+                "lastModifiedAt": 1535644333996,
+                "title": "https://www.monde-diplomatique.fr/2018/09/GOUVERNEUR/59055"
+            },
+            "id": "9f65c894-4c22-40a8-93fc-94250a3706fb",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/09/GOUVERNEUR/59055"
+            },
+            "lastUpdateAt": 1535644335795
+        },
+        "f6f00835-a4d7-49e6-9b42-1f025c99a451":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333996,
+                "lastModifiedAt": 1535644333996,
+                "title": "https://www.monde-diplomatique.fr/2018/08/FACON/58982"
+            },
+            "id": "f6f00835-a4d7-49e6-9b42-1f025c99a451",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/08/FACON/58982"
+            },
+            "lastUpdateAt": 1535644335826
+        },
+        "fefa9f6a-25d2-4171-a72f-ebb1509dcf1d":
+        {
+            "type": "resource",
+            "metadata":
+            {
+                "type": "webpage",
+                "createdAt": 1535644333997,
+                "lastModifiedAt": 1535644333997,
+                "title": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734"
+            },
+            "id": "fefa9f6a-25d2-4171-a72f-ebb1509dcf1d",
+            "data":
+            {
+                "url": "https://www.monde-diplomatique.fr/2018/06/BELLAMY_FOSTER/58734"
+            },
+            "lastUpdateAt": 1535644335863
+        }
+    },
+    "contextualizers":
+    {
+        "eb77334c-a997-4acf-a9f5-2b1e37c1031b":
+        {
+            "id": "eb77334c-a997-4acf-a9f5-2b1e37c1031b",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "8bc4c821-971d-4c25-96e8-14bbb6da53c0":
+        {
+            "id": "8bc4c821-971d-4c25-96e8-14bbb6da53c0",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "4364feb1-0d4f-4646-a627-14b71bfb07f6":
+        {
+            "id": "4364feb1-0d4f-4646-a627-14b71bfb07f6",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "d0e9c5c3-ed91-4713-8d67-4eef478424c9":
+        {
+            "id": "d0e9c5c3-ed91-4713-8d67-4eef478424c9",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "f3c59bb3-a702-4276-8bf4-3ee3ee58dd23":
+        {
+            "id": "f3c59bb3-a702-4276-8bf4-3ee3ee58dd23",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "34d625c8-aeb2-4405-8f4f-18bf4daf1dfa":
+        {
+            "id": "34d625c8-aeb2-4405-8f4f-18bf4daf1dfa",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "14d36942-088c-4bbb-8d11-563210cd58fa":
+        {
+            "id": "14d36942-088c-4bbb-8d11-563210cd58fa",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "00354df8-b36a-4305-b38f-2e406f7f062f":
+        {
+            "id": "00354df8-b36a-4305-b38f-2e406f7f062f",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "2ce61491-22c1-483c-a21f-d48323f0d5b2":
+        {
+            "id": "2ce61491-22c1-483c-a21f-d48323f0d5b2",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "91783bc0-1472-4ae1-9bf3-bf3a084c44e8":
+        {
+            "id": "91783bc0-1472-4ae1-9bf3-bf3a084c44e8",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "c9818ea3-14c0-4a0f-8c32-ed39c9193068":
+        {
+            "id": "c9818ea3-14c0-4a0f-8c32-ed39c9193068",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "07830d70-c050-4756-8123-1c983a60b055":
+        {
+            "id": "07830d70-c050-4756-8123-1c983a60b055",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "8a068d4e-3cd6-41bf-9f8f-8253dcddf78e":
+        {
+            "id": "8a068d4e-3cd6-41bf-9f8f-8253dcddf78e",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "6bbea345-97d1-40b7-b2c8-3146ca614024":
+        {
+            "id": "6bbea345-97d1-40b7-b2c8-3146ca614024",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "0f377b37-25a9-4954-a8e2-7059318098a1":
+        {
+            "id": "0f377b37-25a9-4954-a8e2-7059318098a1",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "6079963a-5faf-4e23-bd39-5acac3193734":
+        {
+            "id": "6079963a-5faf-4e23-bd39-5acac3193734",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "8e242472-d9c1-4a41-9673-ab9a6fca9ed2":
+        {
+            "id": "8e242472-d9c1-4a41-9673-ab9a6fca9ed2",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "dddae28d-3b3b-484d-adaf-6e6218065bcc":
+        {
+            "id": "dddae28d-3b3b-484d-adaf-6e6218065bcc",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "c24459d4-9231-4950-96cd-7a0d0b80438c":
+        {
+            "id": "c24459d4-9231-4950-96cd-7a0d0b80438c",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "0745eb1c-7ee8-4bb3-ab1d-7d6e7f971be1":
+        {
+            "id": "0745eb1c-7ee8-4bb3-ab1d-7d6e7f971be1",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "b9283fe0-532e-4dc6-8640-bc24884e45ff":
+        {
+            "id": "b9283fe0-532e-4dc6-8640-bc24884e45ff",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "c7cb5c52-7fc7-4060-8383-47b4125e05b1":
+        {
+            "id": "c7cb5c52-7fc7-4060-8383-47b4125e05b1",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "31611886-4627-4052-bd73-6de0fb4d6f49":
+        {
+            "id": "31611886-4627-4052-bd73-6de0fb4d6f49",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "6d608059-75af-41e8-8943-fc5126661ce6":
+        {
+            "id": "6d608059-75af-41e8-8943-fc5126661ce6",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "f0b5ff1b-1d12-4c78-8a7d-aab70f40b7b4":
+        {
+            "id": "f0b5ff1b-1d12-4c78-8a7d-aab70f40b7b4",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "5cdbb8cf-0da3-492a-9a6e-9cf07b126b21":
+        {
+            "id": "5cdbb8cf-0da3-492a-9a6e-9cf07b126b21",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "85de5b37-6af1-4e70-8daf-fd24b6d48a9b":
+        {
+            "id": "85de5b37-6af1-4e70-8daf-fd24b6d48a9b",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "3bfdd928-4280-4fd3-b4ea-3aeb9c59d723":
+        {
+            "id": "3bfdd928-4280-4fd3-b4ea-3aeb9c59d723",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "28141691-d704-48ed-9315-2b75eb094028":
+        {
+            "id": "28141691-d704-48ed-9315-2b75eb094028",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "88c07744-ea82-4ed4-9913-a62676fa0ad1":
+        {
+            "id": "88c07744-ea82-4ed4-9913-a62676fa0ad1",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "73dc753d-e222-4cf3-8029-c74e72ee6be8":
+        {
+            "id": "73dc753d-e222-4cf3-8029-c74e72ee6be8",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "86af713c-d2ea-4718-a9ed-951c6854975b":
+        {
+            "id": "86af713c-d2ea-4718-a9ed-951c6854975b",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "a8ff4660-3f7b-476b-8369-e465bfe3ee01":
+        {
+            "id": "a8ff4660-3f7b-476b-8369-e465bfe3ee01",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "2b52f942-a92b-4550-ab2e-0f79ea128e64":
+        {
+            "id": "2b52f942-a92b-4550-ab2e-0f79ea128e64",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "01e61869-98d3-4d22-87ea-a90fb6633abf":
+        {
+            "id": "01e61869-98d3-4d22-87ea-a90fb6633abf",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "33489596-0896-4f42-bcc0-820e4f735cbd":
+        {
+            "id": "33489596-0896-4f42-bcc0-820e4f735cbd",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "4dbe26c4-8c5e-4b1a-806c-bcda69c073f0":
+        {
+            "id": "4dbe26c4-8c5e-4b1a-806c-bcda69c073f0",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "faa1ff36-e5f4-4642-9878-4d663a50e502":
+        {
+            "id": "faa1ff36-e5f4-4642-9878-4d663a50e502",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "f3955df1-549a-4f4d-b71f-faf4c3cabc9e":
+        {
+            "id": "f3955df1-549a-4f4d-b71f-faf4c3cabc9e",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "c26620e4-876d-40ac-b709-6fb92198a4fb":
+        {
+            "id": "c26620e4-876d-40ac-b709-6fb92198a4fb",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "884ff5ad-528f-4ebd-b43d-cbc8ec91a9bf":
+        {
+            "id": "884ff5ad-528f-4ebd-b43d-cbc8ec91a9bf",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "76fdec65-f893-4584-976a-467187b06ddf":
+        {
+            "id": "76fdec65-f893-4584-976a-467187b06ddf",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "5ae0b9ed-a62a-4c66-867b-b1eb8caf5b90":
+        {
+            "id": "5ae0b9ed-a62a-4c66-867b-b1eb8caf5b90",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "73157648-83b5-43c6-ab06-a5398ad1fe1f":
+        {
+            "id": "73157648-83b5-43c6-ab06-a5398ad1fe1f",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "5724e63e-6525-434f-983c-be0f6272cc1f":
+        {
+            "id": "5724e63e-6525-434f-983c-be0f6272cc1f",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "33a83bde-ebf2-443d-bb04-0a31c60c63b9":
+        {
+            "id": "33a83bde-ebf2-443d-bb04-0a31c60c63b9",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "3c94e37e-d952-4096-9614-a5355295cf82":
+        {
+            "id": "3c94e37e-d952-4096-9614-a5355295cf82",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "1f90d6e1-a284-4c58-bf7b-c70466d697ce":
+        {
+            "id": "1f90d6e1-a284-4c58-bf7b-c70466d697ce",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "c7bfd6f8-a67b-4dbe-a93d-51588af17c17":
+        {
+            "id": "c7bfd6f8-a67b-4dbe-a93d-51588af17c17",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "3eb64fe6-73a2-4a6f-912e-9a083948c491":
+        {
+            "id": "3eb64fe6-73a2-4a6f-912e-9a083948c491",
+            "type": "webpage",
+            "insertionType": "inline"
+        },
+        "25a69fa9-6b2d-42ed-bed5-4e0b3dffdde6":
+        {
+            "id": "25a69fa9-6b2d-42ed-bed5-4e0b3dffdde6",
+            "type": "webpage",
+            "insertionType": "inline"
+        }
+    },
+    "contextualizations":
+    {
+        "116ed996-b448-4b58-b3fc-8117a9924d67":
+        {
+            "id": "116ed996-b448-4b58-b3fc-8117a9924d67",
+            "resourceId": "8ff39331-ba6d-427d-8bf8-7e42d934ec32",
+            "contextualizerId": "eb77334c-a997-4acf-a9f5-2b1e37c1031b",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "d8d47568-89e4-4163-b91a-8d8614d03c40":
+        {
+            "id": "d8d47568-89e4-4163-b91a-8d8614d03c40",
+            "resourceId": "be5bceb0-e327-455d-8f75-a1bf7bb57aac",
+            "contextualizerId": "8bc4c821-971d-4c25-96e8-14bbb6da53c0",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "5fad6746-01a7-4c59-aeb4-a8f394d42da0":
+        {
+            "id": "5fad6746-01a7-4c59-aeb4-a8f394d42da0",
+            "resourceId": "10b95d9c-85e3-4593-b3fa-d61d2a56b771",
+            "contextualizerId": "4364feb1-0d4f-4646-a627-14b71bfb07f6",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "d66873f4-a600-4d5d-bfb1-02e58afc5bfc":
+        {
+            "id": "d66873f4-a600-4d5d-bfb1-02e58afc5bfc",
+            "resourceId": "8a4b8a35-0dc4-4df6-94b1-7ce823039c1a",
+            "contextualizerId": "d0e9c5c3-ed91-4713-8d67-4eef478424c9",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "3d789eec-5398-40fd-954f-2f707b778601":
+        {
+            "id": "3d789eec-5398-40fd-954f-2f707b778601",
+            "resourceId": "57b45ccf-ddd1-442b-807c-3792c4bd34a2",
+            "contextualizerId": "f3c59bb3-a702-4276-8bf4-3ee3ee58dd23",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "d83967bb-1823-44c6-8895-c955df6594ac":
+        {
+            "id": "d83967bb-1823-44c6-8895-c955df6594ac",
+            "resourceId": "bc10aeec-de01-4f2e-b237-982d40bb6382",
+            "contextualizerId": "34d625c8-aeb2-4405-8f4f-18bf4daf1dfa",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "f376a90f-ca99-4ed5-9ed7-0c52c461d70a":
+        {
+            "id": "f376a90f-ca99-4ed5-9ed7-0c52c461d70a",
+            "resourceId": "944a2d3c-0133-478c-a676-ae442de55198",
+            "contextualizerId": "14d36942-088c-4bbb-8d11-563210cd58fa",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "8ba5566d-d412-4e64-96c1-0e0d955b6286":
+        {
+            "id": "8ba5566d-d412-4e64-96c1-0e0d955b6286",
+            "resourceId": "1685e88f-1754-4d58-8b16-91000479e3d8",
+            "contextualizerId": "00354df8-b36a-4305-b38f-2e406f7f062f",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "d1e4c28c-468a-43dc-95eb-b513a301ecf9":
+        {
+            "id": "d1e4c28c-468a-43dc-95eb-b513a301ecf9",
+            "resourceId": "3605a2be-ae95-4c63-8955-369986014e64",
+            "contextualizerId": "2ce61491-22c1-483c-a21f-d48323f0d5b2",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "8c830acd-9307-4d4d-a3cf-934a6741465a":
+        {
+            "id": "8c830acd-9307-4d4d-a3cf-934a6741465a",
+            "resourceId": "73784f75-7e95-4fbb-a377-48019b23c3ad",
+            "contextualizerId": "91783bc0-1472-4ae1-9bf3-bf3a084c44e8",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "9db79b1f-14ab-4b13-88a9-5efec763b95e":
+        {
+            "id": "9db79b1f-14ab-4b13-88a9-5efec763b95e",
+            "resourceId": "c8fda844-f193-42d0-a0bb-73fcf8dd497f",
+            "contextualizerId": "c9818ea3-14c0-4a0f-8c32-ed39c9193068",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "34751baf-b965-49ec-92e0-f27f49ecd622":
+        {
+            "id": "34751baf-b965-49ec-92e0-f27f49ecd622",
+            "resourceId": "c8fda844-f193-42d0-a0bb-73fcf8dd497f",
+            "contextualizerId": "07830d70-c050-4756-8123-1c983a60b055",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "c1bedf0e-71b9-403c-8deb-5950f35f17fe":
+        {
+            "id": "c1bedf0e-71b9-403c-8deb-5950f35f17fe",
+            "resourceId": "c2303ffd-5882-4667-91f8-d492df2318f9",
+            "contextualizerId": "8a068d4e-3cd6-41bf-9f8f-8253dcddf78e",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "024dc048-e87f-4ba0-8421-5c0ab22fa970":
+        {
+            "id": "024dc048-e87f-4ba0-8421-5c0ab22fa970",
+            "resourceId": "c8976cdb-b9b9-4f06-a938-246e0efbee2c",
+            "contextualizerId": "6bbea345-97d1-40b7-b2c8-3146ca614024",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "5ce11800-bac9-405f-9539-08df61273bbc":
+        {
+            "id": "5ce11800-bac9-405f-9539-08df61273bbc",
+            "resourceId": "a8f48695-b884-4d2a-95ef-acae854aa291",
+            "contextualizerId": "0f377b37-25a9-4954-a8e2-7059318098a1",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "456db0b2-ea5a-4b5b-8257-f31f050a0dea":
+        {
+            "id": "456db0b2-ea5a-4b5b-8257-f31f050a0dea",
+            "resourceId": "228b8994-9436-43d8-a578-90df5fc96b2a",
+            "contextualizerId": "6079963a-5faf-4e23-bd39-5acac3193734",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "a0116268-6c8f-4796-9b8c-1f3571bd71c2":
+        {
+            "id": "a0116268-6c8f-4796-9b8c-1f3571bd71c2",
+            "resourceId": "edf468e4-9a5e-425a-9cb8-776255d2f2c7",
+            "contextualizerId": "8e242472-d9c1-4a41-9673-ab9a6fca9ed2",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "ba402ab8-a4e4-47d5-a127-2ea608ee5a74":
+        {
+            "id": "ba402ab8-a4e4-47d5-a127-2ea608ee5a74",
+            "resourceId": "b6a5cab4-b206-4552-89af-6091f915e805",
+            "contextualizerId": "dddae28d-3b3b-484d-adaf-6e6218065bcc",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "fa231c99-144b-4703-b253-22813ea00089":
+        {
+            "id": "fa231c99-144b-4703-b253-22813ea00089",
+            "resourceId": "e7f07a38-3053-4242-a1a8-e251ae02f24d",
+            "contextualizerId": "c24459d4-9231-4950-96cd-7a0d0b80438c",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "548f3fce-d7bd-4dea-84a7-c8123568f1d4":
+        {
+            "id": "548f3fce-d7bd-4dea-84a7-c8123568f1d4",
+            "resourceId": "af84e392-a87b-44a3-b1dd-dcb7434f6828",
+            "contextualizerId": "0745eb1c-7ee8-4bb3-ab1d-7d6e7f971be1",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "adf765d6-5ade-4588-b6f5-6e229fff1d2f":
+        {
+            "id": "adf765d6-5ade-4588-b6f5-6e229fff1d2f",
+            "resourceId": "c560afe1-01e3-4c83-a4ee-a338b1205500",
+            "contextualizerId": "b9283fe0-532e-4dc6-8640-bc24884e45ff",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "88700726-d4c4-4de4-be9c-cf84095774f7":
+        {
+            "id": "88700726-d4c4-4de4-be9c-cf84095774f7",
+            "resourceId": "07bd796d-8d12-4cc3-ae42-816a71d4e6e6",
+            "contextualizerId": "c7cb5c52-7fc7-4060-8383-47b4125e05b1",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "7ab66718-97df-48dc-9f76-7f3bbe3f5020":
+        {
+            "id": "7ab66718-97df-48dc-9f76-7f3bbe3f5020",
+            "resourceId": "c6c5cbf4-9f87-4b53-8e6a-290c853831fb",
+            "contextualizerId": "31611886-4627-4052-bd73-6de0fb4d6f49",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "b9eab796-76d2-4464-bae6-aac17918a9c5":
+        {
+            "id": "b9eab796-76d2-4464-bae6-aac17918a9c5",
+            "resourceId": "91eb2bd4-1d38-4b80-9b0e-b82c093f61ab",
+            "contextualizerId": "6d608059-75af-41e8-8943-fc5126661ce6",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "d2c62543-2348-4cbd-a2fd-33b1047bd35a":
+        {
+            "id": "d2c62543-2348-4cbd-a2fd-33b1047bd35a",
+            "resourceId": "23924d4f-21e4-45d1-bd30-655387125d12",
+            "contextualizerId": "f0b5ff1b-1d12-4c78-8a7d-aab70f40b7b4",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "0d8339fc-cbda-4feb-ad8f-fa77eb87ae57":
+        {
+            "id": "0d8339fc-cbda-4feb-ad8f-fa77eb87ae57",
+            "resourceId": "11fe3c86-c094-4bf0-9288-d528b2fc44ff",
+            "contextualizerId": "5cdbb8cf-0da3-492a-9a6e-9cf07b126b21",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "4311db4e-c922-4af5-86d8-861150eb6d66":
+        {
+            "id": "4311db4e-c922-4af5-86d8-861150eb6d66",
+            "resourceId": "059552aa-ce31-4daf-9481-1ff60f46b7cb",
+            "contextualizerId": "85de5b37-6af1-4e70-8daf-fd24b6d48a9b",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "d0b3d1ad-739d-4942-bd5c-b704267c6154":
+        {
+            "id": "d0b3d1ad-739d-4942-bd5c-b704267c6154",
+            "resourceId": "d009f958-4998-401b-abd7-5bd98275a666",
+            "contextualizerId": "3bfdd928-4280-4fd3-b4ea-3aeb9c59d723",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "17739c62-d11a-4485-9bfe-bd6ccec36a0d":
+        {
+            "id": "17739c62-d11a-4485-9bfe-bd6ccec36a0d",
+            "resourceId": "2c494724-6073-4bb4-b90f-284beb13edcf",
+            "contextualizerId": "28141691-d704-48ed-9315-2b75eb094028",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "38ea23f8-7250-418f-8167-a9b3c1a684f6":
+        {
+            "id": "38ea23f8-7250-418f-8167-a9b3c1a684f6",
+            "resourceId": "d2133ea9-59b6-40d0-a27d-4de9bcee6a98",
+            "contextualizerId": "88c07744-ea82-4ed4-9913-a62676fa0ad1",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "152c8f5c-5b76-41a5-bcf4-a7b30a6369ce":
+        {
+            "id": "152c8f5c-5b76-41a5-bcf4-a7b30a6369ce",
+            "resourceId": "88f44ba1-b8e0-463a-90d3-90132ba0fb62",
+            "contextualizerId": "73dc753d-e222-4cf3-8029-c74e72ee6be8",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "86268c97-84a3-4f3d-8d84-6071e125ea0c":
+        {
+            "id": "86268c97-84a3-4f3d-8d84-6071e125ea0c",
+            "resourceId": "de3b39a3-a05f-42aa-ad9d-e4d5ee2cd47a",
+            "contextualizerId": "86af713c-d2ea-4718-a9ed-951c6854975b",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "b95a7c76-8ba4-45a5-909c-536ff142b13f":
+        {
+            "id": "b95a7c76-8ba4-45a5-909c-536ff142b13f",
+            "resourceId": "a6977684-b11a-48eb-aa92-51b5f0e1e659",
+            "contextualizerId": "a8ff4660-3f7b-476b-8369-e465bfe3ee01",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "327ba94b-d348-4312-aa7a-aa4b6d822a5d":
+        {
+            "id": "327ba94b-d348-4312-aa7a-aa4b6d822a5d",
+            "resourceId": "d9a98323-bc6f-4381-b096-1c1cb82e9abb",
+            "contextualizerId": "2b52f942-a92b-4550-ab2e-0f79ea128e64",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "88b7bbab-7afc-45ab-9613-05dab254ecd8":
+        {
+            "id": "88b7bbab-7afc-45ab-9613-05dab254ecd8",
+            "resourceId": "5d483ad2-1f8e-4b3b-8e42-5fb4173fe8b3",
+            "contextualizerId": "01e61869-98d3-4d22-87ea-a90fb6633abf",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "5a9fb5ad-39c7-420f-9043-aadffbbf8f8e":
+        {
+            "id": "5a9fb5ad-39c7-420f-9043-aadffbbf8f8e",
+            "resourceId": "4d351217-bead-4c9a-8eb0-3a215fbac9a5",
+            "contextualizerId": "33489596-0896-4f42-bcc0-820e4f735cbd",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "0b1a3301-d1d9-465a-b938-61419881e730":
+        {
+            "id": "0b1a3301-d1d9-465a-b938-61419881e730",
+            "resourceId": "7defca5d-207e-47dd-bb13-537baa0f4c8f",
+            "contextualizerId": "4dbe26c4-8c5e-4b1a-806c-bcda69c073f0",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "494d5ee4-81ee-4bdd-859c-dcf7f07b78fb":
+        {
+            "id": "494d5ee4-81ee-4bdd-859c-dcf7f07b78fb",
+            "resourceId": "96d903dc-ae02-488e-bc1c-eb38f871b75c",
+            "contextualizerId": "faa1ff36-e5f4-4642-9878-4d663a50e502",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "e301d818-e1ec-4e9a-bd69-3f06216e84fd":
+        {
+            "id": "e301d818-e1ec-4e9a-bd69-3f06216e84fd",
+            "resourceId": "0867b6ce-3f28-4e68-b1f5-6205d6ebfda2",
+            "contextualizerId": "f3955df1-549a-4f4d-b71f-faf4c3cabc9e",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "05ee365f-b1b4-46ec-8dc6-57c80e2a2b49":
+        {
+            "id": "05ee365f-b1b4-46ec-8dc6-57c80e2a2b49",
+            "resourceId": "c8da9509-71c3-4d4d-8b92-7052ce0c4528",
+            "contextualizerId": "c26620e4-876d-40ac-b709-6fb92198a4fb",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "1a68c030-811d-4fc1-a2de-2f0cd81e9820":
+        {
+            "id": "1a68c030-811d-4fc1-a2de-2f0cd81e9820",
+            "resourceId": "a1d4399d-a08d-4ea1-a87b-0a62d598a8bf",
+            "contextualizerId": "884ff5ad-528f-4ebd-b43d-cbc8ec91a9bf",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "9e0dc897-0587-4ee1-aeb9-701d2ce07494":
+        {
+            "id": "9e0dc897-0587-4ee1-aeb9-701d2ce07494",
+            "resourceId": "c8fda844-f193-42d0-a0bb-73fcf8dd497f",
+            "contextualizerId": "76fdec65-f893-4584-976a-467187b06ddf",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "f6dec280-2a21-491d-aa1a-5ba311e88c2b":
+        {
+            "id": "f6dec280-2a21-491d-aa1a-5ba311e88c2b",
+            "resourceId": "3605a2be-ae95-4c63-8955-369986014e64",
+            "contextualizerId": "5ae0b9ed-a62a-4c66-867b-b1eb8caf5b90",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "f5cbe423-b0e5-470d-aabc-f8d8c5970931":
+        {
+            "id": "f5cbe423-b0e5-470d-aabc-f8d8c5970931",
+            "resourceId": "d7fa58af-1dda-4e27-904e-7dc24f26fd5f",
+            "contextualizerId": "73157648-83b5-43c6-ab06-a5398ad1fe1f",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "c661aab0-4f53-4f06-ac39-2c93305a7589":
+        {
+            "id": "c661aab0-4f53-4f06-ac39-2c93305a7589",
+            "resourceId": "4f44b3c4-069a-48ff-b035-30de6db8633b",
+            "contextualizerId": "5724e63e-6525-434f-983c-be0f6272cc1f",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "3cc5f82a-1529-4951-bef3-c61b577ddec7":
+        {
+            "id": "3cc5f82a-1529-4951-bef3-c61b577ddec7",
+            "resourceId": "73784f75-7e95-4fbb-a377-48019b23c3ad",
+            "contextualizerId": "33a83bde-ebf2-443d-bb04-0a31c60c63b9",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "721a9a63-594e-4c49-a1e4-95813750e01c":
+        {
+            "id": "721a9a63-594e-4c49-a1e4-95813750e01c",
+            "resourceId": "a23fcf9e-b290-4c25-83cd-27e3b3fc728a",
+            "contextualizerId": "3c94e37e-d952-4096-9614-a5355295cf82",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "d2326433-9e81-4d60-aea2-7f4749b03b77":
+        {
+            "id": "d2326433-9e81-4d60-aea2-7f4749b03b77",
+            "resourceId": "9f65c894-4c22-40a8-93fc-94250a3706fb",
+            "contextualizerId": "1f90d6e1-a284-4c58-bf7b-c70466d697ce",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "2c80539f-4a7d-4862-a59d-7b88ebaff9f2":
+        {
+            "id": "2c80539f-4a7d-4862-a59d-7b88ebaff9f2",
+            "resourceId": "f6f00835-a4d7-49e6-9b42-1f025c99a451",
+            "contextualizerId": "c7bfd6f8-a67b-4dbe-a93d-51588af17c17",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "3d690d33-7e54-483e-8fc4-ecb5f9cdf9ea":
+        {
+            "id": "3d690d33-7e54-483e-8fc4-ecb5f9cdf9ea",
+            "resourceId": "fefa9f6a-25d2-4171-a72f-ebb1509dcf1d",
+            "contextualizerId": "3eb64fe6-73a2-4a6f-912e-9a083948c491",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        },
+        "856a6c13-983e-42f2-8bbe-9ad2e3caeef1":
+        {
+            "id": "856a6c13-983e-42f2-8bbe-9ad2e3caeef1",
+            "resourceId": "be5bceb0-e327-455d-8f75-a1bf7bb57aac",
+            "contextualizerId": "25a69fa9-6b2d-42ed-bed5-4e0b3dffdde6",
+            "sectionId": "227511d6-8ac0-47dc-ae67-010983659aea",
+            "type": "webpage"
+        }
+    },
+    "settings":
+    {
+        "template": "garlic",
+        "options":
+        {
+            "notesPosition": "aside",
+            "referenceStatus": "cited",
+            "referenceTypes": ["bib"]
+        },
+        "citationStyle":
+        {
+            "title": "American Psychological Association 5th edition",
+            "idUrl": "http://www.zotero.org/styles/apa-5th-edition",
+            "id": "apa-5th-edition",
+            "fileName": "apa-5th-edition.csl",
+            "data": "<?xml version=\"1.0\" encoding=\"utf-8\"?> <style xmlns=\"http://purl.org/net/xbiblio/csl\" class=\"in-text\" version=\"1.0\" demote-non-dropping-particle=\"sort-only\"> <info> <title>American Psychological Association 5th edition</title> <title-short>APA</title-short> <id>http://www.zotero.org/styles/apa-5th-edition</id> <link href=\"http://www.zotero.org/styles/apa-5th-edition\" rel=\"self\"/> <link href=\"http://rdc.libguides.com/content.php?pid=63487\" rel=\"documentation\"/> <author> <name>Simon Kornblith</name> <email>simon@simonster.com</email> </author> <contributor> <name>Bruce D'Arcus</name> </contributor> <contributor> <name>Curtis M. Humphrey</name> </contributor> <contributor> <name>Richard Karnesky</name> <email>karnesky+zotero@gmail.com</email> <uri>http://arc.nucapt.northwestern.edu/Richard_Karnesky</uri> </contributor> <contributor> <name>Sebastian Karcher</name> </contributor> <category citation-format=\"author-date\"/> <category field=\"psychology\"/> <category field=\"generic-base\"/> <updated>2012-09-27T22:06:38+00:00</updated> <rights license=\"http://creativecommons.org/licenses/by-sa/3.0/\">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights> </info> <macro name=\"container-contributors\"> <choose> <if type=\"chapter paper-conference\" match=\"any\"> <text term=\"in\" text-case=\"capitalize-first\" suffix=\" \"/> <names variable=\"editor\" delimiter=\", \" suffix=\", \"> <name and=\"symbol\" initialize-with=\". \" delimiter=\", \"/> <label form=\"short\" prefix=\" (\" text-case=\"capitalize-first\" suffix=\")\"/> <substitute> <names variable=\"translator\"/> </substitute> </names> </if> </choose> </macro> <macro name=\"secondary-contributors\"> <choose> <if type=\"chapter paper-conference\" match=\"none\"> <names variable=\"translator\" delimiter=\", \" prefix=\" (\" suffix=\")\"> <name and=\"symbol\" initialize-with=\". \" delimiter=\", \"/> <label form=\"short\" prefix=\", \" text-case=\"capitalize-first\"/> <substitute> <names variable=\"editor\"/> </substitute> </names> </if> </choose> </macro> <macro name=\"author\"> <names variable=\"author\"> <name name-as-sort-order=\"all\" and=\"symbol\" sort-separator=\", \" initialize-with=\". \" delimiter=\", \" delimiter-precedes-last=\"always\"/> <label form=\"short\" prefix=\" (\" suffix=\")\" text-case=\"capitalize-first\"/> <substitute> <names variable=\"editor\"/> <names variable=\"translator\"/> <text macro=\"title\"/> </substitute> </names> </macro> <macro name=\"author-short\"> <names variable=\"author\"> <name form=\"short\" and=\"symbol\" delimiter=\", \" initialize-with=\". \"/> <substitute> <names variable=\"editor\"/> <names variable=\"translator\"/> <choose> <if type=\"bill book graphic legal_case legislation motion_picture report song\" match=\"any\"> <text variable=\"title\" form=\"short\" font-style=\"italic\"/> </if> <else> <text variable=\"title\" form=\"short\" quotes=\"true\"/> </else> </choose> </substitute> </names> </macro> <macro name=\"access\"> <choose> <if type=\"thesis\"> <choose> <if variable=\"archive\" match=\"any\"> <group> <text term=\"retrieved\" text-case=\"capitalize-first\" suffix=\" \"/> <text term=\"from\" suffix=\" \"/> <text variable=\"archive\" suffix=\".\"/> <text variable=\"archive_location\" prefix=\" (\" suffix=\")\"/> </group> </if> <else> <group> <text term=\"retrieved\" text-case=\"capitalize-first\" suffix=\" \"/> <date variable=\"accessed\" suffix=\", \"> <date-part name=\"month\" suffix=\" \"/> <date-part name=\"day\" suffix=\", \"/> <date-part name=\"year\"/> </date> <text term=\"from\" suffix=\" \"/> <text variable=\"URL\"/> </group> </else> </choose> </if> <else> <choose> <if variable=\"URL\"> <choose> <if variable=\"archive\"> <group> <text term=\"retrieved\" text-case=\"capitalize-first\" suffix=\" \"/> <text term=\"from\" suffix=\" \"/> <text variable=\"archive\" suffix=\".\"/> </group> </if> <else> <group> <text term=\"retrieved\" text-case=\"capitalize-first\" suffix=\" \"/> <date variable=\"accessed\" suffix=\", \"> <date-part name=\"month\" suffix=\" \"/> <date-part name=\"day\" suffix=\", \"/> <date-part name=\"year\"/> </date> <group> <text term=\"from\" suffix=\" \"/> <text variable=\"URL\"/> </group> </group> </else> </choose> </if> </choose> </else> </choose> </macro> <macro name=\"title\"> <choose> <if type=\"report thesis\" match=\"any\"> <text variable=\"title\" font-style=\"italic\"/> <group prefix=\" (\" suffix=\")\"> <text variable=\"genre\"/> <text variable=\"number\" prefix=\" No. \"/> </group> </if> <else-if type=\"bill book graphic legal_case legislation manuscript motion_picture report song speech\" match=\"any\"> <text variable=\"title\" font-style=\"italic\"/> </else-if> <else> <text variable=\"title\"/> </else> </choose> </macro> <macro name=\"publisher\"> <choose> <if type=\"report\" match=\"any\"> <group delimiter=\": \"> <text variable=\"publisher-place\"/> <text variable=\"publisher\"/> </group> </if> <else-if type=\"thesis\" match=\"any\"> <group delimiter=\", \"> <text variable=\"publisher\"/> <text variable=\"publisher-place\"/> </group> </else-if> <else> <choose> <if variable=\"event\" match=\"none\"> <text variable=\"genre\" suffix=\", \"/> </if> </choose> <group delimiter=\": \"> <text variable=\"publisher-place\"/> <text variable=\"publisher\"/> </group> </else> </choose> </macro> <macro name=\"event\"> <choose> <if variable=\"event\"> <choose> <if variable=\"genre\" match=\"none\"> <text term=\"presented at\" text-case=\"capitalize-first\" suffix=\" \"/> <text variable=\"event\"/> </if> <else> <group delimiter=\" \"> <text variable=\"genre\" text-case=\"capitalize-first\"/> <text term=\"presented at\"/> <text variable=\"event\"/> </group> </else> </choose> </if> </choose> </macro> <macro name=\"issued\"> <choose> <if variable=\"issued\"> <group prefix=\" (\" suffix=\").\"> <date variable=\"issued\"> <date-part name=\"year\"/> </date> <choose> <if type=\"article-journal bill book chapter graphic legal_case legislation motion_picture paper-conference report song\" match=\"none\"> <date variable=\"issued\"> <date-part prefix=\", \" name=\"month\"/> <date-part prefix=\" \" name=\"day\"/> </date> </if> </choose> </group> </if> <else> <text prefix=\" (\" term=\"no date\" suffix=\").\" form=\"short\"/> </else> </choose> </macro> <macro name=\"issued-year\"> <choose> <if variable=\"issued\"> <date variable=\"issued\"> <date-part name=\"year\"/> </date> </if> <else> <text term=\"no date\" form=\"short\"/> </else> </choose> </macro> <macro name=\"edition\"> <choose> <if is-numeric=\"edition\"> <group delimiter=\" \"> <number variable=\"edition\" form=\"ordinal\"/> <text term=\"edition\" form=\"short\"/> </group> </if> <else> <text variable=\"edition\" suffix=\".\"/> </else> </choose> </macro> <macro name=\"locators\"> <choose> <if type=\"article-journal article-magazine article-newspaper\" match=\"any\"> <group prefix=\", \" delimiter=\", \"> <group> <text variable=\"volume\" font-style=\"italic\"/> <text variable=\"issue\" prefix=\"(\" suffix=\")\"/> </group> <text variable=\"page\"/> </group> </if> <else-if type=\"bill book chapter graphic legal_case legislation motion_picture paper-conference report song\" match=\"any\"> <group prefix=\" (\" suffix=\")\" delimiter=\", \"> <text macro=\"edition\"/> <group> <text term=\"volume\" form=\"short\" plural=\"true\" text-case=\"capitalize-first\" suffix=\" \"/> <number variable=\"number-of-volumes\" form=\"numeric\" prefix=\"1-\"/> </group> <group> <text term=\"volume\" form=\"short\" text-case=\"capitalize-first\" suffix=\" \"/> <number variable=\"volume\" form=\"numeric\"/> </group> <group> <label variable=\"page\" form=\"short\" suffix=\" \"/> <text variable=\"page\"/> </group> </group> </else-if> </choose> </macro> <macro name=\"citation-locator\"> <group> <label variable=\"locator\" form=\"short\"/> <text variable=\"locator\" prefix=\" \"/> </group> </macro> <citation et-al-min=\"6\" et-al-use-first=\"1\" et-al-subsequent-min=\"3\" et-al-subsequent-use-first=\"1\" disambiguate-add-year-suffix=\"true\" disambiguate-add-names=\"true\" disambiguate-add-givenname=\"true\" givenname-disambiguation-rule=\"primary-name\" collapse=\"year\"> <sort> <key macro=\"author\"/> <key macro=\"issued-year\"/> </sort> <layout prefix=\"(\" suffix=\")\" delimiter=\"; \"> <group delimiter=\", \"> <text macro=\"author-short\"/> <text macro=\"issued-year\"/> <text macro=\"citation-locator\"/> </group> </layout> </citation> <bibliography hanging-indent=\"true\" et-al-min=\"8\" et-al-use-first=\"7\" entry-spacing=\"0\" line-spacing=\"2\"> <sort> <key macro=\"author\"/> <key macro=\"issued-year\" sort=\"ascending\"/> </sort> <layout> <group suffix=\".\"> <text macro=\"author\" suffix=\".\"/> <text macro=\"issued\" suffix=\" \"/> <group delimiter=\". \"> <text macro=\"title\"/> <group> <text macro=\"container-contributors\"/> <text macro=\"secondary-contributors\"/> <group delimiter=\", \"> <text variable=\"container-title\" font-style=\"italic\"/> <text variable=\"collection-title\"/> </group> </group> </group> <text macro=\"locators\"/> <group delimiter=\", \" prefix=\". \"> <text macro=\"event\"/> <text macro=\"publisher\"/> </group> </group> <text macro=\"access\" prefix=\". \"/> </layout> </bibliography> </style>"
+        },
+        "citationLocale":
+        {
+            "id": "fr-FR",
+            "names": ["Français (France)", "French (France)"],
+            "fileName": "locales-fr-FR.xml",
+            "data": "<?xml version=\"1.0\" encoding=\"utf-8\"?> <locale xmlns=\"http://purl.org/net/xbiblio/csl\" version=\"1.0\" xml:lang=\"fr-FR\"> <info> <translator> <name>Grégoire Colly</name> </translator> <rights license=\"http://creativecommons.org/licenses/by-sa/3.0/\">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights> <updated>2012-07-04T23:31:02+00:00</updated> </info> <style-options punctuation-in-quote=\"false\" limit-day-ordinals-to-day-1=\"true\"/> <date form=\"text\"> <date-part name=\"day\" suffix=\" \"/> <date-part name=\"month\" suffix=\" \"/> <date-part name=\"year\"/> </date> <date form=\"numeric\"> <date-part name=\"day\" form=\"numeric-leading-zeros\" suffix=\"/\"/> <date-part name=\"month\" form=\"numeric-leading-zeros\" suffix=\"/\"/> <date-part name=\"year\"/> </date> <terms> <term name=\"accessed\">consulté le</term> <term name=\"and\">et</term> <term name=\"and others\">et autres</term> <term name=\"anonymous\">anonyme</term> <term name=\"anonymous\" form=\"short\">anon.</term> <term name=\"at\">sur</term> <term name=\"available at\">disponible sur</term> <term name=\"by\">par</term> <term name=\"circa\">vers</term> <term name=\"circa\" form=\"short\">v.</term> <term name=\"cited\">cité</term> <term name=\"edition\" gender=\"feminine\"> <single>édition</single> <multiple>éditions</multiple> </term> <term name=\"edition\" form=\"short\">éd.</term> <term name=\"et-al\">et al.</term> <term name=\"forthcoming\">à paraître</term> <term name=\"from\">à l'adresse</term> <term name=\"ibid\">ibid.</term> <term name=\"in\">in</term> <term name=\"in press\">sous presse</term> <term name=\"internet\">Internet</term> <term name=\"interview\">entretien</term> <term name=\"letter\">lettre</term> <term name=\"no date\">sans date</term> <term name=\"no date\" form=\"short\">s.&#160;d.</term> <term name=\"online\">en ligne</term> <term name=\"presented at\">présenté à</term> <term name=\"reference\"> <single>référence</single> <multiple>références</multiple> </term> <term name=\"reference\" form=\"short\"> <single>réf.</single> <multiple>réf.</multiple> </term> <term name=\"retrieved\">consulté</term> <term name=\"scale\">échelle</term> <term name=\"version\">version</term> <!-- ANNO DOMINI; BEFORE CHRIST --> <term name=\"ad\">apr. J.-C.</term> <term name=\"bc\">av. J.-C.</term> <!-- PUNCTUATION --> <term name=\"open-quote\">«&#160;</term> <term name=\"close-quote\">&#160;»</term> <term name=\"open-inner-quote\">“</term> <term name=\"close-inner-quote\">”</term> <term name=\"page-range-delimiter\">&#8209;</term> <!-- non-breaking hyphen --> <!-- ORDINALS --> <term name=\"ordinal\">ᵉ</term> <term name=\"ordinal-01\" gender-form=\"feminine\" match=\"whole-number\">ʳᵉ</term> <term name=\"ordinal-01\" gender-form=\"masculine\" match=\"whole-number\">ᵉʳ</term> <!-- LONG ORDINALS --> <term name=\"long-ordinal-01\">premier</term> <term name=\"long-ordinal-02\">deuxième</term> <term name=\"long-ordinal-03\">troisième</term> <term name=\"long-ordinal-04\">quatrième</term> <term name=\"long-ordinal-05\">cinquième</term> <term name=\"long-ordinal-06\">sixième</term> <term name=\"long-ordinal-07\">septième</term> <term name=\"long-ordinal-08\">huitième</term> <term name=\"long-ordinal-09\">neuvième</term> <term name=\"long-ordinal-10\">dixième</term> <!-- LONG LOCATOR FORMS --> <term name=\"book\"> <single>livre</single> <multiple>livres</multiple> </term> <term name=\"chapter\"> <single>chapitre</single> <multiple>chapitres</multiple> </term> <term name=\"column\"> <single>colonne</single> <multiple>colonnes</multiple> </term> <term name=\"figure\"> <single>figure</single> <multiple>figures</multiple> </term> <term name=\"folio\"> <single>folio</single> <multiple>folios</multiple> </term> <term name=\"issue\" gender=\"masculine\"> <single>numéro</single> <multiple>numéros</multiple> </term> <term name=\"line\"> <single>ligne</single> <multiple>lignes</multiple> </term> <term name=\"note\"> <single>note</single> <multiple>notes</multiple> </term> <term name=\"opus\"> <single>opus</single> <multiple>opus</multiple> </term> <term name=\"page\"> <single>page</single> <multiple>pages</multiple> </term> <term name=\"number-of-pages\"> <single>page</single> <multiple>pages</multiple> </term> <term name=\"paragraph\"> <single>paragraphe</single> <multiple>paragraphes</multiple> </term> <term name=\"part\"> <single>partie</single> <multiple>parties</multiple> </term> <term name=\"section\"> <single>section</single> <multiple>sections</multiple> </term> <term name=\"sub verbo\"> <single>sub verbo</single> <multiple>sub verbis</multiple> </term> <term name=\"verse\"> <single>verset</single> <multiple>versets</multiple> </term> <term name=\"volume\" gender=\"masculine\"> <single>volume</single> <multiple>volumes</multiple> </term> <!-- SHORT LOCATOR FORMS --> <term name=\"book\" form=\"short\">liv.</term> <term name=\"chapter\" form=\"short\">chap.</term> <term name=\"column\" form=\"short\">col.</term> <term name=\"figure\" form=\"short\">fig.</term> <term name=\"folio\" form=\"short\"> <single>fᵒ</single> <multiple>fᵒˢ</multiple> </term> <term name=\"issue\" form=\"short\"> <single>nᵒ</single> <multiple>nᵒˢ</multiple> </term> <term name=\"line\" form=\"short\">l.</term> <term name=\"note\" form=\"short\">n.</term> <term name=\"opus\" form=\"short\">op.</term> <term name=\"page\" form=\"short\"> <single>p.</single> <multiple>p.</multiple> </term> <term name=\"number-of-pages\" form=\"short\"> <single>p.</single> <multiple>p.</multiple> </term> <term name=\"paragraph\" form=\"short\">paragr.</term> <term name=\"part\" form=\"short\">part.</term> <term name=\"section\" form=\"short\">sect.</term> <term name=\"sub verbo\" form=\"short\"> <single>s.&#160;v.</single> <multiple>s.&#160;vv.</multiple> </term> <term name=\"verse\" form=\"short\"> <single>v.</single> <multiple>v.</multiple> </term> <term name=\"volume\" form=\"short\"> <single>vol.</single> <multiple>vol.</multiple> </term> <!-- SYMBOL LOCATOR FORMS --> <term name=\"paragraph\" form=\"symbol\"> <single>§</single> <multiple>§</multiple> </term> <term name=\"section\" form=\"symbol\"> <single>§</single> <multiple>§</multiple> </term> <!-- LONG ROLE FORMS --> <term name=\"director\"> <single>réalisateur</single> <multiple>réalisateurs</multiple> </term> <term name=\"editor\"> <single>éditeur</single> <multiple>éditeurs</multiple> </term> <term name=\"editorial-director\"> <single>directeur</single> <multiple>directeurs</multiple> </term> <term name=\"illustrator\"> <single>illustrateur</single> <multiple>illustrateurs</multiple> </term> <term name=\"translator\"> <single>traducteur</single> <multiple>traducteurs</multiple> </term> <term name=\"editortranslator\"> <single>éditeur et traducteur</single> <multiple>éditeurs et traducteurs</multiple> </term> <!-- SHORT ROLE FORMS --> <term name=\"director\" form=\"short\"> <single>réal.</single> <multiple>réal.</multiple> </term> <term name=\"editor\" form=\"short\"> <single>éd.</single> <multiple>éd.</multiple> </term> <term name=\"editorial-director\" form=\"short\"> <single>dir.</single> <multiple>dir.</multiple> </term> <term name=\"illustrator\" form=\"short\"> <single>ill.</single> <multiple>ill.</multiple> </term> <term name=\"translator\" form=\"short\"> <single>trad.</single> <multiple>trad.</multiple> </term> <term name=\"editortranslator\" form=\"short\"> <single>éd. et trad.</single> <multiple>éd. et trad.</multiple> </term> <!-- VERB ROLE FORMS --> <term name=\"container-author\" form=\"verb\">par</term> <term name=\"director\" form=\"verb\">réalisé par</term> <term name=\"editor\" form=\"verb\">édité par</term> <term name=\"editorial-director\" form=\"verb\">sous la direction de</term> <term name=\"illustrator\" form=\"verb\">illustré par</term> <term name=\"interviewer\" form=\"verb\">entretien réalisé par</term> <term name=\"recipient\" form=\"verb\">à</term> <term name=\"reviewed-author\" form=\"verb\">par</term> <term name=\"translator\" form=\"verb\">traduit par</term> <term name=\"editortranslator\" form=\"verb\">édité et traduit par</term> <!-- SHORT VERB ROLE FORMS --> <term name=\"director\" form=\"verb-short\">réal. par</term> <term name=\"editor\" form=\"verb-short\">éd. par</term> <term name=\"editorial-director\" form=\"verb-short\">ss la dir. de</term> <term name=\"illustrator\" form=\"verb-short\">ill. par</term> <term name=\"translator\" form=\"verb-short\">trad. par</term> <term name=\"editortranslator\" form=\"verb-short\">éd. et trad. par</term> <!-- LONG MONTH FORMS --> <term name=\"month-01\" gender=\"masculine\">janvier</term> <term name=\"month-02\" gender=\"masculine\">février</term> <term name=\"month-03\" gender=\"masculine\">mars</term> <term name=\"month-04\" gender=\"masculine\">avril</term> <term name=\"month-05\" gender=\"masculine\">mai</term> <term name=\"month-06\" gender=\"masculine\">juin</term> <term name=\"month-07\" gender=\"masculine\">juillet</term> <term name=\"month-08\" gender=\"masculine\">août</term> <term name=\"month-09\" gender=\"masculine\">septembre</term> <term name=\"month-10\" gender=\"masculine\">octobre</term> <term name=\"month-11\" gender=\"masculine\">novembre</term> <term name=\"month-12\" gender=\"masculine\">décembre</term> <!-- SHORT MONTH FORMS --> <term name=\"month-01\" form=\"short\">janv.</term> <term name=\"month-02\" form=\"short\">févr.</term> <term name=\"month-03\" form=\"short\">mars</term> <term name=\"month-04\" form=\"short\">avr.</term> <term name=\"month-05\" form=\"short\">mai</term> <term name=\"month-06\" form=\"short\">juin</term> <term name=\"month-07\" form=\"short\">juill.</term> <term name=\"month-08\" form=\"short\">août</term> <term name=\"month-09\" form=\"short\">sept.</term> <term name=\"month-10\" form=\"short\">oct.</term> <term name=\"month-11\" form=\"short\">nov.</term> <term name=\"month-12\" form=\"short\">déc.</term> <!-- SEASONS --> <term name=\"season-01\">printemps</term> <term name=\"season-02\">été</term> <term name=\"season-03\">automne</term> <term name=\"season-04\">hiver</term> </terms> </locale>"
+        },
+        "css": ""
+    },
+    "id": "d9a8f85b-64d9-483b-b72f-2447afb1d23c",
+    "createdAt": 1535644299227,
+    "lastUpdateAt": 1535644347214
+}

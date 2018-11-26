@@ -19,6 +19,9 @@ import RealPlayer from '../src/';
 import stylesTest from './story-styles-test';
 import contextualizationsTest from './story-contextualizations-test';
 import testCover from './test-cover.json';
+import radical from './radical.json';
+import faultyLinks from './faulty-links.json';
+import titleBlinking from './title-blinking.json';
 
 class Player extends Component {
 
@@ -75,6 +78,11 @@ storiesOf('Quinoa story - garlic template', module)
       story={contextualizationsTest}
     />
   ))
+  .add('Radical', () => (
+    <Player
+      story={radical}
+    />
+  ))
   .add('Story With footnotes', () => (
     <Player
       story={withFootnotes}
@@ -88,6 +96,16 @@ storiesOf('Quinoa story - garlic template', module)
   .add('Story with cover', () => (
     <Player
       story={testCover}
+    />
+  ))
+  .add('Faulty links', () => (
+    <Player
+      story={faultyLinks}
+    />
+  ))
+  .add('Title blinking', () => (
+    <Player
+      story={titleBlinking}
     />
   ))
   .add('Story within another page (container-relative positionning)', () => (
