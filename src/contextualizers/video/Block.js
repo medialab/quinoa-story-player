@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import Player from 'react-player';
 
@@ -9,7 +9,7 @@ class VideoBlock extends Component {
     super(props);
     this.state = {
       dimensions: {}
-    }
+    };
   }
 
   render = () => {
@@ -22,19 +22,18 @@ class VideoBlock extends Component {
       }
     } = this;
     return (
-        <Measure
-          bounds
-          onResize={(contentRect) => {
-            this.setState({ dimensions: contentRect.bounds })
-          }}
-        >
-          {
-            ({measureRef}) =>
-            <div ref={measureRef} className="quinoa-contextualization block video media-player-container">
-              <Player width={dimensions.width} height={dimensions.height} url={resource.data.url} />
-            </div>
+      <Measure
+        bounds
+        onResize={(contentRect) => {
+            this.setState({ dimensions: contentRect.bounds });
+          }}>
+        {
+            ({ measureRef }) =>
+              (<div ref={measureRef} className="quinoa-contextualization block video media-player-container">
+                <Player width={dimensions.width} height={dimensions.height} url={resource.data.url} />
+              </div>)
           }
-        </Measure>
+      </Measure>
     );
   }
 }
