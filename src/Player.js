@@ -127,6 +127,7 @@ class QuinoaStoryPlayer extends Component {
         {({ measureRef }) => (
           <div ref={measureRef} className="quinoa-story-player">
             {this.renderComponent()}
+            <div id="modal-root" />
           </div>
         )}
       </Measure>

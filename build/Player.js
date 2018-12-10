@@ -144,7 +144,8 @@ var QuinoaStoryPlayer = function (_Component) {
           return _react2.default.createElement(
             'div',
             { ref: measureRef, className: 'quinoa-story-player' },
-            _this2.renderComponent()
+            _this2.renderComponent(),
+            _react2.default.createElement('div', { id: 'modal-root' })
           );
         }
       );

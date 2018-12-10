@@ -5,12 +5,10 @@
 // @import url('https://fonts.googleapis.com/css?family=Lora:400,400i,700');
 // @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i');
 
-
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i,900');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Roboto:400,400i,700,700i,900');
 @import './fonts/roboto/roboto.css';
 @import './fonts/merriweather/merriweather.css';
-// @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i,900');
-// @import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Roboto:400,400i,700,700i,900');
-
 
 /**
  * Template-specific reusable elements (variables, mixins, abstract classes)
@@ -513,6 +511,14 @@ $timer-long: 1s;
         }
     }
 
+    /**
+     * Image contextualization layout
+     */
+    .quinoa-contextualization.image {
+        img{
+            cursor: pointer;
+        }
+    }
     /**
      * Embed contextualization container layout
      */
@@ -1535,5 +1541,67 @@ $timer-long: 1s;
 
             background: rgba(0,0,0,.1);
         }
+    }
+
+    /**
+     * Image contextualization lightbox layout
+     */
+    .quinoa-contextualization-lightbox-container{
+            transition: all .2s ease;
+            position: fixed;
+            background: rgba(0,0,0,0.8);
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000000;
+            cursor: pointer;
+
+            &.hidden{
+                width: 0;
+                height: 0;
+                left: 50%;
+                top: 50%;
+                opacity: 0;
+            }
+
+            figure{
+                position: relative;
+                 max-height: 90%;
+                max-width: 90%;
+                overflow: hidden;
+            }
+            .lightbox-image-container{
+                display: flex;
+                flex-flow: column nowrap;
+                align-items: center;
+                justify-content: center;
+                img{
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+            
+            // img{
+            //     max-height: 100%;
+            //     max-width: 100%;
+            // }
+
+            figcaption{
+                text-align: left;
+                background: rgba(0,0,0,0.8);
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                color: white;
+                padding: $gutter-small;
+                font-size: $font-size-0;
+            }
     }
 }
