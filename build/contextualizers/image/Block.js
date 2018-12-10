@@ -136,7 +136,27 @@ var ImageBlock = function (_Component) {
               _react2.default.createElement(
                 'figcaption',
                 null,
-                resource.metadata.title
+                _react2.default.createElement(
+                  'h3',
+                  null,
+                  resource.metadata.title
+                ),
+                resource.metadata.authors && resource.metadata.authors.length > 0 && _react2.default.createElement(
+                  'h5',
+                  null,
+                  resource.metadata.authors.join(', ')
+                ),
+                resource.metadata.description && _react2.default.createElement(
+                  'div',
+                  { className: 'lightbox-description' },
+                  resource.metadata.description
+                ),
+                resource.metadata.source && resource.metadata.source && _react2.default.createElement(
+                  'div',
+                  { className: 'lightbox-source' },
+                  'Source: ',
+                  resource.metadata.source
+                )
               )
             )
           )

@@ -474,12 +474,17 @@ $timer-long: 1s;
     {
         width: 100%;
         height: 70%;
+
         text-align : center;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
 
         > img{
             max-width: 100%;
 
-            max-height: 100%;
+            max-height:  70vh;
             object-fit: contain;
         }
     }
@@ -515,6 +520,7 @@ $timer-long: 1s;
      * Image contextualization layout
      */
     .quinoa-contextualization.image {
+        background: rgba(0,0,0,0.05);
         img{
             cursor: pointer;
         }
@@ -562,7 +568,7 @@ $timer-long: 1s;
         padding-top: $gutter-small;
         padding-right: $gutter-large;
         padding-bottom: $gutter-medium;
-        padding-left: $gutter-large;
+        padding-left: $gutter-medium;
     }
     /**
      * Interctive table layout
@@ -1572,8 +1578,8 @@ $timer-long: 1s;
 
             figure{
                 position: relative;
-                 max-height: 90%;
-                max-width: 90%;
+                 height: 90%;
+                width: 90%;
                 overflow: hidden;
             }
             .lightbox-image-container{
@@ -1581,6 +1587,11 @@ $timer-long: 1s;
                 flex-flow: column nowrap;
                 align-items: center;
                 justify-content: center;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
                 img{
                     max-width: 100%;
                     max-height: 100%;
@@ -1598,10 +1609,20 @@ $timer-long: 1s;
                 position: absolute;
                 bottom: 0;
                 left: 0;
-                width: 100%;
+                width: 15%;
                 color: white;
                 padding: $gutter-small;
                 font-size: $font-size-0;
+
+                .lightbox-description,
+                .lightbox-source{
+                    max-height: 10vh;
+                    overflow: auto;
+                    margin-top: $gutter-medium;
+                }
+                @media screen and (max-width: 700px) {
+                    width: 100%;
+                }
             }
     }
 }

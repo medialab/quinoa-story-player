@@ -96,7 +96,27 @@ class ImageBlock extends Component {
                 <img src={src} />
               </div>
               <figcaption>
-                {resource.metadata.title}
+                <h3>{resource.metadata.title}</h3>
+                {
+                  resource.metadata.authors && resource.metadata.authors.length > 0 &&
+                  <h5>
+                    {
+                      resource.metadata.authors.join(', ')
+                    }
+                  </h5>
+                }
+                {
+                  resource.metadata.description &&
+                  <div className="lightbox-description">
+                    {resource.metadata.description}
+                  </div>
+                }
+                {
+                  resource.metadata.source && resource.metadata.source &&
+                  <div className="lightbox-source">
+                    Source: {resource.metadata.source}
+                  </div>
+                }
               </figcaption>
             </figure>
           </div>
