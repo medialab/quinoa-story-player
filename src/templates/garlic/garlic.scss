@@ -695,7 +695,7 @@ $timer-long: 1s;
     .glossary-container,
     .notes-container
     {
-        margin-bottom: $gutter-large;
+        margin-bottom: $gutter-medium;
     }
     /**
      * Citation entry layout
@@ -984,6 +984,12 @@ $timer-long: 1s;
             -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
                     box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
         }
+        &:not(.fixed) {
+            .index-toggle{
+                max-height: 0;
+                overflow: hidden;
+            }
+        }
     }
     /**
      * Nav content styling
@@ -1133,6 +1139,7 @@ $timer-long: 1s;
     .contents-wrapper .content-a,
     .glossary-mention,
     .glossary-mention-backlink,
+    .quinoa-contextualization.bib,
     .csl-entry a
     {
         line-height: 1.3em;
@@ -1150,7 +1157,7 @@ $timer-long: 1s;
         {
             text-decoration: none!important;
         }
-        &:hover
+        &:not(.bib):hover
         {
             color: $color-background;
             background: $color-secondary;
@@ -1228,7 +1235,7 @@ $timer-long: 1s;
      */
     .tooltip-content
     {
-        font-size: $font-size-1 * .6;
+        font-size: $font-size-1 * .9;
     }
 
     /**
@@ -1616,7 +1623,7 @@ $timer-long: 1s;
 
                 .lightbox-description,
                 .lightbox-source{
-                    max-height: 10vh;
+                    max-height: 20vh;
                     overflow: auto;
                     margin-top: $gutter-medium;
                 }
