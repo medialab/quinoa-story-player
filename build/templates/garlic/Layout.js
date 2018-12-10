@@ -50,8 +50,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactCustomScrollbars = require('react-custom-scrollbars');
 
-var _rebound = require('rebound');
-
 var _lodash = require('lodash');
 
 var _reactCiteproc = require('react-citeproc');
@@ -59,6 +57,8 @@ var _reactCiteproc = require('react-citeproc');
 var _reactTooltip = require('react-tooltip');
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
+
+var _d3Ease = require('d3-ease');
 
 var _Bibliography = require('../../components/Bibliography');
 
@@ -352,7 +352,6 @@ var GarlicLayout = function (_Component) {
 
     _this.scrollToContents = _this.scrollToContents.bind(_this);
     _this.scrollToCover = _this.scrollToCover.bind(_this);
-    _this.handleSpringUpdate = _this.handleSpringUpdate.bind(_this);
     _this.scrollTop = _this.scrollTop.bind(_this);
     _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 10, { leading: true, trailing: true, maxWait: 100 });
     _this.scrollToElementId = _this.scrollToElementId.bind(_this);
@@ -398,9 +397,6 @@ var GarlicLayout = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.springSystem = new _rebound.SpringSystem();
-      this.spring = this.springSystem.createSpring();
-      this.spring.addListener({ onSpringUpdate: this.handleSpringUpdate });
       setTimeout(function () {
         if (_this2.props.story) {
           _this2.setState({
@@ -438,24 +434,32 @@ var GarlicLayout = function (_Component) {
 
 
   }, {
-    key: 'handleSpringUpdate',
-    value: function handleSpringUpdate(spring) {
-      var val = spring.getCurrentValue();
-      if (val !== undefined && this.globalScrollbar) {
-        this.globalScrollbar.scrollTop(val);
-      }
-    }
-
-
-  }, {
     key: 'scrollTop',
-    value: function scrollTop(top) {
+    value: function scrollTop(initialTop) {
+      var _this4 = this;
+
       var scrollbars = this.globalScrollbar;
       var scrollTop = scrollbars.getScrollTop();
       var scrollHeight = scrollbars.getScrollHeight();
-      var val = _rebound.MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
-      this.spring.setCurrentValue(scrollTop).setAtRest();
-      this.spring.setEndValue(val);
+      var top = initialTop > scrollHeight ? scrollHeight : initialTop;
+      top = top < 0 ? 0 : top;
+
+      var ANIMATION_DURATION = 1000;
+      var ANIMATION_STEPS = 10;
+      var animationTick = 1 / ANIMATION_STEPS;
+
+      var diff = top - scrollTop;
+
+      var _loop = function _loop(t) {
+        var to = (0, _d3Ease.easeCubic)(t);
+        setTimeout(function () {
+          _this4.globalScrollbar.scrollTop(scrollTop + diff * to);
+        }, ANIMATION_DURATION * t);
+      };
+
+      for (var t = 0; t <= 1; t += animationTick) {
+        _loop(t);
+      }
     }
 
 
