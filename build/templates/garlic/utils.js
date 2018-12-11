@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getOffset = exports.buildTOC = undefined;
+exports.stylesVariablesToCss = exports.getOffset = exports.buildTOC = undefined;
 
 var _keys = require('babel-runtime/core-js/object/keys');
 
@@ -150,4 +150,21 @@ var getOffset = exports.getOffset = function getOffset(el) {
     el = el.offsetParent;
   }
   return { top: _y, left: _x };
+};
+
+var stylesVariablesToCss = exports.stylesVariablesToCss = function stylesVariablesToCss() {
+  var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var compiledStyles = '';
+  var stylesRatios = {
+    smaller: 0.6,
+    small: 0.8,
+    normal: 1,
+    big: 1.2,
+    bigger: 1.4
+  };
+  if (styles.titles) {
+    compiledStyles = compiledStyles + ('\n    .section-title--modifier {\n      color: ' + styles.titles.color + ';\n      font-size: ' + stylesRatios[styles.titles.sizeClass] + 'em;\n    }');
+  }
+  return compiledStyles;
 };

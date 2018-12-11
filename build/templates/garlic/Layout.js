@@ -248,6 +248,9 @@ var GarlicLayout = function (_Component) {
       notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
       var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
+
+      var computedStylesVariables = (0, _utils.stylesVariablesToCss)(settings.stylesVariables);
+
       var onClickToggle = function onClickToggle() {
         return _this.toggleIndex();
       };
@@ -344,6 +347,7 @@ var GarlicLayout = function (_Component) {
           null,
           contextualizersStyles,
           _garlic2.default,
+          computedStylesVariables,
           customCss
         ),
         _react2.default.createElement(_reactTooltip2.default, { id: 'tooltip', effect: 'solid' })

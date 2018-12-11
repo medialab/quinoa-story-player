@@ -126,7 +126,11 @@ var renderers = {
         return _react2.default.createElement(
           'h1',
           { className: 'content-title content-h1', key: index, id: keys[index] },
-          child
+          _react2.default.createElement(
+            'span',
+            { className: 'section-title--modifier' },
+            child
+          )
         );
       });
     },
@@ -146,7 +150,11 @@ var renderers = {
         return _react2.default.createElement(
           'h3',
           { className: 'content-title content-h3', key: index, id: keys[index] },
-          child
+          _react2.default.createElement(
+            'span',
+            { className: 'section-title--modifier' },
+            child
+          )
         );
       });
     },
@@ -156,7 +164,11 @@ var renderers = {
         return _react2.default.createElement(
           'h4',
           { className: 'content-title content-h4', key: index, id: keys[index] },
-          child
+          _react2.default.createElement(
+            'span',
+            { className: 'section-title--modifier' },
+            child
+          )
         );
       });
     },
@@ -166,7 +178,11 @@ var renderers = {
         return _react2.default.createElement(
           'h5',
           { className: 'content-title content-h5', key: index, id: keys[index] },
-          child
+          _react2.default.createElement(
+            'span',
+            { className: 'section-title--modifier' },
+            child
+          )
         );
       });
     },
@@ -176,7 +192,11 @@ var renderers = {
         return _react2.default.createElement(
           'h6',
           { className: 'content-title content-h6', key: index, id: keys[index] },
-          child
+          _react2.default.createElement(
+            'span',
+            { className: 'section-title--modifier' },
+            child
+          )
         );
       });
     },

@@ -52,7 +52,9 @@ class SectionLayout extends Component {
         <div className="section-header">
           {
             metadata.title && metadata.title.trim().length &&
-            <h1 className="section-title" id={section.id}>{metadata.title || ''}</h1>
+            <h1 className="section-title" id={section.id}>
+              <span className="section-title--modifier">{metadata.title || ''}</span>
+            </h1>
           }
           {
             metadata &&

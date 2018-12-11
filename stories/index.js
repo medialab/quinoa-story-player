@@ -22,6 +22,7 @@ import testCover from './test-cover.json';
 import radical from './radical.json';
 import faultyLinks from './faulty-links.json';
 import titleBlinking from './title-blinking.json';
+import stylesVariables from './styles-variation.json';
 
 class Player extends Component {
 
@@ -107,6 +108,9 @@ storiesOf('Quinoa story - garlic template', module)
     <Player
       story={titleBlinking}
     />
+  ))
+  .add('With Styles Variations (WYSIWYG)', () => (
+    <Player story={stylesVariables} />
   ))
   .add('Story within another page (container-relative positionning)', () => (
     <div

@@ -6,5 +6,40 @@
     "notesPosition",
     "referenceTypes",
     "referenceStatus"
-  ]
+  ],
+  "acceptsStylesVariables": {
+    "titles": {
+      "color": true,
+      "sizeClass": [
+        "smaller", "small", "normal", "big", "bigger"
+      ]
+    },
+    "coverText": {
+      "color": true,
+      "sizeClass": [
+        "smaller", "small", "normal", "big", "bigger"
+      ]
+    },
+    "corpus": {
+      "color": true,
+      "sizeClass": [
+        "smaller", "small", "normal", "big", "bigger"
+      ]
+    },
+    "links": {
+      "color": true
+    },
+    "blockquotes": {
+      "color": true,
+      "sizeClass": [
+        "smaller", "small", "normal", "big", "bigger"
+      ]
+    },
+    "background": {
+      "color": true
+    },
+    "ressources": {
+      "width": true
+    }
+  }
 }

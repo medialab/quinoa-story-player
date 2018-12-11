@@ -45,12 +45,12 @@ const renderers = {
   blocks: {
     'unstyled': (children) => children.map((child, index) => <div className="content-p" key={index}>{child}</div>),
     'blockquote': (children) => <blockquote className="content-blockquote" >{addBreaklines(children)}</blockquote>,
-    'header-one': (children, { keys }) => children.map((child, index) => <h1 className="content-title content-h1" key={index} id={keys[index]}>{child}</h1>),
+    'header-one': (children, { keys }) => children.map((child, index) => <h1 className="content-title content-h1" key={index} id={keys[index]}><span className="section-title--modifier">{child}</span></h1>),
     'header-two': (children, { keys }) => children.map((child, index) => <h2 className="content-h2" key={index} id={keys[index]}>{child}</h2>),
-    'header-three': (children, { keys }) => children.map((child, index) => <h3 className="content-title content-h3" key={index} id={keys[index]}>{child}</h3>),
-    'header-four': (children, { keys }) => children.map((child, index) => <h4 className="content-title content-h4" key={index} id={keys[index]}>{child}</h4>),
-    'header-five': (children, { keys }) => children.map((child, index) => <h5 className="content-title content-h5" key={index} id={keys[index]}>{child}</h5>),
-    'header-six': (children, { keys }) => children.map((child, index) => <h6 className="content-title content-h6" key={index} id={keys[index]}>{child}</h6>),
+    'header-three': (children, { keys }) => children.map((child, index) => <h3 className="content-title content-h3" key={index} id={keys[index]}><span className="section-title--modifier">{child}</span></h3>),
+    'header-four': (children, { keys }) => children.map((child, index) => <h4 className="content-title content-h4" key={index} id={keys[index]}><span className="section-title--modifier">{child}</span></h4>),
+    'header-five': (children, { keys }) => children.map((child, index) => <h5 className="content-title content-h5" key={index} id={keys[index]}><span className="section-title--modifier">{child}</span></h5>),
+    'header-six': (children, { keys }) => children.map((child, index) => <h6 className="content-title content-h6" key={index} id={keys[index]}><span className="section-title--modifier">{child}</span></h6>),
 
     // You can also access the original keys of the blocks
     'code-block': (children, { keys }) => <pre className="content-pre" key={keys[0]} >{addBreaklines(children)}</pre>,

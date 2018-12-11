@@ -178,3 +178,22 @@ export const getOffset = (el) => {
     }
     return { top: _y, left: _x };
 };
+
+export const stylesVariablesToCss = (styles = {}) => {
+  let compiledStyles = '';
+  const stylesRatios = {
+    smaller: 0.6,
+    small: 0.8,
+    normal: 1,
+    big: 1.2,
+    bigger: 1.4,
+  };
+  if (styles.titles) {
+    compiledStyles = compiledStyles + `
+    .section-title--modifier {
+      color: ${styles.titles.color};
+      font-size: ${stylesRatios[styles.titles.sizeClass]}em;
+    }`;
+  }
+  return compiledStyles;
+};

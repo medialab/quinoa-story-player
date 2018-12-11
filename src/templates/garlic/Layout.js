@@ -25,7 +25,7 @@ import {
   buildGlossary,
   capitalize
 } from '../../utils/misc';
-import { buildTOC, getOffset } from './utils';
+import { buildTOC, getOffset, stylesVariablesToCss } from './utils';
 
 import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
 import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
@@ -36,7 +36,7 @@ import tableStyles from '!raw-loader!sass-loader!react-table/react-table.css';
 import templateCss from '!raw-loader!sass-loader!./garlic.scss';
 
 const contextualizersStyles = [
-tableStyles
+  tableStyles
 ].join('\n\n');
 /**
  * GarlicLayout class for building a story-player template react component instances
@@ -217,7 +217,6 @@ class GarlicLayout extends Component {
     let stateChanges = {};
 
     const inCover = scrollTop < headerHeight;
-
 
     // check if we are in the cover of the story
     if (inCover && !this.state.inCover) {
@@ -445,6 +444,12 @@ class GarlicLayout extends Component {
     notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
     const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
+
+    /**
+     * Styles Variables (WYSIWYG)
+     */
+    const computedStylesVariables = stylesVariablesToCss(settings.stylesVariables);
+
     /**
      * ==========================================
      * Callbacks
@@ -576,6 +581,7 @@ class GarlicLayout extends Component {
         <style>
           {contextualizersStyles}
           {templateCss}
+          {computedStylesVariables}
           {customCss}
         </style>
         <Tooltip id="tooltip" effect="solid" />
