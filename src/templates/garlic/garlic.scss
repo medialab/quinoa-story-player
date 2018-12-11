@@ -176,7 +176,8 @@ $timer-long: 1s;
     .content-ol.ol-level-3,
     .content-ol.ol-level-4,
     .content-ol.ol-level-5,
-    .content-ol.ol-level-6{
+    .content-ol.ol-level-6
+    {
         margin: 0;
         padding: 0;
     }
@@ -462,8 +463,10 @@ $timer-long: 1s;
 
         flex: 1;
     }
-    .content-figure.video {
-        iframe {
+    .content-figure.video
+    {
+        iframe
+        {
             min-height: 15em;
         }
     }
@@ -472,19 +475,22 @@ $timer-long: 1s;
      */
     .content-image
     {
+        display: flex;
+
         width: 100%;
         height: 70%;
 
-        text-align : center;
-        display: flex;
+        text-align: center;
+
         flex-flow: column nowrap;
         align-items: center;
         justify-content: center;
 
-        > img{
+         > img
+        {
             max-width: 100%;
+            max-height: 70vh;
 
-            max-height:  70vh;
             object-fit: contain;
         }
     }
@@ -505,12 +511,16 @@ $timer-long: 1s;
     /**
      * Media player container layout
      */
-    .media-player-container{
+    .media-player-container
+    {
+        position: relative;
+
+        overflow: hidden;
+
         max-width: 100%;
         max-height: 100%;
-        overflow: hidden;
-        position: relative;
-        iframe{
+        iframe
+        {
             max-width: 100%;
             max-height: 100%;
         }
@@ -519,9 +529,11 @@ $timer-long: 1s;
     /**
      * Image contextualization layout
      */
-    .quinoa-contextualization.image {
-        background: rgba(0,0,0,0.05);
-        img{
+    .quinoa-contextualization.image
+    {
+        background: rgba(0,0,0,.05);
+        img
+        {
             cursor: pointer;
         }
     }
@@ -554,8 +566,10 @@ $timer-long: 1s;
      */
     .figure-caption-title
     {
-        margin-top: 0;
         display: flex;
+
+        margin-top: 0;
+
         flex-flow: row nowrap;
         align-items: flex-start;
     }
@@ -575,11 +589,12 @@ $timer-long: 1s;
      */
     .ReactTable
     {
+        max-width: 100%;
         margin-right: $gutter-lateral-large-screens;
         margin-left: $gutter-lateral-large-screens;
-        max-width: 100%;
-        .-pagination{
-           height: 5rem;
+        .-pagination
+        {
+            height: 5rem;
         }
         // height: 30rem;
         // max-height: 30rem;
@@ -683,10 +698,12 @@ $timer-long: 1s;
      */
     .note-content-pointer
     {
-        margin-left: 0;//$gutter-small * .5;
         position: relative;
         top: -$gutter-small * .5;
-        transform: scale(0.8);
+
+        margin-left: 0;//$gutter-small * .5;
+
+        transform: scale(.8);
     }
     /**
      * Bottom elements layout
@@ -719,25 +736,31 @@ $timer-long: 1s;
     /**
      * Info pill layout
      */
-    .info-pill{
-        margin-left: $gutter-small;
+    .info-pill
+    {
+        display: flex;
+
         width: 1rem;
         height: 1rem;
+        margin-left: $gutter-small;
+
         border-radius: 50%;
-        display: flex;
+
         flex-flow: row nowrap;
         justify-content: center;
         align-items: center;
-     }
+    }
     /**
      * Info source in tooltip layout
      */
-    .info-source{
+    .info-source
+    {
         margin-top: $gutter-medium;
     }
 
 
-    @media screen and (max-width: 700px) {
+    @media screen and (max-width: 700px)
+    {
         /**
           * General layout rules for contents blocks elements
           */
@@ -767,11 +790,10 @@ $timer-long: 1s;
             margin-left: $gutter-lateral-small-screens;
         }
 
-        .nav{
-           width: 50%;
+        .nav
+        {
+            width: 50%;
         }
-
-
     }
 
 
@@ -799,12 +821,15 @@ $timer-long: 1s;
      */
     strong,
     em,
-    a{
-        color: inherit;
+    a
+    {
         word-break: break-all;
+
+        color: inherit;
     }
     strong > em,
-    em > strong{
+    em > strong
+    {
         font-weight: 900;
         font-style: italic;
     }
@@ -834,8 +859,10 @@ $timer-long: 1s;
     /**
      * Content pre styling
      */
-    .content-pre{
+    .content-pre
+    {
         font-size: $font-size-1;
+
         background: $color-secondary-background;
     }
     /**
@@ -860,17 +887,20 @@ $timer-long: 1s;
     /**
      * Info pill styling
      */
-     .info-pill{
-        background: $color-primary;
-        color: $color-background;
+    .info-pill
+    {
         font-family: $font-stack-serif;
         font-size: $font-size-0 * .7;
-     }
+
+        color: $color-background;
+        background: $color-primary;
+    }
 
     /**
      * Info tooltip container styling
      */
-    .info-container{
+    .info-container
+    {
         font-size: $font-size-0;
     }
 
@@ -984,10 +1014,13 @@ $timer-long: 1s;
             -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
                     box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
         }
-        &:not(.fixed) {
-            .index-toggle{
-                max-height: 0;
+        &:not(.fixed)
+        {
+            .index-toggle
+            {
                 overflow: hidden;
+
+                max-height: 0;
             }
         }
     }
@@ -1160,8 +1193,8 @@ $timer-long: 1s;
         &:not(.bib):hover
         {
             color: $color-background;
-            background: $color-secondary;
             border-bottom: none;// 1px solid $color-secondary-intent;
+            background: $color-secondary;
             // background: $color-secondary-intent;
         }
     }
@@ -1187,8 +1220,8 @@ $timer-long: 1s;
      */
     .glossary-entry-title
     {
-        font-size: $font-size-1;
         font-family: $font-stack-serif;
+        font-size: $font-size-1;
     }
 
     /**
@@ -1196,9 +1229,9 @@ $timer-long: 1s;
      */
     .note-item
     {
-        opacity: .8;
-
         list-style-type: none;
+
+        opacity: .8;
         .content-p,
         .content-ul,
         .content-ol
@@ -1378,17 +1411,19 @@ $timer-long: 1s;
         overflow: visible!important;
 
         width: unset!important;
-        height: unset!important;
+        height: 100%;
         margin: 0!important;
         padding: 0!important;
 
         background: white!important;
 
-        @page{
+        @page
+        {
             margin: 2cm;
         }
 
-        .__react_component_tooltip{
+        .__react_component_tooltip
+        {
             display: none;
         }
 
@@ -1411,17 +1446,43 @@ $timer-long: 1s;
         .content-pre,
         .header-contents
         {
-            margin-left: 0;
             margin-right: 0;
+            margin-left: 0;
         }
-        .notes-container{
+        .notes-container
+        {
             page-break-inside: avoid;
         }
+
+        .header-container
+        {
+            &.with-cover
+            {
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 99%;
+
+                display: flex;
+                flex-flow: column nowrap;
+                align-items : center;
+                justify-content: center;
+            }
+        }
+
         .header-contents
         {
-            padding-top: 4cm;/* todo wtf */
+            // padding-top: 4cm;/* todo wtf */
 
-            page-break-after: always;
+            // page-break-after: always;
+            padding: 1cm!important;
+
+            .header-story-title,
+            .header-story-subtitle,
+            .header-authors{
+                color: black;
+            }
             .header-story-title
             {
                 font-size: 50px;
@@ -1430,7 +1491,16 @@ $timer-long: 1s;
             {
                 font-size: 30px;
             }
+            .header-authors
+            {
+                font-size: 15px;
+            }
         }
+
+
+        // .section{
+        //     page-break-before: always;
+        // }
 
         .nav,
         .aside-edition-container,
@@ -1468,9 +1538,10 @@ $timer-long: 1s;
 
         .note-content-pointer
         {
+            font-size: $font-size-0;
+
             width: auto;
             height: auto;
-            font-size: $font-size-0;
             margin: 0;
         }
 
@@ -1478,16 +1549,18 @@ $timer-long: 1s;
         .content-li,
         .content-blockquote
         {
-            font-size: 10px!important;
-            line-height: 15px!important;
+            font-size: 13px!important;
+            line-height: 16px!important;
 
-            margin-bottom: 15px!important;
+            margin-bottom: 18px!important;
         }
-        .note-item{
+        .note-item
+        {
             margin-bottom: 0;
             padding-bottom: 0;
         }
-        .note-item .content-p{
+        .note-item .content-p
+        {
             margin-bottom: 0!important;
         }
         .content-blockquote
@@ -1552,84 +1625,130 @@ $timer-long: 1s;
         {
             padding: 5px!important;
 
-            background: rgba(0,0,0,.1);
+            background: none;// rgba(0,0,0,.1);
+        }
+
+        .references-manager,
+        .wrapper,
+        .wrapper > div,
+        .wrapper > div > div
+        {
+            height: 100%!important;
+        }
+
+        #modal-root{
+            display: none!important;
         }
     }
 
     /**
      * Image contextualization lightbox layout
      */
-    .quinoa-contextualization-lightbox-container{
-            transition: all .2s ease;
-            position: fixed;
-            background: rgba(0,0,0,0.8);
-            left: 0;
+    .quinoa-contextualization-lightbox-container
+    {
+        position: fixed;
+        z-index: 1000000;
+        top: 0;
+        left: 0;
+
+        display: flex;
+
+        width: 100%;
+        height: 100%;
+
+        cursor: pointer;
+        transition: all .2s ease;
+
+        opacity: 1;
+        background: rgba(0,0,0,.8);
+
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+
+        &.hidden
+        {
+            top: 50%;
+            left: 50%;
+
+            width: 0;
+            height: 0;
+
+            opacity: 0;
+        }
+
+        figure
+        {
+            position: relative;
+
+            overflow: hidden;
+
+            width: 90%;
+            height: 90%;
+        }
+        .lightbox-image-container
+        {
+            position: absolute;
             top: 0;
+            left: 0;
+
+            display: flex;
+
             width: 100%;
             height: 100%;
-            opacity: 1;
-            display: flex;
+
             flex-flow: column nowrap;
             align-items: center;
             justify-content: center;
-            z-index: 1000000;
-            cursor: pointer;
-
-            &.hidden{
-                width: 0;
-                height: 0;
-                left: 50%;
-                top: 50%;
-                opacity: 0;
+            img
+            {
+                max-width: 100%;
+                max-height: 100%;
             }
+        }
 
-            figure{
-                position: relative;
-                 height: 90%;
-                width: 90%;
-                overflow: hidden;
+        // img{
+        //     max-height: 100%;
+        //     max-width: 100%;
+        // }
+
+        figcaption
+        {
+            font-size: $font-size-0;
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            width: 15%;
+            padding: $gutter-small;
+
+            text-align: left;
+
+            color: white;
+            background: rgba(0,0,0,.8);
+
+            .lightbox-description,
+            .lightbox-source
+            {
+                overflow: auto;
+
+                max-height: 20vh;
+                margin-top: $gutter-medium;
             }
-            .lightbox-image-container{
-                display: flex;
-                flex-flow: column nowrap;
-                align-items: center;
-                justify-content: center;
+            @media screen and (max-width: 700px)
+            {
                 width: 100%;
-                height: 100%;
-                position: absolute;
-                left: 0;
-                top: 0;
-                img{
-                    max-width: 100%;
-                    max-height: 100%;
-                }
             }
-            
-            // img{
-            //     max-height: 100%;
-            //     max-width: 100%;
-            // }
+        }
+    }
+}
 
-            figcaption{
-                text-align: left;
-                background: rgba(0,0,0,0.8);
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 15%;
-                color: white;
-                padding: $gutter-small;
-                font-size: $font-size-0;
-
-                .lightbox-description,
-                .lightbox-source{
-                    max-height: 20vh;
-                    overflow: auto;
-                    margin-top: $gutter-medium;
-                }
-                @media screen and (max-width: 700px) {
-                    width: 100%;
-                }
-            }
+@media print
+{
+    html,
+    body,div
+    {
+        height: 100%;
     }
 }
