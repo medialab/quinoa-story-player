@@ -22,7 +22,8 @@
     "type": "git",
     "url": "git+https://github.com/medialab/quinoa-story-player.git"
   },
-  "author": "Robin de Mourat",
+  "author": "médialab SciencesPo",
+  "contributors": ["Robin de Mourat", "Mengying Du", "Guillaume Plique", "Arnaud Pichon"],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/medialab/quinoa-story-player/issues"
