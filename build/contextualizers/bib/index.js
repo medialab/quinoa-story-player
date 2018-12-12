@@ -1,14 +1,15 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Inline = undefined;
+Object.defineProperty(exports, "Inline", {
+  enumerable: true,
+  get: function get() {
+    return _Inline2.default;
+  }
+});
 
-var _Inline2 = require('./Inline');
-
-var _Inline3 = _interopRequireDefault(_Inline2);
+var _Inline2 = _interopRequireDefault(require("./Inline"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.Inline = _Inline3.default;

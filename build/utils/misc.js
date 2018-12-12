@@ -1,33 +1,27 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.capitalize = exports.buildGlossary = exports.buildCitations = exports.buildCoverImage = undefined;
+exports.capitalize = exports.buildGlossary = exports.buildCitations = exports.buildCoverImage = void 0;
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _extends4 = require('babel-runtime/helpers/extends');
-
-var _extends5 = _interopRequireDefault(_extends4);
-
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
-
-var _resourceToCSLJSON = require('./resourceToCSLJSON');
-
-var _resourceToCSLJSON2 = _interopRequireDefault(_resourceToCSLJSON);
+var _resourceToCSLJSON = _interopRequireDefault(require("./resourceToCSLJSON"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var buildCoverImage = exports.buildCoverImage = function buildCoverImage(story) {
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var buildCoverImage = function buildCoverImage(story) {
   var resources = story.resources,
       metadata = story.metadata;
 
@@ -35,63 +29,81 @@ var buildCoverImage = exports.buildCoverImage = function buildCoverImage(story) 
     if (resources[metadata.coverImage.resourceId]) return resources[metadata.coverImage.resourceId].data;else return null;
   } else return null;
 };
-var buildCitations = exports.buildCitations = function buildCitations(story) {
+/**
+ * Builds component-consumable data to represent
+ * the citations of "bib" resources being mentionned in the story
+ * @param {object} story - the story to process
+ * @return {object} citationData - the citation data to input in the reference manager
+ */
+
+
+exports.buildCoverImage = buildCoverImage;
+
+var buildCitations = function buildCitations(story) {
   var contextualizations = story.contextualizations,
       contextualizers = story.contextualizers,
       resources = story.resources,
       _story$settings = story.settings,
-      settings = _story$settings === undefined ? {} : _story$settings;
+      settings = _story$settings === void 0 ? {} : _story$settings;
+  /*
+   * Citations preparation
+   */
 
   var referenceStatus = settings.options && settings.options.referenceStatus || 'cited';
   var referenceTypes = settings.options && settings.options.referenceTypes || ['bib'];
-  var citedResources = (0, _keys2.default)(resources).map(function (resourceId) {
+  var citedResources = Object.keys(resources).map(function (resourceId) {
     return resources[resourceId];
   }).filter(function (resource) {
     if (referenceTypes.length) {
       return referenceTypes.indexOf(resource.metadata.type) > -1;
     }
+
     return true;
   }).filter(function (resource) {
     if (referenceStatus === 'cited') {
-      return (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
+      return Object.keys(contextualizations).filter(function (contextualizationId) {
         return contextualizations[contextualizationId].resourceId === resource.id;
       }).length > 0;
     }
+
     return true;
-  });
+  }); // build citations items data
+
   var enrichedCitedResources = citedResources.map(function (resource) {
-    var citations = resource.metadata.type === 'bib' ? resource.data : (0, _resourceToCSLJSON2.default)(resource);
-    return (0, _extends5.default)({}, resource, {
+    var citations = resource.metadata.type === 'bib' ? resource.data : (0, _resourceToCSLJSON.default)(resource);
+    return _objectSpread({}, resource, {
       citations: citations,
       citationId: citations[0].id
     });
   });
   var citationItems = enrichedCitedResources.reduce(function (finalCitations1, resource) {
-
     var newCitations = resource.citations.reduce(function (final2, citation) {
-      return (0, _extends5.default)({}, final2, (0, _defineProperty3.default)({}, citation.id, citation));
+      return _objectSpread({}, final2, _defineProperty({}, citation.id, citation));
     }, {});
-    return (0, _extends5.default)({}, finalCitations1, newCitations);
+    return _objectSpread({}, finalCitations1, newCitations);
   }, {});
-  var noteIndex = 0;
+  var noteIndex = 0; // build citations's citations data
+
   var citationInstances = enrichedCitedResources.filter(function (resource) {
     return resource.metadata.type === 'bib';
   }).reduce(function (result1, resource) {
-    var theseContextualizations = (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
+    var theseContextualizations = Object.keys(contextualizations).filter(function (contextualizationId) {
       return contextualizations[contextualizationId].resourceId === resource.id;
     }).map(function (contextualizationId) {
       return contextualizations[contextualizationId];
     });
-    return [].concat((0, _toConsumableArray3.default)(result1), (0, _toConsumableArray3.default)(theseContextualizations.reduce(function (result2, contextualization) {
+    return _toConsumableArray(result1).concat(_toConsumableArray(theseContextualizations.reduce(function (result2, contextualization) {
       var contextualizer = contextualizers[contextualization.contextualizerId];
       noteIndex++;
-      return [].concat((0, _toConsumableArray3.default)(result2), [{
+      return _toConsumableArray(result2).concat([{
         citationID: contextualization.id,
+        // citationID: resource.citationId,
         citationItems: resource.citations.map(function () {
           return {
             locator: contextualizer.locator,
             prefix: contextualizer.prefix,
             suffix: contextualizer.suffix,
+            // ...contextualizer,
             id: resource.data[0].id
           };
         }),
@@ -102,12 +114,21 @@ var buildCitations = exports.buildCitations = function buildCitations(story) {
     }, [])));
   }, []).filter(function (c) {
     return c;
-  });
+  }); // map them to the clumsy formatting needed by citeProc
+
   var citationData = citationInstances.map(function (instance, index) {
-    return [instance,
+    return [instance, // citations before
     citationInstances.slice(0, index === 0 ? 0 : index).map(function (oCitation) {
       return [oCitation.citationID, oCitation.properties.noteIndex];
-    }), []
+    }), [] // citations after the current citation
+    // this is claimed to be needed by citeproc.js
+    // but it works without it so ¯\_(ツ)_/¯
+    // citationInstances.slice(index)
+    //   .map((oCitation) => [
+    //       oCitation.citationID,
+    //       oCitation.properties.noteIndex
+    //     ]
+    //   ),
     ];
   });
   return {
@@ -115,29 +136,36 @@ var buildCitations = exports.buildCitations = function buildCitations(story) {
     citationItems: citationItems
   };
 };
+/**
+ * Builds component-consumable data to represent
+ * the glossary of "entities" resources being mentionned in the story
+ * @param {object} story - the story to process
+ * @return {array} glossaryMentions - all the glossary entries properly formatted for rendering
+ */
 
-var buildGlossary = exports.buildGlossary = function buildGlossary(story) {
+
+exports.buildCitations = buildCitations;
+
+var buildGlossary = function buildGlossary(story) {
   var contextualizations = story.contextualizations,
       contextualizers = story.contextualizers,
       resources = story.resources;
-
-  var glossaryMentions = (0, _keys2.default)(contextualizations).filter(function (contextualizationId) {
+  var glossaryMentions = Object.keys(contextualizations).filter(function (contextualizationId) {
     var contextualizerId = contextualizations[contextualizationId].contextualizerId;
     var contextualizer = contextualizers[contextualizerId];
     return contextualizer && contextualizer.type === 'glossary';
   }).map(function (contextualizationId) {
-    return (0, _extends5.default)({}, contextualizations[contextualizationId], {
+    return _objectSpread({}, contextualizations[contextualizationId], {
       contextualizer: contextualizers[contextualizations[contextualizationId].contextualizerId],
       resource: resources[contextualizations[contextualizationId].resourceId]
     });
   }).reduce(function (entries, contextualization) {
-    return (0, _extends5.default)({}, entries, (0, _defineProperty3.default)({}, contextualization.resourceId, {
+    return _objectSpread({}, entries, _defineProperty({}, contextualization.resourceId, {
       resource: contextualization.resource,
       mentions: entries[contextualization.resourceId] ? entries[contextualization.resourceId].mentions.concat(contextualization) : [contextualization]
     }));
   }, {});
-
-  glossaryMentions = (0, _keys2.default)(glossaryMentions).map(function (id) {
+  glossaryMentions = Object.keys(glossaryMentions).map(function (id) {
     return glossaryMentions[id];
   }).sort(function (a, b) {
     if (a.resource.data.name > b.resource.data.name) {
@@ -146,10 +174,13 @@ var buildGlossary = exports.buildGlossary = function buildGlossary(story) {
       return 1;
     }
   });
-
   return glossaryMentions;
 };
 
-var capitalize = exports.capitalize = function capitalize(lower) {
+exports.buildGlossary = buildGlossary;
+
+var capitalize = function capitalize(lower) {
   return lower.charAt(0).toUpperCase() + lower.substr(1);
 };
+
+exports.capitalize = capitalize;

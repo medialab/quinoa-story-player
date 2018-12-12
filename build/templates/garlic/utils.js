@@ -1,52 +1,68 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getOffset = exports.buildTOC = undefined;
+exports.getOffset = exports.buildTOC = void 0;
 
-var _keys = require('babel-runtime/core-js/object/keys');
+var _misc = require("../../utils/misc");
 
-var _keys2 = _interopRequireDefault(_keys);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
-var _misc = require('../../utils/misc');
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
+/**
+ * Builds component-consumable table of contents data
+ * @param {object} story - the story to process
+ * @param {number} scrollTop - the position of the scroll to use for decidinng which TOC item is active
+ * @return {array} tocElements - the toc elements to use for rendering the TOC
+ */
+var buildTOC = function buildTOC(story, scrollTop, _ref) {
   var citations = _ref.citations,
       glossary = _ref.glossary,
       _ref$locale = _ref.locale,
-      locale = _ref$locale === undefined ? {} : _ref$locale;
+      locale = _ref$locale === void 0 ? {} : _ref$locale;
   var jsElements = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-
   var usedDocument = jsElements.usedDocument;
   var usedWindow = jsElements.usedWindow;
   var toc = story.sectionsOrder.map(function (sectionId, sectionIndex) {
     var section = story.sections[sectionId];
-    var sectionLevel = section.metadata.level + 1;
+    var sectionLevel = section.metadata.level + 1; // const content = section.contents;
+    // we retrieve all the 'header-#' blocks
+    // in the draft-js raw representation of each section
+    // const headers = content && content.blocks && content.blocks
+    // .filter(block => block.type.indexOf('header') === 0);
 
-    var sectionActive = void 0;
-    var nextTitleOffsetTop = void 0;
+    var sectionActive;
+    var nextTitleOffsetTop; // title of the section
+
     var title = usedDocument.getElementById(section.id);
+
     if (!title) {
       return undefined;
-    }
-    var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+    } // we will check if scroll is in this section's part of the page height
+
+
+    var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop; // to do that we need the offset of the next element
+
     if (sectionIndex < story.sectionsOrder.length - 1) {
       var next = story.sectionsOrder[sectionIndex + 1];
       var nextTitle = usedDocument.getElementById(next);
+
       if (nextTitle) {
         nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
       }
     }
+
     if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
       sectionActive = true;
-    }
+    } // eventually we format the headers for display
+
+
     var sectionHeader = {
       level: sectionLevel,
       text: section.metadata.title || '',
@@ -54,42 +70,49 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
       active: sectionActive
     };
     return [sectionHeader];
-  }
-  ).filter(function (el) {
+  }).filter(function (el) {
     return el !== undefined;
-  })
+  }) // flatten mini-tocs
   .reduce(function (result, ar) {
-    return [].concat((0, _toConsumableArray3.default)(result), (0, _toConsumableArray3.default)(ar));
-  }, []);
+    return _toConsumableArray(result).concat(_toConsumableArray(ar));
+  }, []); // adding special items to table of contents
 
-  var hasReferences = (0, _keys2.default)(citations.citationItems).length > 0;
+  var hasReferences = Object.keys(citations.citationItems).length > 0;
   var hasGlossary = glossary.length > 0;
   var notesPosition = story.settings.options && story.settings.options.notesPosition || 'foot';
   var hasNotes = story.sectionsOrder.find(function (key) {
     return story.sections[key].notesOrder.length > 0;
   }) !== undefined;
+
   if (notesPosition === 'foot' && hasNotes) {
-    var notesActive = void 0;
-    var nextTitleOffsetTop = void 0;
+    var notesActive;
+    var nextTitleOffsetTop; // title of the section
+
     var title = usedDocument.getElementById('notes');
 
     if (title) {
+      // we will check if scroll is after glossary title
       var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
-      var nextTitleId = void 0;
+      var nextTitleId;
+
       if (hasReferences) {
         nextTitleId = 'references';
       } else if (hasGlossary) {
         nextTitleId = 'glossary';
       }
+
       if (nextTitleId) {
         var nextTitle = usedDocument.getElementById(nextTitleId);
+
         if (nextTitle) {
           nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
         }
       }
+
       if (titleOffsetTop <= scrollTop + window.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
         notesActive = true;
       }
+
       toc.push({
         level: 0,
         text: (0, _misc.capitalize)(locale.notes || 'notes'),
@@ -100,18 +123,27 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
   }
 
   if (hasReferences) {
-    var referencesActive = void 0;
-    var _nextTitleOffsetTop = void 0;
+    var referencesActive;
+
+    var _nextTitleOffsetTop; // title of the section
+
+
     var _title = usedDocument.getElementById('references');
+
     if (_title) {
+      // we will check if scroll is after glossary title
       var _titleOffsetTop = _title.offsetTop + _title.offsetParent.offsetParent.offsetTop;
+
       var _nextTitle = usedDocument.getElementById('glossary');
+
       if (_nextTitle) {
         _nextTitleOffsetTop = _nextTitle.offsetTop + _title.offsetParent.offsetParent.offsetTop;
       }
+
       if (_titleOffsetTop <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop === undefined || _nextTitleOffsetTop >= scrollTop)) {
         referencesActive = true;
       }
+
       toc.push({
         level: 0,
         text: (0, _misc.capitalize)(locale.references || 'references'),
@@ -122,14 +154,21 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
   }
 
   if (hasGlossary) {
-    var glossaryActive = void 0;
-    var _nextTitleOffsetTop2 = void 0;
+    var glossaryActive;
+
+    var _nextTitleOffsetTop2; // title of the section
+
+
     var _title2 = usedDocument.getElementById('glossary');
+
     if (_title2) {
+      // we will check if scroll is after glossary title
       var _titleOffsetTop2 = _title2.offsetTop + _title2.offsetParent.offsetParent.offsetTop;
+
       if (_titleOffsetTop2 <= scrollTop + usedWindow.innerHeight / 2 && (_nextTitleOffsetTop2 === undefined || _nextTitleOffsetTop2 >= scrollTop)) {
         glossaryActive = true;
       }
+
       toc.push({
         level: 0,
         text: (0, _misc.capitalize)(locale.glossary || 'glossary'),
@@ -138,16 +177,36 @@ var buildTOC = exports.buildTOC = function buildTOC(story, scrollTop, _ref) {
       });
     }
   }
+
   return toc;
 };
+/**
+ * Retrieves the absolute offset of an element
+ * (this avoids to use an additionnal lib such as jquery to handle the operation)
+ * (todo: this should be stored in a separate utils file)
+ * @param {DOMElement} el - the element to inspect
+ * @return {object} offset - the absolute offset of the element
+ */
 
-var getOffset = exports.getOffset = function getOffset(el) {
+
+exports.buildTOC = buildTOC;
+
+var getOffset = function getOffset(el) {
   var _x = 0;
   var _y = 0;
+
   while (el && !isNaN(el.offsetLeft) && !isNaN(el.offsetTop)) {
-    _x += el.offsetLeft; 
-    _y += el.offsetTop; 
+    _x += el.offsetLeft; // - el.scrollLeft;
+
+    _y += el.offsetTop; // - el.scrollTop;
+
     el = el.offsetParent;
   }
-  return { top: _y, left: _x };
+
+  return {
+    top: _y,
+    left: _x
+  };
 };
+
+exports.getOffset = getOffset;

@@ -1,157 +1,143 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+var _react = _interopRequireWildcard(require("react"));
 
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+var _reactCustomScrollbars = require("react-custom-scrollbars");
 
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+var _lodash = require("lodash");
 
-var _keys = require('babel-runtime/core-js/object/keys');
+var _reactCiteproc = require("react-citeproc");
 
-var _keys2 = _interopRequireDefault(_keys);
+var _reactTooltip = _interopRequireDefault(require("react-tooltip"));
 
-var _extends4 = require('babel-runtime/helpers/extends');
+var _d3Ease = require("d3-ease");
 
-var _extends5 = _interopRequireDefault(_extends4);
+var _Bibliography = _interopRequireDefault(require("../../components/Bibliography"));
 
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+var _NotesContainer = _interopRequireDefault(require("../../components/NotesContainer"));
 
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+var _SectionLayout = _interopRequireDefault(require("./components/SectionLayout"));
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+var _Nav = _interopRequireDefault(require("./components/Nav"));
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _Glossary = _interopRequireDefault(require("./components/Glossary"));
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
+var _Header = _interopRequireDefault(require("./components/Header"));
 
-var _createClass3 = _interopRequireDefault(_createClass2);
+var _misc = require("../../utils/misc");
 
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+var _utils = require("./utils");
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+var _apa = _interopRequireDefault(require("raw-loader!../../assets/apa.csl"));
 
-var _inherits2 = require('babel-runtime/helpers/inherits');
+var _englishLocale = _interopRequireDefault(require("raw-loader!../../assets/english-locale.xml"));
 
-var _inherits3 = _interopRequireDefault(_inherits2);
+var _locales = _interopRequireDefault(require("./locales.json"));
 
-var _react = require('react');
+var _reactTable = _interopRequireDefault(require("!raw-loader!sass-loader!react-table/react-table.css"));
 
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactCustomScrollbars = require('react-custom-scrollbars');
-
-var _lodash = require('lodash');
-
-var _reactCiteproc = require('react-citeproc');
-
-var _reactTooltip = require('react-tooltip');
-
-var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
-
-var _d3Ease = require('d3-ease');
-
-var _Bibliography = require('../../components/Bibliography');
-
-var _Bibliography2 = _interopRequireDefault(_Bibliography);
-
-var _NotesContainer = require('../../components/NotesContainer');
-
-var _NotesContainer2 = _interopRequireDefault(_NotesContainer);
-
-var _SectionLayout = require('./components/SectionLayout');
-
-var _SectionLayout2 = _interopRequireDefault(_SectionLayout);
-
-var _Nav = require('./components/Nav');
-
-var _Nav2 = _interopRequireDefault(_Nav);
-
-var _Glossary = require('./components/Glossary');
-
-var _Glossary2 = _interopRequireDefault(_Glossary);
-
-var _Header = require('./components/Header');
-
-var _Header2 = _interopRequireDefault(_Header);
-
-var _misc = require('../../utils/misc');
-
-var _utils = require('./utils');
-
-var _apa = require('raw-loader!../../assets/apa.csl');
-
-var _apa2 = _interopRequireDefault(_apa);
-
-var _englishLocale = require('raw-loader!../../assets/english-locale.xml');
-
-var _englishLocale2 = _interopRequireDefault(_englishLocale);
-
-var _locales = require('./locales.json');
-
-var _locales2 = _interopRequireDefault(_locales);
-
-var _reactTable = require('!raw-loader!sass-loader!react-table/react-table.css');
-
-var _reactTable2 = _interopRequireDefault(_reactTable);
-
-var _garlic = require('!raw-loader!sass-loader!./garlic.scss');
-
-var _garlic2 = _interopRequireDefault(_garlic);
+var _garlic = _interopRequireDefault(require("!raw-loader!sass-loader!./garlic.scss"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var contextualizersStyles = [_reactTable2.default].join('\n\n');
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
-var GarlicLayout = function (_Component) {
-  (0, _inherits3.default)(GarlicLayout, _Component);
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
 
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+var contextualizersStyles = [_reactTable.default].join('\n\n');
+/**
+ * GarlicLayout class for building a story-player template react component instances
+ */
+
+var GarlicLayout =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(GarlicLayout, _Component);
+
+  /**
+   * constructor
+   * @param {object} props - properties given to instance at instanciation
+   */
   function GarlicLayout(props) {
-    (0, _classCallCheck3.default)(this, GarlicLayout);
+    var _this;
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (GarlicLayout.__proto__ || (0, _getPrototypeOf2.default)(GarlicLayout)).call(this, props));
+    _classCallCheck(this, GarlicLayout);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(GarlicLayout).call(this, props));
 
     _this.onScrollUpdate = function (evt) {
       if (!_this.header) {
         return;
       }
+
       var scrollTop = evt.scrollTop;
       var headerHeight = _this.header.offsetHeight || 20;
-      var presentationEls = _this.props.usedDocument.getElementsByClassName('quinoa-presentation-player');
-      var presentations = [];
-      var fixedPresentationId = void 0;
-      var fixedPresentationHeight = void 0;
-      var stateChanges = {};
 
-      var inCover = scrollTop < headerHeight;
+      var presentationEls = _this.props.usedDocument.getElementsByClassName('quinoa-presentation-player');
+
+      var presentations = [];
+      var fixedPresentationId;
+      var fixedPresentationHeight;
+      var stateChanges = {};
+      var inCover = scrollTop < headerHeight; // check if we are in the cover of the story
 
       if (inCover && !_this.state.inCover) {
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
+        stateChanges = _objectSpread({}, stateChanges, {
           inCover: true
         });
       } else if (!inCover && _this.state.inCover) {
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
+        stateChanges = _objectSpread({}, stateChanges, {
           inCover: false
         });
       }
+
       if (inCover) {
-        stateChanges = (0, _extends5.default)({}, stateChanges);
-      }
-      if ((0, _keys2.default)(stateChanges).length) {
+        stateChanges = _objectSpread({}, stateChanges);
+      } // applying state changes if needed
+
+
+      if (Object.keys(stateChanges).length) {
         _this.setState(stateChanges);
+
         return;
-      }
+      } // check if a presentation is in "fixed" mode (user scrolls inside it)
+
+
       for (var i = 0; i < presentationEls.length; i++) {
         var presentation = presentationEls[i].parentNode;
         var id = presentation.getAttribute('id');
@@ -161,280 +147,393 @@ var GarlicLayout = function (_Component) {
           id: id,
           top: top,
           height: height
-        });
-        if (scrollTop >= top && scrollTop <= top + height * 0.4 - 5
+        }); // checking if this presentation deserves to be "fixed" (user scroll inside it)
+        // note : there can be more or less strict rules to define when to switch to "fixed" mode - it's a matter of ux and testing
+
+        if (scrollTop >= top && scrollTop <= top + height * 0.4 - 5 // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
+        // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
+        // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
         ) {
             fixedPresentationId = id;
             fixedPresentationHeight = height;
           }
-      }
+      } // if new fixed presentation, set it in state thanks to fixedPresentationId
+
+
       if (fixedPresentationId !== _this.state.fixedPresentationId) {
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
+        stateChanges = _objectSpread({}, stateChanges, {
           fixedPresentationId: fixedPresentationId,
           fixedPresentationHeight: fixedPresentationHeight
         });
+
         _this.setState(stateChanges);
+
         return;
-      }
+      } // if scroll has changed, update the table of contents
+      // (active element may have changed)
+      // (todo: right now we are rebuilding the toc from scratch
+      // at each update, we should split buildTOC in two functions
+      // to handle the change of active element separately, for better performances)
+
+
       if (scrollTop !== _this.state.scrollTop) {
-        var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop, _this.state, { usedDocument: _this.props.usedDocument, usedWindow: _this.props.usedWindow });
-        stateChanges = (0, _extends5.default)({}, stateChanges, {
+        var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop, _this.state, {
+          usedDocument: _this.props.usedDocument,
+          usedWindow: _this.props.usedWindow
+        });
+        stateChanges = _objectSpread({}, stateChanges, {
           toc: toc,
           scrollTop: scrollTop
         });
-      }
-      if ((0, _keys2.default)(stateChanges).length) {
+      } // applying state changes if needed
+
+
+      if (Object.keys(stateChanges).length) {
         _this.setState(stateChanges);
       }
-      _reactTooltip2.default.rebuild();
+
+      _reactTooltip.default.rebuild();
     };
 
     _this.onNotePointerClick = function (note) {
       var noteElId = 'note-content-pointer-' + note.id;
+
       var el = _this.props.usedDocument.getElementById(noteElId);
+
       var offset = (0, _utils.getOffset)(el);
       var top = offset.top - _this.context.dimensions.height / 2;
+
       _this.scrollTop(top);
     };
 
     _this.render = function () {
-      var _this$props = _this.props,
-          _this$props$story = _this$props.story,
-          metadata = _this$props$story.metadata,
-          sectionsOrder = _this$props$story.sectionsOrder,
-          sections = _this$props$story.sections,
-          _this$props$story$set = _this$props$story.settings,
-          settings = _this$props$story$set === undefined ? {} : _this$props$story$set,
-          usedDocument = _this$props.usedDocument,
-          _this$state = _this.state,
-          inCover = _this$state.inCover,
-          toc = _this$state.toc,
-          indexOpen = _this$state.indexOpen,
-          glossary = _this$state.glossary,
-          citations = _this$state.citations,
-          coverImage = _this$state.coverImage,
-          _this$state$locale = _this$state.locale,
-          locale = _this$state$locale === undefined ? {} : _this$state$locale,
-          _this$context = _this.context,
-          dimensions = _this$context.dimensions,
-          getResourceDataUrl = _this$context.getResourceDataUrl,
-          scrollToElementId = _this.scrollToElementId,
-          scrollToContents = _this.scrollToContents,
-          toggleIndex = _this.toggleIndex;
+      var _assertThisInitialize = _assertThisInitialized(_assertThisInitialized(_this)),
+          _assertThisInitialize2 = _assertThisInitialize.props,
+          _assertThisInitialize3 = _assertThisInitialize2.story,
+          metadata = _assertThisInitialize3.metadata,
+          sectionsOrder = _assertThisInitialize3.sectionsOrder,
+          sections = _assertThisInitialize3.sections,
+          _assertThisInitialize4 = _assertThisInitialize3.settings,
+          settings = _assertThisInitialize4 === void 0 ? {} : _assertThisInitialize4,
+          usedDocument = _assertThisInitialize2.usedDocument,
+          _assertThisInitialize5 = _assertThisInitialize.state,
+          inCover = _assertThisInitialize5.inCover,
+          toc = _assertThisInitialize5.toc,
+          indexOpen = _assertThisInitialize5.indexOpen,
+          glossary = _assertThisInitialize5.glossary,
+          citations = _assertThisInitialize5.citations,
+          coverImage = _assertThisInitialize5.coverImage,
+          _assertThisInitialize6 = _assertThisInitialize5.locale,
+          locale = _assertThisInitialize6 === void 0 ? {} : _assertThisInitialize6,
+          _assertThisInitialize7 = _assertThisInitialize.context,
+          dimensions = _assertThisInitialize7.dimensions,
+          getResourceDataUrl = _assertThisInitialize7.getResourceDataUrl,
+          scrollToElementId = _assertThisInitialize.scrollToElementId,
+          scrollToContents = _assertThisInitialize.scrollToContents,
+          toggleIndex = _assertThisInitialize.toggleIndex;
+      /**
+       * ==========================================
+       * Local rendering-related variables
+       * ==========================================
+       */
+
 
       var customCss = settings.css || '';
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
-        return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)(sections[sectionId].notesOrder.map(function (noteId) {
-          return (0, _extends5.default)({}, sections[sectionId].notes[noteId], {
+        return _toConsumableArray(nf).concat(_toConsumableArray(sections[sectionId].notesOrder.map(function (noteId) {
+          return _objectSpread({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++
           });
         })));
       }, []);
-      var finalSections = (0, _keys2.default)(sections).reduce(function (res, sectionId) {
-        return (0, _extends5.default)({}, res, (0, _defineProperty3.default)({}, sectionId, (0, _extends5.default)({}, sections[sectionId], {
-          notes: (0, _keys2.default)(sections[sectionId].notes).reduce(function (tempNotes, noteId) {
+      var finalSections = Object.keys(sections).reduce(function (res, sectionId) {
+        return _objectSpread({}, res, _defineProperty({}, sectionId, _objectSpread({}, sections[sectionId], {
+          notes: Object.keys(sections[sectionId].notes).reduce(function (tempNotes, noteId) {
             var related = notes.find(function (n) {
               return n.id === noteId;
             });
-            return (0, _extends5.default)({}, tempNotes, (0, _defineProperty3.default)({}, noteId, (0, _extends5.default)({}, sections[sectionId].notes[noteId], {
+            return _objectSpread({}, tempNotes, _defineProperty({}, noteId, _objectSpread({}, sections[sectionId].notes[noteId], {
               finalOrder: related ? related.finalOrder : sections[sectionId].notes[noteId].order
             })));
           }, {})
         })));
       }, {});
-      var notesPosition = settings.options && settings.options.notesPosition || 'foot';
+      var notesPosition = settings.options && settings.options.notesPosition || 'foot'; // "responsive" notes positionning
+
       notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
-      var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
-      var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
+      var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale.default;
+      var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa.default;
+      /**
+       * ==========================================
+       * Callbacks
+       * ==========================================
+       */
+
       var onClickToggle = function onClickToggle() {
         return _this.toggleIndex();
       };
+
       var onClickTitle = function onClickTitle() {
         _this.scrollToContents();
+
         _this.toggleIndex();
       };
+      /**
+       * ==========================================
+       * References binding
+       * ==========================================
+       */
+
+
       var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
         _this.globalScrollbar = scrollbar;
       };
+
       var bindHeaderRef = function bindHeaderRef(header) {
         _this.header = header;
       };
 
-      return _react2.default.createElement(
-        _reactCiteproc.ReferencesManager,
-        {
-          style: citationStyle,
-          locale: citationLocale,
-          items: citations.citationItems,
-          citations: citations.citationData,
-          componentClass: 'references-manager' },
-        _react2.default.createElement(
-          'section',
-          { className: 'wrapper' },
-          _react2.default.createElement(
-            _reactCustomScrollbars.Scrollbars,
-            {
-              ref: bindGlobalScrollbarRef,
-              autoHide: true,
-              onUpdate: _this.onScrollUpdate,
-              universal: true },
-            _react2.default.createElement(_Header2.default, {
-              scrollToContents: scrollToContents,
-              coverImage: coverImage,
-              getResourceDataUrl: getResourceDataUrl,
-              metadata: metadata,
-              bindRef: bindHeaderRef }),
-            _react2.default.createElement(
-              'section',
-              {
-                className: 'body-wrapper' },
-              _react2.default.createElement(
-                'section',
-                { className: 'contents-wrapper' },
-
-                sectionsOrder.map(function (thatId) {
-                  return _react2.default.createElement(_SectionLayout2.default, { section: finalSections[thatId], key: thatId });
-                }),
-
-                notes && notes.length ? _react2.default.createElement(_NotesContainer2.default, {
-                  id: 'notes',
-                  notes: notes,
-                  usedDocument: usedDocument,
-                  onNotePointerClick: _this.onNotePointerClick,
-                  title: (0, _misc.capitalize)(locale.notes || 'notes'),
-                  notesPosition: notesPosition }) : null,
-
-                citations && citations.citationItems && (0, _keys2.default)(citations.citationItems).length ? _react2.default.createElement(_Bibliography2.default, { id: 'references', title: (0, _misc.capitalize)(locale.references || 'references') }) : null,
-
-                glossary && glossary.length ? _react2.default.createElement(_Glossary2.default, {
-                  locale: locale,
-                  glossary: glossary,
-                  scrollToElementId: scrollToElementId }) : null
-              ),
-              _react2.default.createElement(_Nav2.default, {
-                indexOpen: indexOpen,
-                inCover: inCover,
-                coverImage: coverImage,
-                dimensions: dimensions,
-                onClickToggle: onClickToggle,
-                onClickTitle: onClickTitle,
-                metadata: metadata,
-                scrollToElementId: scrollToElementId,
-                toc: toc,
-                isDisplayed: coverImage && inCover })
-            )
-          ),
-          _react2.default.createElement(_Nav2.default, {
-            indexOpen: indexOpen,
-            inCover: inCover,
-            coverImage: coverImage,
-            dimensions: dimensions,
-            onClickToggle: onClickToggle,
-            onClickTitle: onClickTitle,
-            metadata: metadata,
-            scrollToElementId: scrollToElementId,
-            toggleIndex: toggleIndex,
-            isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
-            toc: toc })
-        ),
-        _react2.default.createElement(
-          'style',
-          null,
-          contextualizersStyles,
-          _garlic2.default,
-          customCss
-        ),
-        _react2.default.createElement(_reactTooltip2.default, { id: 'tooltip', effect: 'solid' })
-      );
+      return _react.default.createElement(_reactCiteproc.ReferencesManager, {
+        style: citationStyle,
+        locale: citationLocale,
+        items: citations.citationItems,
+        citations: citations.citationData,
+        componentClass: "references-manager"
+      }, _react.default.createElement("section", {
+        className: "wrapper"
+      }, _react.default.createElement(_reactCustomScrollbars.Scrollbars, {
+        ref: bindGlobalScrollbarRef,
+        autoHide: true,
+        onUpdate: _this.onScrollUpdate,
+        universal: true
+      }, _react.default.createElement(_Header.default, {
+        scrollToContents: scrollToContents,
+        coverImage: coverImage,
+        getResourceDataUrl: getResourceDataUrl,
+        metadata: metadata,
+        bindRef: bindHeaderRef
+      }), _react.default.createElement("section", {
+        className: "body-wrapper"
+      }, _react.default.createElement("section", {
+        className: "contents-wrapper"
+      },
+      /**
+       * Sections display
+       */
+      sectionsOrder.map(function (thatId) {
+        return _react.default.createElement(_SectionLayout.default, {
+          section: finalSections[thatId],
+          key: thatId
+        });
+      }),
+      /**
+       * End notes
+       */
+      notes && notes.length ? _react.default.createElement(_NotesContainer.default, {
+        id: "notes",
+        notes: notes,
+        usedDocument: usedDocument,
+        onNotePointerClick: _this.onNotePointerClick,
+        title: (0, _misc.capitalize)(locale.notes || 'notes'),
+        notesPosition: notesPosition
+      }) : null,
+      /**
+       * References
+       */
+      citations && citations.citationItems && Object.keys(citations.citationItems).length ? _react.default.createElement(_Bibliography.default, {
+        id: "references",
+        title: (0, _misc.capitalize)(locale.references || 'references')
+      }) : null,
+      /**
+       * Glossary
+       */
+      glossary && glossary.length ? _react.default.createElement(_Glossary.default, {
+        locale: locale,
+        glossary: glossary,
+        scrollToElementId: scrollToElementId
+      }) : null), _react.default.createElement(_Nav.default, {
+        indexOpen: indexOpen,
+        inCover: inCover,
+        coverImage: coverImage,
+        dimensions: dimensions,
+        onClickToggle: onClickToggle,
+        onClickTitle: onClickTitle,
+        metadata: metadata,
+        scrollToElementId: scrollToElementId,
+        toc: toc,
+        isDisplayed: coverImage && inCover
+      }))), _react.default.createElement(_Nav.default, {
+        indexOpen: indexOpen,
+        inCover: inCover,
+        coverImage: coverImage,
+        dimensions: dimensions,
+        onClickToggle: onClickToggle,
+        onClickTitle: onClickTitle,
+        metadata: metadata,
+        scrollToElementId: scrollToElementId,
+        toggleIndex: toggleIndex,
+        isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
+        toc: toc
+      })), _react.default.createElement("style", null, contextualizersStyles, _garlic.default, customCss), _react.default.createElement(_reactTooltip.default, {
+        id: "tooltip",
+        effect: "solid"
+      }));
     };
 
-    _this.scrollToContents = _this.scrollToContents.bind(_this);
-    _this.scrollToCover = _this.scrollToCover.bind(_this);
-    _this.scrollTop = _this.scrollTop.bind(_this);
-    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 10, { leading: true, trailing: true, maxWait: 100 });
-    _this.scrollToElementId = _this.scrollToElementId.bind(_this);
-    _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_this);
-    _this.onGlossaryMentionClick = _this.onGlossaryMentionClick.bind(_this);
+    _this.scrollToContents = _this.scrollToContents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.scrollToCover = _this.scrollToCover.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.scrollTop = _this.scrollTop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 10, {
+      leading: true,
+      trailing: true,
+      maxWait: 100
+    }); // this.onScrollUpdate = this.onScrollUpdate.bind(this);
 
-    _this.toggleIndex = _this.toggleIndex.bind(_this);
+    _this.scrollToElementId = _this.scrollToElementId.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onGlossaryMentionClick = _this.onGlossaryMentionClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.toggleIndex = _this.toggleIndex.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onPresentationExit = _this.onPresentationExit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    /**
+     * Initial state
+     */
 
-    _this.onPresentationExit = _this.onPresentationExit.bind(_this);
     _this.state = {
+      /**
+       * Wether the component's scroll is on top's cover of the page
+       */
       inCover: true,
+
+      /**
+       * Data used for the table of content
+       */
       toc: [],
+
+      /**
+       * Representation of the scroll position
+       */
       scrollTop: 0,
+
+      /**
+       * Whether the index displaying the table of content is open
+       */
       indexOpen: false,
+
+      /**
+       * citation-related data
+       */
       citations: {
         citationItems: {},
         citationData: []
       },
+
+      /**
+       * Glossary-related data
+       */
       glossary: [],
+
+      /**
+       * Cover image resource data
+       */
       coverImage: undefined
     };
     return _this;
   }
+  /**
+   * Updates data in the context when the state or props change
+   */
 
 
-  (0, _createClass3.default)(GarlicLayout, [{
-    key: 'getChildContext',
+  _createClass(GarlicLayout, [{
+    key: "getChildContext",
     value: function getChildContext() {
       return {
+        // id of the presentation-player displayed in full screen if any
         fixedPresentationId: this.state.fixedPresentationId,
+        // callback to trigger when a presentation-player is exited
         onExit: this.onPresentationExit,
+        // calback to trigger when a note content pointer is clicked
         onNoteContentPointerClick: this.onNoteContentPointerClick,
+        // callbacks when a glossary mention is clicked
         onGlossaryMentionClick: this.onGlossaryMentionClick,
         locale: this.state.locale,
-
-        citationLocale: this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data || _englishLocale2.default,
-        citationStyle: this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data || _apa2.default
+        citationLocale: this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data || _englishLocale.default,
+        citationStyle: this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data || _apa.default
       };
     }
+    /**
+     * Executes code on instance after the component is mounted
+     */
 
   }, {
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
+      // @todo: why did I have to wrap that in a setTimeout ?
       setTimeout(function () {
         if (_this2.props.story) {
           _this2.setState({
             glossary: (0, _misc.buildGlossary)(_this2.props.story),
             citations: (0, _misc.buildCitations)(_this2.props.story),
             coverImage: (0, _misc.buildCoverImage)(_this2.props.story),
-            locale: _this2.props.locale && _locales2.default[_this2.props.locale] ? _locales2.default[_this2.props.locale] : _locales2.default.en
+            locale: _this2.props.locale && _locales.default[_this2.props.locale] ? _locales.default[_this2.props.locale] : _locales.default.en
           });
+
           setTimeout(function () {
-            var toc = (0, _utils.buildTOC)(_this2.props.story, 0, _this2.state, { usedDocument: _this2.props.usedDocument, usedWindow: _this2.props.usedWindow });
-            _this2.setState({ toc: toc });
+            var toc = (0, _utils.buildTOC)(_this2.props.story, 0, _this2.state, {
+              usedDocument: _this2.props.usedDocument,
+              usedWindow: _this2.props.usedWindow
+            });
+
+            _this2.setState({
+              toc: toc
+            });
           });
         }
       });
     }
+    /**
+     * Executes code when component receives new properties
+     * @param {object} nextProps - the future properties of the component
+     */
 
   }, {
-    key: 'componentWillReceiveProps',
+    key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       var _this3 = this;
 
+      // we perform expensive operations of building glossary
+      // and citations data only when the story changes
       if (this.props.story !== nextProps.story) {
         this.setState({
           glossary: (0, _misc.buildGlossary)(nextProps.story),
           citations: (0, _misc.buildCitations)(nextProps.story),
           coverImage: (0, _misc.buildCoverImage)(nextProps.story),
-          locale: nextProps.locale && _locales2.default[nextProps.locale] ? _locales2.default[nextProps.locale] : _locales2.default.en
+          locale: nextProps.locale && _locales.default[nextProps.locale] ? _locales.default[nextProps.locale] : _locales.default.en
         });
         setTimeout(function () {
-          var toc = (0, _utils.buildTOC)(_this3.props.story, 0, _this3.state, { usedDocument: _this3.props.usedDocument, usedWindow: _this3.props.usedWindow });
-          _this3.setState({ toc: toc });
+          var toc = (0, _utils.buildTOC)(_this3.props.story, 0, _this3.state, {
+            usedDocument: _this3.props.usedDocument,
+            usedWindow: _this3.props.usedWindow
+          });
+
+          _this3.setState({
+            toc: toc
+          });
         });
       }
     }
-
+    /**
+     * Programmatically modifies the scroll state of the component
+     * so that it transitions to a specific point in the page
+     * @param {number} top - the position to scroll to
+     */
 
   }, {
-    key: 'scrollTop',
+    key: "scrollTop",
     value: function scrollTop(initialTop) {
       var _this4 = this;
 
@@ -443,11 +542,9 @@ var GarlicLayout = function (_Component) {
       var scrollHeight = scrollbars.getScrollHeight();
       var top = initialTop > scrollHeight ? scrollHeight : initialTop;
       top = top < 0 ? 0 : top;
-
       var ANIMATION_DURATION = 1000;
       var ANIMATION_STEPS = 10;
       var animationTick = 1 / ANIMATION_STEPS;
-
       var diff = top - scrollTop;
 
       var _loop = function _loop(t) {
@@ -461,22 +558,31 @@ var GarlicLayout = function (_Component) {
         _loop(t);
       }
     }
-
+    /**
+     * Handle scrolling to a specific title in the page
+     * @param {string} id - the id of the item to scroll to
+     */
 
   }, {
-    key: 'scrollToElementId',
+    key: "scrollToElementId",
     value: function scrollToElementId(id) {
       var title = this.props.usedDocument.getElementById(id);
+
       if (title) {
         this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop - this.context.dimensions.height / 2);
       }
     }
-
+    /**
+     * Updates the state when scroll is changed
+     * @param {object} evt - the scroll event to process
+     */
 
   }, {
-    key: 'scrollToContents',
+    key: "scrollToContents",
 
-
+    /**
+     * Handle scrolling to the begining of contents
+     */
     value: function scrollToContents() {
       if (this.header) {
         this.scrollTop(this.header.offsetHeight + 10);
@@ -485,20 +591,25 @@ var GarlicLayout = function (_Component) {
         });
       }
     }
-
+    /**
+     * Handle scrolling to the cover (top of the page)
+     */
 
   }, {
-    key: 'scrollToCover',
+    key: "scrollToCover",
     value: function scrollToCover() {
       this.scrollTop(0);
       this.setState({
         inCover: true
       });
     }
-
+    /**
+     * Handles click on a specific note pointer in the main contents (scroll to the related note)
+     * @param {string} noteId - the id of the note clicked
+     */
 
   }, {
-    key: 'onNoteContentPointerClick',
+    key: "onNoteContentPointerClick",
     value: function onNoteContentPointerClick(noteId) {
       var noteElId = 'note-block-pointer-' + noteId;
       var el = this.props.usedDocument.getElementById(noteElId);
@@ -506,64 +617,107 @@ var GarlicLayout = function (_Component) {
       var top = offset.top - this.context.dimensions.height / 2;
       this.scrollTop(top);
     }
-
+    /**
+     * Handles click on a specific note pointer in the notes section (scroll to the related pointer)
+     * @param {object} note - the note data
+     */
 
   }, {
-    key: 'onPresentationExit',
+    key: "onPresentationExit",
 
-
+    /**
+     * Handles when a full-screen presentation is exited
+     * @param {string} - the direction of the exit (top or bottom)
+     */
     value: function onPresentationExit(direction) {
-      var top = this.state.scrollTop;
+      var top = this.state.scrollTop; // user is scrolling in direction of the top of the screen
+
       if (direction === 'top') {
         this.globalScrollbar.scrollTop(top - 50);
-      }
+      } // user is scrolling in direction of the bottom of the screen
       else {
           var h = this.state.fixedPresentationHeight || this.context.dimensions.height;
-
           this.globalScrollbar.scrollTop(top + h * 0.1);
         }
     }
   }, {
-    key: 'onGlossaryMentionClick',
+    key: "onGlossaryMentionClick",
     value: function onGlossaryMentionClick(id) {
       var target = 'glossary-mention-backlink-' + id;
       this.scrollToElementId(target);
     }
-
+    /**
+     * Toggles the visibility of the table of contents
+     * @param {boolean} to - whether toc should be visible
+     */
 
   }, {
-    key: 'toggleIndex',
+    key: "toggleIndex",
     value: function toggleIndex(to) {
       this.setState({
         indexOpen: to !== undefined ? to : !this.state.indexOpen
       });
     }
-
+    /**
+     * Renders the component
+     * @return {ReactElement} component - the component
+     */
 
   }]);
+
   return GarlicLayout;
 }(_react.Component);
-
+/**
+ * Component's properties types
+ */
 
 
 GarlicLayout.propTypes = {
-  story: _propTypes2.default.object
+  story: _propTypes.default.object
 };
+/**
+ * Component's context used properties
+ */
+
 GarlicLayout.contextTypes = {
-  dimensions: _propTypes2.default.object,
-  getResourceDataUrl: _propTypes2.default.func
+  /**
+   * dimensions of the container
+   */
+  dimensions: _propTypes.default.object,
+
+  /**
+   * getResourceDataUrl in fonio DataUrlProvider
+   */
+  getResourceDataUrl: _propTypes.default.func
 };
+/**
+ * Component's context properties provided to children
+ */
+
 GarlicLayout.childContextTypes = {
-  fixedPresentationId: _propTypes2.default.string,
-  onNoteContentPointerClick: _propTypes2.default.func,
-  onExit: _propTypes2.default.func,
-  onGlossaryMentionClick: _propTypes2.default.func,
+  /**
+   * The presentation player to display full-screen if any
+   */
+  fixedPresentationId: _propTypes.default.string,
 
-  locale: _propTypes2.default.object,
+  /**
+   * Callback triggered when a note pointer is clicked
+   */
+  onNoteContentPointerClick: _propTypes.default.func,
 
-  citationStyle: _propTypes2.default.string,
+  /**
+   * Callback triggered when a presentation displayed in full
+   * screen is exited
+   */
+  onExit: _propTypes.default.func,
 
-  citationLocale: _propTypes2.default.string
+  /**
+   * Callbacks when a glossary item is clicked
+   */
+  onGlossaryMentionClick: _propTypes.default.func,
+  locale: _propTypes.default.object,
+  citationStyle: _propTypes.default.string,
+  citationLocale: _propTypes.default.string
 };
-
-exports.default = GarlicLayout;
+var _default = GarlicLayout;
+exports.default = _default;

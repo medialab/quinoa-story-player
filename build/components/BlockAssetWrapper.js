@@ -1,50 +1,54 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _extends2 = require('babel-runtime/helpers/extends');
+var _react = _interopRequireDefault(require("react"));
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _react = require('react');
+var _Info = _interopRequireDefault(require("./Info"));
 
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Info = require('./Info');
-
-var _Info2 = _interopRequireDefault(_Info);
-
-var _BlockAssetPlayer = require('./BlockAssetPlayer');
-
-var _BlockAssetPlayer2 = _interopRequireDefault(_BlockAssetPlayer);
+var _BlockAssetPlayer = _interopRequireDefault(require("./BlockAssetPlayer"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/**
+ * Renders a block asset wrapper as a pure component
+ * @param {object} props
+ * @param {object} props.data - the data initially embedded in a draft-js entity
+ * @param {object} context - the context data passed to the component
+ * @return {ReactElement} component - the component
+ */
 var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
   var data = _ref.data;
-
   var assetId = data.asset.id;
   var contextualization = context.story && context.story.contextualizations && context.story.contextualizations[assetId];
+
   if (!contextualization) {
     return null;
   }
-  var asset = (0, _extends3.default)({}, contextualization, {
+
+  var asset = _objectSpread({}, contextualization, {
     contextualizer: context.story.contextualizers[contextualization.contextualizerId],
     resource: context.story.resources[contextualization.resourceId]
   });
+
   var dimensions = context.dimensions;
   var fixedPresentationId = context.fixedPresentationId;
   var onExit = context.onExit;
   var inNote = context.inNote;
+
   if (asset && asset.resource.data && !inNote) {
     var resource = asset.resource,
-        contextualizer = asset.contextualizer;
+        contextualizer = asset.contextualizer; // const resource = asset.resource;
+    // const contextualizer = asset.contextualizer;
 
     var assetType = contextualizer.type;
 
@@ -52,65 +56,92 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
       if (!(resource.metadata.description && resource.metadata.description.length) || !(resource.metadata.source && resource.metadata.source.length)) {
         return undefined;
       }
-      var description = resource.metadata.description ? '\n        <div class="info-description">\n          ' + resource.metadata.description.replace('\n', '<br/>') + '\n        </div>\n      ' : '';
-      var source = resource.metadata.source ? '\n        <div class="info-source">\n          <i>Source: ' + resource.metadata.source + '</i>\n        </div>\n      ' : '';
 
-      return '\n      <div class="info-container">\n        ' + description + '\n        ' + source + '\n      </div>\n            ';
+      var description = resource.metadata.description ? "\n        <div class=\"info-description\">\n          ".concat(resource.metadata.description.replace('\n', '<br/>'), "\n        </div>\n      ") : '';
+      var source = resource.metadata.source ? "\n        <div class=\"info-source\">\n          <i>Source: ".concat(resource.metadata.source, "</i>\n        </div>\n      ") : '';
+      return "\n      <div class=\"info-container\">\n        ".concat(description, "\n        ").concat(source, "\n      </div>\n            ");
     };
-    var info = buildInfo();
-    return _react2.default.createElement(
-      'figure',
-      {
-        className: 'content-figure ' + asset.contextualizer.type,
-        style: {
-          position: 'relative',
-          minHeight: asset.contextualizer.type === 'data-presentation' && dimensions && dimensions.height || '10em'
-        },
-        id: assetId },
-      _react2.default.createElement(_BlockAssetPlayer2.default, {
-        type: assetType,
-        data: resource.data,
-        resource: resource,
-        contextualizer: contextualizer,
-        contextualization: contextualization,
-        options: {
-          template: 'scroller'
-        },
-        fixed: fixedPresentationId === assetId,
-        allowInteractions: inNote || fixedPresentationId === assetId,
-        onExit: onExit }),
-      _react2.default.createElement(
-        'figcaption',
-        { className: 'figure-caption-container' },
-        _react2.default.createElement(
-          'div',
-          { className: 'figure-caption-content' },
-          resource.metadata.title && _react2.default.createElement(
-            'h4',
-            { className: 'figure-caption-title' },
-            resource.metadata.title,
-            info && _react2.default.createElement(_Info2.default, { message: info })
-          )
-        )
-      )
-    );
+
+    var info = buildInfo(); // todo: we could later on embed more data coming
+    // from the contextualization (and not just the resource)
+    // involved in displaying the embed
+
+    return _react.default.createElement("figure", {
+      className: "content-figure ".concat(asset.contextualizer.type),
+      style: {
+        position: 'relative',
+        minHeight: asset.contextualizer.type === 'data-presentation' && dimensions && dimensions.height || '10em'
+      },
+      id: assetId
+    }, _react.default.createElement(_BlockAssetPlayer.default, {
+      type: assetType,
+      data: resource.data,
+      resource: resource,
+      contextualizer: contextualizer,
+      contextualization: contextualization,
+      options: {
+        template: 'scroller'
+      },
+      fixed: fixedPresentationId === assetId,
+      allowInteractions: inNote || fixedPresentationId === assetId,
+      onExit: onExit
+    }), _react.default.createElement("figcaption", {
+      className: "figure-caption-container"
+    }, _react.default.createElement("div", {
+      className: "figure-caption-content"
+    }, resource.metadata.title && _react.default.createElement("h4", {
+      className: "figure-caption-title"
+    }, resource.metadata.title, info && _react.default.createElement(_Info.default, {
+      message: info
+    })))));
   } else {
     return null;
   }
 };
+/**
+ * Component's properties types
+ */
+
+
 BlockAssetWrapper.propTypes = {
-  data: _propTypes2.default.shape({
-    asset: _propTypes2.default.shape({
-      id: _propTypes2.default.string
+  /**
+   * Corresponds to the data initially embedded in a draft-js entity
+   */
+  data: _propTypes.default.shape({
+    asset: _propTypes.default.shape({
+      id: _propTypes.default.string
     })
   })
 };
-BlockAssetWrapper.contextTypes = {
-  story: _propTypes2.default.object,
-  dimensions: _propTypes2.default.object,
-  fixedPresentationId: _propTypes2.default.string,
-  inNote: _propTypes2.default.bool,
-  onExit: _propTypes2.default.func
-};
+/**
+ * Component's context used properties
+ */
 
-exports.default = BlockAssetWrapper;
+BlockAssetWrapper.contextTypes = {
+  /**
+   * The active story data
+   */
+  story: _propTypes.default.object,
+
+  /**
+   * Dimensions of the wrapping element
+   */
+  dimensions: _propTypes.default.object,
+
+  /**
+   * Id of the presentation being displayed full screen if any
+   */
+  fixedPresentationId: _propTypes.default.string,
+
+  /**
+   * Whether the block asset is displayed in a note (and not in main content)
+   */
+  inNote: _propTypes.default.bool,
+
+  /**
+   * Triggered when a full-screen asset is exited
+   */
+  onExit: _propTypes.default.func
+};
+var _default = BlockAssetWrapper;
+exports.default = _default;

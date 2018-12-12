@@ -57,15 +57,18 @@
     <term name="scale">scale</term>
     <term name="version">version</term>
 
+    <!-- ANNO DOMINI; BEFORE CHRIST -->
     <term name="ad">AD</term>
     <term name="bc">BC</term>
 
+    <!-- PUNCTUATION -->
     <term name="open-quote">“</term>
     <term name="close-quote">”</term>
     <term name="open-inner-quote">‘</term>
     <term name="close-inner-quote">’</term>
     <term name="page-range-delimiter">–</term>
 
+    <!-- ORDINALS -->
     <term name="ordinal">th</term>
     <term name="ordinal-01">st</term>
     <term name="ordinal-02">nd</term>
@@ -74,6 +77,7 @@
     <term name="ordinal-12">th</term>
     <term name="ordinal-13">th</term>
 
+    <!-- LONG ORDINALS -->
     <term name="long-ordinal-01">first</term>
     <term name="long-ordinal-02">second</term>
     <term name="long-ordinal-03">third</term>
@@ -85,6 +89,7 @@
     <term name="long-ordinal-09">ninth</term>
     <term name="long-ordinal-10">tenth</term>
 
+    <!-- LONG LOCATOR FORMS -->
     <term name="book">
       <single>book</single>
       <multiple>books</multiple>
@@ -154,6 +159,7 @@
       <multiple>volumes</multiple>
     </term>
 
+    <!-- SHORT LOCATOR FORMS -->
     <term name="book" form="short">
       <single>bk.</single>
       <multiple>bks.</multiple>
@@ -223,6 +229,7 @@
       <multiple>vols.</multiple>
     </term>
 
+    <!-- SYMBOL LOCATOR FORMS -->
     <term name="paragraph" form="symbol">
       <single>¶</single>
       <multiple>¶¶</multiple>
@@ -232,6 +239,7 @@
       <multiple>§§</multiple>
     </term>
 
+    <!-- LONG ROLE FORMS -->
     <term name="director">
       <single>director</single>
       <multiple>directors</multiple>
@@ -257,6 +265,7 @@
       <multiple>editors &amp; translators</multiple>
     </term>
 
+    <!-- SHORT ROLE FORMS -->
     <term name="director" form="short">
       <single>dir.</single>
       <multiple>dirs.</multiple>
@@ -282,6 +291,7 @@
       <multiple>eds. &amp; trans.</multiple>
     </term>
 
+    <!-- VERB ROLE FORMS -->
     <term name="container-author" form="verb">by</term>
     <term name="director" form="verb">directed by</term>
     <term name="editor" form="verb">edited by</term>
@@ -293,6 +303,7 @@
     <term name="translator" form="verb">translated by</term>
     <term name="editortranslator" form="verb">edited &amp; translated by</term>
 
+    <!-- SHORT VERB ROLE FORMS -->
     <term name="director" form="verb-short">dir. by</term>
     <term name="editor" form="verb-short">ed. by</term>
     <term name="editorial-director" form="verb-short">ed. by</term>
@@ -300,6 +311,7 @@
     <term name="translator" form="verb-short">trans. by</term>
     <term name="editortranslator" form="verb-short">ed. &amp; trans. by</term>
 
+    <!-- LONG MONTH FORMS -->
     <term name="month-01">January</term>
     <term name="month-02">February</term>
     <term name="month-03">March</term>
@@ -313,6 +325,7 @@
     <term name="month-11">November</term>
     <term name="month-12">December</term>
 
+    <!-- SHORT MONTH FORMS -->
     <term name="month-01" form="short">Jan.</term>
     <term name="month-02" form="short">Feb.</term>
     <term name="month-03" form="short">Mar.</term>
@@ -326,6 +339,7 @@
     <term name="month-11" form="short">Nov.</term>
     <term name="month-12" form="short">Dec.</term>
 
+    <!-- SEASONS -->
     <term name="season-01">Spring</term>
     <term name="season-02">Summer</term>
     <term name="season-03">Autumn</term>

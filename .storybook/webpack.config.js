@@ -3,6 +3,26 @@ const path = require('path');
 module.exports = {
   module: {
     rules: [
+    {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: [
+              '@babel/plugin-proposal-export-default-from',
+              '@babel/plugin-proposal-export-namespace-from',
+              '@babel/plugin-proposal-object-rest-spread',
+              ['@babel/plugin-proposal-decorators', {legacy:true}],
+              ['@babel/plugin-proposal-class-properties', {loose: true}]
+            ],
+            "presets": [
+              "@babel/env",
+              "@babel/react"
+            ]
+          }
+        }
+      },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         include: path.resolve(__dirname, '../'),
