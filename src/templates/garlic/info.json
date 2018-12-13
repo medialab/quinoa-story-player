@@ -7,39 +7,86 @@
     "referenceTypes",
     "referenceStatus"
   ],
-  "acceptsStylesVariables": {
-    "titles": {
-      "color": true,
-      "sizeClass": [
-        "smaller", "small", "normal", "big", "bigger"
-      ]
+  "stylesVariables": {
+    "definitions": {
+      "color": {
+        "type": "string",
+        "default": "#000"
+      },
+      "sizeClass": {
+        "type": "string",
+        "enum": ["smaller", "small", "normal", "big", "bigger"],
+        "default": "normal"
+      },
+      "sizeTuple": {
+        "type": "string",
+        "enum": ["small", "big"],
+        "default": ["small"]
+      },
+      "basicText": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/color"
+          },
+          "sizeClass": {
+            "$ref": "#/definitions/sizeClass"
+          }
+        }
+      }
     },
-    "coverText": {
-      "color": true,
-      "sizeClass": [
-        "smaller", "small", "normal", "big", "bigger"
-      ]
-    },
-    "corpus": {
-      "color": true,
-      "sizeClass": [
-        "smaller", "small", "normal", "big", "bigger"
-      ]
-    },
-    "links": {
-      "color": true
-    },
-    "blockquotes": {
-      "color": true,
-      "sizeClass": [
-        "smaller", "small", "normal", "big", "bigger"
-      ]
-    },
-    "background": {
-      "color": true
-    },
-    "ressources": {
-      "width": true
+    "type": "object",
+    "description": "Template specific WYSIWYG",
+    "properties": {
+      "titles": {
+        "description": "Define titles styles",
+        "$ref": "#/definitions/basicText"
+      },
+      "coverText": {
+        "description": "Define textes on cover styles",
+        "$ref": "#/definitions/basicText"
+      },
+      "corpus": {
+        "description": "Define classic corpus text styles",
+        "$ref": "#/definitions/basicText"
+      },
+      "links": {
+        "description": "Define links styles",
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/color"
+          }
+        }
+      },
+      "blockquotes": {
+        "description": "Define blockquotes styles",
+        "type": "object",
+        "$ref": "#/definitions/basicText",
+        "properties": {
+          "backgroundColor": {
+            "$ref": "#/definitions/color"
+          }
+        }
+      },
+      "background": {
+        "description": "Define background color",
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/color"
+          }
+        }
+      },
+      "ressources": {
+        "description": "The width taken by a ressource",
+        "type": "object",
+        "properties": {
+          "width": {
+            "$ref": "#/definitions/sizeTuple"
+          }
+        }
+      }
     }
   }
 }
