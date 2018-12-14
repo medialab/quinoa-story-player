@@ -193,7 +193,7 @@ export const stylesVariablesToCss = (styles = {}) => {
   let compiledStyles = '';
   if (styles.titles) {
     compiledStyles = compiledStyles + `
-    .content-title .content-title--modifier {
+    .content-title .content-title--modifier, .section-title .section-title--modifier {
       color: ${styles.titles.color};
       font-size: ${classToSize(styles.titles.sizeClass)}em;
     }`;

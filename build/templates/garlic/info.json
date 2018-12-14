@@ -18,11 +18,6 @@
         "enum": ["smaller", "small", "normal", "big", "bigger"],
         "default": "normal"
       },
-      "sizeTuple": {
-        "type": "string",
-        "enum": ["small", "big"],
-        "default": ["small"]
-      },
       "basicText": {
         "type": "object",
         "properties": {
@@ -75,15 +70,6 @@
         "properties": {
           "color": {
             "$ref": "#/definitions/color"
-          }
-        }
-      },
-      "ressources": {
-        "description": "The width taken by a ressource",
-        "type": "object",
-        "properties": {
-          "width": {
-            "$ref": "#/definitions/sizeTuple"
           }
         }
       }

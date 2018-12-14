@@ -169,7 +169,7 @@ var stylesVariablesToCss = exports.stylesVariablesToCss = function stylesVariabl
 
   var compiledStyles = '';
   if (styles.titles) {
-    compiledStyles = compiledStyles + ('\n    .content-title .content-title--modifier {\n      color: ' + styles.titles.color + ';\n      font-size: ' + classToSize(styles.titles.sizeClass) + 'em;\n    }');
+    compiledStyles = compiledStyles + ('\n    .content-title .content-title--modifier, .section-title .section-title--modifier {\n      color: ' + styles.titles.color + ';\n      font-size: ' + classToSize(styles.titles.sizeClass) + 'em;\n    }');
   }
   if (styles.background) {
     compiledStyles = compiledStyles + ('\n    .quinoa-story-player, .nav {\n      background: ' + styles.background.color + ';\n    }');
