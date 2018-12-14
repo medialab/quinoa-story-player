@@ -33,19 +33,31 @@ var Header = function Header(_ref) {
       _react2.default.createElement(
         'h1',
         { className: 'header-story-title' },
-        metadata.title || 'Quinoa story'
+        _react2.default.createElement(
+          'span',
+          { className: 'header-story-title--modifier' },
+          metadata.title || 'Quinoa story'
+        )
       ),
       metadata.subtitle && _react2.default.createElement(
         'h2',
         { className: 'header-story-subtitle' },
-        metadata.subtitle
+        _react2.default.createElement(
+          'span',
+          { className: 'header-story-subtitle--modifier' },
+          metadata.subtitle
+        )
       ),
       metadata.authors && metadata.authors.length ? _react2.default.createElement(
         'div',
         { className: 'header-authors' },
-        metadata.authors.map(function (author) {
-          return author;
-        }).join(', ')
+        _react2.default.createElement(
+          'span',
+          { className: 'header-authors--modifier' },
+          metadata.authors.map(function (author) {
+            return author;
+          }).join(', ')
+        )
       ) : null
     )
   );

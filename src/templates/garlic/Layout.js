@@ -448,7 +448,9 @@ class GarlicLayout extends Component {
     /**
      * Styles Variables (WYSIWYG)
      */
-    const computedStylesVariables = stylesVariablesToCss(settings.stylesVariables);
+    const computedStylesVariables = settings.styles
+      ? stylesVariablesToCss(settings.styles.garlic.stylesVariables)
+      : '';
 
     /**
      * ==========================================

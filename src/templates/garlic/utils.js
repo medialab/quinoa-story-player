@@ -179,21 +179,68 @@ export const getOffset = (el) => {
     return { top: _y, left: _x };
 };
 
+const stylesRatios = {
+  smaller: 0.6,
+  small: 0.8,
+  normal: 1,
+  big: 1.2,
+  bigger: 1.4,
+};
+
+const classToSize = klass => stylesRatios[klass];
+
 export const stylesVariablesToCss = (styles = {}) => {
   let compiledStyles = '';
-  const stylesRatios = {
-    smaller: 0.6,
-    small: 0.8,
-    normal: 1,
-    big: 1.2,
-    bigger: 1.4,
-  };
   if (styles.titles) {
     compiledStyles = compiledStyles + `
-    .section-title--modifier {
+    .content-title .content-title--modifier {
       color: ${styles.titles.color};
-      font-size: ${stylesRatios[styles.titles.sizeClass]}em;
+      font-size: ${classToSize(styles.titles.sizeClass)}em;
     }`;
+  }
+  if (styles.background) {
+    compiledStyles = compiledStyles + `
+    .quinoa-story-player, .nav {
+      background: ${styles.background.color};
+    }`;
+  }
+  if (styles.blockquotes) {
+    compiledStyles = compiledStyles + `
+    .content-blockquote .content-blockquote--modifier {
+      color: ${styles.blockquotes.color};
+    }
+    body .quinoa-story-player .content-blockquote .content-blockquote--modifier {
+      font-size: ${classToSize(styles.blockquotes.sizeClass)}em;
+    }`;
+  }
+  if (styles.corpus) {
+    compiledStyles = compiledStyles + `
+    .quinoa-story-player {
+      color: ${styles.corpus.color};
+    }
+    .content-p .content-p--modifier, .content-li .content-li--modifier {
+      font-size: ${classToSize(styles.corpus.sizeClass)}em;
+    }`;
+  }
+  if (styles.coverText) {
+    compiledStyles = compiledStyles + `
+    .header-story-title--modifier, .header-story-subtitle--modifier, .header-authors--modifier {
+      color: ${styles.coverText.color};
+      font-size: ${classToSize(styles.coverText.sizeClass)}em;
+    }
+    body .quinoa-story-player .header-container.with-cover .header-contents {
+      background-color: rgba(0, 0, 0, ${styles.coverText.percent});
+    }`;
+  }
+  if (styles.links) {
+    compiledStyles = compiledStyles + `
+    .quinoa-story-player .contents-wrapper .content-a, .quinoa-story-player .glossary-mention, .quinoa-story-player .glossary-mention-backlink, .quinoa-story-player .csl-entry a {
+      border-bottom-color: ${styles.links.color};
+    }
+    .quinoa-story-player .contents-wrapper .content-a:hover, .quinoa-story-player .glossary-mention:hover, .quinoa-story-player .glossary-mention-backlink:hover, .quinoa-story-player .csl-entry a:hover {
+      background: ${styles.links.color};
+    }
+    `;
   }
   return compiledStyles;
 };

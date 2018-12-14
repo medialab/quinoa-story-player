@@ -109,7 +109,11 @@ var renderers = {
         return _react2.default.createElement(
           'div',
           { className: 'content-p', key: index },
-          child
+          _react2.default.createElement(
+            'span',
+            { className: 'content-p--modifier' },
+            child
+          )
         );
       });
     },
@@ -117,7 +121,11 @@ var renderers = {
       return _react2.default.createElement(
         'blockquote',
         { className: 'content-blockquote' },
-        addBreaklines(children)
+        _react2.default.createElement(
+          'span',
+          { className: 'content-blockquote--modifier' },
+          addBreaklines(children)
+        )
       );
     },
     'header-one': function headerOne(children, _ref5) {
@@ -128,7 +136,7 @@ var renderers = {
           { className: 'content-title content-h1', key: index, id: keys[index] },
           _react2.default.createElement(
             'span',
-            { className: 'section-title--modifier' },
+            { className: 'content-title--modifier' },
             child
           )
         );
@@ -139,8 +147,12 @@ var renderers = {
       return children.map(function (child, index) {
         return _react2.default.createElement(
           'h2',
-          { className: 'content-h2', key: index, id: keys[index] },
-          child
+          { className: 'content-title content-h2', key: index, id: keys[index] },
+          _react2.default.createElement(
+            'span',
+            { className: 'content-title--modifier' },
+            child
+          )
         );
       });
     },
@@ -152,7 +164,7 @@ var renderers = {
           { className: 'content-title content-h3', key: index, id: keys[index] },
           _react2.default.createElement(
             'span',
-            { className: 'section-title--modifier' },
+            { className: 'content-title--modifier' },
             child
           )
         );
@@ -166,7 +178,7 @@ var renderers = {
           { className: 'content-title content-h4', key: index, id: keys[index] },
           _react2.default.createElement(
             'span',
-            { className: 'section-title--modifier' },
+            { className: 'content-title--modifier' },
             child
           )
         );
@@ -180,7 +192,7 @@ var renderers = {
           { className: 'content-title content-h5', key: index, id: keys[index] },
           _react2.default.createElement(
             'span',
-            { className: 'section-title--modifier' },
+            { className: 'content-title--modifier' },
             child
           )
         );
@@ -194,7 +206,7 @@ var renderers = {
           { className: 'content-title content-h6', key: index, id: keys[index] },
           _react2.default.createElement(
             'span',
-            { className: 'section-title--modifier' },
+            { className: 'content-title--modifier' },
             child
           )
         );
@@ -206,7 +218,11 @@ var renderers = {
       return _react2.default.createElement(
         'pre',
         { className: 'content-pre', key: keys[0] },
-        addBreaklines(children)
+        _react2.default.createElement(
+          'span',
+          { className: 'content-pre--modifier' },
+          addBreaklines(children)
+        )
       );
     },
     'unordered-list-item': function unorderedListItem(children, _ref12) {
@@ -223,7 +239,11 @@ var renderers = {
             {
               key: index + '-' + depth,
               className: 'content-li' },
-            child
+            _react2.default.createElement(
+              'span',
+              { className: 'content-li--modifier' },
+              child
+            )
           );
         })
       );
@@ -238,7 +258,11 @@ var renderers = {
           return _react2.default.createElement(
             'li',
             { className: 'content-li', key: keys[index] },
-            child
+            _react2.default.createElement(
+              'span',
+              { className: 'content-li--modifier' },
+              child
+            )
           );
         })
       );

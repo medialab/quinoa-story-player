@@ -249,7 +249,7 @@ var GarlicLayout = function (_Component) {
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale2.default;
       var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa2.default;
 
-      var computedStylesVariables = (0, _utils.stylesVariablesToCss)(settings.stylesVariables);
+      var computedStylesVariables = settings.styles ? (0, _utils.stylesVariablesToCss)(settings.styles.garlic.stylesVariables) : '';
 
       var onClickToggle = function onClickToggle() {
         return _this.toggleIndex();
