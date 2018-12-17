@@ -15,6 +15,7 @@ import desantagleEntityRanges from '../utils/desantagleEntityRanges';
 import BlockAssetWrapper from './BlockAssetWrapper';
 import InlineAssetWrapper from './InlineAssetWrapper';
 import NotePointer from './NotePointer';
+import InternalLink from './InternalLink';
 
 
 // just a helper to add a <br /> after each block
@@ -86,6 +87,9 @@ const renderers = {
     NOTE_POINTER: (children, data, { key }) => {
       return <NotePointer key={key} children={children} noteId={data.noteId} />;
     },
+    INTERNAL_LINK: (children, data, { key }) => {
+      return <InternalLink key={key} data={data} children={children} />;
+    }
   },
 };
 

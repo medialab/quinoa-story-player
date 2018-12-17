@@ -27,7 +27,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // import GlossaryMention from './GlossaryMention';
 
 /**
- * Renders a block asset wrapper as a pure component
+ * Renders an inline asset wrapper as a pure component
  * @param {object} props
  * @param {object} props.data - the data initially embedded in a draft-js entity
  * @param {object} context - the context data passed to the component

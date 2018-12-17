@@ -82,6 +82,7 @@ function (_Component) {
       var contents = section.contents,
           metadata = section.metadata;
       return _react.default.createElement("section", {
+        id: "section-container-".concat(section.id),
         className: "section is-level-".concat(metadata.level + 1)
       }, _react.default.createElement("div", {
         className: "section-header"

@@ -394,6 +394,7 @@ function (_Component) {
     _this.scrollToElementId = _this.scrollToElementId.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.onGlossaryMentionClick = _this.onGlossaryMentionClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onInternalLinkClick = _this.onInternalLinkClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.toggleIndex = _this.toggleIndex.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.onPresentationExit = _this.onPresentationExit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     /**
@@ -458,6 +459,7 @@ function (_Component) {
         onNoteContentPointerClick: this.onNoteContentPointerClick,
         // callbacks when a glossary mention is clicked
         onGlossaryMentionClick: this.onGlossaryMentionClick,
+        onInternalLinkClick: this.onInternalLinkClick,
         locale: this.state.locale,
         citationLocale: this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data || _englishLocale.default,
         citationStyle: this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data || _apa.default
@@ -646,6 +648,12 @@ function (_Component) {
       var target = 'glossary-mention-backlink-' + id;
       this.scrollToElementId(target);
     }
+  }, {
+    key: "onInternalLinkClick",
+    value: function onInternalLinkClick(sectionId) {
+      var target = 'section-container-' + sectionId;
+      this.scrollToElementId(target);
+    }
     /**
      * Toggles the visibility of the table of contents
      * @param {boolean} to - whether toc should be visible
@@ -715,6 +723,7 @@ GarlicLayout.childContextTypes = {
    * Callbacks when a glossary item is clicked
    */
   onGlossaryMentionClick: _propTypes.default.func,
+  onInternalLinkClick: _propTypes.default.func,
   locale: _propTypes.default.object,
   citationStyle: _propTypes.default.string,
   citationLocale: _propTypes.default.string

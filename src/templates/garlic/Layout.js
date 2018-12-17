@@ -56,6 +56,7 @@ class GarlicLayout extends Component {
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
     this.onGlossaryMentionClick = this.onGlossaryMentionClick.bind(this);
+    this.onInternalLinkClick = this.onInternalLinkClick.bind(this);
 
     this.toggleIndex = this.toggleIndex.bind(this);
 
@@ -110,6 +111,7 @@ class GarlicLayout extends Component {
       onNoteContentPointerClick: this.onNoteContentPointerClick,
       // callbacks when a glossary mention is clicked
       onGlossaryMentionClick: this.onGlossaryMentionClick,
+      onInternalLinkClick: this.onInternalLinkClick,
       locale: this.state.locale,
 
       citationLocale: (this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data) || defaultCitationLocale,
@@ -355,6 +357,11 @@ class GarlicLayout extends Component {
 
   onGlossaryMentionClick(id) {
     const target = 'glossary-mention-backlink-' + id;
+    this.scrollToElementId(target);
+  }
+
+  onInternalLinkClick(sectionId) {
+    const target = 'section-container-' + sectionId;
     this.scrollToElementId(target);
   }
 
@@ -618,6 +625,8 @@ GarlicLayout.childContextTypes = {
    * Callbacks when a glossary item is clicked
    */
    onGlossaryMentionClick: PropTypes.func,
+
+   onInternalLinkClick: PropTypes.func,
 
    locale: PropTypes.object,
 

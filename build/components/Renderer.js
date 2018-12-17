@@ -21,6 +21,8 @@ var _InlineAssetWrapper = _interopRequireDefault(require("./InlineAssetWrapper")
 
 var _NotePointer = _interopRequireDefault(require("./NotePointer"));
 
+var _InternalLink = _interopRequireDefault(require("./InternalLink"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -247,6 +249,14 @@ var renderers = {
         key: key,
         children: children,
         noteId: data.noteId
+      });
+    },
+    INTERNAL_LINK: function INTERNAL_LINK(children, data, _ref19) {
+      var key = _ref19.key;
+      return _react.default.createElement(_InternalLink.default, {
+        key: key,
+        data: data,
+        children: children
       });
     }
   }
