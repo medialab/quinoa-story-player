@@ -44,17 +44,19 @@ const renderers = {
    * Note that children are an array of blocks with same styling,
    */
   blocks: {
-    'unstyled': (children) => children.map((child, index) => <div className="content-p" key={index}>{child}</div>),
-    'blockquote': (children) => <blockquote className="content-blockquote" >{addBreaklines(children)}</blockquote>,
-    'header-one': (children, { keys }) => children.map((child, index) => <h1 className="content-title content-h1" key={index} id={keys[index]}>{child}</h1>),
-    'header-two': (children, { keys }) => children.map((child, index) => <h2 className="content-h2" key={index} id={keys[index]}>{child}</h2>),
-    'header-three': (children, { keys }) => children.map((child, index) => <h3 className="content-title content-h3" key={index} id={keys[index]}>{child}</h3>),
-    'header-four': (children, { keys }) => children.map((child, index) => <h4 className="content-title content-h4" key={index} id={keys[index]}>{child}</h4>),
-    'header-five': (children, { keys }) => children.map((child, index) => <h5 className="content-title content-h5" key={index} id={keys[index]}>{child}</h5>),
-    'header-six': (children, { keys }) => children.map((child, index) => <h6 className="content-title content-h6" key={index} id={keys[index]}>{child}</h6>),
+    'unstyled': (children) => children.map((child, index) => <div className="content-p" key={index}><span className="content-p--modifier">{child}</span></div>),
+    'blockquote': (children) => <blockquote className="content-blockquote" ><span className="content-blockquote--modifier">{addBreaklines(children)}</span></blockquote>,
+    'header-one': (children, { keys }) => children.map((child, index) => <h1 className="content-title content-h1" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h1>),
+    'header-two': (children, { keys }) => children.map((child, index) => <h2 className="content-title content-h2" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h2>),
+    'header-three': (children, { keys }) => children.map((child, index) => <h3 className="content-title content-h3" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h3>),
+    'header-four': (children, { keys }) => children.map((child, index) => <h4 className="content-title content-h4" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h4>),
+    'header-five': (children, { keys }) => children.map((child, index) => <h5 className="content-title content-h5" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h5>),
+    'header-six': (children, { keys }) => children.map((child, index) => <h6 className="content-title content-h6" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h6>),
 
     // You can also access the original keys of the blocks
-    'code-block': (children, { keys }) => <pre className="content-pre" key={keys[0]} >{addBreaklines(children)}</pre>,
+    'code-block': (children, { keys }) => (
+      <pre className="content-pre" key={keys[0]} ><span className="content-pre--modifier">{addBreaklines(children)}</span></pre>
+    ),
     // or depth for nested lists
     'unordered-list-item': (children, { depth, keys }) =>
       (<ul
@@ -64,11 +66,11 @@ const renderers = {
           (<li
             key={`${index}-${depth}`}
             className="content-li">
-            {child}
+            <span className="content-li--modifier">{child}</span>
           </li>))
           }
       </ul>),
-    'ordered-list-item': (children, { depth, keys }) => <ol key={keys.join('|')} className={`content-ol ol-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={keys[index]}>{child}</li>)}</ol>,
+    'ordered-list-item': (children, { depth, keys }) => <ol key={keys.join('|')} className={`content-ol ol-level-${depth}`}>{children.map((child, index) => <li className="content-li" key={keys[index]}><span className="content-li--modifier">{child}</span></li>)}</ol>,
     'atomic': (children, { keys, data }) => children.map((child, i) => <div className="content-atomic-container" key={keys[i]} {...data[i]}>{child}</div>),
   },
   /**

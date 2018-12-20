@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.capitalize = exports.buildGlossary = exports.buildCitations = exports.buildCoverImage = void 0;
 
+var _quinoaSchemas = require("quinoa-schemas");
+
 var _resourceToCSLJSON = _interopRequireDefault(require("./resourceToCSLJSON"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42,15 +44,16 @@ exports.buildCoverImage = buildCoverImage;
 var buildCitations = function buildCitations(story) {
   var contextualizations = story.contextualizations,
       contextualizers = story.contextualizers,
-      resources = story.resources,
-      _story$settings = story.settings,
-      settings = _story$settings === void 0 ? {} : _story$settings;
+      resources = story.resources;
   /*
    * Citations preparation
    */
 
-  var referenceStatus = settings.options && settings.options.referenceStatus || 'cited';
-  var referenceTypes = settings.options && settings.options.referenceTypes || ['bib'];
+  var _getStyles = (0, _quinoaSchemas.getStyles)(story),
+      options = _getStyles.options;
+
+  var referenceStatus = options && options.referenceStatus || 'cited';
+  var referenceTypes = options && options.referenceTypes || ['bib'];
   var citedResources = Object.keys(resources).map(function (resourceId) {
     return resources[resourceId];
   }).filter(function (resource) {
@@ -92,10 +95,10 @@ var buildCitations = function buildCitations(story) {
     }).map(function (contextualizationId) {
       return contextualizations[contextualizationId];
     });
-    return _toConsumableArray(result1).concat(_toConsumableArray(theseContextualizations.reduce(function (result2, contextualization) {
+    return [].concat(_toConsumableArray(result1), _toConsumableArray(theseContextualizations.reduce(function (result2, contextualization) {
       var contextualizer = contextualizers[contextualization.contextualizerId];
       noteIndex++;
-      return _toConsumableArray(result2).concat([{
+      return [].concat(_toConsumableArray(result2), [{
         citationID: contextualization.id,
         // citationID: resource.citationId,
         citationItems: resource.citations.map(function () {

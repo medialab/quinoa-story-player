@@ -102,13 +102,17 @@ var renderers = {
         return _react.default.createElement("div", {
           className: "content-p",
           key: index
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-p--modifier"
+        }, child));
       });
     },
     'blockquote': function blockquote(children) {
       return _react.default.createElement("blockquote", {
         className: "content-blockquote"
-      }, addBreaklines(children));
+      }, _react.default.createElement("span", {
+        className: "content-blockquote--modifier"
+      }, addBreaklines(children)));
     },
     'header-one': function headerOne(children, _ref5) {
       var keys = _ref5.keys;
@@ -117,17 +121,21 @@ var renderers = {
           className: "content-title content-h1",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
     'header-two': function headerTwo(children, _ref6) {
       var keys = _ref6.keys;
       return children.map(function (child, index) {
         return _react.default.createElement("h2", {
-          className: "content-h2",
+          className: "content-title content-h2",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
     'header-three': function headerThree(children, _ref7) {
@@ -137,7 +145,9 @@ var renderers = {
           className: "content-title content-h3",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
     'header-four': function headerFour(children, _ref8) {
@@ -147,7 +157,9 @@ var renderers = {
           className: "content-title content-h4",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
     'header-five': function headerFive(children, _ref9) {
@@ -157,7 +169,9 @@ var renderers = {
           className: "content-title content-h5",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
     'header-six': function headerSix(children, _ref10) {
@@ -167,7 +181,9 @@ var renderers = {
           className: "content-title content-h6",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
     // You can also access the original keys of the blocks
@@ -176,7 +192,9 @@ var renderers = {
       return _react.default.createElement("pre", {
         className: "content-pre",
         key: keys[0]
-      }, addBreaklines(children));
+      }, _react.default.createElement("span", {
+        className: "content-pre--modifier"
+      }, addBreaklines(children)));
     },
     // or depth for nested lists
     'unordered-list-item': function unorderedListItem(children, _ref12) {
@@ -189,7 +207,9 @@ var renderers = {
         return _react.default.createElement("li", {
           key: "".concat(index, "-").concat(depth),
           className: "content-li"
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-li--modifier"
+        }, child));
       }));
     },
     'ordered-list-item': function orderedListItem(children, _ref13) {
@@ -202,7 +222,9 @@ var renderers = {
         return _react.default.createElement("li", {
           className: "content-li",
           key: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-li--modifier"
+        }, child));
       }));
     },
     'atomic': function atomic(children, _ref14) {

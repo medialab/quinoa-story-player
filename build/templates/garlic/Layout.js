@@ -17,6 +17,8 @@ var _reactCiteproc = require("react-citeproc");
 
 var _reactTooltip = _interopRequireDefault(require("react-tooltip"));
 
+var _quinoaSchemas = require("quinoa-schemas");
+
 var _d3Ease = require("d3-ease");
 
 var _Bibliography = _interopRequireDefault(require("../../components/Bibliography"));
@@ -238,10 +240,10 @@ function (_Component) {
        */
 
 
-      var customCss = settings.css || '';
+      var customCss = (0, _quinoaSchemas.getStyles)(_this.props.story).css || '';
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
-        return _toConsumableArray(nf).concat(_toConsumableArray(sections[sectionId].notesOrder.map(function (noteId) {
+        return [].concat(_toConsumableArray(nf), _toConsumableArray(sections[sectionId].notesOrder.map(function (noteId) {
           return _objectSpread({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++
@@ -265,6 +267,11 @@ function (_Component) {
       notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale.default;
       var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa.default;
+      /**
+       * Styles Variables (WYSIWYG)
+       */
+
+      var computedStylesVariables = settings.styles ? (0, _utils.stylesVariablesToCss)(settings.styles.garlic.stylesVariables) : '';
       /**
        * ==========================================
        * Callbacks
@@ -376,7 +383,7 @@ function (_Component) {
         toggleIndex: toggleIndex,
         isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
         toc: toc
-      })), _react.default.createElement("style", null, contextualizersStyles, _garlic.default, customCss), _react.default.createElement(_reactTooltip.default, {
+      })), _react.default.createElement("style", null, contextualizersStyles, _garlic.default, computedStylesVariables, customCss), _react.default.createElement(_reactTooltip.default, {
         id: "tooltip",
         effect: "solid"
       }));

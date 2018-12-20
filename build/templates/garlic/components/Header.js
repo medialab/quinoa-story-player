@@ -26,13 +26,19 @@ var Header = function Header(_ref) {
     className: "header-contents"
   }, _react.default.createElement("h1", {
     className: "header-story-title"
-  }, metadata.title || 'Quinoa story'), metadata.subtitle && _react.default.createElement("h2", {
+  }, _react.default.createElement("span", {
+    className: "header-story-title--modifier"
+  }, metadata.title || 'Quinoa story')), metadata.subtitle && _react.default.createElement("h2", {
     className: "header-story-subtitle"
-  }, metadata.subtitle), metadata.authors && metadata.authors.length ? _react.default.createElement("div", {
+  }, _react.default.createElement("span", {
+    className: "header-story-subtitle--modifier"
+  }, metadata.subtitle)), metadata.authors && metadata.authors.length ? _react.default.createElement("div", {
     className: "header-authors"
+  }, _react.default.createElement("span", {
+    className: "header-authors--modifier"
   }, metadata.authors.map(function (author) {
     return author;
-  }).join(', ')) : null));
+  }).join(', '))) : null));
 };
 
 var _default = Header;
