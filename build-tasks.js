@@ -6,9 +6,9 @@ const toCopy = [
   'src/**/*.csl',
   'src/**/*.scss',
   'src/**/*.css',
-  'src/**/*.ttf',
-  'src/**/*.woff',
-  'src/**/*.woff2',
+  // 'src/**/*.ttf',
+  // 'src/**/*.woff',
+  // 'src/**/*.woff2',
 ];
 
 toCopy.map(pattern => 
