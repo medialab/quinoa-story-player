@@ -60,6 +60,8 @@ var _reactTooltip = require('react-tooltip');
 
 var _reactTooltip2 = _interopRequireDefault(_reactTooltip);
 
+var _quinoaSchemas = require('quinoa-schemas');
+
 var _Bibliography = require('../../components/Bibliography');
 
 var _Bibliography2 = _interopRequireDefault(_Bibliography);
@@ -222,7 +224,7 @@ var GarlicLayout = function (_Component) {
           scrollToContents = _this.scrollToContents,
           toggleIndex = _this.toggleIndex;
 
-      var customCss = settings.css || '';
+      var customCss = (0, _quinoaSchemas.getStyles)(_this.props.story).css || '';
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
         return [].concat((0, _toConsumableArray3.default)(nf), (0, _toConsumableArray3.default)(sections[sectionId].notesOrder.map(function (noteId) {

@@ -11,7 +11,7 @@
     "definitions": {
       "color": {
         "type": "string",
-        "default": "#000"
+        "default": "null"
       },
       "sizeClass": {
         "type": "string",
@@ -28,6 +28,12 @@
             "$ref": "#/definitions/sizeClass"
           }
         }
+      },
+      "range": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "default": 0.8
       }
     },
     "type": "object",
@@ -38,8 +44,19 @@
         "$ref": "#/definitions/basicText"
       },
       "coverText": {
+        "type":"object",
         "description": "Define textes on cover styles",
-        "$ref": "#/definitions/basicText"
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/color"
+          },
+          "sizeClass": {
+            "$ref": "#/definitions/sizeClass"
+          },
+          "opacity": {
+            "$ref": "#/definitions/range"
+          }
+        }
       },
       "corpus": {
         "description": "Define classic corpus text styles",

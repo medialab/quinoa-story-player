@@ -1,3 +1,4 @@
+import { getStyles } from 'quinoa-schemas';
 import resourceToCSLJSON from './resourceToCSLJSON';
 
 export const buildCoverImage = (story) => {
@@ -23,13 +24,13 @@ export const buildCitations = (story) => {
       contextualizations,
       contextualizers,
       resources,
-      settings = {},
     } = story;
     /*
      * Citations preparation
      */
-    const referenceStatus = (settings.options && settings.options.referenceStatus) || 'cited';
-    const referenceTypes = (settings.options && settings.options.referenceTypes) || ['bib'];
+    const { options } = getStyles(story);
+    const referenceStatus = (options && options.referenceStatus) || 'cited';
+    const referenceTypes = (options && options.referenceTypes) || ['bib'];
     const citedResources = Object.keys(resources)
     .map(resourceId => resources[resourceId])
     .filter(resource => {

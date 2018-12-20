@@ -21,6 +21,8 @@ var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
 
+var _quinoaSchemas = require('quinoa-schemas');
+
 var _resourceToCSLJSON = require('./resourceToCSLJSON');
 
 var _resourceToCSLJSON2 = _interopRequireDefault(_resourceToCSLJSON);
@@ -38,12 +40,13 @@ var buildCoverImage = exports.buildCoverImage = function buildCoverImage(story) 
 var buildCitations = exports.buildCitations = function buildCitations(story) {
   var contextualizations = story.contextualizations,
       contextualizers = story.contextualizers,
-      resources = story.resources,
-      _story$settings = story.settings,
-      settings = _story$settings === undefined ? {} : _story$settings;
+      resources = story.resources;
 
-  var referenceStatus = settings.options && settings.options.referenceStatus || 'cited';
-  var referenceTypes = settings.options && settings.options.referenceTypes || ['bib'];
+  var _getStyles = (0, _quinoaSchemas.getStyles)(story),
+      options = _getStyles.options;
+
+  var referenceStatus = options && options.referenceStatus || 'cited';
+  var referenceTypes = options && options.referenceTypes || ['bib'];
   var citedResources = (0, _keys2.default)(resources).map(function (resourceId) {
     return resources[resourceId];
   }).filter(function (resource) {

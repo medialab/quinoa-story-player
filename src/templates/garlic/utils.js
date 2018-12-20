@@ -229,7 +229,7 @@ export const stylesVariablesToCss = (styles = {}) => {
       font-size: ${classToSize(styles.coverText.sizeClass)}em;
     }
     body .quinoa-story-player .header-container.with-cover .header-contents {
-      background-color: rgba(0, 0, 0, ${styles.coverText.percent});
+      background-color: rgba(0, 0, 0, ${styles.coverText.opacity});
     }`;
   }
   if (styles.links) {

@@ -10,7 +10,7 @@ import { SpringSystem, MathUtil } from 'rebound';
 import { debounce } from 'lodash';
 import { ReferencesManager } from 'react-citeproc';
 import Tooltip from 'react-tooltip';
-
+import { getStyles } from 'quinoa-schemas';
 
 import Bibliography from '../../components/Bibliography';
 import NotesContainer from '../../components/NotesContainer';
@@ -412,7 +412,7 @@ class GarlicLayout extends Component {
      * Local rendering-related variables
      * ==========================================
      */
-    const customCss = settings.css || '';
+    const customCss = getStyles(this.props.story).css || '';
     let noteCount = 1;
     const notes = sectionsOrder.reduce((nf, sectionId) => [
       ...nf,

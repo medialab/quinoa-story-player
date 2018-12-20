@@ -30,6 +30,7 @@
   "homepage": "https://github.com/medialab/quinoa-story-player#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "quinoa-schemas": "1.1.0",
     "raw-loader": "^0.5.1",
     "react": "^16.2.0",
     "react-citeproc": "^0.1.10",
