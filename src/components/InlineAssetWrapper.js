@@ -13,7 +13,7 @@ import { Inline as CitationContainer } from '../contextualizers/bib';
 import { Inline as Link } from '../contextualizers/webpage';
 
 /**
- * Renders a block asset wrapper as a pure component
+ * Renders an inline asset wrapper as a pure component
  * @param {object} props
  * @param {object} props.data - the data initially embedded in a draft-js entity
  * @param {object} context - the context data passed to the component

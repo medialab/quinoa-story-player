@@ -35,7 +35,24 @@ class Player extends Component {
   })
 
   render = () => {
-    return <RealPlayer {...this.props} />
+    const handlePrint = () => {
+      window.focus();
+      window.print();
+    }
+    return (
+      <div>
+        <RealPlayer {...this.props} />
+        <div
+          style={{
+            right: '1rem',
+            bottom: '1rem',
+            position:'fixed'
+          }}
+        >
+          <button onClick={handlePrint}>Print</button>
+        </div>
+      </div>
+    )
   }
 }
 

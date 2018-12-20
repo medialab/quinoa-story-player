@@ -1,120 +1,175 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+var _react = _interopRequireDefault(require("react"));
 
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+var _image = require("../contextualizers/image");
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+var _video = require("../contextualizers/video");
 
-var _createClass2 = require('babel-runtime/helpers/createClass');
+var _embed = require("../contextualizers/embed");
 
-var _createClass3 = _interopRequireDefault(_createClass2);
+var _table = require("../contextualizers/table");
 
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = require('babel-runtime/helpers/inherits');
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _image = require('../contextualizers/image');
-
-var _video = require('../contextualizers/video');
-
-var _embed = require('../contextualizers/embed');
-
-var _table = require('../contextualizers/table');
-
-require('react-table/react-table.css');
+require("react-table/react-table.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var BlockAssetPlayer = function (_React$Component) {
-  (0, _inherits3.default)(BlockAssetPlayer, _React$Component);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+/**
+ * Renders a block asset player as a stateful component
+ * @param {object} props -
+ * @param {string} props.type - the type of asset to display
+ * @param {object} props.data - the data to consume for displaying the asset
+ * @param {object} props.options - specific display options
+ * @param {boolean} props.fixed - whether the asset should be displayed full screen
+ * @param {boolean} props.allowInteractions - whether to allow interactions with the asset
+ * @param {function} props.onInteractions - callbacks when interacting with an asset
+ * @param {object} context -
+ * @param {object} context.dimensions - the dimensions of the root component
+ * @return {ReactElement} component - the component
+ */
+var BlockAssetPlayer =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(BlockAssetPlayer, _React$Component);
 
   function BlockAssetPlayer(props) {
-    (0, _classCallCheck3.default)(this, BlockAssetPlayer);
+    var _this;
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (BlockAssetPlayer.__proto__ || (0, _getPrototypeOf2.default)(BlockAssetPlayer)).call(this, props));
+    _classCallCheck(this, BlockAssetPlayer);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BlockAssetPlayer).call(this, props));
 
     _this.shouldComponentUpdate = function () {
       return true;
     };
 
-    _this.onWheel = _this.onWheel.bind(_this);
+    _this.onWheel = _this.onWheel.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
-  (0, _createClass3.default)(BlockAssetPlayer, [{
-    key: 'onWheel',
+  _createClass(BlockAssetPlayer, [{
+    key: "onWheel",
     value: function onWheel(e) {
       if (this.props.fixed) {
         e.stopPropagation();
         e.preventDefault();
       }
     }
-
+    /**
+    * Investigate needed: wrap switch render inside a div will cause an issue on QuinoaPresentationPlayer lost pointer interaction
+    */
 
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
-      var _props = this.props,
-          _props$resource = _props.resource,
-          resource = _props$resource === undefined ? {} : _props$resource,
-          _props$contextualizer = _props.contextualizer,
-          contextualizer = _props$contextualizer === undefined ? {} : _props$contextualizer,
-          _props$contextualizat = _props.contextualization,
-          contextualization = _props$contextualizat === undefined ? {} : _props$contextualizat;
+      var _this$props = this.props,
+          _this$props$resource = _this$props.resource,
+          resource = _this$props$resource === void 0 ? {} : _this$props$resource,
+          _this$props$contextua = _this$props.contextualizer,
+          contextualizer = _this$props$contextua === void 0 ? {} : _this$props$contextua,
+          _this$props$contextua2 = _this$props.contextualization,
+          contextualization = _this$props$contextua2 === void 0 ? {} : _this$props$contextua2;
       var type = contextualizer.type;
 
       switch (type) {
         case 'table':
-          return _react2.default.createElement(_table.Block, { resource: resource, contextualizer: contextualizer, contextualization: contextualization });
+          return _react.default.createElement(_table.Block, {
+            resource: resource,
+            contextualizer: contextualizer,
+            contextualization: contextualization
+          });
+
         case 'image':
-          return _react2.default.createElement(_image.Block, { resource: resource, contextualizer: contextualizer, contextualization: contextualization });
+          return _react.default.createElement(_image.Block, {
+            resource: resource,
+            contextualizer: contextualizer,
+            contextualization: contextualization
+          });
+
         case 'video':
-          return _react2.default.createElement(_video.Block, { resource: resource, contextualizer: contextualizer, contextualization: contextualization });
+          return _react.default.createElement(_video.Block, {
+            resource: resource,
+            contextualizer: contextualizer,
+            contextualization: contextualization
+          });
 
         case 'embed':
-          return _react2.default.createElement(_embed.Block, { resource: resource, contextualizer: contextualizer, contextualization: contextualization });
+          return _react.default.createElement(_embed.Block, {
+            resource: resource,
+            contextualizer: contextualizer,
+            contextualization: contextualization
+          });
+        // case 'data-presentation':
+        //   return (
+        //     <DataPresentation
+        //       resource={resource}
+        //       contextualizer={contextualizer}
+        //       contextualization={contextualization}
+        //       onWheel={this.onWheel}
+        //       onExit={onExit}
+        //       style={{
+        //           position: fixed ? 'fixed' : 'absolute',
+        //           left: fixed ? dimensions.left : '0',
+        //           top: fixed ? dimensions.top : '0',
+        //           width: fixed ? dimensions.width : '',
+        //           height: fixed ? dimensions.height : '',
+        //           pointerEvents: allowInteractions ? 'all' : 'none'
+        //       }}
+        //     />
+        //   );
+
         default:
           return null;
       }
     }
   }]);
+
   return BlockAssetPlayer;
-}(_react2.default.Component);
-
-
-
-
+}(_react.default.Component);
+/**
+ * Component's properties types
+ */
 
 
 BlockAssetPlayer.propTypes = {
-  type: _propTypes2.default.string,
-  data: _propTypes2.default.oneOfType([_propTypes2.default.array, _propTypes2.default.object, _propTypes2.default.string]),
-  options: _propTypes2.default.object,
-  fixed: _propTypes2.default.bool,
-  allowInteractions: _propTypes2.default.bool,
-  onExit: _propTypes2.default.func
+  type: _propTypes.default.string,
+  data: _propTypes.default.oneOfType([_propTypes.default.array, _propTypes.default.object, _propTypes.default.string]),
+  options: _propTypes.default.object,
+  fixed: _propTypes.default.bool,
+  allowInteractions: _propTypes.default.bool,
+  onExit: _propTypes.default.func
 };
-BlockAssetPlayer.contextTypes = {
-  dimensions: _propTypes2.default.object
-};
+/**
+ * Component's context used properties
+ */
 
-exports.default = BlockAssetPlayer;
+BlockAssetPlayer.contextTypes = {
+  dimensions: _propTypes.default.object
+};
+var _default = BlockAssetPlayer;
+exports.default = _default;

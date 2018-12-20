@@ -1,22 +1,21 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _extends2 = require('babel-runtime/helpers/extends');
+var _lodash = require("lodash");
 
-var _extends3 = _interopRequireDefault(_extends2);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
-var _lodash = require('lodash');
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
+var _default = function _default() {
   var raw = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0, _extends3.default)({}, raw, {
+  return _objectSpread({}, raw, {
     blocks: raw.blocks ? raw.blocks.map(function (block) {
-      return (0, _extends3.default)({}, block, {
+      return _objectSpread({}, block, {
         entityRanges: (0, _lodash.uniqBy)(block.entityRanges, function (e) {
           return e.key;
         })
@@ -24,3 +23,5 @@ exports.default = function () {
     }) : []
   });
 };
+
+exports.default = _default;

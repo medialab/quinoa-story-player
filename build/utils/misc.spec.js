@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-var _chai = require('chai');
+var _chai = require("chai");
 
-var _misc = require('./misc');
+var _misc = require("./misc");
 
 describe('misc utils', function () {
   describe('capitalize', function () {

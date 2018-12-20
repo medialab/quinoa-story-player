@@ -6,12 +6,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { SpringSystem, MathUtil } from 'rebound';
 import { debounce } from 'lodash';
 import { ReferencesManager } from 'react-citeproc';
 import Tooltip from 'react-tooltip';
 import { getStyles } from 'quinoa-schemas';
-
+import { easeCubic } from 'd3-ease';
 import Bibliography from '../../components/Bibliography';
 import NotesContainer from '../../components/NotesContainer';
 import SectionLayout from './components/SectionLayout';
@@ -50,13 +49,13 @@ class GarlicLayout extends Component {
     super(props);
     this.scrollToContents = this.scrollToContents.bind(this);
     this.scrollToCover = this.scrollToCover.bind(this);
-    this.handleSpringUpdate = this.handleSpringUpdate.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
     this.onScrollUpdate = debounce(this.onScrollUpdate, 10, { leading: true, trailing: true, maxWait: 100 });
     // this.onScrollUpdate = this.onScrollUpdate.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
     this.onGlossaryMentionClick = this.onGlossaryMentionClick.bind(this);
+    this.onInternalLinkClick = this.onInternalLinkClick.bind(this);
 
     this.toggleIndex = this.toggleIndex.bind(this);
 
@@ -111,6 +110,7 @@ class GarlicLayout extends Component {
       onNoteContentPointerClick: this.onNoteContentPointerClick,
       // callbacks when a glossary mention is clicked
       onGlossaryMentionClick: this.onGlossaryMentionClick,
+      onInternalLinkClick: this.onInternalLinkClick,
       locale: this.state.locale,
 
       citationLocale: (this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data) || defaultCitationLocale,
@@ -121,12 +121,7 @@ class GarlicLayout extends Component {
    * Executes code on instance after the component is mounted
    */
   componentDidMount() {
-    // we use a spring system to handle automatic scrolls
-    // (e.g. note pointer clicked or click in the table of contents)
-    this.springSystem = new SpringSystem();
-    this.spring = this.springSystem.createSpring();
-    this.spring.addListener({ onSpringUpdate: this.handleSpringUpdate });
-    // todo: why did I have to wrap that in a setTimeout ?
+    // @todo: why did I have to wrap that in a setTimeout ?
     setTimeout(() => {
       if (this.props.story) {
         this.setState({
@@ -163,30 +158,30 @@ class GarlicLayout extends Component {
     }
   }
 
-
-  /**
-   * Handles the scrolling process using the spring system
-   * @param {object} spring - the spring system instance
-   */
-  handleSpringUpdate(spring) {
-    const val = spring.getCurrentValue();
-    if (val !== undefined && this.globalScrollbar) {
-      this.globalScrollbar.scrollTop(val);
-    }
-  }
-
   /**
    * Programmatically modifies the scroll state of the component
    * so that it transitions to a specific point in the page
    * @param {number} top - the position to scroll to
    */
-  scrollTop(top) {
+  scrollTop(initialTop) {
       const scrollbars = this.globalScrollbar;
       const scrollTop = scrollbars.getScrollTop();
       const scrollHeight = scrollbars.getScrollHeight();
-      const val = MathUtil.mapValueInRange(top, 0, scrollHeight, 0, scrollHeight);
-      this.spring.setCurrentValue(scrollTop).setAtRest();
-      this.spring.setEndValue(val);
+      let top = initialTop > scrollHeight ? scrollHeight : initialTop;
+      top = top < 0 ? 0 : top;
+
+      const ANIMATION_DURATION = 1000;
+      const ANIMATION_STEPS = 10;
+      const animationTick = 1 / ANIMATION_STEPS;
+
+      const diff = top - scrollTop;
+
+      for (let t = 0; t <= 1; t += animationTick) {
+        const to = easeCubic(t);
+        setTimeout(() => {
+          this.globalScrollbar.scrollTop(scrollTop + (diff * to));
+        }, ANIMATION_DURATION * t);
+      }
   }
 
   /**
@@ -360,6 +355,11 @@ class GarlicLayout extends Component {
 
   onGlossaryMentionClick(id) {
     const target = 'glossary-mention-backlink-' + id;
+    this.scrollToElementId(target);
+  }
+
+  onInternalLinkClick(sectionId) {
+    const target = 'section-container-' + sectionId;
     this.scrollToElementId(target);
   }
 
@@ -632,6 +632,8 @@ GarlicLayout.childContextTypes = {
    * Callbacks when a glossary item is clicked
    */
    onGlossaryMentionClick: PropTypes.func,
+
+   onInternalLinkClick: PropTypes.func,
 
    locale: PropTypes.object,
 

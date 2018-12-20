@@ -1,63 +1,106 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
+exports.default = void 0;
 
-var _keys = require('babel-runtime/core-js/object/keys');
+var _react = _interopRequireWildcard(require("react"));
 
-var _keys2 = _interopRequireDefault(_keys);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+var _quinoaPresentationPlayer = _interopRequireDefault(require("quinoa-presentation-player"));
 
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = require('babel-runtime/helpers/createClass');
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = require('babel-runtime/helpers/inherits');
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _class, _temp, _initialiseProps;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _quinoaPresentationPlayer = require('quinoa-presentation-player');
-
-var _quinoaPresentationPlayer2 = _interopRequireDefault(_quinoaPresentationPlayer);
-
-var _axios = require('axios');
-
-var _axios2 = _interopRequireDefault(_axios);
+var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Table = (_temp = _class = function (_Component) {
-  (0, _inherits3.default)(Table, _Component);
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
-  function Table(props) {
-    (0, _classCallCheck3.default)(this, Table);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (Table.__proto__ || (0, _getPrototypeOf2.default)(Table)).call(this, props));
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    _initialiseProps.call(_this);
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+var Table =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Table, _Component);
+
+  function Table(_props) {
+    var _this;
+
+    _classCallCheck(this, Table);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Table).call(this, _props));
+
+    _this.componentWillReceiveProps = function (nextProps) {
+      if (_this.props.resource !== nextProps.resource) {
+        _this.updateData(nextProps);
+      }
+    };
+
+    _this.updateData = function (props) {
+      var getResourceDataUrl = _this.context.getResourceDataUrl;
+      var data = props.resource.data;
+
+      if (data.filePath && typeof getResourceDataUrl === 'function') {
+        _this.setState({
+          loading: true
+        });
+
+        (0, _axios.default)(getResourceDataUrl(data)).then(function (res) {
+          var columns = Object.keys(res.data[0]).map(function (key) {
+            return {
+              Header: key,
+              accessor: key
+            };
+          });
+
+          _this.setState({
+            loading: false,
+            data: res.data,
+            columns: columns
+          });
+        });
+      }
+    };
+
+    _this.render = function () {
+      var _assertThisInitialize = _assertThisInitialized(_assertThisInitialized(_this)),
+          _assertThisInitialize2 = _assertThisInitialize.props,
+          _assertThisInitialize3 = _assertThisInitialize2.resource,
+          resource = _assertThisInitialize3 === void 0 ? {} : _assertThisInitialize3,
+          contextualizer = _assertThisInitialize2.contextualizer,
+          onWheel = _assertThisInitialize2.onWheel,
+          onExit = _assertThisInitialize2.onExit,
+          style = _assertThisInitialize2.style,
+          loading = _assertThisInitialize.state.loading;
+
+      var data = resource.data;
+      var options = contextualizer.options;
+      var usableData = data.json || _this.state.data;
+      return usableData && !loading ? _react.default.createElement(_quinoaPresentationPlayer.default, {
+        presentation: usableData,
+        template: options && options.template,
+        onWheel: onWheel,
+        onExit: onExit,
+        style: style
+      }) : null;
+    };
 
     _this.state = {
       data: undefined,
@@ -67,65 +110,17 @@ var Table = (_temp = _class = function (_Component) {
     return _this;
   }
 
-  (0, _createClass3.default)(Table, [{
-    key: 'componentDidMount',
+  _createClass(Table, [{
+    key: "componentDidMount",
     value: function componentDidMount() {
       this.updateData(this.props);
     }
   }]);
+
   return Table;
-}(_react.Component), _class.contextTypes = {
-  getResourceDataUrl: _propTypes2.default.func
-}, _initialiseProps = function _initialiseProps() {
-  var _this2 = this;
+}(_react.Component);
 
-  this.componentWillReceiveProps = function (nextProps) {
-    if (_this2.props.resource !== nextProps.resource) {
-      _this2.updateData(nextProps);
-    }
-  };
-
-  this.updateData = function (props) {
-    var getResourceDataUrl = _this2.context.getResourceDataUrl;
-    var data = props.resource.data;
-
-    if (data.filePath && typeof getResourceDataUrl === 'function') {
-      _this2.setState({ loading: true });
-      (0, _axios2.default)(getResourceDataUrl(data)).then(function (res) {
-        var columns = (0, _keys2.default)(res.data[0]).map(function (key) {
-          return {
-            Header: key,
-            accessor: key
-          };
-        });
-        _this2.setState({
-          loading: false,
-          data: res.data,
-          columns: columns
-        });
-      });
-    }
-  };
-
-  this.render = function () {
-    var _props = _this2.props,
-        _props$resource = _props.resource,
-        resource = _props$resource === undefined ? {} : _props$resource,
-        contextualizer = _props.contextualizer,
-        onWheel = _props.onWheel,
-        onExit = _props.onExit,
-        style = _props.style,
-        loading = _this2.state.loading;
-    var data = resource.data;
-    var options = contextualizer.options;
-
-    var usableData = data.json || _this2.state.data;
-    return usableData && !loading ? _react2.default.createElement(_quinoaPresentationPlayer2.default, {
-      presentation: usableData,
-      template: options && options.template,
-      onWheel: onWheel,
-      onExit: onExit,
-      style: style }) : null;
-  };
-}, _temp);
 exports.default = Table;
+Table.contextTypes = {
+  getResourceDataUrl: _propTypes.default.func
+};
