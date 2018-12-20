@@ -21,9 +21,7 @@ import InternalLink from './InternalLink';
 // just a helper to add a <br /> after each block
 const addBreaklines = (children) =>
   children.map(
-    (child, index) =>
-      [child, <br key={index + 0.5} />]
-    );
+    (child, index) => [child, <br key={index + 0.5} />]);
 
 /**
  * Define the renderers
@@ -44,8 +42,16 @@ const renderers = {
    * Note that children are an array of blocks with same styling,
    */
   blocks: {
-    'unstyled': (children) => children.map((child, index) => <div className="content-p" key={index}><span className="content-p--modifier">{child}</span></div>),
-    'blockquote': (children) => <blockquote className="content-blockquote" ><span className="content-blockquote--modifier">{addBreaklines(children)}</span></blockquote>,
+    'unstyled': (children) => children.map((child, index) => (
+      <div className="content-p" key={index}>
+        <span className="content-p--modifier">{child}</span>
+      </div>
+    )),
+    'blockquote': (children, { keys: [key] }) => (
+      <blockquote key={key} className="content-blockquote" >
+        <span className="content-blockquote--modifier">{addBreaklines(children)}</span>
+      </blockquote>
+    ),
     'header-one': (children, { keys }) => children.map((child, index) => <h1 className="content-title content-h1" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h1>),
     'header-two': (children, { keys }) => children.map((child, index) => <h2 className="content-title content-h2" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h2>),
     'header-three': (children, { keys }) => children.map((child, index) => <h3 className="content-title content-h3" key={index} id={keys[index]}><span className="content-title--modifier">{child}</span></h3>),
