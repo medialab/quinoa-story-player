@@ -87,7 +87,7 @@ const renderers = {
     NOTE_POINTER: (children, data, { key }) => {
       return <NotePointer key={key} children={children} noteId={data.noteId} />;
     },
-    INTERNAL_LINK: (children, data, { key }) => {
+    SECTION_POINTER: (children, data, { key }) => {
       return <InternalLink key={key} data={data} children={children} />;
     }
   },
