@@ -95,10 +95,10 @@ var buildCitations = function buildCitations(story) {
     }).map(function (contextualizationId) {
       return contextualizations[contextualizationId];
     });
-    return _toConsumableArray(result1).concat(_toConsumableArray(theseContextualizations.reduce(function (result2, contextualization) {
+    return [].concat(_toConsumableArray(result1), _toConsumableArray(theseContextualizations.reduce(function (result2, contextualization) {
       var contextualizer = contextualizers[contextualization.contextualizerId];
       noteIndex++;
-      return _toConsumableArray(result2).concat([{
+      return [].concat(_toConsumableArray(result2), [{
         citationID: contextualization.id,
         // citationID: resource.citationId,
         citationItems: resource.citations.map(function () {

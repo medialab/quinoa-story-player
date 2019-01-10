@@ -74,7 +74,7 @@ var buildTOC = function buildTOC(story, scrollTop, _ref) {
     return el !== undefined;
   }) // flatten mini-tocs
   .reduce(function (result, ar) {
-    return _toConsumableArray(result).concat(_toConsumableArray(ar));
+    return [].concat(_toConsumableArray(result), _toConsumableArray(ar));
   }, []); // adding special items to table of contents
 
   var hasReferences = Object.keys(citations.citationItems).length > 0;

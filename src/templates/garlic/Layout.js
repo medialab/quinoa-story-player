@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { ReferencesManager } from 'react-citeproc';
 import Tooltip from 'react-tooltip';
 import { getStyles } from 'quinoa-schemas';

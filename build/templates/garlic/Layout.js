@@ -11,7 +11,7 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactCustomScrollbars = require("react-custom-scrollbars");
 
-var _lodash = require("lodash");
+var _debounce = _interopRequireDefault(require("lodash/debounce"));
 
 var _reactCiteproc = require("react-citeproc");
 
@@ -243,7 +243,7 @@ function (_Component) {
       var customCss = (0, _quinoaSchemas.getStyles)(_this.props.story).css || '';
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
-        return _toConsumableArray(nf).concat(_toConsumableArray(sections[sectionId].notesOrder.map(function (noteId) {
+        return [].concat(_toConsumableArray(nf), _toConsumableArray(sections[sectionId].notesOrder.map(function (noteId) {
           return _objectSpread({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++
@@ -392,7 +392,7 @@ function (_Component) {
     _this.scrollToContents = _this.scrollToContents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.scrollToCover = _this.scrollToCover.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.scrollTop = _this.scrollTop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onScrollUpdate = (0, _lodash.debounce)(_this.onScrollUpdate, 10, {
+    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 10, {
       leading: true,
       trailing: true,
       maxWait: 100
