@@ -251,7 +251,7 @@ var renderers = {
         noteId: data.noteId
       });
     },
-    INTERNAL_LINK: function INTERNAL_LINK(children, data, _ref19) {
+    SECTION_POINTER: function SECTION_POINTER(children, data, _ref19) {
       var key = _ref19.key;
       return _react.default.createElement(_InternalLink.default, {
         key: key,
