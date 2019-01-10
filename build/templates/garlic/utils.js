@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getOffset = exports.buildTOC = void 0;
+exports.stylesVariablesToCss = exports.getOffset = exports.buildTOC = void 0;
 
 var _misc = require("../../utils/misc");
 
@@ -210,3 +210,47 @@ var getOffset = function getOffset(el) {
 };
 
 exports.getOffset = getOffset;
+var stylesRatios = {
+  smaller: 0.6,
+  small: 0.8,
+  normal: 1,
+  big: 1.2,
+  bigger: 1.4
+};
+
+var classToSize = function classToSize(klass) {
+  return stylesRatios[klass];
+};
+
+var stylesVariablesToCss = function stylesVariablesToCss() {
+  var styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var compiledStyles = '';
+
+  if (styles.titles) {
+    compiledStyles = compiledStyles + "\n    .content-title .content-title--modifier, .section-title .section-title--modifier {\n      color: ".concat(styles.titles.color, ";\n      font-size: ").concat(classToSize(styles.titles.sizeClass), "em;\n    }");
+  }
+
+  if (styles.background) {
+    compiledStyles = compiledStyles + "\n    .quinoa-story-player, .nav {\n      background: ".concat(styles.background.color, ";\n    }");
+  }
+
+  if (styles.blockquotes) {
+    compiledStyles = compiledStyles + "\n    .content-blockquote .content-blockquote--modifier {\n      color: ".concat(styles.blockquotes.color, ";\n    }\n    body .quinoa-story-player .content-blockquote .content-blockquote--modifier {\n      font-size: ").concat(classToSize(styles.blockquotes.sizeClass), "em;\n    }");
+  }
+
+  if (styles.corpus) {
+    compiledStyles = compiledStyles + "\n    .quinoa-story-player {\n      color: ".concat(styles.corpus.color, ";\n    }\n    .content-p .content-p--modifier, .content-li .content-li--modifier {\n      font-size: ").concat(classToSize(styles.corpus.sizeClass), "em;\n    }");
+  }
+
+  if (styles.coverText) {
+    compiledStyles = compiledStyles + "\n    .header-story-title--modifier, .header-story-subtitle--modifier, .header-authors--modifier {\n      color: ".concat(styles.coverText.color, ";\n      font-size: ").concat(classToSize(styles.coverText.sizeClass), "em;\n    }\n    body .quinoa-story-player .header-container.with-cover .header-contents {\n      background-color: rgba(0, 0, 0, ").concat(styles.coverText.opacity, ");\n    }");
+  }
+
+  if (styles.links) {
+    compiledStyles = compiledStyles + "\n    .quinoa-story-player .contents-wrapper .content-a, .quinoa-story-player .glossary-mention, .quinoa-story-player .glossary-mention-backlink, .quinoa-story-player .csl-entry a {\n      border-bottom-color: ".concat(styles.links.color, ";\n    }\n    .quinoa-story-player .contents-wrapper .content-a:hover, .quinoa-story-player .glossary-mention:hover, .quinoa-story-player .glossary-mention-backlink:hover, .quinoa-story-player .csl-entry a:hover {\n      background: ").concat(styles.links.color, ";\n    }\n    ");
+  }
+
+  return compiledStyles;
+};
+
+exports.stylesVariablesToCss = stylesVariablesToCss;

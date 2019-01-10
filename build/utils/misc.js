@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.capitalize = exports.buildGlossary = exports.buildCitations = exports.buildCoverImage = void 0;
 
+var _quinoaSchemas = require("quinoa-schemas");
+
 var _resourceToCSLJSON = _interopRequireDefault(require("./resourceToCSLJSON"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -42,15 +44,16 @@ exports.buildCoverImage = buildCoverImage;
 var buildCitations = function buildCitations(story) {
   var contextualizations = story.contextualizations,
       contextualizers = story.contextualizers,
-      resources = story.resources,
-      _story$settings = story.settings,
-      settings = _story$settings === void 0 ? {} : _story$settings;
+      resources = story.resources;
   /*
    * Citations preparation
    */
 
-  var referenceStatus = settings.options && settings.options.referenceStatus || 'cited';
-  var referenceTypes = settings.options && settings.options.referenceTypes || ['bib'];
+  var _getStyles = (0, _quinoaSchemas.getStyles)(story),
+      options = _getStyles.options;
+
+  var referenceStatus = options && options.referenceStatus || 'cited';
+  var referenceTypes = options && options.referenceTypes || ['bib'];
   var citedResources = Object.keys(resources).map(function (resourceId) {
     return resources[resourceId];
   }).filter(function (resource) {

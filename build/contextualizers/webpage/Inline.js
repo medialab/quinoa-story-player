@@ -30,7 +30,7 @@ var Link = function Link(_ref) {
     target: "_blank",
     className: "quinoa-contextualization inline webpage content-a",
     alt: "href",
-    rel: "noopener",
+    rel: "noopener noreferrer",
     "data-for": "tooltip",
     "data-tip": "".concat(resource.metadata.title, " (").concat(resource.data.url, ")")
   }, children);

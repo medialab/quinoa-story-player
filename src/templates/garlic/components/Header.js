@@ -25,20 +25,18 @@ const Header = ({
       <div
         className="header-contents">
         <h1 className="header-story-title">
-          {metadata.title || 'Quinoa story'}
+          <span className="header-story-title--modifier">{metadata.title || 'Quinoa story'}</span>
         </h1>
         {
           metadata.subtitle &&
             <h2 className="header-story-subtitle">
-              {metadata.subtitle}
+              <span className="header-story-subtitle--modifier">{metadata.subtitle}</span>
             </h2>
         }
         {
           metadata.authors && metadata.authors.length ?
             <div className="header-authors">
-              {
-              metadata.authors.map(author => author).join(', ')
-            }
+              <span className="header-authors--modifier">{metadata.authors.map(author => author).join(', ')}</span>
             </div>
           :
             null

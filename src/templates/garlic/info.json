@@ -6,5 +6,90 @@
     "notesPosition",
     "referenceTypes",
     "referenceStatus"
-  ]
+  ],
+  "stylesVariables": {
+    "definitions": {
+      "color": {
+        "type": "string",
+        "default": "null"
+      },
+      "sizeClass": {
+        "type": "string",
+        "enum": ["smaller", "small", "normal", "big", "bigger"],
+        "default": "normal"
+      },
+      "basicText": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/color"
+          },
+          "sizeClass": {
+            "$ref": "#/definitions/sizeClass"
+          }
+        }
+      },
+      "range": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1,
+        "default": 0.8
+      }
+    },
+    "type": "object",
+    "description": "Template specific WYSIWYG",
+    "properties": {
+      "titles": {
+        "description": "Define titles styles",
+        "$ref": "#/definitions/basicText"
+      },
+      "coverText": {
+        "type":"object",
+        "description": "Define textes on cover styles",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/color"
+          },
+          "sizeClass": {
+            "$ref": "#/definitions/sizeClass"
+          },
+          "opacity": {
+            "$ref": "#/definitions/range"
+          }
+        }
+      },
+      "corpus": {
+        "description": "Define classic corpus text styles",
+        "$ref": "#/definitions/basicText"
+      },
+      "links": {
+        "description": "Define links styles",
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/color"
+          }
+        }
+      },
+      "blockquotes": {
+        "description": "Define blockquotes styles",
+        "type": "object",
+        "$ref": "#/definitions/basicText",
+        "properties": {
+          "backgroundColor": {
+            "$ref": "#/definitions/color"
+          }
+        }
+      },
+      "background": {
+        "description": "Define background color",
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/color"
+          }
+        }
+      }
+    }
+  }
 }

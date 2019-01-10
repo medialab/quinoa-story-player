@@ -89,7 +89,9 @@ function (_Component) {
       }, metadata.title && metadata.title.trim().length && _react.default.createElement("h1", {
         className: "section-title",
         id: section.id
-      }, metadata.title || ''), metadata && metadata.authors && metadata.authors.length > 0 && metadata.authors.map(function (author) {
+      }, _react.default.createElement("span", {
+        className: "section-title--modifier"
+      }, metadata.title || '')), metadata && metadata.authors && metadata.authors.length > 0 && metadata.authors.map(function (author) {
         return author.trim();
       }).join(', ')), _react.default.createElement("div", {
         className: "section-body"

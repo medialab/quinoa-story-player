@@ -47,6 +47,14 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 // just a helper to add a <br /> after each block
 var addBreaklines = function addBreaklines(children) {
   return children.map(function (child, index) {
@@ -102,86 +110,108 @@ var renderers = {
         return _react.default.createElement("div", {
           className: "content-p",
           key: index
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-p--modifier"
+        }, child));
       });
     },
-    'blockquote': function blockquote(children) {
+    'blockquote': function blockquote(children, _ref5) {
+      var _ref5$keys = _slicedToArray(_ref5.keys, 1),
+          key = _ref5$keys[0];
+
       return _react.default.createElement("blockquote", {
+        key: key,
         className: "content-blockquote"
-      }, addBreaklines(children));
+      }, _react.default.createElement("span", {
+        className: "content-blockquote--modifier"
+      }, addBreaklines(children)));
     },
-    'header-one': function headerOne(children, _ref5) {
-      var keys = _ref5.keys;
+    'header-one': function headerOne(children, _ref6) {
+      var keys = _ref6.keys;
       return children.map(function (child, index) {
         return _react.default.createElement("h1", {
           className: "content-title content-h1",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
-    'header-two': function headerTwo(children, _ref6) {
-      var keys = _ref6.keys;
+    'header-two': function headerTwo(children, _ref7) {
+      var keys = _ref7.keys;
       return children.map(function (child, index) {
         return _react.default.createElement("h2", {
-          className: "content-h2",
+          className: "content-title content-h2",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
-    'header-three': function headerThree(children, _ref7) {
-      var keys = _ref7.keys;
+    'header-three': function headerThree(children, _ref8) {
+      var keys = _ref8.keys;
       return children.map(function (child, index) {
         return _react.default.createElement("h3", {
           className: "content-title content-h3",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
-    'header-four': function headerFour(children, _ref8) {
-      var keys = _ref8.keys;
+    'header-four': function headerFour(children, _ref9) {
+      var keys = _ref9.keys;
       return children.map(function (child, index) {
         return _react.default.createElement("h4", {
           className: "content-title content-h4",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
-    'header-five': function headerFive(children, _ref9) {
-      var keys = _ref9.keys;
+    'header-five': function headerFive(children, _ref10) {
+      var keys = _ref10.keys;
       return children.map(function (child, index) {
         return _react.default.createElement("h5", {
           className: "content-title content-h5",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
-    'header-six': function headerSix(children, _ref10) {
-      var keys = _ref10.keys;
+    'header-six': function headerSix(children, _ref11) {
+      var keys = _ref11.keys;
       return children.map(function (child, index) {
         return _react.default.createElement("h6", {
           className: "content-title content-h6",
           key: index,
           id: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-title--modifier"
+        }, child));
       });
     },
     // You can also access the original keys of the blocks
-    'code-block': function codeBlock(children, _ref11) {
-      var keys = _ref11.keys;
+    'code-block': function codeBlock(children, _ref12) {
+      var keys = _ref12.keys;
       return _react.default.createElement("pre", {
         className: "content-pre",
         key: keys[0]
-      }, addBreaklines(children));
+      }, _react.default.createElement("span", {
+        className: "content-pre--modifier"
+      }, addBreaklines(children)));
     },
     // or depth for nested lists
-    'unordered-list-item': function unorderedListItem(children, _ref12) {
-      var depth = _ref12.depth,
-          keys = _ref12.keys;
+    'unordered-list-item': function unorderedListItem(children, _ref13) {
+      var depth = _ref13.depth,
+          keys = _ref13.keys;
       return _react.default.createElement("ul", {
         key: "".concat(keys[keys.length - 1], "-").concat(depth),
         className: "content-ul ul-level-".concat(depth)
@@ -189,12 +219,14 @@ var renderers = {
         return _react.default.createElement("li", {
           key: "".concat(index, "-").concat(depth),
           className: "content-li"
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-li--modifier"
+        }, child));
       }));
     },
-    'ordered-list-item': function orderedListItem(children, _ref13) {
-      var depth = _ref13.depth,
-          keys = _ref13.keys;
+    'ordered-list-item': function orderedListItem(children, _ref14) {
+      var depth = _ref14.depth,
+          keys = _ref14.keys;
       return _react.default.createElement("ol", {
         key: keys.join('|'),
         className: "content-ol ol-level-".concat(depth)
@@ -202,12 +234,14 @@ var renderers = {
         return _react.default.createElement("li", {
           className: "content-li",
           key: keys[index]
-        }, child);
+        }, _react.default.createElement("span", {
+          className: "content-li--modifier"
+        }, child));
       }));
     },
-    'atomic': function atomic(children, _ref14) {
-      var keys = _ref14.keys,
-          data = _ref14.data;
+    'atomic': function atomic(children, _ref15) {
+      var keys = _ref15.keys,
+          data = _ref15.data;
       return children.map(function (child, i) {
         return _react.default.createElement("div", _extends({
           className: "content-atomic-container",
@@ -222,37 +256,37 @@ var renderers = {
    */
   entities: {
     //   // key is the entity key value from raw
-    LINK: function LINK(children, data, _ref15) {
-      var key = _ref15.key;
+    LINK: function LINK(children, data, _ref16) {
+      var key = _ref16.key;
       return _react.default.createElement(_Link.default, {
         key: key,
         to: data.url
       }, children);
     },
-    BLOCK_ASSET: function BLOCK_ASSET(children, data, _ref16) {
-      var key = _ref16.key;
+    BLOCK_ASSET: function BLOCK_ASSET(children, data, _ref17) {
+      var key = _ref17.key;
       return _react.default.createElement(_BlockAssetWrapper.default, {
         key: key,
         data: data
       });
     },
-    INLINE_ASSET: function INLINE_ASSET(children, data, _ref17) {
-      var key = _ref17.key;
+    INLINE_ASSET: function INLINE_ASSET(children, data, _ref18) {
+      var key = _ref18.key;
       return _react.default.createElement(_InlineAssetWrapper.default, {
         data: data,
         key: "".concat(key, "-").concat(data.asset.id)
       }, children);
     },
-    NOTE_POINTER: function NOTE_POINTER(children, data, _ref18) {
-      var key = _ref18.key;
+    NOTE_POINTER: function NOTE_POINTER(children, data, _ref19) {
+      var key = _ref19.key;
       return _react.default.createElement(_NotePointer.default, {
         key: key,
         children: children,
         noteId: data.noteId
       });
     },
-    SECTION_POINTER: function SECTION_POINTER(children, data, _ref19) {
-      var key = _ref19.key;
+    SECTION_POINTER: function SECTION_POINTER(children, data, _ref20) {
+      var key = _ref20.key;
       return _react.default.createElement(_InternalLink.default, {
         key: key,
         data: data,
