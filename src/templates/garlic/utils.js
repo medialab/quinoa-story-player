@@ -2,6 +2,17 @@ import {
   capitalize
 } from '../../utils/misc';
 
+const offsetMax = el => {
+  try {
+    return el.offsetParent.offsetParent.offsetTop;
+  }
+  catch (error) {
+    // The HTML inside the iframe has not fully rendered yet.
+  }
+  finally {
+    return 0;
+  }
+};
 
 /**
  * Builds component-consumable table of contents data
@@ -30,13 +41,13 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
       return undefined;
     }
     // we will check if scroll is in this section's part of the page height
-    const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+    const titleOffsetTop = title.offsetTop + offsetMax(title);
     // to do that we need the offset of the next element
     if (sectionIndex < story.sectionsOrder.length - 1) {
       const next = story.sectionsOrder[sectionIndex + 1];
       const nextTitle = usedDocument.getElementById(next);
       if (nextTitle) {
-        nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
       }
     }
     if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
@@ -75,7 +86,7 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
 
     if (title) {
       // we will check if scroll is after glossary title
-      const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      const titleOffsetTop = title.offsetTop + offsetMax(title);
       let nextTitleId;
       if (hasReferences) {
         nextTitleId = 'references';
@@ -86,7 +97,7 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
       if (nextTitleId) {
         const nextTitle = usedDocument.getElementById(nextTitleId);
         if (nextTitle) {
-          nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
         }
       }
       if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
@@ -113,10 +124,10 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
     const title = usedDocument.getElementById('references');
     if (title) {
       // we will check if scroll is after glossary title
-      const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      const titleOffsetTop = title.offsetTop + offsetMax(title);
       const nextTitle = usedDocument.getElementById('glossary');
       if (nextTitle) {
-        nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
       }
       if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
           (nextTitleOffsetTop === undefined ||
@@ -141,7 +152,7 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
     const title = usedDocument.getElementById('glossary');
     if (title) {
       // we will check if scroll is after glossary title
-      const titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      const titleOffsetTop = title.offsetTop + offsetMax(title);
       if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
           (nextTitleOffsetTop === undefined ||
             nextTitleOffsetTop >= scrollTop

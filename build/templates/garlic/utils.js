@@ -15,12 +15,22 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+var offsetMax = function offsetMax(el) {
+  try {
+    return el.offsetParent.offsetParent.offsetTop;
+  } catch (error) {// The HTML inside the iframe has not fully rendered yet.
+  } finally {
+    return 0;
+  }
+};
 /**
  * Builds component-consumable table of contents data
  * @param {object} story - the story to process
  * @param {number} scrollTop - the position of the scroll to use for decidinng which TOC item is active
  * @return {array} tocElements - the toc elements to use for rendering the TOC
  */
+
+
 var buildTOC = function buildTOC(story, scrollTop, _ref) {
   var citations = _ref.citations,
       glossary = _ref.glossary,
@@ -47,14 +57,14 @@ var buildTOC = function buildTOC(story, scrollTop, _ref) {
     } // we will check if scroll is in this section's part of the page height
 
 
-    var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop; // to do that we need the offset of the next element
+    var titleOffsetTop = title.offsetTop + offsetMax(title); // to do that we need the offset of the next element
 
     if (sectionIndex < story.sectionsOrder.length - 1) {
       var next = story.sectionsOrder[sectionIndex + 1];
       var nextTitle = usedDocument.getElementById(next);
 
       if (nextTitle) {
-        nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+        nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
       }
     }
 
@@ -92,7 +102,7 @@ var buildTOC = function buildTOC(story, scrollTop, _ref) {
 
     if (title) {
       // we will check if scroll is after glossary title
-      var titleOffsetTop = title.offsetTop + title.offsetParent.offsetParent.offsetTop;
+      var titleOffsetTop = title.offsetTop + offsetMax(title);
       var nextTitleId;
 
       if (hasReferences) {
@@ -105,7 +115,7 @@ var buildTOC = function buildTOC(story, scrollTop, _ref) {
         var nextTitle = usedDocument.getElementById(nextTitleId);
 
         if (nextTitle) {
-          nextTitleOffsetTop = nextTitle.offsetTop + title.offsetParent.offsetParent.offsetTop;
+          nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
         }
       }
 
@@ -132,12 +142,12 @@ var buildTOC = function buildTOC(story, scrollTop, _ref) {
 
     if (_title) {
       // we will check if scroll is after glossary title
-      var _titleOffsetTop = _title.offsetTop + _title.offsetParent.offsetParent.offsetTop;
+      var _titleOffsetTop = _title.offsetTop + offsetMax(_title);
 
       var _nextTitle = usedDocument.getElementById('glossary');
 
       if (_nextTitle) {
-        _nextTitleOffsetTop = _nextTitle.offsetTop + _title.offsetParent.offsetParent.offsetTop;
+        _nextTitleOffsetTop = _nextTitle.offsetTop + offsetMax(_title);
       }
 
       if (_titleOffsetTop <= scrollTop + window.innerHeight / 2 && (_nextTitleOffsetTop === undefined || _nextTitleOffsetTop >= scrollTop)) {
@@ -163,7 +173,7 @@ var buildTOC = function buildTOC(story, scrollTop, _ref) {
 
     if (_title2) {
       // we will check if scroll is after glossary title
-      var _titleOffsetTop2 = _title2.offsetTop + _title2.offsetParent.offsetParent.offsetTop;
+      var _titleOffsetTop2 = _title2.offsetTop + offsetMax(_title2);
 
       if (_titleOffsetTop2 <= scrollTop + usedWindow.innerHeight / 2 && (_nextTitleOffsetTop2 === undefined || _nextTitleOffsetTop2 >= scrollTop)) {
         glossaryActive = true;

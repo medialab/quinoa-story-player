@@ -231,8 +231,7 @@ function (_Component) {
           dimensions = _assertThisInitialize7.dimensions,
           getResourceDataUrl = _assertThisInitialize7.getResourceDataUrl,
           scrollToElementId = _assertThisInitialize.scrollToElementId,
-          scrollToContents = _assertThisInitialize.scrollToContents,
-          toggleIndex = _assertThisInitialize.toggleIndex;
+          scrollToContents = _assertThisInitialize.scrollToContents;
       /**
        * ==========================================
        * Local rendering-related variables
@@ -380,7 +379,7 @@ function (_Component) {
         onClickTitle: onClickTitle,
         metadata: metadata,
         scrollToElementId: scrollToElementId,
-        toggleIndex: toggleIndex,
+        toggleIndex: _this.toggleIndex,
         isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
         toc: toc
       })), _react.default.createElement("style", null, contextualizersStyles, _garlic.default, computedStylesVariables, customCss), _react.default.createElement(_reactTooltip.default, {
