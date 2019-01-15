@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { debounce } from 'lodash';
+import debounce from 'lodash/debounce';
 import { ReferencesManager } from 'react-citeproc';
 import Tooltip from 'react-tooltip';
 import { getStyles } from 'quinoa-schemas';
@@ -131,7 +131,15 @@ class GarlicLayout extends Component {
           locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales.en,
         });
         setTimeout(() => {
-          const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
+          const toc = buildTOC(
+            this.props.story,
+            0,
+            this.state,
+            {
+              usedDocument: this.props.usedDocument,
+              usedWindow: this.props.usedWindow
+            }
+          );
           this.setState({ toc });
         });
       }
@@ -385,7 +393,6 @@ class GarlicLayout extends Component {
           sectionsOrder,
           sections,
           settings = {},
-
         },
         usedDocument,
         // usedWindow
@@ -404,8 +411,7 @@ class GarlicLayout extends Component {
         getResourceDataUrl
       },
       scrollToElementId,
-      scrollToContents,
-      toggleIndex
+      scrollToContents
     } = this;
     /**
      * ==========================================
@@ -576,7 +582,7 @@ class GarlicLayout extends Component {
             onClickTitle={onClickTitle}
             metadata={metadata}
             scrollToElementId={scrollToElementId}
-            toggleIndex={toggleIndex}
+            toggleIndex={this.toggleIndex}
             isDisplayed={((!coverImage && dimensions.width > 700) || !inCover)}
             toc={toc} />
 
