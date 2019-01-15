@@ -9,9 +9,7 @@ const offsetMax = el => {
   catch (error) {
     // The HTML inside the iframe has not fully rendered yet.
   }
-  finally {
-    return 0;
-  }
+  return 0;
 };
 
 /**
@@ -33,45 +31,37 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
     // const headers = content && content.blocks && content.blocks
     // .filter(block => block.type.indexOf('header') === 0);
 
-    let sectionActive;
-    let nextTitleOffsetTop;
+    let sectionActive = false;
     // title of the section
     const title = usedDocument.getElementById(section.id);
-    if (!title) {
-      return undefined;
-    }
-    // we will check if scroll is in this section's part of the page height
-    const titleOffsetTop = title.offsetTop + offsetMax(title);
-    // to do that we need the offset of the next element
-    if (sectionIndex < story.sectionsOrder.length - 1) {
-      const next = story.sectionsOrder[sectionIndex + 1];
-      const nextTitle = usedDocument.getElementById(next);
-      if (nextTitle) {
-        nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
+    if (title && title.offsetTop) {
+      let nextTitleOffsetTop;
+      // we will check if scroll is in this section's part of the page height
+      const titleOffsetTop = title.offsetTop + offsetMax(title);
+      // to do that we need the offset of the next element
+      if (sectionIndex < story.sectionsOrder.length - 1) {
+        const next = story.sectionsOrder[sectionIndex + 1];
+        const nextTitle = usedDocument.getElementById(next);
+        if (nextTitle) {
+          nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
+        }
+      }
+      if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
+          (nextTitleOffsetTop === undefined ||
+            nextTitleOffsetTop >= scrollTop
+          )
+        ) {
+        sectionActive = true;
       }
     }
-    if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
-        (nextTitleOffsetTop === undefined ||
-          nextTitleOffsetTop >= scrollTop
-        )
-      ) {
-      sectionActive = true;
-    }
     // eventually we format the headers for display
-    const sectionHeader = {
+    return {
       level: sectionLevel,
       text: section.metadata.title || '',
       key: section.id,
       active: sectionActive
     };
-    return [
-      sectionHeader,
-      // ...headerItems
-      ];
-    })
-    .filter(el => el !== undefined)
-    // flatten mini-tocs
-    .reduce((result, ar) => [...result, ...ar], []);
+  });
 
   // adding special items to table of contents
   const hasReferences = Object.keys(citations.citationItems).length > 0;
@@ -211,7 +201,7 @@ export const stylesVariablesToCss = (styles = {}) => {
   }
   if (styles.background) {
     compiledStyles = compiledStyles + `
-    .quinoa-story-player, .nav {
+    .quinoa-story-player, .quinoa-story-player .nav {
       background: ${styles.background.color};
     }`;
   }
