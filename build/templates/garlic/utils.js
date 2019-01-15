@@ -7,21 +7,13 @@ exports.stylesVariablesToCss = exports.getOffset = exports.buildTOC = void 0;
 
 var _misc = require("../../utils/misc");
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
 var offsetMax = function offsetMax(el) {
   try {
     return el.offsetParent.offsetParent.offsetTop;
   } catch (error) {// The HTML inside the iframe has not fully rendered yet.
-  } finally {
-    return 0;
   }
+
+  return 0;
 };
 /**
  * Builds component-consumable table of contents data
@@ -47,45 +39,37 @@ var buildTOC = function buildTOC(story, scrollTop, _ref) {
     // const headers = content && content.blocks && content.blocks
     // .filter(block => block.type.indexOf('header') === 0);
 
-    var sectionActive;
-    var nextTitleOffsetTop; // title of the section
+    var sectionActive = false; // title of the section
 
     var title = usedDocument.getElementById(section.id);
 
-    if (!title) {
-      return undefined;
-    } // we will check if scroll is in this section's part of the page height
+    if (title && title.offsetTop) {
+      var nextTitleOffsetTop; // we will check if scroll is in this section's part of the page height
 
+      var titleOffsetTop = title.offsetTop + offsetMax(title); // to do that we need the offset of the next element
 
-    var titleOffsetTop = title.offsetTop + offsetMax(title); // to do that we need the offset of the next element
+      if (sectionIndex < story.sectionsOrder.length - 1) {
+        var next = story.sectionsOrder[sectionIndex + 1];
+        var nextTitle = usedDocument.getElementById(next);
 
-    if (sectionIndex < story.sectionsOrder.length - 1) {
-      var next = story.sectionsOrder[sectionIndex + 1];
-      var nextTitle = usedDocument.getElementById(next);
-
-      if (nextTitle) {
-        nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
+        if (nextTitle) {
+          nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
+        }
       }
-    }
 
-    if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
-      sectionActive = true;
+      if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 && (nextTitleOffsetTop === undefined || nextTitleOffsetTop >= scrollTop)) {
+        sectionActive = true;
+      }
     } // eventually we format the headers for display
 
 
-    var sectionHeader = {
+    return {
       level: sectionLevel,
       text: section.metadata.title || '',
       key: section.id,
       active: sectionActive
     };
-    return [sectionHeader];
-  }).filter(function (el) {
-    return el !== undefined;
-  }) // flatten mini-tocs
-  .reduce(function (result, ar) {
-    return [].concat(_toConsumableArray(result), _toConsumableArray(ar));
-  }, []); // adding special items to table of contents
+  }); // adding special items to table of contents
 
   var hasReferences = Object.keys(citations.citationItems).length > 0;
   var hasGlossary = glossary.length > 0;
@@ -241,7 +225,7 @@ var stylesVariablesToCss = function stylesVariablesToCss() {
   }
 
   if (styles.background) {
-    compiledStyles = compiledStyles + "\n    .quinoa-story-player, .nav {\n      background: ".concat(styles.background.color, ";\n    }");
+    compiledStyles = compiledStyles + "\n    .quinoa-story-player, .quinoa-story-player .nav {\n      background: ".concat(styles.background.color, ";\n    }");
   }
 
   if (styles.blockquotes) {

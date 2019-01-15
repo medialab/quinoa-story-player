@@ -198,7 +198,7 @@ class GarlicLayout extends Component {
    */
   scrollToElementId (id) {
     const title = this.props.usedDocument.getElementById(id);
-    if (title) {
+    if (title && title.offsetParent) {
       this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop - this.context.dimensions.height / 2);
     }
   }
