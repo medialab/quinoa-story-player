@@ -392,7 +392,7 @@ class GarlicLayout extends Component {
           metadata,
           sectionsOrder,
           sections,
-          settings = {},
+          settings,
         },
         usedDocument,
         // usedWindow
@@ -445,7 +445,9 @@ class GarlicLayout extends Component {
         }, {})
       }
     }), {});
-    let notesPosition = (settings.options && settings.options.notesPosition) || 'foot';
+
+    const { options } = getStyles(this.props.story);
+    let notesPosition = options.notesPosition || 'foot';
     // "responsive" notes positionning
     notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;

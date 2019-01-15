@@ -215,21 +215,20 @@ function (_Component) {
           metadata = _assertThisInitialize3.metadata,
           sectionsOrder = _assertThisInitialize3.sectionsOrder,
           sections = _assertThisInitialize3.sections,
-          _assertThisInitialize4 = _assertThisInitialize3.settings,
-          settings = _assertThisInitialize4 === void 0 ? {} : _assertThisInitialize4,
+          settings = _assertThisInitialize3.settings,
           usedDocument = _assertThisInitialize2.usedDocument,
-          _assertThisInitialize5 = _assertThisInitialize.state,
-          inCover = _assertThisInitialize5.inCover,
-          toc = _assertThisInitialize5.toc,
-          indexOpen = _assertThisInitialize5.indexOpen,
-          glossary = _assertThisInitialize5.glossary,
-          citations = _assertThisInitialize5.citations,
-          coverImage = _assertThisInitialize5.coverImage,
-          _assertThisInitialize6 = _assertThisInitialize5.locale,
-          locale = _assertThisInitialize6 === void 0 ? {} : _assertThisInitialize6,
-          _assertThisInitialize7 = _assertThisInitialize.context,
-          dimensions = _assertThisInitialize7.dimensions,
-          getResourceDataUrl = _assertThisInitialize7.getResourceDataUrl,
+          _assertThisInitialize4 = _assertThisInitialize.state,
+          inCover = _assertThisInitialize4.inCover,
+          toc = _assertThisInitialize4.toc,
+          indexOpen = _assertThisInitialize4.indexOpen,
+          glossary = _assertThisInitialize4.glossary,
+          citations = _assertThisInitialize4.citations,
+          coverImage = _assertThisInitialize4.coverImage,
+          _assertThisInitialize5 = _assertThisInitialize4.locale,
+          locale = _assertThisInitialize5 === void 0 ? {} : _assertThisInitialize5,
+          _assertThisInitialize6 = _assertThisInitialize.context,
+          dimensions = _assertThisInitialize6.dimensions,
+          getResourceDataUrl = _assertThisInitialize6.getResourceDataUrl,
           scrollToElementId = _assertThisInitialize.scrollToElementId,
           scrollToContents = _assertThisInitialize.scrollToContents;
       /**
@@ -261,7 +260,11 @@ function (_Component) {
           }, {})
         })));
       }, {});
-      var notesPosition = settings.options && settings.options.notesPosition || 'foot'; // "responsive" notes positionning
+
+      var _getStyles = (0, _quinoaSchemas.getStyles)(_this.props.story),
+          options = _getStyles.options;
+
+      var notesPosition = options.notesPosition || 'foot'; // "responsive" notes positionning
 
       notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale.default;
