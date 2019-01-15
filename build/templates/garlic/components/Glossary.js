@@ -18,9 +18,11 @@ var Glossary = function Glossary(_ref) {
   return _react.default.createElement("div", {
     className: "glossary-container"
   }, _react.default.createElement("h2", {
-    className: "glossary-title",
+    className: "glossary-title section-title",
     id: "glossary"
-  }, (0, _misc.capitalize)(locale.glossary || 'glossary')), _react.default.createElement("ul", {
+  }, _react.default.createElement("span", {
+    className: "section-title--modifier"
+  }, (0, _misc.capitalize)(locale.glossary || 'glossary'))), _react.default.createElement("ul", {
     className: "glossary-mentions-container"
   }, glossary.sort(function (a, b) {
     if (a.resource.data.name > b.resource.data.name) {

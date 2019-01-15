@@ -243,7 +243,7 @@ function (_Component) {
       var customCss = (0, _quinoaSchemas.getStyles)(_this.props.story).css || '';
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
-        return _toConsumableArray(nf).concat(_toConsumableArray(sections[sectionId].notesOrder.map(function (noteId) {
+        return [].concat(_toConsumableArray(nf), _toConsumableArray(sections[sectionId].notesOrder.map(function (noteId) {
           return _objectSpread({}, sections[sectionId].notes[noteId], {
             sectionId: sectionId,
             finalOrder: noteCount++

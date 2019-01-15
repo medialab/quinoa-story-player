@@ -31,8 +31,11 @@ var BibliographyWrapper = function BibliographyWrapper(_ref, _ref2) {
   return _react.default.createElement("section", {
     className: "references"
   }, _react.default.createElement("h2", {
+    className: "section-title",
     id: id
-  }, title), _react.default.createElement("div", null, bibliography));
+  }, _react.default.createElement("span", {
+    className: "section-title--modifier"
+  }, title)), _react.default.createElement("div", null, bibliography));
 };
 /**
  * Component's properties types
