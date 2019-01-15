@@ -11,7 +11,11 @@ const Glossary = ({
 }) => {
   return (
     <div className="glossary-container">
-      <h2 className="glossary-title" id="glossary">{capitalize(locale.glossary || 'glossary')}</h2>
+      <h2 className="glossary-title section-title" id="glossary">
+        <span className="section-title--modifier">
+          {capitalize(locale.glossary || 'glossary')}
+        </span>
+      </h2>
       <ul className="glossary-mentions-container">
         {
       glossary

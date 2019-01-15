@@ -528,7 +528,9 @@ class GarlicLayout extends Component {
                   citations &&
                   citations.citationItems &&
                   Object.keys(citations.citationItems).length ?
-                    <Bibliography id="references" title={capitalize(locale.references || 'references')} />
+                    <Bibliography
+                      id="references"
+                      title={capitalize(locale.references || 'references')} />
                 :
                   null
                 }

@@ -23,7 +23,11 @@ const BibliographyWrapper = ({
 }) => {
   return (
     <section className="references">
-      <h2 id={id}>{title}</h2>
+      <h2 className="section-title" id={id}>
+        <span className="section-title--modifier">
+          {title}
+        </span>
+      </h2>
       <div>{bibliography}</div>
     </section>
   );
