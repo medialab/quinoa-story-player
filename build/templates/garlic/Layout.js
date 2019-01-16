@@ -109,12 +109,6 @@ function (_Component) {
 
       var scrollTop = evt.scrollTop;
       var headerHeight = _this.header.offsetHeight || 20;
-
-      var presentationEls = _this.props.usedDocument.getElementsByClassName('quinoa-presentation-player');
-
-      var presentations = [];
-      var fixedPresentationId;
-      var fixedPresentationHeight;
       var stateChanges = {};
       var inCover = scrollTop < headerHeight; // check if we are in the cover of the story
 
@@ -126,48 +120,10 @@ function (_Component) {
         stateChanges = _objectSpread({}, stateChanges, {
           inCover: false
         });
-      }
-
-      if (inCover) {
-        stateChanges = _objectSpread({}, stateChanges);
       } // applying state changes if needed
 
 
       if (Object.keys(stateChanges).length) {
-        _this.setState(stateChanges);
-
-        return;
-      } // check if a presentation is in "fixed" mode (user scrolls inside it)
-
-
-      for (var i = 0; i < presentationEls.length; i++) {
-        var presentation = presentationEls[i].parentNode;
-        var id = presentation.getAttribute('id');
-        var top = presentation.offsetTop + _this.header.offsetHeight;
-        var height = presentation.offsetHeight;
-        presentations.push({
-          id: id,
-          top: top,
-          height: height
-        }); // checking if this presentation deserves to be "fixed" (user scroll inside it)
-        // note : there can be more or less strict rules to define when to switch to "fixed" mode - it's a matter of ux and testing
-
-        if (scrollTop >= top && scrollTop <= top + height * 0.4 - 5 // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
-        // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
-        // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
-        ) {
-            fixedPresentationId = id;
-            fixedPresentationHeight = height;
-          }
-      } // if new fixed presentation, set it in state thanks to fixedPresentationId
-
-
-      if (fixedPresentationId !== _this.state.fixedPresentationId) {
-        stateChanges = _objectSpread({}, stateChanges, {
-          fixedPresentationId: fixedPresentationId,
-          fixedPresentationHeight: fixedPresentationHeight
-        });
-
         _this.setState(stateChanges);
 
         return;

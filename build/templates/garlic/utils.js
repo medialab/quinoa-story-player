@@ -221,7 +221,7 @@ var stylesVariablesToCss = function stylesVariablesToCss() {
   var compiledStyles = '';
 
   if (styles.titles) {
-    compiledStyles = compiledStyles + "\n    .content-title .content-title--modifier, .section-title .section-title--modifier {\n      color: ".concat(styles.titles.color, ";\n      font-size: ").concat(classToSize(styles.titles.sizeClass), "em;\n    }");
+    compiledStyles = compiledStyles + "\n    .content-title .content-title--modifier, .section-title .section-title--modifier {\n      color: ".concat(styles.titles.color, ";\n      font-size: ").concat(classToSize(styles.titles.sizeClass), "em;\n    }\n    .table-of-contents .link-content {\n      color: ").concat(styles.titles.color, ";\n    }\n    ");
   }
 
   if (styles.background) {
@@ -241,7 +241,7 @@ var stylesVariablesToCss = function stylesVariablesToCss() {
   }
 
   if (styles.links) {
-    compiledStyles = compiledStyles + "\n    .quinoa-story-player .contents-wrapper .content-a, .quinoa-story-player .glossary-mention, .quinoa-story-player .glossary-mention-backlink, .quinoa-story-player .csl-entry a {\n      border-bottom-color: ".concat(styles.links.color, ";\n    }\n    .quinoa-story-player .contents-wrapper .content-a:hover, .quinoa-story-player .glossary-mention:hover, .quinoa-story-player .glossary-mention-backlink:hover, .quinoa-story-player .csl-entry a:hover {\n      background: ").concat(styles.links.color, ";\n    }\n    ");
+    compiledStyles = compiledStyles + "\n    .quinoa-story-player .contents-wrapper .content-a, .quinoa-story-player .glossary-mention, .quinoa-story-player .glossary-mention-backlink, .quinoa-story-player .csl-entry a, .quinoa-story-player .contents-wrapper .internal-link {\n      border-bottom-color: ".concat(styles.links.color, ";\n    }\n    body .quinoa-story-player .contents-wrapper .content-a:not(.bib):hover,\n    body .quinoa-story-player .contents-wrapper .internal-link:not(.bib):hover,\n    body .quinoa-story-player .glossary-mention:not(.bib):hover,\n    body .quinoa-story-player .glossary-mention-backlink:not(.bib):hover,\n    body .quinoa-story-player .quinoa-contextualization.bib:not(.bib):hover,\n    body .quinoa-story-player .csl-entry a:not(.bib):hover\n    {\n      background: ").concat(styles.links.color, ";\n    }");
   }
 
   return compiledStyles;

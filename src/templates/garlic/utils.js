@@ -197,7 +197,11 @@ export const stylesVariablesToCss = (styles = {}) => {
     .content-title .content-title--modifier, .section-title .section-title--modifier {
       color: ${styles.titles.color};
       font-size: ${classToSize(styles.titles.sizeClass)}em;
-    }`;
+    }
+    .table-of-contents .link-content {
+      color: ${styles.titles.color};
+    }
+    `;
   }
   if (styles.background) {
     compiledStyles = compiledStyles + `
@@ -235,13 +239,18 @@ export const stylesVariablesToCss = (styles = {}) => {
   }
   if (styles.links) {
     compiledStyles = compiledStyles + `
-    .quinoa-story-player .contents-wrapper .content-a, .quinoa-story-player .glossary-mention, .quinoa-story-player .glossary-mention-backlink, .quinoa-story-player .csl-entry a {
+    .quinoa-story-player .contents-wrapper .content-a, .quinoa-story-player .glossary-mention, .quinoa-story-player .glossary-mention-backlink, .quinoa-story-player .csl-entry a, .quinoa-story-player .contents-wrapper .internal-link {
       border-bottom-color: ${styles.links.color};
     }
-    .quinoa-story-player .contents-wrapper .content-a:hover, .quinoa-story-player .glossary-mention:hover, .quinoa-story-player .glossary-mention-backlink:hover, .quinoa-story-player .csl-entry a:hover {
+    body .quinoa-story-player .contents-wrapper .content-a:not(.bib):hover,
+    body .quinoa-story-player .contents-wrapper .internal-link:not(.bib):hover,
+    body .quinoa-story-player .glossary-mention:not(.bib):hover,
+    body .quinoa-story-player .glossary-mention-backlink:not(.bib):hover,
+    body .quinoa-story-player .quinoa-contextualization.bib:not(.bib):hover,
+    body .quinoa-story-player .csl-entry a:not(.bib):hover
+    {
       background: ${styles.links.color};
-    }
-    `;
+    }`;
   }
   return compiledStyles;
 };
