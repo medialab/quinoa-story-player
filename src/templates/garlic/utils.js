@@ -9,9 +9,7 @@ const offsetMax = el => {
   catch (error) {
     // The HTML inside the iframe has not fully rendered yet.
   }
-  finally {
-    return 0;
-  }
+  return 0;
 };
 
 /**
@@ -33,45 +31,37 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
     // const headers = content && content.blocks && content.blocks
     // .filter(block => block.type.indexOf('header') === 0);
 
-    let sectionActive;
-    let nextTitleOffsetTop;
+    let sectionActive = false;
     // title of the section
     const title = usedDocument.getElementById(section.id);
-    if (!title) {
-      return undefined;
-    }
-    // we will check if scroll is in this section's part of the page height
-    const titleOffsetTop = title.offsetTop + offsetMax(title);
-    // to do that we need the offset of the next element
-    if (sectionIndex < story.sectionsOrder.length - 1) {
-      const next = story.sectionsOrder[sectionIndex + 1];
-      const nextTitle = usedDocument.getElementById(next);
-      if (nextTitle) {
-        nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
+    if (title && title.offsetTop) {
+      let nextTitleOffsetTop;
+      // we will check if scroll is in this section's part of the page height
+      const titleOffsetTop = title.offsetTop + offsetMax(title);
+      // to do that we need the offset of the next element
+      if (sectionIndex < story.sectionsOrder.length - 1) {
+        const next = story.sectionsOrder[sectionIndex + 1];
+        const nextTitle = usedDocument.getElementById(next);
+        if (nextTitle) {
+          nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
+        }
+      }
+      if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
+          (nextTitleOffsetTop === undefined ||
+            nextTitleOffsetTop >= scrollTop
+          )
+        ) {
+        sectionActive = true;
       }
     }
-    if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
-        (nextTitleOffsetTop === undefined ||
-          nextTitleOffsetTop >= scrollTop
-        )
-      ) {
-      sectionActive = true;
-    }
     // eventually we format the headers for display
-    const sectionHeader = {
+    return {
       level: sectionLevel,
       text: section.metadata.title || '',
       key: section.id,
       active: sectionActive
     };
-    return [
-      sectionHeader,
-      // ...headerItems
-      ];
-    })
-    .filter(el => el !== undefined)
-    // flatten mini-tocs
-    .reduce((result, ar) => [...result, ...ar], []);
+  });
 
   // adding special items to table of contents
   const hasReferences = Object.keys(citations.citationItems).length > 0;
@@ -207,11 +197,15 @@ export const stylesVariablesToCss = (styles = {}) => {
     .content-title .content-title--modifier, .section-title .section-title--modifier {
       color: ${styles.titles.color};
       font-size: ${classToSize(styles.titles.sizeClass)}em;
-    }`;
+    }
+    .table-of-contents .link-content {
+      color: ${styles.titles.color};
+    }
+    `;
   }
   if (styles.background) {
     compiledStyles = compiledStyles + `
-    .quinoa-story-player, .nav {
+    .quinoa-story-player, .quinoa-story-player .nav {
       background: ${styles.background.color};
     }`;
   }
@@ -245,13 +239,18 @@ export const stylesVariablesToCss = (styles = {}) => {
   }
   if (styles.links) {
     compiledStyles = compiledStyles + `
-    .quinoa-story-player .contents-wrapper .content-a, .quinoa-story-player .glossary-mention, .quinoa-story-player .glossary-mention-backlink, .quinoa-story-player .csl-entry a {
+    .quinoa-story-player .contents-wrapper .content-a, .quinoa-story-player .glossary-mention, .quinoa-story-player .glossary-mention-backlink, .quinoa-story-player .csl-entry a, .quinoa-story-player .contents-wrapper .internal-link {
       border-bottom-color: ${styles.links.color};
     }
-    .quinoa-story-player .contents-wrapper .content-a:hover, .quinoa-story-player .glossary-mention:hover, .quinoa-story-player .glossary-mention-backlink:hover, .quinoa-story-player .csl-entry a:hover {
+    body .quinoa-story-player .contents-wrapper .content-a:not(.bib):hover,
+    body .quinoa-story-player .contents-wrapper .internal-link:not(.bib):hover,
+    body .quinoa-story-player .glossary-mention:not(.bib):hover,
+    body .quinoa-story-player .glossary-mention-backlink:not(.bib):hover,
+    body .quinoa-story-player .quinoa-contextualization.bib:not(.bib):hover,
+    body .quinoa-story-player .csl-entry a:not(.bib):hover
+    {
       background: ${styles.links.color};
-    }
-    `;
+    }`;
   }
   return compiledStyles;
 };

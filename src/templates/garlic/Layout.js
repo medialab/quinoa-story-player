@@ -198,7 +198,7 @@ class GarlicLayout extends Component {
    */
   scrollToElementId (id) {
     const title = this.props.usedDocument.getElementById(id);
-    if (title) {
+    if (title && title.offsetParent) {
       this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop - this.context.dimensions.height / 2);
     }
   }
@@ -213,10 +213,6 @@ class GarlicLayout extends Component {
     }
     const scrollTop = evt.scrollTop;
     const headerHeight = this.header.offsetHeight || 20;
-    const presentationEls = this.props.usedDocument.getElementsByClassName('quinoa-presentation-player');
-    const presentations = [];
-    let fixedPresentationId;
-    let fixedPresentationHeight;
     let stateChanges = {};
 
     const inCover = scrollTop < headerHeight;
@@ -234,46 +230,8 @@ class GarlicLayout extends Component {
         inCover: false,
       };
     }
-    if (inCover) {
-      stateChanges = {
-        ...stateChanges,
-      };
-    }
     // applying state changes if needed
     if (Object.keys(stateChanges).length) {
-      this.setState(stateChanges);
-      return;
-    }
-    // check if a presentation is in "fixed" mode (user scrolls inside it)
-    for (let i = 0; i < presentationEls.length; i ++) {
-      const presentation = presentationEls[i].parentNode;
-      const id = presentation.getAttribute('id');
-      const top = presentation.offsetTop + this.header.offsetHeight;
-      const height = presentation.offsetHeight;
-      presentations.push({
-        id,
-        top,
-        height
-      });
-      // checking if this presentation deserves to be "fixed" (user scroll inside it)
-      // note : there can be more or less strict rules to define when to switch to "fixed" mode - it's a matter of ux and testing
-      if (
-        scrollTop >= top && scrollTop <= top + height * 0.4 - 5
-        // (scrollTop > prevScroll && prevScroll < top && scrollTop > top)
-        // || (scrollTop >= prevScroll && scrollTop >= top && scrollTop <= top + height * 0.9)
-        // || (scrollTop <= prevScroll && scrollTop >= top && scrollTop <= top + height * .5)
-      ) {
-        fixedPresentationId = id;
-        fixedPresentationHeight = height;
-      }
-    }
-    // if new fixed presentation, set it in state thanks to fixedPresentationId
-    if (fixedPresentationId !== this.state.fixedPresentationId) {
-      stateChanges = {
-        ...stateChanges,
-        fixedPresentationId,
-        fixedPresentationHeight,
-      };
       this.setState(stateChanges);
       return;
     }
@@ -283,7 +241,12 @@ class GarlicLayout extends Component {
     // at each update, we should split buildTOC in two functions
     // to handle the change of active element separately, for better performances)
     if (scrollTop !== this.state.scrollTop) {
-      const toc = buildTOC(this.props.story, scrollTop, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
+      const toc = buildTOC(
+        this.props.story,
+        scrollTop,
+        this.state,
+        { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow }
+      );
       stateChanges = {
         ...stateChanges,
         toc,
