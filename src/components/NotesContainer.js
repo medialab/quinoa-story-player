@@ -155,7 +155,13 @@ class NotesContainer extends Component {
 
     return (
       <div className={'notes-container notes-container-position-' + notesPosition}>
-        {notesPosition !== 'aside' && <h2 id={id}>{title}</h2>}
+        {notesPosition !== 'aside' && 
+        <h2 className="section-title" id={id}>
+          <span className="section-title--modifier">
+            {title}
+          </span>
+        </h2>
+      }
         <ol className="notes-list">
           {
             notes

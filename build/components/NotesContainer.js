@@ -204,8 +204,11 @@ function (_Component) {
       return _react.default.createElement("div", {
         className: 'notes-container notes-container-position-' + notesPosition
       }, notesPosition !== 'aside' && _react.default.createElement("h2", {
+        className: "section-title",
         id: id
-      }, title), _react.default.createElement("ol", {
+      }, _react.default.createElement("span", {
+        className: "section-title--modifier"
+      }, title)), _react.default.createElement("ol", {
         className: "notes-list"
       }, notes.sort(function (a, b) {
         if (a.finalOrder > b.finalOrder) {

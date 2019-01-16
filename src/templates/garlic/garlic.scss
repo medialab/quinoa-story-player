@@ -587,8 +587,9 @@ $timer-long: 1s;
     .ReactTable
     {
         max-width: 100%;
-        margin-right: $gutter-lateral-large-screens;
-        margin-left: $gutter-lateral-large-screens;
+        width: 100%;
+        // margin-right: $gutter-lateral-large-screens;
+        // margin-left: $gutter-lateral-large-screens;
         .-pagination
         {
             height: 5rem;
