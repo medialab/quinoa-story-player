@@ -218,7 +218,8 @@ function (_Component) {
       }, {});
 
       var _getStyles = (0, _quinoaSchemas.getStyles)(_this.props.story),
-          options = _getStyles.options;
+          _getStyles$options = _getStyles.options,
+          options = _getStyles$options === void 0 ? {} : _getStyles$options;
 
       var notesPosition = options.notesPosition || 'foot'; // "responsive" notes positionning
 

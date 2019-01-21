@@ -409,7 +409,7 @@ class GarlicLayout extends Component {
       }
     }), {});
 
-    const { options } = getStyles(this.props.story);
+    const { options = {} } = getStyles(this.props.story);
     let notesPosition = options.notesPosition || 'foot';
     // "responsive" notes positionning
     notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
