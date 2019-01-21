@@ -351,7 +351,7 @@ function (_Component) {
     _this.scrollToContents = _this.scrollToContents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.scrollToCover = _this.scrollToCover.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.scrollTop = _this.scrollTop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 10, {
+    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 50, {
       leading: true,
       trailing: true,
       maxWait: 100

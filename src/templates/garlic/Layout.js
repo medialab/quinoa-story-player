@@ -50,7 +50,7 @@ class GarlicLayout extends Component {
     this.scrollToContents = this.scrollToContents.bind(this);
     this.scrollToCover = this.scrollToCover.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    this.onScrollUpdate = debounce(this.onScrollUpdate, 10, { leading: true, trailing: true, maxWait: 100 });
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 50, { leading: true, trailing: true, maxWait: 100 });
     // this.onScrollUpdate = this.onScrollUpdate.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
