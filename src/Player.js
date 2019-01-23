@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import Measure from 'react-measure';
 
 import GarlicLayout from './templates/garlic/Layout';
+import PepperLayout from './templates/pepper/Layout';
 
 /**
  * QuinoaStoryPlayer class for building QuinoaStoryPlayer react component instances
@@ -89,7 +90,7 @@ class QuinoaStoryPlayer extends Component {
    * @return {ReactElement} component - the proper component/react markup
    */
   renderComponent () {
-    const template = (this.state.story && this.state.story.settings && this.state.story.settings.template) || 'garlic';
+    const template = (this.state.story && this.state.story.settings && this.state.story.settings.templateId) || 'garlic';
     if (this.state.story && this.state.status === 'loaded') {
       switch (template) {
         case 'garlic':
@@ -97,6 +98,15 @@ class QuinoaStoryPlayer extends Component {
             <GarlicLayout
               locale={this.props.locale}
               story={this.state.story}
+              usedDocument={this.props.usedDocument || document}
+              usedWindow={this.props.usedWindow || window} />
+          );
+        case 'pepper':
+          return (
+            <PepperLayout
+              locale={this.props.locale}
+              story={this.state.story}
+              previewMode={this.props.previewMode}
               usedDocument={this.props.usedDocument || document}
               usedWindow={this.props.usedWindow || window} />
           );
@@ -138,7 +148,8 @@ class QuinoaStoryPlayer extends Component {
  * Component's properties types
  */
 QuinoaStoryPlayer.propTypes = {
-  story: PropTypes.object
+  story: PropTypes.object,
+  previewMode: PropTypes.bool,
 };
 
 /**

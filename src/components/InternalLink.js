@@ -16,10 +16,21 @@ import PropTypes from 'prop-types';
 const InternalLink = ({
   data,
   children
-}, { onInternalLinkClick }) => {
+}, {
+  onInternalLinkClick,
+  InternalLinkProvider,
+}) => {
   const handleClick = () => {
     onInternalLinkClick(data.sectionId);
   };
+  if (typeof InternalLinkProvider === 'function') {
+    return (
+      <InternalLinkProvider
+        to={data}>
+        {children}
+      </InternalLinkProvider>
+    );
+  }
   return (
     <span
       onClick={handleClick}
@@ -49,6 +60,7 @@ InternalLink.contextTypes = {
    * Callbacks when a glossary mention is clicked
    */
   onInternalLinkClick: PropTypes.func,
+  InternalLinkProvider: PropTypes.func,
 };
 
 export default InternalLink;

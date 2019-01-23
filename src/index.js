@@ -7,7 +7,8 @@ import Player from './Player';
 
 // informations about the templates that the module is able to provide
 const templateInfo = [
-  require('./templates/garlic/info')
+  require('./templates/garlic/info'),
+  require('./templates/pepper/info')
 ];
 // templates info are accessible as an array of objects
 export const templates = templateInfo;

@@ -15,7 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * exports a component + templates metadata of the lib
  */
 // informations about the templates that the module is able to provide
-var templateInfo = [require('./templates/garlic/info')]; // templates info are accessible as an array of objects
+var templateInfo = [require('./templates/garlic/info'), require('./templates/pepper/info')]; // templates info are accessible as an array of objects
 
 var templates = templateInfo;
 /**

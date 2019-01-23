@@ -88,7 +88,12 @@ function (_Component) {
         var component = _this.props.usedDocument.getElementById('note-content-pointer-' + note.id); // const position = component.getBoundingClientRect();
 
 
-        var position = getOffset(component);
+        var position = {};
+
+        if (component) {
+          position = getOffset(component);
+        }
+
         return {
           order: note.finalOrder,
           noteId: note.id,

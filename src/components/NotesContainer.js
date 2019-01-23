@@ -99,7 +99,10 @@ class NotesContainer extends Component {
       .map(note => {
         const component = this.props.usedDocument.getElementById('note-content-pointer-' + note.id);
         // const position = component.getBoundingClientRect();
-        const position = getOffset(component);
+        let position = {};
+        if (component) {
+          position = getOffset(component);
+        }
         return {
           order: note.finalOrder,
           noteId: note.id,
@@ -155,7 +158,7 @@ class NotesContainer extends Component {
 
     return (
       <div className={'notes-container notes-container-position-' + notesPosition}>
-        {notesPosition !== 'aside' && 
+        {notesPosition !== 'aside' &&
         <h2 className="section-title" id={id}>
           <span className="section-title--modifier">
             {title}
