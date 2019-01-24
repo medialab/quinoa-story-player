@@ -65,9 +65,8 @@ function (_Component) {
       };
     };
 
-    _this.componentDidMount = function () {
-      if (_this.props.focusOnId) {// console.log(this.props.focusOnId);
-      }
+    _this.shouldComponentUpdate = function (nextProps) {
+      return _this.props.section.id !== nextProps.section.id;
     };
 
     _this.state = {

@@ -14,17 +14,20 @@ const TableOfContents = ({
       style={{
                 // marginTop: inCover ? 0 : '2em'
               }}>
-      <li className="table-of-contents-title-container">
-        <h2
-          className="table-of-contents-title">
-          <InternalLinkProvider
-            to={{
-              viewId: 'home'
-            }}>
-            {metadata.title || 'Quinoa story'}
-          </InternalLinkProvider>
-        </h2>
-      </li>
+      {
+        metadata &&
+        <li className="table-of-contents-title-container">
+          <h2
+            className="table-of-contents-title">
+            <InternalLinkProvider
+              to={{
+                viewId: 'home'
+              }}>
+              {metadata.title || 'Quinoa story'}
+            </InternalLinkProvider>
+          </h2>
+        </li>
+      }
       {
         toc && toc.map((item, index) => {
           return (

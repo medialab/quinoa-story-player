@@ -194,7 +194,7 @@ class PepperLayout extends Component {
     if (viewParams.focusOnId) {
       setTimeout(() => this.scrollToElementId(viewParams.focusOnId));
     }
- else {
+    else {
       this.globalScrollbar.scrollTop(0);
     }
   }
@@ -241,14 +241,11 @@ class PepperLayout extends Component {
    * @param {object} evt - the scroll event to process
    */
   onScrollUpdate = (evt) => {
-    if (!this.header) {
-      return;
-    }
     const scrollTop = evt.scrollTop;
-    const headerHeight = this.header.offsetHeight || 20;
     let stateChanges = {};
 
-    const inCover = scrollTop < headerHeight;
+    const inCover = scrollTop < 10;
+
 
     // check if we are in the cover of the story
     if (inCover && !this.state.inCover) {
@@ -268,29 +265,6 @@ class PepperLayout extends Component {
       this.setState(stateChanges);
       return;
     }
-    // if scroll has changed, update the table of contents
-    // (active element may have changed)
-    // (todo: right now we are rebuilding the toc from scratch
-    // at each update, we should split buildTOC in two functions
-    // to handle the change of active element separately, for better performances)
-    if (scrollTop !== this.state.scrollTop) {
-      const toc = buildTOC(
-        this.props.story,
-        scrollTop,
-        this.state,
-        { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow }
-      );
-      stateChanges = {
-        ...stateChanges,
-        toc,
-        scrollTop,
-      };
-    }
-    // applying state changes if needed
-    if (Object.keys(stateChanges).length) {
-      this.setState(stateChanges);
-    }
-    Tooltip.rebuild();
   }
 
   /**
@@ -552,7 +526,9 @@ class PepperLayout extends Component {
             coverImage={coverImage}
             getResourceDataUrl={getResourceDataUrl}
             metadata={metadata}
-            bindRef={bindHeaderRef} />
+            bindRef={bindHeaderRef}
+            toc={toc}
+            locale={locale} />
         );
         break;
     }
@@ -593,7 +569,9 @@ class PepperLayout extends Component {
                               coverImage={coverImage}
                               getResourceDataUrl={getResourceDataUrl}
                               metadata={metadata}
-                              bindRef={bindHeaderRef} />
+                              bindRef={bindHeaderRef}
+                              locale={locale}
+                              toc={toc} />
                         )} />
                         <Route
                           path="/sections/:sectionId"
@@ -603,7 +581,9 @@ class PepperLayout extends Component {
                               toc,
                               (item) => item.viewType === 'section' && item.viewParams.sectionId === sectionId
                             );
-                            this.globalScrollbar.scrollTop(0);
+                            if (this.globalScrollbar) {
+                              this.globalScrollbar.scrollTop(0);
+                            }
 
                             if (location.search && location.search.length) {
                               const queryParams = location.search.substr(1).split('&')

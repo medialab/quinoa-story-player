@@ -19,7 +19,7 @@ var TableOfContents = function TableOfContents(_ref, _ref2) {
     className: "table-of-contents",
     style: {// marginTop: inCover ? 0 : '2em'
     }
-  }, _react.default.createElement("li", {
+  }, metadata && _react.default.createElement("li", {
     className: "table-of-contents-title-container"
   }, _react.default.createElement("h2", {
     className: "table-of-contents-title"

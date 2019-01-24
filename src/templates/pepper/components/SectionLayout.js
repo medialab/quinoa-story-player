@@ -40,10 +40,8 @@ class SectionLayout extends Component {
     };
   }
 
-  componentDidMount = () => {
-    if (this.props.focusOnId) {
-      // console.log(this.props.focusOnId);
-    }
+  shouldComponentUpdate = nextProps => {
+    return this.props.section.id !== nextProps.section.id;
   }
 
   /**

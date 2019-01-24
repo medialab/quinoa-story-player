@@ -173,14 +173,9 @@ function (_Component) {
     };
 
     _this.onScrollUpdate = function (evt) {
-      if (!_this.header) {
-        return;
-      }
-
       var scrollTop = evt.scrollTop;
-      var headerHeight = _this.header.offsetHeight || 20;
       var stateChanges = {};
-      var inCover = scrollTop < headerHeight; // check if we are in the cover of the story
+      var inCover = scrollTop < 10; // check if we are in the cover of the story
 
       if (inCover && !_this.state.inCover) {
         stateChanges = _objectSpread({}, stateChanges, {
@@ -197,30 +192,7 @@ function (_Component) {
         _this.setState(stateChanges);
 
         return;
-      } // if scroll has changed, update the table of contents
-      // (active element may have changed)
-      // (todo: right now we are rebuilding the toc from scratch
-      // at each update, we should split buildTOC in two functions
-      // to handle the change of active element separately, for better performances)
-
-
-      if (scrollTop !== _this.state.scrollTop) {
-        var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop, _this.state, {
-          usedDocument: _this.props.usedDocument,
-          usedWindow: _this.props.usedWindow
-        });
-        stateChanges = _objectSpread({}, stateChanges, {
-          toc: toc,
-          scrollTop: scrollTop
-        });
-      } // applying state changes if needed
-
-
-      if (Object.keys(stateChanges).length) {
-        _this.setState(stateChanges);
       }
-
-      _reactTooltip.default.rebuild();
     };
 
     _this.onNotePointerClick = function (note) {
@@ -420,7 +392,9 @@ function (_Component) {
               coverImage: coverImage,
               getResourceDataUrl: getResourceDataUrl,
               metadata: metadata,
-              bindRef: bindHeaderRef
+              bindRef: bindHeaderRef,
+              toc: toc,
+              locale: locale
             });
           };
 
@@ -452,7 +426,9 @@ function (_Component) {
             coverImage: coverImage,
             getResourceDataUrl: getResourceDataUrl,
             metadata: metadata,
-            bindRef: bindHeaderRef
+            bindRef: bindHeaderRef,
+            locale: locale,
+            toc: toc
           });
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
@@ -468,7 +444,9 @@ function (_Component) {
               prevItem = _getTocAdjacentNavIte.prevItem,
               nextItem = _getTocAdjacentNavIte.nextItem;
 
-          _this.globalScrollbar.scrollTop(0);
+          if (_this.globalScrollbar) {
+            _this.globalScrollbar.scrollTop(0);
+          }
 
           if (location.search && location.search.length) {
             var queryParams = location.search.substr(1).split('&').map(function (couple) {

@@ -6,11 +6,11 @@ const Nav = ({
   indexOpen,
   inCover,
   coverImage,
-  dimensions,
+  // dimensions,
   onClickToggle,
   onClickTitle,
   metadata,
-  isDisplayed,
+  // isDisplayed,
   toggleIndex,
   scrollToElementId,
   toc
@@ -20,13 +20,13 @@ const Nav = ({
     <nav
       className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
       style={{
-                    position: inCover && coverImage ? 'relative' : 'absolute',
-                    left: 0,
-                    opacity: isDisplayed ? 1 : 0,
-                    pointerEvents: isDisplayed ? undefined : 'none',
-                    marginTop: (inCover && coverImage) || !inCover ? 0 : 0,
-                    height: !(inCover && dimensions.width <= 700) ? dimensions && dimensions.height : 0,
-                  }}>
+        position: inCover && coverImage ? 'absolut' : 'absolute',
+        left: 0,
+        // opacity: isDisplayed ? 1 : 0,
+        // pointerEvents: isDisplayed ? undefined : 'none',
+        // marginTop: (inCover && coverImage) || !inCover ? 0 : 0,
+        // height: !(inCover && dimensions.width <= 700) ? dimensions && dimensions.height : 0,
+      }}>
       <div
         className="nav-content"
         style={{

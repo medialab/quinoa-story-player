@@ -2,11 +2,15 @@
   "fr": {
     "glossary": "glossaire",
     "references": "références",
-    "notes": "notes"
+    "notes": "notes",
+
+    "table of contents": "table des matières"
   },
   "en": {
     "glossary": "glossary",
     "references": "references",
-    "notes": "notes"
+    "notes": "notes",
+
+    "table of contents": "table of contents"
   }
 }

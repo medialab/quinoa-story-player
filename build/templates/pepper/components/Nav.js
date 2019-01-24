@@ -15,11 +15,9 @@ var Nav = function Nav(_ref) {
   var indexOpen = _ref.indexOpen,
       inCover = _ref.inCover,
       coverImage = _ref.coverImage,
-      dimensions = _ref.dimensions,
       onClickToggle = _ref.onClickToggle,
       onClickTitle = _ref.onClickTitle,
       metadata = _ref.metadata,
-      isDisplayed = _ref.isDisplayed,
       toggleIndex = _ref.toggleIndex,
       scrollToElementId = _ref.scrollToElementId,
       toc = _ref.toc;
@@ -27,12 +25,12 @@ var Nav = function Nav(_ref) {
   return _react.default.createElement("nav", {
     className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
     style: {
-      position: inCover && coverImage ? 'relative' : 'absolute',
-      left: 0,
-      opacity: isDisplayed ? 1 : 0,
-      pointerEvents: isDisplayed ? undefined : 'none',
-      marginTop: inCover && coverImage || !inCover ? 0 : 0,
-      height: !(inCover && dimensions.width <= 700) ? dimensions && dimensions.height : 0
+      position: inCover && coverImage ? 'absolut' : 'absolute',
+      left: 0 // opacity: isDisplayed ? 1 : 0,
+      // pointerEvents: isDisplayed ? undefined : 'none',
+      // marginTop: (inCover && coverImage) || !inCover ? 0 : 0,
+      // height: !(inCover && dimensions.width <= 700) ? dimensions && dimensions.height : 0,
+
     }
   }, _react.default.createElement("div", {
     className: "nav-content",
