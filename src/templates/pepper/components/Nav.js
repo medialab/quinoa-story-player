@@ -13,8 +13,12 @@ const Nav = ({
   // isDisplayed,
   toggleIndex,
   scrollToElementId,
-  toc
+  toc,
+  viewType,
 }) => {
+  if (viewType === 'home') {
+    return null;
+  }
   const menuOpened = (indexOpen || inCover);
   return (
     <nav

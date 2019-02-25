@@ -20,7 +20,13 @@ var Nav = function Nav(_ref) {
       metadata = _ref.metadata,
       toggleIndex = _ref.toggleIndex,
       scrollToElementId = _ref.scrollToElementId,
-      toc = _ref.toc;
+      toc = _ref.toc,
+      viewType = _ref.viewType;
+
+  if (viewType === 'home') {
+    return null;
+  }
+
   var menuOpened = indexOpen || inCover;
   return _react.default.createElement("nav", {
     className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),

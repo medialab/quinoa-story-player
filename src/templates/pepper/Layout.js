@@ -448,6 +448,7 @@ class PepperLayout extends Component {
         dimensions={dimensions}
         onClickToggle={onClickToggle}
         onClickTitle={onClickTitle}
+        viewType={viewType}
         metadata={metadata}
         scrollToElementId={scrollToElementId}
         toggleIndex={this.toggleIndex}

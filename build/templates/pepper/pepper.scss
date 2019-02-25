@@ -246,10 +246,10 @@ $timer-long: 1s;
         flex-flow: row nowrap;
         @extend .absolute-fill;
 
-        &.with-cover
-        {
+        // &.with-cover
+        // {
             height: 100%;
-        }
+        // }
     }
 
     /**
@@ -963,7 +963,7 @@ $timer-long: 1s;
         padding-right: $gutter-medium;
         @include transition($timer-medium all  ease);
     }
-    .header-container.with-cover .header-contents
+    .header-container .header-contents
     {
         cursor: pointer;
 
@@ -1587,8 +1587,7 @@ $timer-long: 1s;
 
         .header-container
         {
-            &.with-cover
-            {
+            
                 top: 0;
                 left: 0;
 
@@ -1604,7 +1603,6 @@ $timer-long: 1s;
                     padding: 1cm!important;
                 }
                 page: header;
-            }
         }
 
         @page header{

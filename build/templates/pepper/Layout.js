@@ -315,6 +315,7 @@ function (_Component) {
           dimensions: dimensions,
           onClickToggle: onClickToggle,
           onClickTitle: onClickTitle,
+          viewType: viewType,
           metadata: metadata,
           scrollToElementId: scrollToElementId,
           toggleIndex: _this.toggleIndex,

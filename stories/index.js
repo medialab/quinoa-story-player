@@ -187,14 +187,45 @@ storiesOf('Quinoa story - garlic template', module)
   ))
 // add other templates here
 storiesOf('Quinoa story - pepper template', module)
-  .add('Story in preview mode', () => (
+  .add('Story with cover image', () => (
     <Player
       story={pepperTest}
     />
   ))
-  .add('Story in router mode', () => (
+  .add('Story without cover', () => (
     <Player
-      story={pepperTest}
-      previewMode={false}
+      story={{
+        ...pepperTest,
+        metadata: {
+          ...pepperTest.metadata,
+          coverImage: undefined,
+        }
+      }}
     />
   ))
+  .add('Story without notes at sections end', () => (
+    <Player
+      story={{
+        ...pepperTest,
+        settings: {
+          ...pepperTest.settings,
+          styles: {
+            ...pepperTest.settings.styles,
+            pepper: {
+              ...pepperTest.settings.styles.pepper,
+              options: {
+                ...pepperTest.settings.styles.pepper.options,
+                notesPosition: 'foot'
+              }
+            }
+          }
+        }
+      }}
+    />
+  ))
+  // .add('Story in router mode', () => (
+  //   <Player
+  //     story={pepperTest}
+  //     previewMode={false}
+  //   />
+  // ))
