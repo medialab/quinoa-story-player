@@ -109,11 +109,11 @@ class NotesContainer extends Component {
           component,
           offsetTop: position.top,
         };
-      })
+      });
 
     const notesStyles = {};
     let y = 0;
-    let prevHeight = 0;
+    const prevHeight = 0;
 
     // we try to position the elements in front of their pointer
     // stack them if they would overlapp with a previous note
@@ -128,8 +128,8 @@ class NotesContainer extends Component {
         y = y + prevHeight;
       }
       // update prevHeight with current component
-      const noteItem = this.notes[component.noteId];
-      prevHeight = noteItem.component.offsetHeight;
+      // const noteItem = this.notes[component.noteId];
+      // prevHeight = noteItem.component.offsetHeight;
       // update note styles
       notesStyles[component.noteId] = {
         top: y,
@@ -178,7 +178,7 @@ class NotesContainer extends Component {
               const bindRef = noteEl => {
                 this.notes[note.id] = noteEl;
               };
-              const asideStyle = notesStyles[note.id] || {opacity: 0}
+              const asideStyle = notesStyles[note.id] || { opacity: 0 };
               return (
                 <NoteItem
                   key={index}
@@ -187,7 +187,7 @@ class NotesContainer extends Component {
                   ref={bindRef}
                   style={this.props.notesPosition === 'aside' ? asideStyle : {}} />
               );
-                
+
             })
           }
         </ol>

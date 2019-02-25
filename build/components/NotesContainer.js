@@ -117,10 +117,10 @@ function (_Component) {
         } else {
           y = y + prevHeight;
         } // update prevHeight with current component
+        // const noteItem = this.notes[component.noteId];
+        // prevHeight = noteItem.component.offsetHeight;
+        // update note styles
 
-
-        var noteItem = _this.notes[component.noteId];
-        prevHeight = noteItem.component.offsetHeight; // update note styles
 
         notesStyles[component.noteId] = {
           top: y,
