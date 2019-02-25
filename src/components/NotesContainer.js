@@ -109,7 +109,7 @@ class NotesContainer extends Component {
           component,
           offsetTop: position.top,
         };
-      });
+      })
 
     const notesStyles = {};
     let y = 0;
@@ -178,14 +178,16 @@ class NotesContainer extends Component {
               const bindRef = noteEl => {
                 this.notes[note.id] = noteEl;
               };
+              const asideStyle = notesStyles[note.id] || {opacity: 0}
               return (
                 <NoteItem
                   key={index}
                   note={note}
                   onNotePointerClick={onNotePointerClick}
                   ref={bindRef}
-                  style={this.props.notesPosition === 'aside' ? notesStyles[note.id] : {}} />
+                  style={this.props.notesPosition === 'aside' ? asideStyle : {}} />
               );
+                
             })
           }
         </ol>

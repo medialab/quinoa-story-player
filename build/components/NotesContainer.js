@@ -226,12 +226,15 @@ function (_Component) {
           _this3.notes[note.id] = noteEl;
         };
 
+        var asideStyle = notesStyles[note.id] || {
+          opacity: 0
+        };
         return _react.default.createElement(_NoteItem.default, {
           key: index,
           note: note,
           onNotePointerClick: onNotePointerClick,
           ref: bindRef,
-          style: _this3.props.notesPosition === 'aside' ? notesStyles[note.id] : {}
+          style: _this3.props.notesPosition === 'aside' ? asideStyle : {}
         });
       })));
     }

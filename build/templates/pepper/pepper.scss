@@ -257,21 +257,21 @@ $timer-long: 1s;
      */
     .header-contents
     {
-        // margin-top: $gutter-large;
-        // margin-right: $gutter-lateral-large-screens;
-        // margin-left: $gutter-lateral-large-screens;
-
         .story-global-info-container,
         .header-toc-container{
             flex: 1;
             max-width: 50%;
             padding: $gutter-medium;
         }
+
+        .header-toc-container{
+            font-family: $font-stack-sans-serif;
+        }
     }
     /**
      * Header contents when cover image layout
      */
-    .header-container.with-cover .header-contents
+    .header-container .header-contents
     {
         display: flex;
 
@@ -1025,6 +1025,7 @@ $timer-long: 1s;
         font-size: $font-size-2;
         margin: 0;
         padding: 0;
+        margin-top: $gutter-medium;
     }
 
     .header-toc-container {
