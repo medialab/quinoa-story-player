@@ -48,7 +48,7 @@ const Header = ({
           :
             null
         }
-        {firstItem &&
+          {firstItem &&
           <h2 className="first-item-link">
             <InternalLinkProvider
               to={{
@@ -83,5 +83,5 @@ const Header = ({
 
 Header.contextTypes = {
   InternalLinkProvider: PropTypes.func,
-}
+};
 export default Header;
