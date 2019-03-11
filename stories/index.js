@@ -203,7 +203,7 @@ storiesOf('Quinoa story - pepper template', module)
       }}
     />
   ))
-  .add('Story without notes at sections end', () => (
+  .add('Story with notes in footer', () => (
     <Player
       story={{
         ...pepperTest,

@@ -7,11 +7,13 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _TableOfContents = _interopRequireDefault(require("./TableOfContents"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Header = function Header(_ref) {
+var Header = function Header(_ref, _ref2) {
   var scrollToContents = _ref.scrollToContents,
       coverImage = _ref.coverImage,
       getResourceDataUrl = _ref.getResourceDataUrl,
@@ -19,7 +21,10 @@ var Header = function Header(_ref) {
       metadata = _ref.metadata,
       _ref$locale = _ref.locale,
       locale = _ref$locale === void 0 ? {} : _ref$locale,
-      toc = _ref.toc;
+      _ref$toc = _ref.toc,
+      toc = _ref$toc === void 0 ? [] : _ref$toc;
+  var InternalLinkProvider = _ref2.InternalLinkProvider;
+  var firstItem = toc.length ? toc[0] : undefined;
   return _react.default.createElement("header", {
     onClick: scrollToContents,
     className: "header-container ".concat(coverImage ? 'with-cover' : ''),
@@ -45,7 +50,16 @@ var Header = function Header(_ref) {
     className: "header-authors--modifier"
   }, metadata.authors.map(function (author) {
     return author;
-  }).join(', '))) : null, metadata.abstract && metadata.abstract.length ? _react.default.createElement("blockquote", {
+  }).join(', '))) : null, firstItem && _react.default.createElement("h2", {
+    className: "first-item-link"
+  }, _react.default.createElement(InternalLinkProvider, {
+    to: {
+      viewType: firstItem.viewType,
+      viewParams: firstItem.viewParams
+    }
+  }, _react.default.createElement("span", {
+    className: "link-content"
+  }, locale['Begin exploration'] || 'Begin exploration'))), metadata.abstract && metadata.abstract.length ? _react.default.createElement("blockquote", {
     className: "header-story-abstract"
   }, metadata.abstract) : null), _react.default.createElement("div", {
     className: "header-toc-container"
@@ -56,5 +70,8 @@ var Header = function Header(_ref) {
   }))));
 };
 
+Header.contextTypes = {
+  InternalLinkProvider: _propTypes.default.func
+};
 var _default = Header;
 exports.default = _default;

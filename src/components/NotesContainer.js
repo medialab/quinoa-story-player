@@ -159,7 +159,7 @@ class NotesContainer extends Component {
     return (
       <div className={'notes-container notes-container-position-' + notesPosition}>
         {notesPosition !== 'aside' &&
-        <h2 className="section-title" id={id}>
+        <h2 className="section-title notes-title" id={id}>
           <span className="section-title--modifier">
             {title}
           </span>

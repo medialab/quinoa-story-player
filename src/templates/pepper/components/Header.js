@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TableOfContents from './TableOfContents';
 
 const Header = ({
@@ -8,8 +9,11 @@ const Header = ({
   bindRef,
   metadata,
   locale = {},
-  toc,
+  toc = [],
+}, {
+  InternalLinkProvider
 }) => {
+  const firstItem = toc.length ? toc[0] : undefined;
   return (
     <header
       onClick={scrollToContents}
@@ -44,6 +48,17 @@ const Header = ({
           :
             null
         }
+        {firstItem &&
+          <h2 className="first-item-link">
+            <InternalLinkProvider
+              to={{
+                viewType: firstItem.viewType,
+                viewParams: firstItem.viewParams
+              }}>
+              <span className="link-content">{locale['Begin exploration'] || 'Begin exploration'}</span>
+            </InternalLinkProvider>
+          </h2>
+        }
           {
           metadata.abstract && metadata.abstract.length ?
             <blockquote className="header-story-abstract">
@@ -65,4 +80,8 @@ const Header = ({
   );
 };
 
+
+Header.contextTypes = {
+  InternalLinkProvider: PropTypes.func,
+}
 export default Header;
