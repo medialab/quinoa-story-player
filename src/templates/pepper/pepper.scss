@@ -2,9 +2,6 @@
  * quinoa-story-player garlic template style definitions
  * ============
  */
-// @import url('https://fonts.googleapis.com/css?family=Lora:400,400i,700');
-// @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i');
-
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i,900');
 @import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Roboto:400,400i,700,700i,900');
 /**
@@ -90,8 +87,6 @@ $timer-long: 1s;
  */
 .quinoa-story-player
 {
-    // default styling
-    // font-family: 'Source Sans Pro', sans-serif;
     /**
      * Root element
      */
@@ -960,7 +955,7 @@ $timer-long: 1s;
             cursor: pointer;
 
             // color: $color-background;
-            background: $color-header-container;
+            background: inherit; // $color-header-container;
 
             justify-content: flex-start;
             display: flex;
@@ -972,11 +967,6 @@ $timer-long: 1s;
 
             .table-of-contents{
                 overflow: hidden;
-            }
-
-            &:hover
-            {
-                background: $color-header-container-intent;
             }
         }
 

@@ -207,6 +207,7 @@ storiesOf('Quinoa story - pepper template', module)
     <Player
       story={{
         ...pepperTest,
+        
         settings: {
           ...pepperTest.settings,
           styles: {
@@ -216,6 +217,33 @@ storiesOf('Quinoa story - pepper template', module)
               options: {
                 ...pepperTest.settings.styles.pepper.options,
                 notesPosition: 'foot'
+              }
+            }
+          }
+        }
+      }}
+    />
+  ))
+  .add('Story with custom background', () => (
+    <Player
+      story={{
+        ...pepperTest,
+        metadata: {
+          ...pepperTest.metadata,
+          coverImage: undefined,
+        }, 
+        settings: {
+          ...pepperTest.settings,
+          styles: {
+            ...pepperTest.settings.styles,
+            pepper: {
+              ...pepperTest.settings.styles.pepper,
+              stylesVariables: {
+                ...pepperTest.settings.styles.pepper.stylesVariables,
+                "background":
+                  {
+                      "color": "pink"
+                  }
               }
             }
           }

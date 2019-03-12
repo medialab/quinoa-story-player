@@ -623,7 +623,7 @@ class PepperLayout extends Component {
                             glossary={glossary}
                             prevItem={prevItem}
                             nextItem={nextItem} />
-                            );
+                        );
                       }} />
                         <Route
                           path="/references"
