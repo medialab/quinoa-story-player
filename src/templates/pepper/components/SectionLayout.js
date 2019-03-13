@@ -6,6 +6,7 @@
  */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Tooltip from 'react-tooltip';
 import NotesContainer from '../../../components/NotesContainer';
 import NavFooter from './NavFooter';
 import {
@@ -101,6 +102,7 @@ class SectionLayout extends Component {
             nextItem={nextItem}
             title={metadata.title} />
         </div>
+        <Tooltip id="tooltip" effect="solid" />
       </section>
     );
   }

@@ -17,6 +17,10 @@ $gutter-lateral-small-screens: $gutter-large;
 $color-primary: #414e4d; // blued dark grey
 $color-secondary: #f32e36; // fresh red
 $color-secondary-intent: #87240e; // bordeaux red
+
+$color-external-link: lightblue;
+$color-glossary: lightgreen;
+
 $color-background: #fdfff8; // cream
 $color-secondary-background: rgba(255,255,255,.8);// white desopacified
 // #e5e7e6;
@@ -597,7 +601,10 @@ $timer-long: 1s;
         padding-top: $gutter-small;
         padding-right: $gutter-large;
         padding-bottom: $gutter-medium;
-        padding-left: $gutter-medium * 5;
+        padding-left: $gutter-medium * 2.5;
+        @media screen and (max-width: 700px) {
+            padding-left: 0;
+        }
     }
     /**
      * Interctive table layout
@@ -1343,8 +1350,9 @@ $timer-long: 1s;
         position: relative;
 
         text-decoration: none;
-        cursor: text;
+        // cursor: text;
         font-variant: italic;
+        border-bottom: 1px solid $color-secondary;
 
         color: inherit;
         outline: none;
@@ -1354,17 +1362,28 @@ $timer-long: 1s;
         {
             text-decoration: none!important;
         }
-        &:not(.bib):not(.glossary){
-            border-bottom: 1px solid $color-secondary;
+
+        &.bib,&.glossary{
+            cursor: text;
         }
-        &:not(.bib):not(.glossary):hover
-        {
-            cursor: pointer;
-            color: $color-background;
-            border-bottom: none;// 1px solid $color-secondary-intent;
-            background: $color-secondary;
-            // background: $color-secondary-intent;
+        &.glossary{
+            border-bottom: 1px solid $color-glossary;
         }
+        &.bib{
+            border-bottom: none;
+        }
+        &.webpage{
+            border-bottom: 1px solid $color-external-link;
+        }
+
+        // &:not(.bib):not(.glossary):hover
+        // {
+        //     cursor: pointer;
+        //     color: $color-background;
+        //     border-bottom: none;// 1px solid $color-secondary-intent;
+        //     background: $color-secondary;
+        //     background: $color-secondary-intent;
+        // }
         &.glossary{
             font-weight: 800;
         }

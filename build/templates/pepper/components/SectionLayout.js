@@ -9,6 +9,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _reactTooltip = _interopRequireDefault(require("react-tooltip"));
+
 var _NotesContainer = _interopRequireDefault(require("../../../components/NotesContainer"));
 
 var _NavFooter = _interopRequireDefault(require("./NavFooter"));
@@ -133,7 +135,10 @@ function (_Component) {
         prevItem: prevItem,
         nextItem: nextItem,
         title: metadata.title
-      })));
+      })), _react.default.createElement(_reactTooltip.default, {
+        id: "tooltip",
+        effect: "solid"
+      }));
     }
   }]);
 

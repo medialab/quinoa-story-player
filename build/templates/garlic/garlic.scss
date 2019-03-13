@@ -22,6 +22,10 @@ $color-secondary: #f32e36; // fresh red
 $color-secondary-intent: #87240e; // bordeaux red
 $color-background: #fdfff8; // cream
 $color-secondary-background: rgba(255,255,255,.8);// white desopacified
+
+$color-external-link: lightblue;
+$color-glossary: lightgreen;
+
 // #e5e7e6;
 $color-primary-background: #f4f4f4;
 $color-strokes: #dddbd9;
@@ -462,6 +466,9 @@ $timer-long: 1s;
     }
     .content-figure.video
     {
+        > div{
+            min-width: 100%;
+        }
         iframe
         {
             min-height: 15em;
@@ -579,7 +586,10 @@ $timer-long: 1s;
         padding-top: $gutter-small;
         padding-right: $gutter-large;
         padding-bottom: $gutter-medium;
-        padding-left: $gutter-medium;
+        padding-left: $gutter-medium * 2.5;
+        @media screen and (max-width: 700px) {
+            padding-left: 0;
+        }
     }
     /**
      * Interctive table layout
@@ -1196,6 +1206,15 @@ $timer-long: 1s;
             border-bottom: none;// 1px solid $color-secondary-intent;
             background: $color-secondary;
             // background: $color-secondary-intent;
+        }
+        &.glossary{
+            border-bottom: 1px solid $color-glossary;
+        }
+        &.bib{
+            border-bottom: none;
+        }
+        &.webpage{
+            border-bottom: 1px solid $color-external-link;
         }
     }
     /**
