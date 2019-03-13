@@ -1590,13 +1590,14 @@ $timer-long: 1s;
           }
         }
 
+        .section-footer,
+        .nav-footer,
         .__react_component_tooltip
         {
-            display: none;
+            display: none!important;
         }
 
         .section-header,
-        .section-footer,
         .notes-container,
         .references-container,
         .glossary-container,
@@ -1628,6 +1629,7 @@ $timer-long: 1s;
         .notes-container
         {
             page-break-inside: avoid;
+            left: 0!important;
             .note-item{
                 top: unset!important;
                 position: relative!important;
@@ -1653,13 +1655,27 @@ $timer-long: 1s;
                 width: 100%;
                 height: 99%;
 
-                display: flex;
-                flex-flow: column nowrap;
-                align-items : center;
-                justify-content: center;
+                // display: flex;
+                // flex-flow: column nowrap;
+                // align-items : center;
+                // justify-content: center;
+                position: relative;
 
                 .header-contents{
                     padding: 1cm!important;
+                }
+                .first-item-link{
+                    display: none;
+                }
+                .header-story-abstract{
+                    font-size: 12px;
+                }
+                .story-global-info-container,
+                .header-toc-container{
+                    max-width: 100%;
+                }
+                .table-of-contents-item{
+                    font-size: 12px;
                 }
                 page: header;
         }
