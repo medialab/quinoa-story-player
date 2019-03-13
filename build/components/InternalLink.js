@@ -27,11 +27,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var InternalLink = function InternalLink(_ref, _ref2) {
   var data = _ref.data,
       children = _ref.children;
-  var onInternalLinkClick = _ref2.onInternalLinkClick;
+  var onInternalLinkClick = _ref2.onInternalLinkClick,
+      InternalLinkProvider = _ref2.InternalLinkProvider;
 
   var handleClick = function handleClick() {
     onInternalLinkClick(data.sectionId);
   };
+
+  if (typeof InternalLinkProvider === 'function') {
+    return _react.default.createElement(InternalLinkProvider, {
+      to: data
+    }, children);
+  }
 
   return _react.default.createElement("span", {
     onClick: handleClick,
@@ -61,7 +68,8 @@ InternalLink.contextTypes = {
   /**
    * Callbacks when a glossary mention is clicked
    */
-  onInternalLinkClick: _propTypes.default.func
+  onInternalLinkClick: _propTypes.default.func,
+  InternalLinkProvider: _propTypes.default.func
 };
 var _default = InternalLink;
 exports.default = _default;

@@ -1,6 +1,13 @@
 import { getStyles } from 'quinoa-schemas';
 import resourceToCSLJSON from './resourceToCSLJSON';
 
+export const abbrevString = (str, limit = 30) => {
+  if (str.length > limit) {
+    return str.substr(0, limit - 3) + '...';
+  }
+  return str;
+};
+
 export const buildCoverImage = (story) => {
     const {
       resources,

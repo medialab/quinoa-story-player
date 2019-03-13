@@ -1,0 +1,2010 @@
+/**
+ * quinoa-story-player garlic template style definitions
+ * ============
+ */
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,700,700i,900');
+@import url('https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Roboto:400,400i,700,700i,900');
+/**
+ * Template-specific reusable elements (variables, mixins, abstract classes)
+ */
+
+// 1. variables
+$gutter-small: .8rem;
+$gutter-medium: $gutter-small * 1.666;
+$gutter-large: $gutter-medium * 3;
+$gutter-lateral-large-screens: 25%;
+$gutter-lateral-small-screens: $gutter-large;
+$color-primary: #414e4d; // blued dark grey
+$color-secondary: #f32e36; // fresh red
+$color-secondary-intent: #87240e; // bordeaux red
+$color-background: #fdfff8; // cream
+$color-secondary-background: rgba(255,255,255,.8);// white desopacified
+// #e5e7e6;
+$color-primary-background: #f4f4f4;
+$color-strokes: #dddbd9;
+$color-header-container: #fdfff8;// rgba(0,0,0,.5);
+$color-header-container-intent: #fdfff8;//rgba(0,0,0,.7);
+$color-interactive-item-active-background: #d6cfc4;
+$color-interactive-item-intent-background: #d6cfc4;
+$font-size-0: $gutter-small * .8;
+$font-size-1: $gutter-small * 1.1;
+$font-size-2: $font-size-1 * 1.6;
+$font-size-3: $font-size-2 * 1.6;
+$font-size-4: $font-size-3 * 1.6;
+$font-size-5: $font-size-4 * 1.6;
+$burger-measure: $font-size-2;
+$font-stack-serif: 'Merriweather', serif;
+$font-stack-sans-serif: 'Roboto', serif;
+$timer-short: 100ms;
+$timer-medium: 500ms;
+$timer-long: 1s;
+
+// 2. mixins
+@mixin transition($args...)
+{
+    -webkit-transition: $args;
+       -moz-transition: $args;
+        -ms-transition: $args;
+         -o-transition: $args;
+            transition: $args;
+}
+// 3. abstract classes
+.absolute-fill
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.interactive-item
+{
+    cursor: pointer;
+}
+.interactive-item-intent
+{
+    color: $color-primary;
+    background: $color-strokes;
+}
+
+.interactive-item-active
+{
+    color: $color-primary;
+    background: $color-interactive-item-active-background;
+}
+
+.interactive-item-active-intent
+{
+    color: $color-primary;
+    background: $color-interactive-item-intent-background;
+}
+/**
+ * template styling
+ */
+.quinoa-story-player
+{
+    /**
+     * Root element
+     */
+    font-family: $font-stack-serif;
+
+    display: flex;
+    overflow: hidden;
+
+    color: $color-primary;
+    background: $color-background;
+
+    align-items: stretch;
+    flex-flow: column nowrap;
+    @extend .absolute-fill;
+
+    /**
+     * ========================================
+     * LAYOUT RULES (positionning, margins, padding)
+     * ========================================
+     */
+
+    /**
+     * global wrapper layout
+     */
+    .wrapper
+    {
+        overflow: auto;
+
+        width: 100%;
+        height: 100%;
+    }
+    /**
+     * body wrapper contains everything but the nav and the header background
+     */
+    .body-wrapper
+    {
+        position: relative;
+
+        width: 100%;
+        min-height: 100%;
+        padding-top: $gutter-medium;
+    }
+    /**
+     * Content wrapper layout
+     */
+    .contents-wrapper
+    {
+        @extend .absolute-fill;
+    }
+
+    /**
+      * General layout rules for contents blocks elements
+      */
+    .content-h1,
+    .content-h2,
+    .content-h3,
+    .content-h4,
+    .content-h5,
+    .content-h6,
+    .content-p,
+    .content-ul,
+    .content-ol,
+    .content-blockquote,
+    .content-pre
+    {
+        margin-right: $gutter-lateral-large-screens;
+        margin-bottom: $gutter-medium;
+        margin-left: $gutter-lateral-large-screens;
+    }
+
+    .content-ul.ul-level-1,
+    .content-ul.ul-level-2,
+    .content-ul.ul-level-3,
+    .content-ul.ul-level-4,
+    .content-ul.ul-level-5,
+    .content-ul.ul-level-6,
+    .content-ol.ol-level-1,
+    .content-ol.ol-level-2,
+    .content-ol.ol-level-3,
+    .content-ol.ol-level-4,
+    .content-ol.ol-level-5,
+    .content-ol.ol-level-6
+    {
+        margin: 0;
+        padding: 0;
+    }
+    .content-ol.ol-level-1,
+    .content-ul.ul-level-1
+    {
+        padding-left: $gutter-small * 1;
+    }
+    .content-ol.ol-level-2,
+    .content-ul.ul-level-2
+    {
+        padding-left: $gutter-small * 2;
+    }
+    .content-ol.ol-level-3,
+    .content-ul.ul-level-3
+    {
+        padding-left: $gutter-small * 3;
+    }
+    .content-ol.ol-level-4,
+    .content-ul.ul-level-4
+    {
+        padding-left: $gutter-small * 4;
+    }
+    .content-ol.ol-level-5,
+    .content-ul.ul-level-5
+    {
+        padding-left: $gutter-small * 5;
+    }
+    .content-ol.ol-level-6,
+    .content-ul.ul-level-6
+    {
+        padding-left: $gutter-small * 6;
+    }
+    /**
+     * pre layout
+     */
+    .content-pre
+    {
+        overflow: hidden;
+        overflow-x: auto;
+
+        padding: $gutter-medium;
+
+        background: $color-secondary-background;
+    }
+    /**
+     * blockquote layout
+     */
+    .content-blockquote
+    {
+        padding: $gutter-medium;
+    }
+
+    /**
+     * Story header container layout
+     */
+    .header-container
+    {
+        position: relative;
+        top: 0;
+        left: 0;
+
+        display: flex;
+
+        height: auto;
+        max-height: 100%;
+
+        align-items: center;
+        flex-flow: row nowrap;
+        @extend .absolute-fill;
+
+        // &.with-cover
+        // {
+            height: 100%;
+        // }
+    }
+
+    /**
+     * Headers contents layout
+     */
+    .header-contents
+    {
+        .story-global-info-container,
+        .header-toc-container{
+            flex: 1;
+            max-width: 50%;
+            padding: $gutter-medium;
+            @media screen and (max-width: 700px){
+                max-width: 100%;
+            }
+        }
+
+        .header-toc-container{
+            font-family: $font-stack-sans-serif;
+        }
+
+        .first-item-link{
+            margin-top: $gutter-medium;
+            margin-bottom: $gutter-medium;
+            .internal-link{
+                padding-bottom: 0;
+            }
+            // font-size: $font-size-3;
+        }
+    }
+    /**
+     * Header contents when cover image layout
+     */
+    .header-container .header-contents
+    {
+        display: flex;
+
+        width: 100%;
+        height: 100%;
+        margin: 0;
+
+        flex-flow: row nowrap;
+        justify-content: center;
+    }
+    /**
+     * Header titles layout
+     */
+    .header-story-title,
+    .header-story-subtitle
+    {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    /**
+     * header story title layout
+     */
+    .header-story-title
+    {
+        margin-top: 0;
+        margin-bottom: $gutter-small;
+    }
+    /**
+     * header story subtitle layout
+     */
+    .header-story-subtitle
+    {
+        margin-top: 0;
+        margin-bottom: $gutter-small;
+    }
+    /**
+     * Nav layout
+     */
+    .nav
+    {
+        z-index: 3;
+
+        display: flex;
+        overflow-x: hidden;
+
+        width: $gutter-lateral-large-screens * .8;
+        height: 100%;
+        padding: 0;
+
+        flex-flow: column nowrap;
+        justify-content: stretch;
+        @extend .absolute-fill;
+    }
+    /**
+     * Nav content layout
+     */
+    .nav-content
+    {
+        display: flex;
+        overflow: hidden;
+
+        padding: $gutter-medium;
+
+        flex-flow: column nowrap;
+        justify-content: stretch;
+        flex: 1;
+    }
+
+
+    /**
+     * Main column containers layout
+     */
+    .section-header,
+    .section-footer,
+    .notes-container,
+    .references-container,
+    .glossary-container
+    {
+        margin-right: $gutter-lateral-large-screens;
+        margin-left: $gutter-lateral-large-screens;
+    }
+    .section-body,
+    .glossary-mentions-container
+    {
+        min-height: 75vh;
+    }
+    /**
+     * Table of contents layout
+     */
+    .table-of-contents
+    {
+        overflow: auto;
+
+        margin: 0;
+        padding: 0;
+
+        flex: 1;
+    }
+    /**
+      * Table of contents title layout
+      */
+    .table-of-contents-title
+    {
+        margin-top: 0;
+    }
+    /**
+     * Table of contents item layout
+     */
+    .table-of-contents-item
+    {
+        margin: 0;
+        padding: 0;
+        padding-bottom: $gutter-small / 2;
+        &:hover
+        {
+            opacity: 1;
+        }
+        &.level-1
+        {
+            padding-left: 0;
+        }
+        &.level-2
+        {
+            padding-left: $gutter-small;
+        }
+        &.level-3
+        {
+            padding-left: $gutter-small * 2;
+        }
+        &.level-4
+        {
+            padding-left: $gutter-small * 3;
+        }
+        &.level-5
+        {
+            padding-left: $gutter-small * 4;
+        }
+        &.level-6
+        {
+            padding-left: $gutter-small * 5;
+        }
+    }
+    /**
+     * Section title layout
+     */
+    .section-title
+    {
+        margin-right: 0;
+        margin-bottom: $gutter-medium;
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+
+    /**
+     * Content titles layout
+     */
+    .content-title
+    {
+        margin-top: .5em;// setting a margin relative to font size
+    }
+
+    /**
+     * Content paragraph layout
+     */
+    .content-p:first-of-type
+    {
+        margin-top: $gutter-medium;
+        margin-bottom: 0;
+    }
+    /**
+     * Content figure layout
+     */
+    .content-figure
+    {
+        position: relative;
+        z-index: 3;
+
+        display: flex;
+
+        margin: 0;
+
+        flex-flow: column nowrap;
+        align-items: center;
+    }
+    /**
+     * Figure iframes layout (normalization)
+     */
+    .content-figure iframe
+    {
+        width: 100%;
+        max-width: 100%;
+        height: unset;
+        min-height: 30rem;
+
+        border: none;
+
+        flex: 1;
+    }
+    .content-figure.video
+    {
+        iframe
+        {
+            min-height: 15em;
+        }
+    }
+    /**
+     * Content images layout
+     */
+    .content-image
+    {
+        display: flex;
+
+        width: 100%;
+        height: 70%;
+
+        text-align: center;
+
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+
+         > img
+        {
+            max-width: 100%;
+            max-height: 70vh;
+
+            object-fit: contain;
+        }
+    }
+
+    /**
+     * Figures contents layout
+     */
+    .content-figure.embed,
+    .content-figure.image,
+    .content-figure.video,
+    .content-figure.table
+    {
+        margin-right: $gutter-lateral-large-screens * .8;
+        margin-left: $gutter-lateral-large-screens * .8;
+    }
+
+
+    /**
+     * Media player container layout
+     */
+    .media-player-container
+    {
+        position: relative;
+
+        overflow: hidden;
+
+        max-width: 100%;
+        max-height: 100%;
+        iframe
+        {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+
+    /**
+     * Image contextualization layout
+     */
+    .quinoa-contextualization.image
+    {
+        background: rgba(0,0,0,.05);
+        img
+        {
+            cursor: pointer;
+        }
+    }
+    /**
+     * Embed contextualization container layout
+     */
+    .embed-container
+    {
+        display: flex;
+        overflow: auto;
+
+        width: 100%;
+        min-height: 30rem;
+        max-height: 50rem;
+
+        flex-flow: row nowrap;
+        align-items: stretch;
+        justify-content: stretch;
+    }
+    /**
+     * Figure caption container layout
+     */
+    .figure-caption-container
+    {
+        width: 100%;
+    }
+
+    /**
+     * Figure caption title layout
+     */
+    .figure-caption-title
+    {
+        display: flex;
+
+        margin-top: 0;
+
+        flex-flow: row nowrap;
+        align-items: flex-start;
+    }
+
+    /**
+     * Figure caption content layout
+     */
+    .figure-caption-content
+    {
+        padding-top: $gutter-small;
+        padding-right: $gutter-large;
+        padding-bottom: $gutter-medium;
+        padding-left: $gutter-medium * 5;
+    }
+    /**
+     * Interctive table layout
+     */
+    .ReactTable
+    {
+        max-width: 100%;
+        width: 100%;
+        // margin-right: $gutter-lateral-large-screens;
+        // margin-left: $gutter-lateral-large-screens;
+        .-pagination
+        {
+            height: 5rem;
+        }
+        // height: 30rem;
+        // max-height: 30rem;
+    }
+    /*
+     * References manager layout
+     */
+    .references-manager
+    {
+        @extend .absolute-fill;
+    }
+    /**
+     * Glossary mentions layout
+     */
+    .glossary-mentions-container
+    {
+        padding: 0;
+    }
+    /**
+     * Glossary entry layout
+     */
+    .glossary-entry
+    {
+        margin-bottom: $gutter-medium;
+        padding: 0;
+    }
+    /**
+      * Note container position when notes in position aside
+      */
+    .notes-container-position-aside
+    {
+        position: absolute;
+        top: 0;
+        right: -$gutter-lateral-large-screens * .8;
+
+        width: $gutter-lateral-large-screens * .7;
+    }
+    /**
+      * Notes list styling
+      */
+    .notes-list
+    {
+        padding: 0;
+    }
+    /**
+     * Note item layout
+     */
+    .note-item
+    {
+        position: relative;
+
+        display: flex;
+        overflow: visible;
+
+        // margin-bottom: $gutter-medium;
+        // padding-bottom: $gutter-small;
+
+        flex-flow: row nowrap;
+        align-items: flex-start;
+        justify-content: stretch;
+        .contents-container
+        {
+            margin-left: $gutter-small;
+
+            flex: 1;
+            //  > *
+            // {
+            //     display: inline;
+            // }
+        }
+        .content-h1,
+        .content-h2,
+        .content-h3,
+        .content-h4,
+        .content-h5,
+        .content-h6,
+        .content-p,
+        .content-ul,
+        .content-ol,
+        .content-blockquote,
+        .content-pre
+        {
+            margin-top: 0;
+            margin-right: 0;
+            margin-left: 0;
+        }
+    }
+    /**
+     * Note pointers layout
+     */
+    .note-content-pointer,
+    .note-block-pointer
+    {
+        display: inline-block;
+
+        width: $font-size-2 * 1.4*.5;
+        height: $font-size-2 * 1.4*.5;
+    }
+    /**
+     * Note content pointer layout
+     */
+    .note-content-pointer
+    {
+        position: relative;
+        top: -$gutter-small * .5;
+
+        margin-left: 0;//$gutter-small * .5;
+
+        transform: scale(.8);
+    }
+    /**
+     * Bottom elements layout
+     */
+    .references-container,
+    .glossary-container,
+    .notes-container
+    {
+        margin-bottom: $gutter-medium;
+    }
+    /**
+     * Citation entry layout
+     */
+    .csl-entry
+    {
+        margin-bottom: $gutter-medium;
+    }
+    /**
+     * Index toggle layout
+     */
+
+    .index-toggle
+    {
+        margin: 0;
+        padding: 0;
+
+        pointer-events: none;
+    }
+
+    /**
+     * Info pill layout
+     */
+    .info-pill
+    {
+        display: flex;
+
+        width: 1rem;
+        height: 1rem;
+        margin-left: $gutter-small;
+
+        border-radius: 50%;
+
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+    }
+    /**
+     * Info source in tooltip layout
+     */
+    .info-source
+    {
+        margin-top: $gutter-medium;
+    }
+
+
+    @media screen and (max-width: 700px)
+    {
+        /**
+          * General layout rules for contents blocks elements
+          */
+        .content-h1,
+        .content-h2,
+        .content-h3,
+        .content-h4,
+        .content-h5,
+        .content-h6,
+        .content-p,
+        .content-ul,
+        .content-ol,
+        .content-blockquote,
+        .content-pre,
+        // .header-contents,
+        .section-header,
+        .section-footer,
+        .notes-container,
+        .glossary-container,
+        .references-container,
+        // .content-figure.embed,
+        .content-figure.image,
+        .content-figure.video,
+        .ReactTable
+        {
+            margin-right: $gutter-lateral-small-screens;
+            margin-left: $gutter-lateral-small-screens;
+        }
+
+        .nav
+        {
+            width: 66%;
+        }
+    }
+
+
+
+
+    /**
+     * ========================================
+     * STYLING RULES (colors, background, fontsizes, transition, pointer-event)
+     * ========================================
+     */
+
+
+    *::selection
+    {
+        color: $color-background;
+        background: $color-secondary;
+    }
+    *::-moz-selection
+    {
+        color: $color-background;
+        background: $color-secondary;
+    }
+    /**
+     * Resets
+     */
+    strong,
+    em,
+    a
+    {
+        word-break: break-all;
+
+        color: inherit;
+    }
+    strong > em,
+    em > strong
+    {
+        font-weight: 900;
+        font-style: italic;
+    }
+
+    /**
+     * Titles general styling
+     */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6
+    {
+        font-family: $font-stack-sans-serif;
+        font-weight: 900;
+    }
+    /**
+     * Content blockquote styling
+     */
+    .content-blockquote
+    {
+        font-size: $font-size-1;
+
+        border-left: 2px solid $color-strokes;
+    }
+    /**
+     * Content pre styling
+     */
+    .content-pre
+    {
+        font-size: $font-size-1;
+
+        background: $color-secondary-background;
+    }
+    /**
+     * Content paragraphs and list elements styling
+     */
+    .content-p,
+    .content-li
+    {
+        font-size: $font-size-1;
+        line-height: $font-size-1 * 1.66;
+    }
+
+    /**
+     * Figure caption content styling
+     */
+    // .figure-caption-content
+    // {
+    //     font-size: $font-size-1;
+
+    //     opacity: .7;
+    // }
+    /**
+     * Info pill styling
+     */
+    .info-pill
+    {
+        font-family: $font-stack-serif;
+        font-size: $font-size-0 * .7;
+
+        color: $color-background;
+        background: $color-primary;
+    }
+
+    /**
+     * Info tooltip container styling
+     */
+    .info-container
+    {
+        font-size: $font-size-0;
+    }
+
+
+    /**
+     * Figure caption title styling
+     */
+    .figure-caption-title
+    {
+        font-size: $font-size-1;
+    }
+
+    /**
+     * Interactive table styling
+     */
+    .ReactTable
+    {
+        font-size: $font-size-1;
+    }
+
+
+    /**
+     * Specific elements
+     */
+    /**
+     * Header styling
+     */
+    .header-container
+    {
+        position: fixed;
+        left: 0;
+        top: 0;
+
+        .header-contents
+        {
+            cursor: pointer;
+
+            // color: $color-background;
+            background: inherit; // $color-header-container;
+
+            justify-content: flex-start;
+            display: flex;
+            flex-flow: row nowrap;
+            @media screen and (max-width: 700px) {
+                flex-direction: column;
+            }
+            overflow-y: auto;
+
+            .table-of-contents{
+                overflow: hidden;
+            }
+        }
+
+        &.with-cover
+        {
+            // cursor: pointer;
+
+            background: $color-header-container;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 4;
+            .header-contents{
+                background: rgba(0,0,0,0.8);
+                color: $color-background;
+            }
+            
+        }
+    }
+    /**
+     * Header content styling
+     */
+    .header-contents
+    {
+        padding-left: $gutter-medium;
+        padding-right: $gutter-medium;
+        @include transition($timer-medium all  ease);
+    }
+
+    /**
+     * Contents wrapper styling
+     */
+    .contents-wrapper
+    {
+        font-size: $font-size-2;
+
+        padding-top: $gutter-medium;
+
+        text-rendering: optimizeLegibility;
+    }
+    /**
+     * Header story title styling
+     */
+    .header-story-title
+    {
+        font-size: $font-size-4;
+    }
+    /**
+     * Header subtitle styling
+     */
+    .header-story-subtitle
+    {
+        font-size: $font-size-3;
+        font-variant: italic;
+    }
+    /**
+     * Header authors styling
+     */
+    .header-story-authors
+    {
+        font-size: $font-size-2;
+        font-style: italic;
+
+        opacity: .8;
+    }
+
+    .header-story-abstract{
+        font-size: $font-size-2;
+        margin: 0;
+        padding: 0;
+        margin-top: $gutter-medium;
+    }
+
+    .header-toc-container {
+        .toc-title{
+            margin-top: $gutter-medium;
+        }
+        // .table-of-contents{
+        // }
+        .table-of-contents-item{
+            list-style-type: none;
+            font-size: $font-size-2;
+        }
+    }
+
+    /**
+     * Nav footer styling
+     */
+    .nav-footer{
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: stretch;
+        align-items: flex-start;
+
+        li{
+            list-style-type: none;
+            margin: 0;
+            max-width: 25%;
+            min-width: 25%;
+            &:last-of-type{
+                text-align: right;
+            }
+        }
+        .internal-link{
+            font-size: $font-size-1;
+        }
+        .current-title{
+            flex: 1;
+            min-width: 50%;
+            max-width: 50%;
+            text-align: center;
+            h5{
+                margin: 0;
+            }
+        }
+
+        @media screen and (max-width:700px){
+            flex-direction: column;
+            li{
+                max-width: 100%;
+                text-align: right;
+                min-width: 100%;
+            }
+            .prev-container{
+                display: none;
+            }
+            .internal-link{
+                font-size: $font-size-2;
+            }
+            .current-title{
+                text-align: left;
+                max-width: 100%;
+                display: none;
+            }
+        }
+    }
+    /**
+     * Nav styling
+     */
+    .nav
+    {
+        font-family: $font-stack-serif;
+
+        pointer-events: none;
+
+        background: $color-background;
+
+        @include transition($timer-medium all  ease);
+
+        &:not(.active)
+        {
+            background: transparent;
+        }
+        &:not(.active){
+        // &:not(.fixed):not(.active){
+            @media screen and (max-width:700px){
+                .table-of-contents{
+                    opacity: 0;
+                    pointer-events: none;
+                }
+                
+            }
+        }
+        &.fixed.active
+        {
+            -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
+                    box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
+        }
+
+        .index-toggle{
+            opacity: 1;
+            cursor: pointer;
+
+            text-align: left;
+            pointer-events: all;
+
+            border: none;
+            outline: none;
+            background: transparent;
+
+            @include transition(all $timer-medium ease);
+            &:hover,
+            &.active
+            {
+                color: $color-secondary-intent;
+            }
+        }
+        &:not(.fixed)
+        {
+            .index-toggle
+            {
+                overflow: hidden;
+                max-height: 0;
+                opacity: 0;
+
+                @media screen and (max-width: 700px){
+                    overflow: visible;
+                    opacity: 1;
+                    pointer-events: all;
+                    max-height: 100%;
+                }
+            }
+        }
+    }
+    /**
+     * Nav content styling
+     */
+    .nav-content
+    {
+        @include transition($timer-medium all  ease);
+    }
+    /**
+     * Table of contents styling
+     */
+    .table-of-contents
+    {
+        font-size: $font-size-1;
+
+        pointer-events: all;
+
+        @include transition($timer-medium all  ease);
+    }
+    /**
+     * Table of contents title styling
+     */
+    .table-of-contents-title-container
+    {
+        -webkit-transition-delay: 1s;
+                transition-delay: 1s;
+        pointer-events: all;
+
+        opacity: 1;
+
+        @include transition($timer-medium all ease);
+        @extend .interactive-item;
+        @include transition(all $timer-medium ease);
+        &:hover
+        {
+            color: $color-secondary-intent;
+        }
+    }
+    .internal-link,
+    .internal-link:active,
+    .internal-link:visited{
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+    }
+    /**
+     * Table of contents item styling
+     */
+     .table-of-contents-item .internal-link
+    {
+        list-style: none;
+
+        cursor: pointer;
+
+        opacity: .6;// todo: parametrize that
+
+        @include transition(all $timer-medium ease);
+
+        &.active
+        {
+            opacity: 8;// todo: parametrize that
+            .link-content
+            {
+                color: $color-secondary-intent;
+            }
+        }
+    }
+    /**
+     * Table of contents link styling
+     */
+    .table-of-contents-link
+    {
+        text-decoration: none;
+
+        color: $color-primary;
+
+        @include transition(all $timer-medium ease);
+        &:hover,
+        &.active
+        {
+            color: $color-secondary-intent;
+        }
+    }
+
+    /**
+     * Titles styling for level 1 sections
+     */
+    .is-level-1 .section-title
+    {
+        font-size: $font-size-4;
+
+        &.notes-title{
+            font-size: $font-size-3;
+        }
+    }
+
+    .is-level-1 .content-h1
+    {
+        font-size: $font-size-3 * 1.3;
+    }
+    .is-level-1 .content-h2
+    {
+        font-size: $font-size-3;
+    }
+    .is-level-1 .content-h3,
+    .is-level-1 .content-h4,
+    .is-level-1 .content-h5,
+    .is-level-1 .content-h6
+    {
+        font-size: $font-size-2;
+    }
+    /**
+     * Titles styling for level 2 sections
+     */
+    .is-level-2 .section-title
+    {
+        font-size: $font-size-3;
+    }
+
+    .is-level-2 .content-h1
+    {
+        font-size: $font-size-2 * 1.3;
+    }
+    .is-level-2 .content-h2
+    {
+        font-size: $font-size-2;
+    }
+    .is-level-2 .content-h3,
+    .is-level-2 .content-h4,
+    .is-level-2 .content-h5,
+    .is-level-2 .content-h6
+    {
+        font-size: $font-size-1 * 1.5;
+    }
+    /**
+     * Titles styling for level 3 sections
+     */
+    .is-level-3 .section-title
+    {
+        font-size: $font-size-2 * 1.3;
+    }
+    .is-level-3 .content-h1
+    {
+        font-size: $font-size-2;
+    }
+    .is-level-3 .content-h2
+    {
+        font-size: $font-size-1 * 1.3;
+    }
+    .is-level-3 .content-h3,
+    .is-level-3 .content-h4,
+    .is-level-3 .content-h5,
+    .is-level-3 .content-h6
+    {
+        font-size: $font-size-1 * 1.1;
+    }
+
+    /**
+     * Links styling
+     */
+    .contents-wrapper .content-a,
+    .contents-wrapper .internal-link,
+    .glossary-mention,
+    .glossary-mention-backlink,
+    .quinoa-contextualization.bib,
+    .csl-entry a
+    {
+        line-height: 1.3em;
+
+        position: relative;
+
+        text-decoration: none;
+        cursor: text;
+        font-variant: italic;
+
+        color: inherit;
+        outline: none;
+
+        @include transition(all .5s ease);
+        u
+        {
+            text-decoration: none!important;
+        }
+        &:not(.bib):not(.glossary):hover
+        {
+         border-bottom: 1px solid $color-secondary;
+            cursor: pointer;
+            color: $color-background;
+            border-bottom: none;// 1px solid $color-secondary-intent;
+            background: $color-secondary;
+            // background: $color-secondary-intent;
+        }
+        &.glossary{
+            font-weight: 800;
+        }
+    }
+    /**
+     * Glossary title styling
+     */
+    .glossary-title
+    {
+        font-size: $font-size-3;
+    }
+
+    /**
+     * Glossary entry styling
+     */
+    .glossary-entry
+    {
+        font-size: $font-size-1;
+
+        list-style-type: none;
+    }
+    /**
+     * Glossary entry title styling
+     */
+    .glossary-entry-title
+    {
+        font-family: $font-stack-serif;
+        font-size: $font-size-1;
+    }
+
+    /**
+     * Note item styling
+     */
+    .note-item
+    {
+        list-style-type: none;
+
+        opacity: .8;
+        padding-bottom: $gutter-medium;
+        // .content-p,
+        // .content-ul,
+        // .content-ol
+        // {
+            // font-size: $font-size-1;
+            // line-height: $font-size-1 * 1.66;
+        // }
+    }
+
+    /**
+     * Note pointers styling
+     */
+    .note-content-pointer,
+    .note-block-pointer
+    {
+        font-size: $font-size-1*.5;
+        line-height: $font-size-1*2.3*.5;
+
+        cursor: pointer;
+        text-align: center;
+        vertical-align: middle;
+
+        color: $color-background;
+        border-radius: 50%;// todo: parametrize that
+        background: $color-secondary;
+        &:hover
+        {
+            background: $color-secondary-intent;
+        }
+    }
+
+    /**
+     * tooltip content layout
+     */
+    .tooltip-content
+    {
+        font-size: $font-size-1 * .9;
+    }
+
+    /**
+     * Citation entry layout
+     */
+    .csl-entry
+    {
+        font-size: $font-size-1;
+    }
+
+    /**
+     * Burger menu styling
+     */
+    #burger-menu
+    {
+        position: relative;
+
+        display: inline-block;
+
+        width: $burger-measure;
+        height: $burger-measure;
+
+        cursor: pointer;
+        -webkit-transition: .5s ease-in-out;
+           -moz-transition: .5s ease-in-out;
+             -o-transition: .5s ease-in-out;
+                transition: .5s ease-in-out;
+        -webkit-transform: rotate(0deg);
+           -moz-transform: rotate(0deg);
+             -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+        pointer-events: all;
+
+        span
+        {
+            position: absolute;
+            left: 0;
+
+            display: block;
+
+            width: 100%;
+            height: $burger-measure/5;
+
+            -webkit-transition: .25s ease-in-out;
+               -moz-transition: .25s ease-in-out;
+                 -o-transition: .25s ease-in-out;
+                    transition: .25s ease-in-out;
+            -webkit-transform: rotate(0deg);
+               -moz-transform: rotate(0deg);
+                 -o-transform: rotate(0deg);
+                    transform: rotate(0deg);
+
+            opacity: 1;
+            border-radius: $burger-measure/30;
+            background: $color-secondary;
+            &:nth-child(1),
+            &:nth-child(2)
+            {
+                top: 0;
+            }
+            &:nth-child(3)
+            {
+                top: $burger-measure * .333;
+            }
+            &:nth-child(4)
+            {
+                top: $burger-measure * .666;
+            }
+        }
+        &.open
+        {
+            span
+            {
+                background: $color-secondary-intent;
+                &:nth-child(1)
+                {
+                    top: $burger-measure/3;
+                    left: 50%;
+
+                    width: 0;
+                }
+                &:nth-child(2)
+                {
+                    -webkit-transform: rotate(45deg)translateX(25%);
+                       -moz-transform: rotate(45deg)translateX(25%);
+                         -o-transform: rotate(45deg)translateX(25%);
+                            transform: rotate(45deg)translateX(25%);
+                }
+                &:nth-child(3)
+                {
+                    -webkit-transform: rotate(-45deg)translateX(25%);
+                       -moz-transform: rotate(-45deg)translateX(25%);
+                         -o-transform: rotate(-45deg)translateX(25%);
+                            transform: rotate(-45deg)translateX(25%);
+                }
+                &:nth-child(4)
+                {
+                    top: $burger-measure/3;
+                    left: 50%;
+
+                    width: 0;
+                }
+            }
+        }
+    }
+
+    /**
+     * =============================================
+     * Form styles
+     * =============================================
+     */ 
+    
+    .ReactTable {
+        input, textarea, select {
+            background-color: rgba(255,255,255,.2);
+        }
+    }
+
+    /**
+     * =============================================
+     * PRINT CSS STYLING
+     * =============================================
+     */
+    @media print
+    {
+        position: relative!important;
+        top: unset!important;
+        left: unset!important;
+
+        display: block!important;
+        overflow: visible!important;
+
+        width: unset!important;
+        height: 100%;
+        margin: 0!important;
+        padding: 0!important;
+
+        background: white!important;
+
+        @page
+        {
+            margin: 2cm;
+            @bottom-center {
+                font-weight: bold;
+                font-size: 2em;
+                content: counter(page);
+          }
+        }
+
+        .__react_component_tooltip
+        {
+            display: none;
+        }
+
+        .section-header,
+        .section-footer,
+        .notes-container,
+        .references-container,
+        .glossary-container,
+        .content-h1,
+        .content-h2,
+        .content-h3,
+        .content-h4,
+        .content-h5,
+        .content-h6,
+        .content-p,
+        .content-ul,
+        .content-ol,
+        .content-blockquote,
+        .content-pre,
+        .header-contents
+        {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        .content-pre{
+            background: rgba(0,0,0,0.1);
+        }
+
+        .note-content-pointer{
+            background: inherit;
+            color: inherit;
+        }
+        .notes-container
+        {
+            page-break-inside: avoid;
+            .note-item{
+                top: unset!important;
+                position: relative!important;
+                margin-bottom: 15px;
+                .note-block-pointer{
+                    color: inherit;
+                    background: inherit;
+                    line-height: 18px;
+                    font-size: 11px;
+                }
+                .note-block-pointer:after{
+                    content: ".";
+                }
+            }
+        }
+
+        .header-container
+        {
+            
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 99%;
+
+                display: flex;
+                flex-flow: column nowrap;
+                align-items : center;
+                justify-content: center;
+
+                .header-contents{
+                    padding: 1cm!important;
+                }
+                page: header;
+        }
+
+        @page header{
+            margin: 0!important;
+        }
+
+        .header-contents
+        {
+            // padding-top: 4cm;/* todo wtf */
+
+            // page-break-after: always;
+
+            .header-story-title,
+            .header-story-subtitle,
+            .header-authors{
+                color: black;
+            }
+            .header-story-title
+            {
+                font-size: 50px!important;
+            }
+            .header-story-subtitle
+            {
+                font-size: 30px!important;
+            }
+            .header-authors
+            {
+                font-size: 15px!important;
+            }
+        }
+
+        .nav,
+        .aside-edition-container,
+        .button,
+        .editor-footer,
+        .icon
+        {
+            display: none!important;
+        }
+        div,
+        p,
+        figure,
+        section,
+        blockquote
+        {
+            position: relative!important;
+            top: unset!important;
+            left: unset!important;
+
+            display: block!important;
+            overflow: visible!important;
+
+            width: unset!important;
+            height: unset!important;
+            margin: 0!important;
+            padding: 0!important;
+
+            background: white!important;
+        }
+        figure
+        {
+            align-items: stretch!important;
+            justify-content: stretch!important;
+        }
+
+        .note-content-pointer
+        {
+            font-size: $font-size-0;
+
+            width: auto;
+            height: auto;
+            margin: 0;
+        }
+
+        .content-p,
+        .content-li,
+        .content-blockquote
+        {
+            font-size: 13px!important;
+            line-height: 16px!important;
+
+            margin-bottom: 18px!important;
+        }
+
+        .note-item
+        {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .note-item .content-p
+        {
+            margin-bottom: 0!important;
+        }
+        .content-blockquote
+        {
+            position: relative;
+
+            padding: $gutter-small!important;
+            background: rgba(0,0,0,0.1);
+            // padding: $gutter-large;
+
+            quotes: '« ' ' »' '‹ ' ' ›';
+            &:before
+            {
+                position: absolute;
+                top: $gutter-small * 0.2;
+                left: $gutter-small * 0.2;
+
+                content: open-quote;
+            }
+            &:after
+            {
+                position: absolute;
+                right: $gutter-small * 0.2;
+                bottom: $gutter-small * 0.2;
+
+                content: close-quote;
+            }
+        }
+
+        .quinoa-contextualization.block{
+            background: rgba(0,0,0,0.1)!important;
+            &.embed{
+                background: white!important;
+            }
+            &.image{
+                img{
+                    max-height: 5cm;
+                }
+            }
+            &.video
+            {
+                min-height: 3cm;
+                position: relative;
+                &:after{
+                    content: "🎞";
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                }
+            }
+            &.table{
+                page-break-inside: avoid;
+                .rt-table{
+                    overflow: hidden!important;
+                    width: 100%!important;
+                }
+                .rt-tr{
+                    display: flex!important;
+                    flex-flow: row nowrap!important;
+                    justify-content : stretch;
+                    width: 100%!important;
+                    overflow: hidden!important;
+                    &.-odd{
+                        background: rgba(0,0,0,0.05)!important; 
+                    }
+                    .rt-th{
+                        width: 100px!important;
+                        &:nth-child(odd) {
+                            .rt-resizable-header-content{
+                                background: rgba(0,0,0,0.05)!important;
+                            }
+                        }
+                        flex: 1;
+                    }
+                    .rt-td{
+                        flex: 1;
+                        width: 100px!important;
+                        white-space: unset!important;
+                        &:nth-child(odd) {
+                            
+                                background: rgba(0,0,0,0.05)!important;
+                        }                        
+                    }
+                }
+                .pagination-bottom{
+                    display: none!important;
+                }
+            }
+        }
+        .info-pill{
+            display: none;
+        }
+
+        .csl-entry
+        {
+            font-size: 10px!important;
+
+            margin-bottom: 15px!important;
+        }
+        h1
+        {
+            font-size: 20px!important;
+        }
+        h2
+        {
+            font-size: 18px!important;
+        }
+        h3
+        {
+            font-size: 16px!important;
+        }
+        h4
+        {
+            font-size: 14px!important;
+        }
+        h1,
+        h2,
+        h3,
+        h4
+        {
+            margin-bottom: 14px!important;
+        }
+        iframe
+        {
+            display: none!important;
+        }
+        figcaption
+        {
+            padding: 5px!important;
+
+            background: none;// rgba(0,0,0,.1);
+        }
+
+        .references-manager,
+        .wrapper,
+        .wrapper > div,
+        .wrapper > div > div
+        {
+            height: 100%!important;
+        }
+
+        #modal-root{
+            display: none!important;
+        }
+    }// end print rules
+
+    /**
+     * Image contextualization lightbox layout
+     */
+    .quinoa-contextualization-lightbox-container
+    {
+        position: fixed;
+        z-index: 1000000;
+        top: 0;
+        left: 0;
+
+        display: flex;
+
+        width: 100%;
+        height: 100%;
+
+        cursor: pointer;
+        transition: all .2s ease;
+
+        opacity: 1;
+        background: rgba(0,0,0,.8);
+
+        flex-flow: column nowrap;
+        align-items: center;
+        justify-content: center;
+
+        &.hidden
+        {
+            top: 50%;
+            left: 50%;
+
+            width: 0;
+            height: 0;
+
+            opacity: 0;
+        }
+
+        figure
+        {
+            position: relative;
+
+            overflow: hidden;
+
+            width: 90%;
+            height: 90%;
+        }
+        .lightbox-image-container
+        {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            display: flex;
+
+            width: 100%;
+            height: 100%;
+
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+            img
+            {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
+
+        // img{
+        //     max-height: 100%;
+        //     max-width: 100%;
+        // }
+
+        figcaption
+        {
+            font-size: $font-size-0;
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
+
+            width: 15%;
+            padding: $gutter-small;
+
+            text-align: left;
+
+            color: white;
+            background: rgba(0,0,0,.8);
+
+            .lightbox-description,
+            .lightbox-source
+            {
+                overflow: auto;
+
+                max-height: 20vh;
+                margin-top: $gutter-medium;
+            }
+            @media screen and (max-width: 700px)
+            {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media print
+{
+    html,
+    body,div
+    {
+        height: 100%;
+    }
+}

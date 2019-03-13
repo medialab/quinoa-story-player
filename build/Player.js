@@ -13,6 +13,8 @@ var _reactMeasure = _interopRequireDefault(require("react-measure"));
 
 var _Layout = _interopRequireDefault(require("./templates/garlic/Layout"));
 
+var _Layout2 = _interopRequireDefault(require("./templates/pepper/Layout"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -131,7 +133,7 @@ function (_Component) {
   }, {
     key: "renderComponent",
     value: function renderComponent() {
-      var template = this.state.story && this.state.story.settings && this.state.story.settings.template || 'garlic';
+      var template = this.state.story && this.state.story.settings && this.state.story.settings.templateId || 'garlic';
 
       if (this.state.story && this.state.status === 'loaded') {
         switch (template) {
@@ -139,6 +141,15 @@ function (_Component) {
             return _react.default.createElement(_Layout.default, {
               locale: this.props.locale,
               story: this.state.story,
+              usedDocument: this.props.usedDocument || document,
+              usedWindow: this.props.usedWindow || window
+            });
+
+          case 'pepper':
+            return _react.default.createElement(_Layout2.default, {
+              locale: this.props.locale,
+              story: this.state.story,
+              previewMode: this.props.previewMode,
               usedDocument: this.props.usedDocument || document,
               usedWindow: this.props.usedWindow || window
             });
@@ -192,7 +203,8 @@ function (_Component) {
 
 
 QuinoaStoryPlayer.propTypes = {
-  story: _propTypes.default.object
+  story: _propTypes.default.object,
+  previewMode: _propTypes.default.bool
 };
 /**
  * Component's context properties provided to children

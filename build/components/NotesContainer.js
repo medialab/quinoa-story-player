@@ -88,7 +88,12 @@ function (_Component) {
         var component = _this.props.usedDocument.getElementById('note-content-pointer-' + note.id); // const position = component.getBoundingClientRect();
 
 
-        var position = getOffset(component);
+        var position = {};
+
+        if (component) {
+          position = getOffset(component);
+        }
+
         return {
           order: note.finalOrder,
           noteId: note.id,
@@ -112,10 +117,10 @@ function (_Component) {
         } else {
           y = y + prevHeight;
         } // update prevHeight with current component
+        // const noteItem = this.notes[component.noteId];
+        // prevHeight = noteItem.component.offsetHeight;
+        // update note styles
 
-
-        var noteItem = _this.notes[component.noteId];
-        prevHeight = noteItem.component.offsetHeight; // update note styles
 
         notesStyles[component.noteId] = {
           top: y,
@@ -204,7 +209,7 @@ function (_Component) {
       return _react.default.createElement("div", {
         className: 'notes-container notes-container-position-' + notesPosition
       }, notesPosition !== 'aside' && _react.default.createElement("h2", {
-        className: "section-title",
+        className: "section-title notes-title",
         id: id
       }, _react.default.createElement("span", {
         className: "section-title--modifier"
@@ -221,12 +226,15 @@ function (_Component) {
           _this3.notes[note.id] = noteEl;
         };
 
+        var asideStyle = notesStyles[note.id] || {
+          opacity: 0
+        };
         return _react.default.createElement(_NoteItem.default, {
           key: index,
           note: note,
           onNotePointerClick: onNotePointerClick,
           ref: bindRef,
-          style: _this3.props.notesPosition === 'aside' ? notesStyles[note.id] : {}
+          style: _this3.props.notesPosition === 'aside' ? asideStyle : {}
         });
       })));
     }
