@@ -438,7 +438,7 @@ $timer-long: 1s;
      */
     .content-title
     {
-        margin-top: 1em;// setting a margin relative to font size
+        margin-top: .5em;// setting a margin relative to font size
     }
 
     /**
@@ -670,7 +670,7 @@ $timer-long: 1s;
 
         flex-flow: row nowrap;
         align-items: flex-start;
-        justify-contents: stretch;
+        justify-content: stretch;
         .contents-container
         {
             margin-left: $gutter-small;
@@ -1043,10 +1043,8 @@ $timer-long: 1s;
         .toc-title{
             margin-top: $gutter-medium;
         }
-        .table-of-contents{
-            
-
-        }
+        // .table-of-contents{
+        // }
         .table-of-contents-item{
             list-style-type: none;
             font-size: $font-size-2;
@@ -1231,7 +1229,7 @@ $timer-long: 1s;
 
         @include transition(all $timer-medium ease);
 
-        &.active,
+        &.active
         {
             opacity: 8;// todo: parametrize that
             .link-content
@@ -1340,15 +1338,15 @@ $timer-long: 1s;
     .quinoa-contextualization.bib,
     .csl-entry a
     {
-        cursor: pointer;
         line-height: 1.3em;
 
         position: relative;
 
         text-decoration: none;
+        cursor: text;
+        font-variant: italic;
 
         color: inherit;
-        border-bottom: 1px solid $color-secondary;
         outline: none;
 
         @include transition(all .5s ease);
@@ -1356,12 +1354,17 @@ $timer-long: 1s;
         {
             text-decoration: none!important;
         }
-        &:not(.bib):hover
+        &:not(.bib):not(.glossary):hover
         {
+         border-bottom: 1px solid $color-secondary;
+            cursor: pointer;
             color: $color-background;
             border-bottom: none;// 1px solid $color-secondary-intent;
             background: $color-secondary;
             // background: $color-secondary-intent;
+        }
+        &.glossary{
+            font-weight: 800;
         }
     }
     /**
@@ -1606,7 +1609,7 @@ $timer-long: 1s;
         .content-ol,
         .content-blockquote,
         .content-pre,
-        .header-contents,
+        .header-contents
         {
             margin-right: 0;
             margin-left: 0;
