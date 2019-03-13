@@ -31,7 +31,7 @@ var Nav = function Nav(_ref) {
   return _react.default.createElement("nav", {
     className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
     style: {
-      position: inCover && coverImage ? 'absolut' : 'absolute',
+      position: inCover && coverImage ? 'absolute' : 'absolute',
       left: 0 // opacity: isDisplayed ? 1 : 0,
       // pointerEvents: isDisplayed ? undefined : 'none',
       // marginTop: (inCover && coverImage) || !inCover ? 0 : 0,
@@ -44,14 +44,11 @@ var Nav = function Nav(_ref) {
       maxHeight: menuOpened ? '100%' : 0
     }
   }, _react.default.createElement("button", {
-    className: 'index-toggle ' + (menuOpened ? 'active' : ''),
-    style: {
-      opacity: inCover ? 0 : 1
-    },
+    className: 'index-toggle ' + (indexOpen ? 'active' : ''),
     onClick: onClickToggle
   }, _react.default.createElement("span", {
     id: "burger-menu",
-    className: menuOpened ? 'open' : ''
+    className: indexOpen ? 'open' : ''
   }, _react.default.createElement("span", null), _react.default.createElement("span", null), _react.default.createElement("span", null), _react.default.createElement("span", null))), _react.default.createElement(_TableOfContents.default, {
     onClickTitle: onClickTitle,
     metadata: metadata,

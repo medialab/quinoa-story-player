@@ -24,7 +24,7 @@ const Nav = ({
     <nav
       className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
       style={{
-        position: inCover && coverImage ? 'absolut' : 'absolute',
+        position: inCover && coverImage ? 'absolute' : 'absolute',
         left: 0,
         // opacity: isDisplayed ? 1 : 0,
         // pointerEvents: isDisplayed ? undefined : 'none',
@@ -34,15 +34,12 @@ const Nav = ({
       <div
         className="nav-content"
         style={{
-                        maxHeight: menuOpened ? '100%' : 0
-                      }}>
+          maxHeight: menuOpened ? '100%' : 0
+        }}>
         <button
-          className={'index-toggle ' + (menuOpened ? 'active' : '')}
-          style={{
-                        opacity: inCover ? 0 : 1
-                      }}
+          className={'index-toggle ' + (indexOpen ? 'active' : '')}
           onClick={onClickToggle}>
-          <span id="burger-menu" className={menuOpened ? 'open' : ''}>
+          <span id="burger-menu" className={indexOpen ? 'open' : ''}>
             <span />
             <span />
             <span />

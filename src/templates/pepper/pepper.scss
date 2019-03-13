@@ -808,7 +808,7 @@ $timer-long: 1s;
 
         .nav
         {
-            width: 50%;
+            width: 66%;
         }
     }
 
@@ -1117,14 +1117,18 @@ $timer-long: 1s;
 
         background: $color-background;
 
+        @include transition($timer-medium all  ease);
+
         &:not(.active)
         {
             background: transparent;
         }
-        &:not(.fixed):not(.active){
+        &:not(.active){
+        // &:not(.fixed):not(.active){
             @media screen and (max-width:700px){
                 .table-of-contents{
-                    display: none;
+                    opacity: 0;
+                    pointer-events: none;
                 }
                 
             }
@@ -1134,13 +1138,39 @@ $timer-long: 1s;
             -webkit-box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
                     box-shadow: $gutter-small 0 $gutter-small -2px rgba(0,0,0,.1);
         }
+
+        .index-toggle{
+            opacity: 1;
+            cursor: pointer;
+
+            text-align: left;
+            pointer-events: all;
+
+            border: none;
+            outline: none;
+            background: transparent;
+
+            @include transition(all $timer-medium ease);
+            &:hover,
+            &.active
+            {
+                color: $color-secondary-intent;
+            }
+        }
         &:not(.fixed)
         {
             .index-toggle
             {
                 overflow: hidden;
-
                 max-height: 0;
+                opacity: 0;
+
+                @media screen and (max-width: 700px){
+                    overflow: visible;
+                    opacity: 1;
+                    pointer-events: all;
+                    max-height: 100%;
+                }
             }
         }
     }
@@ -1414,27 +1444,6 @@ $timer-long: 1s;
     .csl-entry
     {
         font-size: $font-size-1;
-    }
-
-    /**
-     * Index toggle styling
-     */
-    .index-toggle
-    {
-        text-align: left;
-        pointer-events: none;
-        pointer-events: all;
-
-        border: none;
-        outline: none;
-        background: transparent;
-
-        @include transition(all $timer-medium ease);
-        &:hover,
-        &.active
-        {
-            color: $color-secondary-intent;
-        }
     }
 
     /**
