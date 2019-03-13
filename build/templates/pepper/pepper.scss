@@ -1354,9 +1354,11 @@ $timer-long: 1s;
         {
             text-decoration: none!important;
         }
+        &:not(.bib):not(.glossary){
+            border-bottom: 1px solid $color-secondary;
+        }
         &:not(.bib):not(.glossary):hover
         {
-         border-bottom: 1px solid $color-secondary;
             cursor: pointer;
             color: $color-background;
             border-bottom: none;// 1px solid $color-secondary-intent;
