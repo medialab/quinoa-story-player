@@ -652,7 +652,7 @@ $timer-long: 1s;
 
         flex-flow: row nowrap;
         align-items: flex-start;
-        justify-contents: stretch;
+        justify-content: stretch;
         .contents-container
         {
             margin-left: $gutter-small;
@@ -1447,6 +1447,7 @@ $timer-long: 1s;
 
         .section-header,
         .section-footer,
+        .nav-footer,
         .notes-container,
         .references,
         .glossary-container,
@@ -1461,7 +1462,7 @@ $timer-long: 1s;
         .content-ol,
         .content-blockquote,
         .content-pre,
-        .header-contents,
+        .header-contents
         {
             margin-right: 0;
             margin-left: 0;

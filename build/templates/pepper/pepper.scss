@@ -1590,13 +1590,13 @@ $timer-long: 1s;
           }
         }
 
+        .section-footer,
         .__react_component_tooltip
         {
-            display: none;
+            display: none!important;
         }
 
         .section-header,
-        .section-footer,
         .notes-container,
         .references-container,
         .glossary-container,
@@ -1628,6 +1628,7 @@ $timer-long: 1s;
         .notes-container
         {
             page-break-inside: avoid;
+            left: 0!important;
             .note-item{
                 top: unset!important;
                 position: relative!important;
