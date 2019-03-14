@@ -11,6 +11,16 @@ var _TableOfContents = _interopRequireDefault(require("./TableOfContents"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var getCurrentView = function getCurrentView(location) {
+  if (location.includes('section')) {
+    return 'section';
+  } else if (location.includes('glossary')) {
+    return 'glossary';
+  } else if (location.includes('references')) {
+    return 'references';
+  } else return 'home';
+};
+
 var Nav = function Nav(_ref) {
   var indexOpen = _ref.indexOpen,
       inCover = _ref.inCover,
@@ -21,9 +31,11 @@ var Nav = function Nav(_ref) {
       toggleIndex = _ref.toggleIndex,
       scrollToElementId = _ref.scrollToElementId,
       toc = _ref.toc,
-      viewType = _ref.viewType;
+      viewType = _ref.viewType,
+      location = _ref.location;
+  var currentView = location ? getCurrentView(location.pathname) : viewType;
 
-  if (viewType === 'home') {
+  if (currentView === 'home') {
     return null;
   }
 

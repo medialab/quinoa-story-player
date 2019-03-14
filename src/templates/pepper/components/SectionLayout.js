@@ -50,7 +50,7 @@ class SectionLayout extends Component {
     const {
       navigateTo
     } = this.context;
-    navigateTo({viewType: 'glossary', viewParams: {focusOnId: `glossary-mention-backlink-${id}`}});
+    navigateTo({ viewType: 'glossary', viewParams: { focusOnId: `glossary-mention-backlink-${id}` } });
   }
 
   /**
@@ -103,8 +103,7 @@ class SectionLayout extends Component {
             onNotePointerClick={onNotePointerClick}
             usedDocument={usedDocument}
             usedWindow={usedWindow}
-            title={title} 
-          />
+            title={title} />
         }
         <div className="section-footer">
           <NavFooter

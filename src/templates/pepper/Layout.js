@@ -11,7 +11,7 @@ import { ReferencesManager } from 'react-citeproc';
 import Tooltip from 'react-tooltip';
 import { getStyles } from 'quinoa-schemas';
 import { easeCubic } from 'd3-ease';
-import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { HashRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 
 // import Bibliography from '../../components/Bibliography';
@@ -440,7 +440,7 @@ class PepperLayout extends Component {
     };
 
 
-    const NavEl = () => (
+    const NavEl = (props) => (
       <Nav
         indexOpen={indexOpen}
         inCover={inCover}
@@ -453,14 +453,15 @@ class PepperLayout extends Component {
         scrollToElementId={scrollToElementId}
         toggleIndex={this.toggleIndex}
         isDisplayed={((!coverImage && dimensions.width > 700) || !inCover)}
-        toc={toc} />
+        toc={toc}
+        {...props} />
     );
     const FinalNav = () => {
-
       if (previewMode) {
         return <NavEl />;
       }
-      return <HashRouter><NavEl /></HashRouter>;
+      const ConnectedEl = withRouter(props => <NavEl {...props} />);
+      return <HashRouter><ConnectedEl /></HashRouter>;
     };
 
     let PreviewContent;

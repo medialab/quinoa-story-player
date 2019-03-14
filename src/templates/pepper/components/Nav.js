@@ -2,6 +2,19 @@ import React from 'react';
 
 import TableOfContents from './TableOfContents';
 
+const getCurrentView = location => {
+  if (location.includes('section')) {
+    return 'section';
+  }
+ else if (location.includes('glossary')) {
+    return 'glossary';
+  }
+ else if (location.includes('references')) {
+    return 'references';
+  }
+  else return 'home';
+};
+
 const Nav = ({
   indexOpen,
   inCover,
@@ -15,8 +28,10 @@ const Nav = ({
   scrollToElementId,
   toc,
   viewType,
+  location,
 }) => {
-  if (viewType === 'home') {
+  const currentView = location ? getCurrentView(location.pathname) : viewType;
+  if (currentView === 'home') {
     return null;
   }
   const menuOpened = (indexOpen || inCover);
