@@ -455,10 +455,6 @@ function (_Component) {
               prevItem = _getTocAdjacentNavIte.prevItem,
               nextItem = _getTocAdjacentNavIte.nextItem;
 
-          if (_this.globalScrollbar) {
-            _this.globalScrollbar.scrollTop(0);
-          }
-
           if (location.search && location.search.length) {
             var queryParams = location.search.substr(1).split('&').map(function (couple) {
               return couple.split('=');

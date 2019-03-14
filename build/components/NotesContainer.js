@@ -120,7 +120,11 @@ function (_Component) {
 
 
         var noteItem = _this.notes[component.noteId];
-        prevHeight = noteItem.component.offsetHeight; // update note styles
+
+        if (noteItem) {
+          prevHeight = noteItem.component.offsetHeight;
+        } // update note styles
+
 
         notesStyles[component.noteId] = {
           top: y,

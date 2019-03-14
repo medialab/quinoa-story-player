@@ -34,11 +34,11 @@ var InternalLinkProvider = function InternalLinkProvider(_ref, _ref2) {
       _to$viewType = to.viewType,
       viewType = _to$viewType === void 0 ? 'home' : _to$viewType;
 
-  if (previewMode) {
-    var handleClick = function handleClick() {
-      navigateTo(to);
-    };
+  var handleClick = function handleClick() {
+    navigateTo(to);
+  };
 
+  if (previewMode) {
     var isActive = activeView.viewType === viewType && Object.keys(viewParams).filter(function (paramKey) {
       return viewParams[paramKey] !== activeView.viewParams[paramKey];
     }).length === 0;
@@ -68,6 +68,7 @@ var InternalLinkProvider = function InternalLinkProvider(_ref, _ref2) {
   return _react.default.createElement(_reactRouterDom.NavLink, {
     to: target,
     id: id,
+    onClick: handleClick,
     activeClassName: "active",
     className: "internal-link ".concat(className)
   }, children);

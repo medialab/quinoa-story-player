@@ -88,7 +88,8 @@ function (_Component) {
     };
 
     _this.state = {
-      dimensions: undefined
+      dimensions: undefined,
+      initialized: false
     };
     return _this;
   }
