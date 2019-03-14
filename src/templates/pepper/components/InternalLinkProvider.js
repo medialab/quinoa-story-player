@@ -55,7 +55,7 @@ const InternalLinkProvider = ({
       to={target}
       id={id}
       activeClassName="active"
-      className={className}>
+      className={`internal-link ${className}`}>
       {children}
     </NavLink>
   );

@@ -69,7 +69,7 @@ var InternalLinkProvider = function InternalLinkProvider(_ref, _ref2) {
     to: target,
     id: id,
     activeClassName: "active",
-    className: className
+    className: "internal-link ".concat(className)
   }, children);
 };
 
