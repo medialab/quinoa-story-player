@@ -129,7 +129,9 @@ class NotesContainer extends Component {
       }
       // update prevHeight with current component
       const noteItem = this.notes[component.noteId];
-      prevHeight = noteItem.component.offsetHeight;
+      if (noteItem) {
+        prevHeight = noteItem.component.offsetHeight;
+      }
       // update note styles
       notesStyles[component.noteId] = {
         top: y,

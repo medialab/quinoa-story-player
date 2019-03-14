@@ -1353,6 +1353,8 @@ $timer-long: 1s;
         // cursor: text;
         font-variant: italic;
         border-bottom: 1px solid $color-secondary;
+        padding: $gutter-small * .2;
+        padding-bottom: 0;
 
         color: inherit;
         outline: none;
@@ -1363,27 +1365,25 @@ $timer-long: 1s;
             text-decoration: none!important;
         }
 
-        &.bib{
-            cursor: text;
-        }
         &.glossary{
             border-bottom: 1px solid $color-glossary;
         }
         &.bib{
+            cursor: text;
             border-bottom: none;
         }
         &.webpage{
             border-bottom: 1px solid $color-external-link;
         }
 
-        // &:not(.bib):not(.glossary):hover
-        // {
-        //     cursor: pointer;
-        //     color: $color-background;
-        //     border-bottom: none;// 1px solid $color-secondary-intent;
-        //     background: $color-secondary;
-        //     background: $color-secondary-intent;
-        // }
+        &:not(.bib):not(.glossary):not(.webpage):hover
+        {
+            cursor: pointer;
+            color: $color-background;
+            border-bottom: none;// 1px solid $color-secondary-intent;
+            background: $color-secondary;
+            background: $color-secondary-intent;
+        }
         &.glossary{
             font-weight: 800;
         }
