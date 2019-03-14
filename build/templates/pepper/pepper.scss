@@ -364,6 +364,11 @@ $timer-long: 1s;
         margin-right: $gutter-lateral-large-screens;
         margin-left: $gutter-lateral-large-screens;
     }
+
+    .section-footer{
+        margin-top: $gutter-medium;
+        margin-bottom: $gutter-medium;
+    }
     .section-body,
     .glossary-mentions-container
     {

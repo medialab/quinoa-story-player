@@ -127,9 +127,9 @@ export const stylesVariablesToCss = (styles = {}) => {
       color: ${styles.titles.color};
       font-size: ${classToSize(styles.titles.sizeClass)}em;
     }
-    .table-of-contents .link-content {
+    /*.table-of-contents .link-content {
       color: ${styles.titles.color};
-    }
+    }*/
     `;
   }
   if (styles.background) {

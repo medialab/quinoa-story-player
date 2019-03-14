@@ -144,7 +144,7 @@ var stylesVariablesToCss = function stylesVariablesToCss() {
   var compiledStyles = '';
 
   if (styles.titles) {
-    compiledStyles = compiledStyles + "\n    .content-title .content-title--modifier, .section-title .section-title--modifier {\n      color: ".concat(styles.titles.color, ";\n      font-size: ").concat(classToSize(styles.titles.sizeClass), "em;\n    }\n    .table-of-contents .link-content {\n      color: ").concat(styles.titles.color, ";\n    }\n    ");
+    compiledStyles = compiledStyles + "\n    .content-title .content-title--modifier, .section-title .section-title--modifier {\n      color: ".concat(styles.titles.color, ";\n      font-size: ").concat(classToSize(styles.titles.sizeClass), "em;\n    }\n    /*.table-of-contents .link-content {\n      color: ").concat(styles.titles.color, ";\n    }*/\n    ");
   }
 
   if (styles.background) {
