@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 const InternalLinkProvider = ({
   children,
+  id,
   className = '',
   to = {
     viewParams: {}
@@ -29,6 +30,7 @@ const InternalLinkProvider = ({
     return (
       <span
         onClick={handleClick}
+        id={id}
         className={`internal-link ${className} ${isActive ? 'active' : ''}`}>
         {children}
       </span>
@@ -51,6 +53,7 @@ const InternalLinkProvider = ({
   return (
     <NavLink
       to={target}
+      id={id}
       activeClassName="active"
       className={className}>
       {children}

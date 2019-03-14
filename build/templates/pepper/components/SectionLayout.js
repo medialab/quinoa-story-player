@@ -63,12 +63,23 @@ function (_Component) {
     _this.getChildContext = function () {
       return {
         // notes are provided to content note pointers through the context
-        notes: _this.props.section && _this.props.section.notes
+        notes: _this.props.section && _this.props.section.notes,
+        onGlossaryMentionClick: _this.onGlossaryMentionClick
       };
     };
 
     _this.shouldComponentUpdate = function (nextProps) {
       return _this.props.section.id !== nextProps.section.id;
+    };
+
+    _this.onGlossaryMentionClick = function (id) {
+      var navigateTo = _this.context.navigateTo;
+      navigateTo({
+        viewType: 'glossary',
+        viewParams: {
+          focusOnId: "glossary-mention-backlink-".concat(id)
+        }
+      });
     };
 
     _this.state = {
@@ -144,13 +155,10 @@ function (_Component) {
 
   return SectionLayout;
 }(_react.Component);
-
-SectionLayout.contextTypes = {
-  dimensions: _propTypes.default.object
-};
 /**
  * Component's properties types
  */
+
 
 SectionLayout.propTypes = {
   /**
@@ -163,9 +171,11 @@ SectionLayout.propTypes = {
   }).isRequired
 };
 SectionLayout.contextTypes = {
+  dimensions: _propTypes.default.object,
   locale: _propTypes.default.object,
   scrollTop: _propTypes.default.func,
-  scrollToElementId: _propTypes.default.func
+  scrollToElementId: _propTypes.default.func,
+  navigateTo: _propTypes.default.func
 };
 /**
  * Component's context properties provided to children
@@ -175,7 +185,8 @@ SectionLayout.childContextTypes = {
   /**
    * notes are provided to content note pointers through the context
    */
-  notes: _propTypes.default.object
+  notes: _propTypes.default.object,
+  onGlossaryMentionClick: _propTypes.default.func
 };
 var _default = SectionLayout;
 exports.default = _default;

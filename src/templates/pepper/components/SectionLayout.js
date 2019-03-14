@@ -38,11 +38,19 @@ class SectionLayout extends Component {
     return {
       // notes are provided to content note pointers through the context
       notes: this.props.section && this.props.section.notes,
+      onGlossaryMentionClick: this.onGlossaryMentionClick,
     };
   }
 
   shouldComponentUpdate = nextProps => {
     return this.props.section.id !== nextProps.section.id;
+  }
+
+  onGlossaryMentionClick = id => {
+    const {
+      navigateTo
+    } = this.context;
+    navigateTo({viewType: 'glossary', viewParams: {focusOnId: `glossary-mention-backlink-${id}`}});
   }
 
   /**
@@ -89,13 +97,15 @@ class SectionLayout extends Component {
           <Renderer raw={contents} />
         </div>
         {section.notesOrder.length > 0 &&
-        <NotesContainer
-          notesPosition={notesPosition}
-          notes={section.notesOrder.map(id => section.notes[id])}
-          onNotePointerClick={onNotePointerClick}
-          usedDocument={usedDocument}
-          usedWindow={usedWindow}
-          title={title} />}
+          <NotesContainer
+            notesPosition={notesPosition}
+            notes={section.notesOrder.map(id => section.notes[id])}
+            onNotePointerClick={onNotePointerClick}
+            usedDocument={usedDocument}
+            usedWindow={usedWindow}
+            title={title} 
+          />
+        }
         <div className="section-footer">
           <NavFooter
             prevItem={prevItem}
@@ -107,10 +117,6 @@ class SectionLayout extends Component {
     );
   }
 }
-
-SectionLayout.contextTypes = {
-  dimensions: PropTypes.object
-};
 
 /**
  * Component's properties types
@@ -128,9 +134,11 @@ SectionLayout.propTypes = {
 
 
 SectionLayout.contextTypes = {
+  dimensions: PropTypes.object,
   locale: PropTypes.object,
   scrollTop: PropTypes.func,
   scrollToElementId: PropTypes.func,
+  navigateTo: PropTypes.func,
 };
 
 /**
@@ -141,5 +149,6 @@ SectionLayout.childContextTypes = {
    * notes are provided to content note pointers through the context
    */
   notes: PropTypes.object,
+  onGlossaryMentionClick: PropTypes.func,
 };
 export default SectionLayout;

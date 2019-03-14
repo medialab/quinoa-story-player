@@ -15,6 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var InternalLinkProvider = function InternalLinkProvider(_ref, _ref2) {
   var children = _ref.children,
+      id = _ref.id,
       _ref$className = _ref.className,
       className = _ref$className === void 0 ? '' : _ref$className,
       _ref$to = _ref.to,
@@ -43,6 +44,7 @@ var InternalLinkProvider = function InternalLinkProvider(_ref, _ref2) {
     }).length === 0;
     return _react.default.createElement("span", {
       onClick: handleClick,
+      id: id,
       className: "internal-link ".concat(className, " ").concat(isActive ? 'active' : '')
     }, children);
   }
@@ -65,6 +67,7 @@ var InternalLinkProvider = function InternalLinkProvider(_ref, _ref2) {
 
   return _react.default.createElement(_reactRouterDom.NavLink, {
     to: target,
+    id: id,
     activeClassName: "active",
     className: className
   }, children);
