@@ -123,7 +123,7 @@ function (_Component) {
       };
     };
 
-    _this.navigateTo = function (_ref) {
+    _this.navigateTo = function (_ref, history) {
       var _ref$viewType = _ref.viewType,
           viewType = _ref$viewType === void 0 ? 'home' : _ref$viewType,
           _ref$viewParams = _ref.viewParams,
@@ -140,6 +140,10 @@ function (_Component) {
         });
       } else {
         _this.globalScrollbar.scrollTop(0);
+      }
+
+      if (history) {
+        history.push("/".concat(viewType, "/"));
       }
     };
 
@@ -442,7 +446,8 @@ function (_Component) {
         exact: true,
         component: function component(_ref2) {
           var sectionId = _ref2.match.params.sectionId,
-              location = _ref2.location;
+              location = _ref2.location,
+              history = _ref2.history;
 
           var _getTocAdjacentNavIte = (0, _utils.getTocAdjacentNavItems)(toc, function (item) {
             return item.viewType === 'section' && item.viewParams.sectionId === sectionId;
@@ -476,6 +481,7 @@ function (_Component) {
             onNotePointerClick: onNotePointerClick,
             usedDocument: usedDocument,
             usedWindow: usedWindow,
+            history: history,
             key: sectionId
           });
         }

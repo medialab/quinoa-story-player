@@ -72,14 +72,19 @@ function (_Component) {
       return _this.props.section.id !== nextProps.section.id;
     };
 
-    _this.onGlossaryMentionClick = function (id) {
+    _this.onGlossaryMentionClick = function (id, event) {
       var navigateTo = _this.context.navigateTo;
+
+      if (event) {
+        event.preventDefault();
+      }
+
       navigateTo({
         viewType: 'glossary',
         viewParams: {
           focusOnId: "glossary-mention-backlink-".concat(id)
         }
-      });
+      }, _this.props.history);
     };
 
     _this.state = {

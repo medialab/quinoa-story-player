@@ -183,10 +183,11 @@ class PepperLayout extends Component {
     }
   }
 
+
   /**
    * Programmatically navigates to a given view
    */
-  navigateTo = ({ viewType = 'home', viewParams = {} }) => {
+  navigateTo = ({ viewType = 'home', viewParams = {} }, history) => {
     this.setState({
       viewType,
       viewParams,
@@ -196,6 +197,9 @@ class PepperLayout extends Component {
     }
     else {
       this.globalScrollbar.scrollTop(0);
+    }
+    if (history) {
+      history.push(`/${viewType}/`);
     }
   }
 
@@ -578,7 +582,7 @@ class PepperLayout extends Component {
                         <Route
                           path="/sections/:sectionId"
                           exact
-                          component={({ match: { params: { sectionId } }, location }) => {
+                          component={({ match: { params: { sectionId } }, location, history }) => {
                             const { prevItem, nextItem } = getTocAdjacentNavItems(
                               toc,
                               (item) => item.viewType === 'section' && item.viewParams.sectionId === sectionId
@@ -607,6 +611,7 @@ class PepperLayout extends Component {
                                 onNotePointerClick={onNotePointerClick}
                                 usedDocument={usedDocument}
                                 usedWindow={usedWindow}
+                                history={history}
                                 key={sectionId} />
                             );
                       }} />

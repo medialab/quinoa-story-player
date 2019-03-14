@@ -46,11 +46,14 @@ class SectionLayout extends Component {
     return this.props.section.id !== nextProps.section.id;
   }
 
-  onGlossaryMentionClick = id => {
+  onGlossaryMentionClick = (id, event) => {
     const {
       navigateTo
     } = this.context;
-    navigateTo({ viewType: 'glossary', viewParams: { focusOnId: `glossary-mention-backlink-${id}` } });
+    if (event) {
+      event.preventDefault();
+    }
+    navigateTo({ viewType: 'glossary', viewParams: { focusOnId: `glossary-mention-backlink-${id}` } }, this.props.history);
   }
 
   /**
