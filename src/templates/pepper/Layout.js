@@ -587,9 +587,6 @@ class PepperLayout extends Component {
                               toc,
                               (item) => item.viewType === 'section' && item.viewParams.sectionId === sectionId
                             );
-                            if (this.globalScrollbar) {
-                              this.globalScrollbar.scrollTop(0);
-                            }
 
                             if (location.search && location.search.length) {
                               const queryParams = location.search.substr(1).split('&')

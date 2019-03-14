@@ -27,7 +27,8 @@ class SectionLayout extends Component {
     super(props);
 
     this.state = {
-      dimensions: undefined
+      dimensions: undefined,
+      initialized: false
     };
   }
 
@@ -45,6 +46,7 @@ class SectionLayout extends Component {
   shouldComponentUpdate = nextProps => {
     return this.props.section.id !== nextProps.section.id;
   }
+
 
   onGlossaryMentionClick = (id, event) => {
     const {

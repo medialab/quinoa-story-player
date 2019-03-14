@@ -21,10 +21,11 @@ const InternalLinkProvider = ({
     viewParams = {},
     viewType = 'home',
   } = to;
+  const handleClick = () => {
+    navigateTo(to);
+  };
   if (previewMode) {
-    const handleClick = () => {
-      navigateTo(to);
-    };
+
     const isActive = activeView.viewType === viewType &&
       Object.keys(viewParams).filter(paramKey => viewParams[paramKey] !== activeView.viewParams[paramKey]).length === 0;
     return (
@@ -54,6 +55,7 @@ const InternalLinkProvider = ({
     <NavLink
       to={target}
       id={id}
+      onClick={handleClick}
       activeClassName="active"
       className={`internal-link ${className}`}>
       {children}
