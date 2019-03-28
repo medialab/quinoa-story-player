@@ -26,7 +26,10 @@ const InternalLink = ({
   if (typeof InternalLinkProvider === 'function') {
     return (
       <InternalLinkProvider
-        to={data}>
+        to={{
+          viewType: 'section',
+          viewParams: data
+        }}>
         {children}
       </InternalLinkProvider>
     );

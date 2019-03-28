@@ -28,6 +28,7 @@ const InternalLinkProvider = ({
 
     const isActive = activeView.viewType === viewType &&
       Object.keys(viewParams).filter(paramKey => viewParams[paramKey] !== activeView.viewParams[paramKey]).length === 0;
+
     return (
       <span
         onClick={handleClick}

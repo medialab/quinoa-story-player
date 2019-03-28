@@ -24,6 +24,8 @@ import faultyLinks from './faulty-links.json';
 import titleBlinking from './title-blinking.json';
 import stylesVariables from './styles-variation.json';
 import pepperTest from './Les deux corps de la flèche.json';
+import internalLinksPepper from './internal-links.json';
+import internalLinksGarlic from './internal-links-garlic.json';
 
 
 class Player extends Component {
@@ -156,6 +158,11 @@ storiesOf('Quinoa story - garlic template', module)
       </div>
     </div>
   ))
+  .add('Internal links', () => (
+    <Player
+      story={{...internalLinksGarlic}}
+    />
+  ))
 // add other templates here
 storiesOf('Quinoa story - pepper template', module)
   .add('Story with cover image', () => (
@@ -235,5 +242,10 @@ storiesOf('Quinoa story - pepper template', module)
   .add('Radical', () => (
     <Player
       story={{...radical, settings: pepperTest.settings}}
+    />
+  ))
+  .add('Internal links pepper issue', () => (
+    <Player
+      story={internalLinksPepper}
     />
   ))
