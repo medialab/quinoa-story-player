@@ -36,7 +36,10 @@ var InternalLink = function InternalLink(_ref, _ref2) {
 
   if (typeof InternalLinkProvider === 'function') {
     return _react.default.createElement(InternalLinkProvider, {
-      to: data
+      to: {
+        viewType: 'section',
+        viewParams: data
+      }
     }, children);
   }
 
