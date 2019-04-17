@@ -78,6 +78,25 @@ function (_Component) {
             columns: columns
           });
         });
+      } else if (data.src) {
+        _this.setState({
+          loading: true
+        });
+
+        (0, _axios.default)(data.src).then(function (res) {
+          var columns = Object.keys(res.data[0]).map(function (key) {
+            return {
+              Header: key,
+              accessor: key
+            };
+          });
+
+          _this.setState({
+            loading: false,
+            data: res.data,
+            columns: columns
+          });
+        });
       }
     };
 

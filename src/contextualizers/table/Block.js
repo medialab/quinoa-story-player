@@ -47,6 +47,21 @@ export default class Table extends Component {
         });
       });
     }
+ else if (data.src) {
+      this.setState({ loading: true });
+      get(data.src)
+      .then(res => {
+        const columns = Object.keys(res.data[0]).map(key => ({
+          Header: key,
+          accessor: key
+        }));
+        this.setState({
+          loading: false,
+          data: res.data,
+          columns
+        });
+      });
+    }
   }
 
   render = () => {
