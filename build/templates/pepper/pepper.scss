@@ -157,7 +157,7 @@ $timer-long: 1s;
     .content-pre
     {
         margin-right: $gutter-lateral-large-screens;
-        margin-bottom: $gutter-medium;
+        margin-bottom: $gutter-small;
         margin-left: $gutter-lateral-large-screens;
     }
 
@@ -378,6 +378,8 @@ $timer-long: 1s;
     {
         min-height: 75vh;
     }
+
+    
     /**
      * Table of contents layout
      */
@@ -395,7 +397,7 @@ $timer-long: 1s;
       */
     .table-of-contents-title
     {
-        margin-top: 0;
+        margin-top: .7rem;
     }
     /**
      * Table of contents item layout
@@ -1398,7 +1400,8 @@ $timer-long: 1s;
         text-decoration: none;
         // cursor: text;
         font-variant: italic;
-        border-bottom: 1px solid $color-secondary;
+        // border-bottom: 1px solid $color-secondary;
+        border-bottom: 1px dashed currentColor;
         padding: $gutter-small * .2;
         padding-bottom: 0;
 
@@ -1425,8 +1428,10 @@ $timer-long: 1s;
         &:not(.bib):not(.glossary):not(.webpage):hover
         {
             cursor: pointer;
-            color: $color-background;
-            border-bottom: none;// 1px solid $color-secondary-intent;
+            border-bottom: 2px solid currentColor;
+            // background: inherit;
+            // color: $color-background;
+            // border-bottom: none;// 1px solid $color-secondary-intent;
             // background: $color-secondary;
             // background: $color-secondary-intent;
         }
@@ -1865,6 +1870,7 @@ $timer-long: 1s;
 
         .quinoa-contextualization.block{
             background: rgba(0,0,0,0.1)!important;
+            margin-top: $gutter-medium;
             &.embed{
                 background: white!important;
             }

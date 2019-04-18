@@ -61,11 +61,11 @@ const Header = ({
         }
           {
           metadata.abstract && metadata.abstract.length ?
-          <div className="header-item-color--modifier">
-            <blockquote className="header-story-abstract">
-              {metadata.abstract}
-            </blockquote>
-          </div>
+            <div className="header-item-color--modifier">
+              <blockquote className="header-story-abstract">
+                {metadata.abstract}
+              </blockquote>
+            </div>
           :
             null
         }
@@ -75,7 +75,7 @@ const Header = ({
             {locale['Table of contents'] || 'Table of contents'}
           </h2>
           <TableOfContents
-            inHeader={true}
+            inHeader
             toc={toc} />
         </div>
       </div>

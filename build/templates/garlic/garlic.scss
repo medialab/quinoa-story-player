@@ -162,7 +162,7 @@ $timer-long: 1s;
     .content-pre
     {
         margin-right: $gutter-lateral-large-screens;
-        margin-bottom: $gutter-medium;
+        margin-bottom: $gutter-small;
         margin-left: $gutter-lateral-large-screens;
     }
 
@@ -416,6 +416,8 @@ $timer-long: 1s;
         margin-right: 0;
         margin-bottom: $gutter-medium;
         margin-left: 0;
+        margin-top: 2.3rem;
+        
     }
 
 
@@ -1064,6 +1066,7 @@ $timer-long: 1s;
         @include transition($timer-medium all ease);
         @extend .interactive-item;
         @include transition(all $timer-medium ease);
+        margin-top: $gutter-medium * 1.2;
         &:hover
         {
             color: $color-secondary-intent;
@@ -1192,7 +1195,8 @@ $timer-long: 1s;
         text-decoration: none;
 
         color: inherit;
-        border-bottom: 1px solid $color-secondary;
+        // border-bottom: 1px solid $color-secondary;
+        border-bottom: 1px dashed currentColor;
         outline: none;
 
         @include transition(all .5s ease);
@@ -1202,9 +1206,10 @@ $timer-long: 1s;
         }
         &:not(.bib):hover
         {
-            color: $color-background;
-            border-bottom: none;// 1px solid $color-secondary-intent;
-            background: $color-secondary;
+            // color: $color-background;
+            border-bottom: 2px solid currentColor;
+            // border-bottom: none;// 1px solid $color-secondary-intent;
+            // background: $color-secondary;
             // background: $color-secondary-intent;
         }
         &.glossary{
@@ -1656,6 +1661,7 @@ $timer-long: 1s;
 
         .quinoa-contextualization.block{
             background: rgba(0,0,0,0.1)!important;
+            margin-top: $gutter-medium;
             &.embed{
                 background: white!important;
             }

@@ -83,7 +83,7 @@ class SectionLayout extends Component {
     const title = capitalize(locale.notes || 'notes');
 
     return (
-      <section id={`section-container-${section.id}`} className={`section is-level-${metadata.level + 1}`}>
+      <section id={`section-container-${section.id}`} className={`section is-level-${/*metadata.level + 1*/ 2}`}>
         <div className="section-header">
           {
             metadata.title && metadata.title.trim().length &&

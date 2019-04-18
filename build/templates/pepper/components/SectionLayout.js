@@ -123,7 +123,9 @@ function (_Component) {
       var title = (0, _misc.capitalize)(locale.notes || 'notes');
       return _react.default.createElement("section", {
         id: "section-container-".concat(section.id),
-        className: "section is-level-".concat(metadata.level + 1)
+        className: "section is-level-".concat(
+        /*metadata.level + 1*/
+        2)
       }, _react.default.createElement("div", {
         className: "section-header"
       }, metadata.title && metadata.title.trim().length && _react.default.createElement("h1", {

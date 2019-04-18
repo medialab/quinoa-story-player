@@ -25,9 +25,9 @@ const NavFooter = ({
       <InternalLinkProvider
         to={nextItem}>
         <span className="nav-footer-item is-right">
-            <span className="nav-footer-item-part part-content">{abbrevString(nextItem.title)}</span>
-            <span className="nav-footer-item-part part-arrow">→</span>
-          </span>
+          <span className="nav-footer-item-part part-content">{abbrevString(nextItem.title)}</span>
+          <span className="nav-footer-item-part part-arrow">→</span>
+        </span>
       </InternalLinkProvider>
         }
     </li>
