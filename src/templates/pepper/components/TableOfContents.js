@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 const TableOfContents = ({
   // onClickTitle,
   metadata,
+  inHeader = false,
   // toggleIndex,
   // scrollToElementId,
   toc
@@ -18,12 +19,12 @@ const TableOfContents = ({
         metadata &&
         <li className="table-of-contents-title-container">
           <h2
-            className="table-of-contents-title">
+            className={`table-of-contents-title`}>
             <InternalLinkProvider
               to={{
                 viewId: 'home'
               }}>
-              {metadata.title || 'Quinoa story'}
+              <span className="section-title-color--modifier">{metadata.title || 'Quinoa story'}</span>
             </InternalLinkProvider>
           </h2>
         </li>
@@ -35,12 +36,12 @@ const TableOfContents = ({
               key={index}
               className={'table-of-contents-item level-' + (item.level || 0) + (item.active ? ' active' : '')}>
               <InternalLinkProvider
-                className="table-of-contents-link"
+                className={`table-of-contents-link`}
                 to={{
                   viewType: item.viewType,
                   viewParams: item.viewParams
                 }}>
-                <span className="link-content">{item.title || 'Untitled section'}</span>
+                <span className={inHeader ? 'header-item-color--modifier': 'section-title-color--modifier'}><span className="link-content">{item.title || 'Untitled section'}</span></span>
               </InternalLinkProvider>
               {/*<a
                 className="table-of-contents-link"

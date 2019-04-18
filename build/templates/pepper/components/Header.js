@@ -45,13 +45,13 @@ var Header = function Header(_ref, _ref2) {
   }, _react.default.createElement("span", {
     className: "header-story-subtitle--modifier"
   }, metadata.subtitle)), metadata.authors && metadata.authors.length ? _react.default.createElement("div", {
-    className: "header-story-authors"
+    className: "header-story-authors header-item-color--modifier"
   }, _react.default.createElement("span", {
     className: "header-authors--modifier"
   }, metadata.authors.map(function (author) {
     return author;
   }).join(', '))) : null, firstItem && _react.default.createElement("h2", {
-    className: "first-item-link"
+    className: "first-item-link header-item-color--modifier"
   }, _react.default.createElement(InternalLinkProvider, {
     to: {
       viewType: firstItem.viewType,
@@ -59,13 +59,16 @@ var Header = function Header(_ref, _ref2) {
     }
   }, _react.default.createElement("span", {
     className: "link-content"
-  }, locale['Begin exploration'] || 'Begin exploration'))), metadata.abstract && metadata.abstract.length ? _react.default.createElement("blockquote", {
+  }, locale['Begin exploration'] || 'Begin exploration'))), metadata.abstract && metadata.abstract.length ? _react.default.createElement("div", {
+    className: "header-item-color--modifier"
+  }, _react.default.createElement("blockquote", {
     className: "header-story-abstract"
-  }, metadata.abstract) : null), _react.default.createElement("div", {
+  }, metadata.abstract)) : null), _react.default.createElement("div", {
     className: "header-toc-container"
   }, _react.default.createElement("h2", {
-    className: "toc-title"
+    className: "toc-title header-item-color--modifier"
   }, locale['Table of contents'] || 'Table of contents'), _react.default.createElement(_TableOfContents.default, {
+    inHeader: true,
     toc: toc
   }))));
 };

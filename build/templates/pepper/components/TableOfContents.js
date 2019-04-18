@@ -13,6 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var TableOfContents = function TableOfContents(_ref, _ref2) {
   var metadata = _ref.metadata,
+      _ref$inHeader = _ref.inHeader,
+      inHeader = _ref$inHeader === void 0 ? false : _ref$inHeader,
       toc = _ref.toc;
   var InternalLinkProvider = _ref2.InternalLinkProvider;
   return _react.default.createElement("ul", {
@@ -22,24 +24,28 @@ var TableOfContents = function TableOfContents(_ref, _ref2) {
   }, metadata && _react.default.createElement("li", {
     className: "table-of-contents-title-container"
   }, _react.default.createElement("h2", {
-    className: "table-of-contents-title"
+    className: 'table-of-contents-title'
   }, _react.default.createElement(InternalLinkProvider, {
     to: {
       viewId: 'home'
     }
-  }, metadata.title || 'Quinoa story'))), toc && toc.map(function (item, index) {
+  }, _react.default.createElement("span", {
+    className: "section-title-color--modifier"
+  }, metadata.title || 'Quinoa story')))), toc && toc.map(function (item, index) {
     return _react.default.createElement("li", {
       key: index,
       className: 'table-of-contents-item level-' + (item.level || 0) + (item.active ? ' active' : '')
     }, _react.default.createElement(InternalLinkProvider, {
-      className: "table-of-contents-link",
+      className: 'table-of-contents-link',
       to: {
         viewType: item.viewType,
         viewParams: item.viewParams
       }
     }, _react.default.createElement("span", {
+      className: inHeader ? 'header-item-color--modifier' : 'section-title-color--modifier'
+    }, _react.default.createElement("span", {
       className: "link-content"
-    }, item.title || 'Untitled section')));
+    }, item.title || 'Untitled section'))));
   }));
 };
 

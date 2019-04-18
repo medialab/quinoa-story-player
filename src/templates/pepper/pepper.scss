@@ -273,8 +273,12 @@ $timer-long: 1s;
         .first-item-link{
             margin-top: $gutter-medium;
             margin-bottom: $gutter-medium;
-            .internal-link{
+            .internal-link,
+            .internal-link:hover{
                 padding-bottom: 0;
+                color: inherit;
+                text-decoration:none;
+                background: inherit;
             }
             // font-size: $font-size-3;
         }
@@ -964,8 +968,6 @@ $timer-long: 1s;
 
         .header-contents
         {
-            cursor: pointer;
-
             // color: $color-background;
             background: inherit; // $color-header-container;
 
@@ -1074,6 +1076,48 @@ $timer-long: 1s;
         justify-content: stretch;
         align-items: flex-start;
 
+        .internal-link{
+            font-size: $font-size-1;
+            border-bottom: none!important;
+            display: flex;
+            &:hover{
+                background: inherit!important;
+                color: inherit!important;
+            }
+        }
+
+        .nav-footer-item{
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: stretch;
+            position: relative;
+            transition: all .2s ease;
+            &.is-right .part-arrow{
+                padding-left: 1rem;
+            }
+            &.is-left{
+                left: 0;
+            }
+            &.is-right{
+                right: 0;
+            }
+            &.is-left .part-arrow{
+                padding-right: 1rem;
+            }
+            &:hover{
+                font-weight: 900;
+            }
+            &.is-left:hover{
+                left: - 1rem;
+            }
+            &.is-right:hover{
+                right: - 1rem;
+            }
+        }
+        .nav-footer-part.part-content{
+            flex: 1;
+        }
+
         li{
             list-style-type: none;
             margin: 0;
@@ -1082,9 +1126,6 @@ $timer-long: 1s;
             &:last-of-type{
                 text-align: right;
             }
-        }
-        .internal-link{
-            font-size: $font-size-1;
         }
         .current-title{
             flex: 1;

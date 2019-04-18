@@ -42,14 +42,14 @@ const Header = ({
         }
           {
           metadata.authors && metadata.authors.length ?
-            <div className="header-story-authors">
+            <div className="header-story-authors header-item-color--modifier">
               <span className="header-authors--modifier">{metadata.authors.map(author => author).join(', ')}</span>
             </div>
           :
             null
         }
           {firstItem &&
-          <h2 className="first-item-link">
+          <h2 className="first-item-link header-item-color--modifier">
             <InternalLinkProvider
               to={{
                 viewType: firstItem.viewType,
@@ -61,18 +61,21 @@ const Header = ({
         }
           {
           metadata.abstract && metadata.abstract.length ?
+          <div className="header-item-color--modifier">
             <blockquote className="header-story-abstract">
               {metadata.abstract}
             </blockquote>
+          </div>
           :
             null
         }
         </div>
         <div className="header-toc-container">
-          <h2 className="toc-title">
+          <h2 className="toc-title header-item-color--modifier">
             {locale['Table of contents'] || 'Table of contents'}
           </h2>
           <TableOfContents
+            inHeader={true}
             toc={toc} />
         </div>
       </div>

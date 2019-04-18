@@ -127,6 +127,9 @@ export const stylesVariablesToCss = (styles = {}) => {
       color: ${styles.titles.color};
       font-size: ${classToSize(styles.titles.sizeClass)}em;
     }
+    .section-title-color--modifier {
+      color: ${styles.titles.color};
+    }
     /*.table-of-contents .link-content {
       color: ${styles.titles.color};
     }*/
@@ -161,6 +164,9 @@ export const stylesVariablesToCss = (styles = {}) => {
     .header-story-title--modifier, .header-story-subtitle--modifier, .header-authors--modifier {
       color: ${styles.coverText.color};
       font-size: ${classToSize(styles.coverText.sizeClass)}em;
+    }
+    .header-item-color--modifier {
+      color: ${styles.coverText.color};
     }
     body .quinoa-story-player .header-container.with-cover .header-contents {
       background-color: rgba(0, 0, 0, ${styles.coverText.opacity});

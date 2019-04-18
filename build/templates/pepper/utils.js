@@ -144,7 +144,7 @@ var stylesVariablesToCss = function stylesVariablesToCss() {
   var compiledStyles = '';
 
   if (styles.titles) {
-    compiledStyles = compiledStyles + "\n    .content-title .content-title--modifier, .section-title .section-title--modifier {\n      color: ".concat(styles.titles.color, ";\n      font-size: ").concat(classToSize(styles.titles.sizeClass), "em;\n    }\n    /*.table-of-contents .link-content {\n      color: ").concat(styles.titles.color, ";\n    }*/\n    ");
+    compiledStyles = compiledStyles + "\n    .content-title .content-title--modifier, .section-title .section-title--modifier {\n      color: ".concat(styles.titles.color, ";\n      font-size: ").concat(classToSize(styles.titles.sizeClass), "em;\n    }\n    .section-title-color--modifier {\n      color: ").concat(styles.titles.color, ";\n    }\n    /*.table-of-contents .link-content {\n      color: ").concat(styles.titles.color, ";\n    }*/\n    ");
   }
 
   if (styles.background) {
@@ -160,7 +160,7 @@ var stylesVariablesToCss = function stylesVariablesToCss() {
   }
 
   if (styles.coverText) {
-    compiledStyles = compiledStyles + "\n    .header-story-title--modifier, .header-story-subtitle--modifier, .header-authors--modifier {\n      color: ".concat(styles.coverText.color, ";\n      font-size: ").concat(classToSize(styles.coverText.sizeClass), "em;\n    }\n    body .quinoa-story-player .header-container.with-cover .header-contents {\n      background-color: rgba(0, 0, 0, ").concat(styles.coverText.opacity, ");\n    }");
+    compiledStyles = compiledStyles + "\n    .header-story-title--modifier, .header-story-subtitle--modifier, .header-authors--modifier {\n      color: ".concat(styles.coverText.color, ";\n      font-size: ").concat(classToSize(styles.coverText.sizeClass), "em;\n    }\n    .header-item-color--modifier {\n      color: ").concat(styles.coverText.color, ";\n    }\n    body .quinoa-story-player .header-container.with-cover .header-contents {\n      background-color: rgba(0, 0, 0, ").concat(styles.coverText.opacity, ");\n    }");
   }
 
   if (styles.links) {

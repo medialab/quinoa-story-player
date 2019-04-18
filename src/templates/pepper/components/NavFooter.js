@@ -11,7 +11,10 @@ const NavFooter = ({
       {prevItem &&
         <InternalLinkProvider
           to={prevItem}>
-          ← {abbrevString(prevItem.title)}
+          <span className="nav-footer-item is-left">
+            <span className="nav-footer-item-part part-arrow">←</span>
+            <span className="nav-footer-item-part part-content">{abbrevString(prevItem.title)}</span>
+          </span>
         </InternalLinkProvider>}
     </li>
     <li className="current-title">
@@ -21,7 +24,10 @@ const NavFooter = ({
       {nextItem &&
       <InternalLinkProvider
         to={nextItem}>
-        {abbrevString(nextItem.title)} →
+        <span className="nav-footer-item is-right">
+            <span className="nav-footer-item-part part-content">{abbrevString(nextItem.title)}</span>
+            <span className="nav-footer-item-part part-arrow">→</span>
+          </span>
       </InternalLinkProvider>
         }
     </li>

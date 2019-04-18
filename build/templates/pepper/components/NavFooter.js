@@ -23,13 +23,25 @@ var NavFooter = function NavFooter(_ref) {
     className: "prev-container"
   }, prevItem && _react.default.createElement(_InternalLinkProvider.default, {
     to: prevItem
-  }, "\u2190 ", (0, _misc.abbrevString)(prevItem.title))), _react.default.createElement("li", {
+  }, _react.default.createElement("span", {
+    className: "nav-footer-item is-left"
+  }, _react.default.createElement("span", {
+    className: "nav-footer-item-part part-arrow"
+  }, "\u2190"), _react.default.createElement("span", {
+    className: "nav-footer-item-part part-content"
+  }, (0, _misc.abbrevString)(prevItem.title))))), _react.default.createElement("li", {
     className: "current-title"
   }, _react.default.createElement("h5", null, title || '')), _react.default.createElement("li", {
     className: "next-container"
   }, nextItem && _react.default.createElement(_InternalLinkProvider.default, {
     to: nextItem
-  }, (0, _misc.abbrevString)(nextItem.title), " \u2192")));
+  }, _react.default.createElement("span", {
+    className: "nav-footer-item is-right"
+  }, _react.default.createElement("span", {
+    className: "nav-footer-item-part part-content"
+  }, (0, _misc.abbrevString)(nextItem.title)), _react.default.createElement("span", {
+    className: "nav-footer-item-part part-arrow"
+  }, "\u2192")))));
 };
 
 var _default = NavFooter;
