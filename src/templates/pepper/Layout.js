@@ -147,6 +147,7 @@ class PepperLayout extends Component {
           coverImage: buildCoverImage(this.props.story),
           locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales.en,
         });
+
         setTimeout(() => {
           const toc = buildTOC(
             this.props.story,

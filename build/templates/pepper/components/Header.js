@@ -30,7 +30,7 @@ var Header = function Header(_ref, _ref2) {
     className: "header-container ".concat(coverImage ? 'with-cover' : ''),
     ref: bindRef,
     style: {
-      backgroundImage: coverImage ? "url(".concat(coverImage.filePath ? getResourceDataUrl(coverImage) : coverImage.base64) : undefined
+      backgroundImage: coverImage ? "url(".concat(coverImage.filePath && typeof getResourceDataUrl === 'function' ? getResourceDataUrl(coverImage) : coverImage.base64 || coverImage.src) : undefined
     }
   }, _react.default.createElement("div", {
     className: "header-contents"
