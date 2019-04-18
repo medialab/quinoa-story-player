@@ -1427,8 +1427,8 @@ $timer-long: 1s;
             cursor: pointer;
             color: $color-background;
             border-bottom: none;// 1px solid $color-secondary-intent;
-            background: $color-secondary;
-            background: $color-secondary-intent;
+            // background: $color-secondary;
+            // background: $color-secondary-intent;
         }
         &.glossary{
             font-weight: 800;
