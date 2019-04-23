@@ -15,10 +15,10 @@ const Header = ({
       ref={bindRef}
       style={{
       backgroundImage: coverImage ?
-        `url(${coverImage.filePath ?
+        `url(${coverImage.filePath && typeof getResourceDataUrl === 'function' ?
             getResourceDataUrl(coverImage)
           :
-            coverImage.base64}`
+            (coverImage.base64 || coverImage.src)}`
         :
          undefined,
     }}>
