@@ -50,7 +50,11 @@ var Header = function Header(_ref, _ref2) {
     className: "header-authors--modifier"
   }, metadata.authors.map(function (author) {
     return author;
-  }).join(', '))) : null, firstItem && _react.default.createElement("h2", {
+  }).join(', '))) : null, metadata.edition && _react.default.createElement("h3", {
+    className: "header-story-edition"
+  }, _react.default.createElement("span", {
+    className: "header-story-subtitle--modifier"
+  }, metadata.edition)), firstItem && _react.default.createElement("h2", {
     className: "first-item-link header-item-color--modifier"
   }, _react.default.createElement(InternalLinkProvider, {
     to: {

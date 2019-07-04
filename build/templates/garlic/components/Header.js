@@ -38,7 +38,11 @@ var Header = function Header(_ref) {
     className: "header-authors--modifier"
   }, metadata.authors.map(function (author) {
     return author;
-  }).join(', '))) : null));
+  }).join(', '))) : null, metadata.edition && _react.default.createElement("h3", {
+    className: "header-story-edition"
+  }, _react.default.createElement("span", {
+    className: "header-story-subtitle--modifier"
+  }, metadata.edition))));
 };
 
 var _default = Header;

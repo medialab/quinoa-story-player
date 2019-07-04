@@ -33,6 +33,7 @@ const Header = ({
               <span className="header-story-subtitle--modifier">{metadata.subtitle}</span>
             </h2>
         }
+        
         {
           metadata.authors && metadata.authors.length ?
             <div className="header-authors">
@@ -40,6 +41,12 @@ const Header = ({
             </div>
           :
             null
+        }
+        {
+          metadata.edition &&
+            <h3 className="header-story-edition">
+              <span className="header-story-subtitle--modifier">{metadata.edition}</span>
+            </h3>
         }
       </div>
     </header>

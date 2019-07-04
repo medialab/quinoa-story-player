@@ -38,7 +38,7 @@
     "axios": "^0.18.0",
     "d3-ease": "^1.0.5",
     "lodash": "^4.17.11",
-    "quinoa-schemas": "1.1.0",
+    "quinoa-schemas": "^1.1.2",
     "raw-loader": "^0.5.1",
     "react-citeproc": "^0.1.10",
     "react-custom-scrollbars": "^4.0.0",
