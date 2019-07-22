@@ -61,7 +61,7 @@ function (_Component) {
           className: "quinoa-contextualization block video media-player-container"
         }, _react.default.createElement(_reactPlayer.default, {
           width: dimensions.width,
-          height: dimensions.height,
+          height: "calc(".concat(dimensions.height, " - 2rem)"),
           url: resource.data.url
         }));
       });

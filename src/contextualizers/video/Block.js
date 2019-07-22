@@ -30,7 +30,7 @@ class VideoBlock extends Component {
         {
             ({ measureRef }) =>
               (<div ref={measureRef} className="quinoa-contextualization block video media-player-container">
-                <Player width={dimensions.width} height={dimensions.height} url={resource.data.url} />
+                <Player width={dimensions.width} height={`calc(${dimensions.height} - 2rem)`} url={resource.data.url} />
               </div>)
           }
       </Measure>
