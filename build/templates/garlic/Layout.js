@@ -135,13 +135,36 @@ function (_Component) {
 
 
       if (scrollTop !== _this.state.scrollTop) {
+        var rawElements = _this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
+
+        var elements = Array.from(rawElements).map(function (element) {
+          return {
+            element: element,
+            type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
+            bbox: element.getBoundingClientRect()
+          };
+        }); // pick last matching element
+
+        var activeBlock = elements.reverse().find(function (element) {
+          return element.bbox.top < evt.clientHeight * 0.66;
+        });
+
+        if (activeBlock && activeBlock.type === 'atomic') {
+          var idBearer = activeBlock.element.querySelector('.content-figure');
+
+          if (idBearer) {
+            activeBlock.id = idBearer.id;
+          }
+        }
+
         var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop, _this.state, {
           usedDocument: _this.props.usedDocument,
           usedWindow: _this.props.usedWindow
         });
         stateChanges = _objectSpread({}, stateChanges, {
           toc: toc,
-          scrollTop: scrollTop
+          scrollTop: scrollTop,
+          activeBlock: activeBlock
         });
       } // applying state changes if needed
 
@@ -221,9 +244,11 @@ function (_Component) {
           _getStyles$options = _getStyles.options,
           options = _getStyles$options === void 0 ? {} : _getStyles$options;
 
-      var notesPosition = options.notesPosition || 'foot'; // "responsive" notes positionning
+      var notesPosition = options.notesPosition || 'foot';
+      var figuresPosition = options.figuresPosition || 'body'; // "responsive" notes positionning
 
       notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
+      figuresPosition = dimensions.width > 700 ? figuresPosition : 'body';
       var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale.default;
       var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa.default;
       /**
@@ -268,7 +293,7 @@ function (_Component) {
         citations: citations.citationData,
         componentClass: "references-manager"
       }, _react.default.createElement("section", {
-        className: "wrapper"
+        className: 'wrapper'
       }, _react.default.createElement(_reactCustomScrollbars.Scrollbars, {
         ref: bindGlobalScrollbarRef,
         autoHide: true,
@@ -283,7 +308,7 @@ function (_Component) {
       }), _react.default.createElement("section", {
         className: "body-wrapper"
       }, _react.default.createElement("section", {
-        className: "contents-wrapper"
+        className: "contents-wrapper  figures-position-".concat(figuresPosition)
       },
       /**
        * Sections display
@@ -427,6 +452,7 @@ function (_Component) {
         onGlossaryMentionClick: this.onGlossaryMentionClick,
         onInternalLinkClick: this.onInternalLinkClick,
         locale: this.state.locale,
+        activeBlock: this.state.activeBlock,
         citationLocale: this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data || _englishLocale.default,
         citationStyle: this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data || _apa.default
       };
@@ -692,7 +718,8 @@ GarlicLayout.childContextTypes = {
   onInternalLinkClick: _propTypes.default.func,
   locale: _propTypes.default.object,
   citationStyle: _propTypes.default.string,
-  citationLocale: _propTypes.default.string
+  citationLocale: _propTypes.default.string,
+  activeBlock: _propTypes.default.object
 };
 var _default = GarlicLayout;
 exports.default = _default;

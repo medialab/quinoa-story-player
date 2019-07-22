@@ -30,9 +30,9 @@ const BlockAssetWrapper = ({
     contextualizer: context.story.contextualizers[contextualization.contextualizerId],
     resource: context.story.resources[contextualization.resourceId],
   };
-  const dimensions = context.dimensions;
   const fixedPresentationId = context.fixedPresentationId;
   const onExit = context.onExit;
+  const activeBlock = context.activeBlock;
   const inNote = context.inNote;
   if (asset && asset.resource.data && !inNote) {
     const { resource, contextualizer } = asset;
@@ -67,16 +67,16 @@ const BlockAssetWrapper = ({
             `;
     };
     const info = buildInfo();
+    let isActive;
+    if (activeBlock && activeBlock.type === 'atomic' && activeBlock.id === assetId) {
+      isActive = true;
+    }
     // todo: we could later on embed more data coming
     // from the contextualization (and not just the resource)
     // involved in displaying the embed
     return (
       <figure
-        className={`content-figure ${asset.contextualizer.type}`}
-        style={{
-          position: 'relative',
-          minHeight: (asset.contextualizer.type === 'data-presentation' && dimensions && dimensions.height) || '10em'
-        }}
+        className={`content-figure ${asset.contextualizer.type} ${isActive ? 'is-active' : ''}`}
         id={assetId}>
         <BlockAssetPlayer
           type={assetType}
@@ -132,10 +132,6 @@ BlockAssetWrapper.contextTypes = {
    */
   story: PropTypes.object,
   /**
-   * Dimensions of the wrapping element
-   */
-  dimensions: PropTypes.object,
-  /**
    * Id of the presentation being displayed full screen if any
    */
   fixedPresentationId: PropTypes.string,
@@ -146,7 +142,12 @@ BlockAssetWrapper.contextTypes = {
   /**
    * Triggered when a full-screen asset is exited
    */
-  onExit: PropTypes.func
+  onExit: PropTypes.func,
+
+  /**
+   * Active element when relevant
+   */
+  activeBlock: PropTypes.object,
 };
 
 export default BlockAssetWrapper;

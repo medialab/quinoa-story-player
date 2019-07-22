@@ -26,6 +26,7 @@ import stylesVariables from './styles-variation.json';
 import pepperTest from './Les deux corps de la flèche.json';
 import internalLinksPepper from './internal-links.json';
 import internalLinksGarlic from './internal-links-garlic.json';
+import testScrolly from './test-scrolly.json';
 
 
 class Player extends Component {
@@ -132,6 +133,9 @@ storiesOf('Quinoa story - garlic template', module)
   ))
   .add('With Styles Variations (WYSIWYG)', () => (
     <Player story={stylesVariables} />
+  ))
+  .add('Test scrollytelling', () => (
+    <Player story={testScrolly} />
   ))
   .add('Story within another page (container-relative positionning)', () => (
     <div

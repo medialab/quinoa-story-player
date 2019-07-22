@@ -74,24 +74,6 @@ class BlockAssetPlayer extends React.Component {
         return (
           <Embed resource={resource} contextualizer={contextualizer} contextualization={contextualization} />
         );
-      // case 'data-presentation':
-      //   return (
-      //     <DataPresentation
-      //       resource={resource}
-      //       contextualizer={contextualizer}
-      //       contextualization={contextualization}
-      //       onWheel={this.onWheel}
-      //       onExit={onExit}
-      //       style={{
-      //           position: fixed ? 'fixed' : 'absolute',
-      //           left: fixed ? dimensions.left : '0',
-      //           top: fixed ? dimensions.top : '0',
-      //           width: fixed ? dimensions.width : '',
-      //           height: fixed ? dimensions.height : '',
-      //           pointerEvents: allowInteractions ? 'all' : 'none'
-      //       }}
-      //     />
-      //   );
       default:
         return null;
     }

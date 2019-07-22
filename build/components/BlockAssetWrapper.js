@@ -40,9 +40,9 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
     resource: context.story.resources[contextualization.resourceId]
   });
 
-  var dimensions = context.dimensions;
   var fixedPresentationId = context.fixedPresentationId;
   var onExit = context.onExit;
+  var activeBlock = context.activeBlock;
   var inNote = context.inNote;
 
   if (asset && asset.resource.data && !inNote) {
@@ -62,16 +62,18 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
       return "\n      <div class=\"info-container\">\n        ".concat(description, "\n        ").concat(source, "\n      </div>\n            ");
     };
 
-    var info = buildInfo(); // todo: we could later on embed more data coming
+    var info = buildInfo();
+    var isActive;
+
+    if (activeBlock && activeBlock.type === 'atomic' && activeBlock.id === assetId) {
+      isActive = true;
+    } // todo: we could later on embed more data coming
     // from the contextualization (and not just the resource)
     // involved in displaying the embed
 
+
     return _react.default.createElement("figure", {
-      className: "content-figure ".concat(asset.contextualizer.type),
-      style: {
-        position: 'relative',
-        minHeight: asset.contextualizer.type === 'data-presentation' && dimensions && dimensions.height || '10em'
-      },
+      className: "content-figure ".concat(asset.contextualizer.type, " ").concat(isActive ? 'is-active' : ''),
       id: assetId
     }, _react.default.createElement(_BlockAssetPlayer.default, {
       type: assetType,
@@ -124,11 +126,6 @@ BlockAssetWrapper.contextTypes = {
   story: _propTypes.default.object,
 
   /**
-   * Dimensions of the wrapping element
-   */
-  dimensions: _propTypes.default.object,
-
-  /**
    * Id of the presentation being displayed full screen if any
    */
   fixedPresentationId: _propTypes.default.string,
@@ -141,7 +138,12 @@ BlockAssetWrapper.contextTypes = {
   /**
    * Triggered when a full-screen asset is exited
    */
-  onExit: _propTypes.default.func
+  onExit: _propTypes.default.func,
+
+  /**
+   * Active element when relevant
+   */
+  activeBlock: _propTypes.default.object
 };
 var _default = BlockAssetWrapper;
 exports.default = _default;

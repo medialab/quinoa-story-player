@@ -113,6 +113,8 @@ class GarlicLayout extends Component {
       onInternalLinkClick: this.onInternalLinkClick,
       locale: this.state.locale,
 
+      activeBlock: this.state.activeBlock,
+
       citationLocale: (this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data) || defaultCitationLocale,
       citationStyle: (this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data) || defaultCitationStyle,
     };
@@ -241,6 +243,24 @@ class GarlicLayout extends Component {
     // at each update, we should split buildTOC in two functions
     // to handle the change of active element separately, for better performances)
     if (scrollTop !== this.state.scrollTop) {
+      const rawElements = this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
+      const elements = Array.from(rawElements).map(element => {
+        return {
+          element,
+          type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
+          bbox: element.getBoundingClientRect()
+        };
+      });
+      // pick last matching element
+      const activeBlock = elements.reverse().find(element => {
+        return (element.bbox.top < evt.clientHeight * 0.66);
+      });
+      if (activeBlock && activeBlock.type === 'atomic') {
+        const idBearer = activeBlock.element.querySelector('.content-figure');
+        if (idBearer) {
+          activeBlock.id = idBearer.id;
+        }
+      }
       const toc = buildTOC(
         this.props.story,
         scrollTop,
@@ -251,6 +271,7 @@ class GarlicLayout extends Component {
         ...stateChanges,
         toc,
         scrollTop,
+        activeBlock,
       };
     }
     // applying state changes if needed
@@ -411,8 +432,10 @@ class GarlicLayout extends Component {
 
     const { options = {} } = getStyles(this.props.story);
     let notesPosition = options.notesPosition || 'foot';
+    let figuresPosition = options.figuresPosition || 'body';
     // "responsive" notes positionning
     notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
+    figuresPosition = dimensions.width > 700 ? figuresPosition : 'body';
     const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
     const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
 
@@ -452,7 +475,7 @@ class GarlicLayout extends Component {
         items={citations.citationItems}
         citations={citations.citationData}
         componentClass="references-manager">
-        <section className="wrapper">
+        <section className={'wrapper'}>
           <Scrollbars
             ref={bindGlobalScrollbarRef}
             autoHide
@@ -466,8 +489,7 @@ class GarlicLayout extends Component {
               bindRef={bindHeaderRef} />
             <section
               className="body-wrapper">
-              <section className="contents-wrapper">
-
+              <section className={`contents-wrapper  figures-position-${figuresPosition}`}>
                 {
                   /**
                    * Sections display
@@ -613,6 +635,8 @@ GarlicLayout.childContextTypes = {
    citationStyle: PropTypes.string,
 
    citationLocale: PropTypes.string,
+
+   activeBlock: PropTypes.object,
 };
 
 

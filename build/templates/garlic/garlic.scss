@@ -458,6 +458,48 @@ $timer-long: 1s;
         flex-flow: column nowrap;
         align-items: center;
     }
+    .contents-wrapper.figures-position-aside
+    {
+       .content-figure{
+           position: fixed;
+           top: 0;
+           right: 1rem;
+           margin: 0;
+           padding-left: .5rem;
+           opacity: 0;
+           z-index: -1;
+           transition: all .5s ease;
+           max-width: calc(25% - 2rem);
+           min-width: calc(25% - 2rem);
+           height: 100%;
+
+           display: flex;
+           flex-flow: column nowrap;
+           justify-content: center;
+
+           .figure-caption-content{
+               padding-left: 0;
+               padding-right: 0;
+
+           }
+
+           .content-image{
+               height: unset;
+           }
+
+           .ReactTable{
+               max-height: calc(80vh);
+               .-pagination{
+                   height: unset;
+               }
+           }
+
+           &.is-active{
+               z-index: 1;
+               opacity: 1;
+           }
+       }
+    }
     /**
      * Figure iframes layout (normalization)
      */
