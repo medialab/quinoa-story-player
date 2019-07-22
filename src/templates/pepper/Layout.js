@@ -469,7 +469,7 @@ class PepperLayout extends Component {
       return <HashRouter><ConnectedEl /></HashRouter>;
     };
 
-    let PreviewContent;
+    let PreviewContent = null;
     let navItems;
     switch (viewType) {
       case 'glossary':
@@ -538,6 +538,18 @@ class PepperLayout extends Component {
             locale={locale} />
         );
         break;
+    }
+
+    if (!PreviewContent) {
+      PreviewContent = () => (
+        <Header
+          coverImage={coverImage}
+          getResourceDataUrl={getResourceDataUrl}
+          metadata={metadata}
+          bindRef={bindHeaderRef}
+          toc={toc}
+          locale={locale} />
+      );
     }
 
     return (

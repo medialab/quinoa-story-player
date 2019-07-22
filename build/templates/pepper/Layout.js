@@ -341,7 +341,7 @@ function (_Component) {
         return _react.default.createElement(_reactRouterDom.HashRouter, null, _react.default.createElement(ConnectedEl, null));
       };
 
-      var PreviewContent;
+      var PreviewContent = null;
       var navItems;
 
       switch (viewType) {
@@ -409,6 +409,19 @@ function (_Component) {
           };
 
           break;
+      }
+
+      if (!PreviewContent) {
+        PreviewContent = function PreviewContent() {
+          return _react.default.createElement(_Header.default, {
+            coverImage: coverImage,
+            getResourceDataUrl: getResourceDataUrl,
+            metadata: metadata,
+            bindRef: bindHeaderRef,
+            toc: toc,
+            locale: locale
+          });
+        };
       }
 
       return _react.default.createElement(_reactCiteproc.ReferencesManager, {
