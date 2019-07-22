@@ -69,7 +69,7 @@ function (_Component) {
     };
 
     _this.shouldComponentUpdate = function (nextProps) {
-      return _this.props.section.id !== nextProps.section.id;
+      return !!_this.props.section && !!nextProps.section && _this.props.section.id !== nextProps.section.id;
     };
 
     _this.onGlossaryMentionClick = function (id, event) {
@@ -119,7 +119,12 @@ function (_Component) {
       var _this$context$locale = this.context.locale,
           locale = _this$context$locale === void 0 ? {} : _this$context$locale;
       var contents = section.contents,
-          metadata = section.metadata;
+          _section$metadata = section.metadata,
+          metadata = _section$metadata === void 0 ? {} : _section$metadata,
+          _section$notesOrder = section.notesOrder,
+          notesOrder = _section$notesOrder === void 0 ? [] : _section$notesOrder,
+          _section$notes = section.notes,
+          notes = _section$notes === void 0 ? {} : _section$notes;
       var title = (0, _misc.capitalize)(locale.notes || 'notes');
       return _react.default.createElement("section", {
         id: "section-container-".concat(section.id),
@@ -139,10 +144,10 @@ function (_Component) {
         className: "section-body"
       }, _react.default.createElement(_Renderer.default, {
         raw: contents
-      })), section.notesOrder.length > 0 && _react.default.createElement(_NotesContainer.default, {
+      })), notesOrder.length > 0 && _react.default.createElement(_NotesContainer.default, {
         notesPosition: notesPosition,
-        notes: section.notesOrder.map(function (id) {
-          return section.notes[id];
+        notes: notesOrder.map(function (id) {
+          return notes[id];
         }),
         onNotePointerClick: onNotePointerClick,
         usedDocument: usedDocument,

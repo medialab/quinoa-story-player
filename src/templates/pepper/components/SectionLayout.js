@@ -44,7 +44,7 @@ class SectionLayout extends Component {
   }
 
   shouldComponentUpdate = nextProps => {
-    return this.props.section.id !== nextProps.section.id;
+    return !!this.props.section && !!nextProps.section && this.props.section.id !== nextProps.section.id;
   }
 
 
@@ -77,7 +77,9 @@ class SectionLayout extends Component {
     } = this.context;
     const {
       contents,
-      metadata,
+      metadata = {},
+      notesOrder = [],
+      notes = {}
     } = section;
 
     const title = capitalize(locale.notes || 'notes');
@@ -101,10 +103,10 @@ class SectionLayout extends Component {
         <div className="section-body">
           <Renderer raw={contents} />
         </div>
-        {section.notesOrder.length > 0 &&
+        {notesOrder.length > 0 &&
           <NotesContainer
             notesPosition={notesPosition}
-            notes={section.notesOrder.map(id => section.notes[id])}
+            notes={notesOrder.map(id => notes[id])}
             onNotePointerClick={onNotePointerClick}
             usedDocument={usedDocument}
             usedWindow={usedWindow}

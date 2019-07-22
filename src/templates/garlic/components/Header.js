@@ -33,7 +33,7 @@ const Header = ({
               <span className="header-story-subtitle--modifier">{metadata.subtitle}</span>
             </h2>
         }
-        
+
         {
           metadata.authors && metadata.authors.length ?
             <div className="header-authors">

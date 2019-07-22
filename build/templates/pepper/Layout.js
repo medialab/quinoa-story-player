@@ -134,13 +134,17 @@ function (_Component) {
         viewParams: viewParams
       });
 
-      if (viewParams.focusOnId) {
-        setTimeout(function () {
-          return _this.scrollToElementId(viewParams.focusOnId);
-        });
-      } else {
-        _this.globalScrollbar.scrollTop(0);
-      }
+      setTimeout(function () {
+        if (_this.props.previewMode !== false) {
+          _this.updatePreviewContent();
+        }
+
+        if (viewParams.focusOnId) {
+          _this.scrollToElementId(viewParams.focusOnId);
+        } else {
+          _this.globalScrollbar.scrollTop(0);
+        }
+      });
 
       if (history) {
         history.push("/".concat(viewType, "/"));
@@ -212,52 +216,35 @@ function (_Component) {
       _this.scrollTop(top);
     };
 
-    _this.render = function () {
+    _this.bindHeaderRef = function (header) {
+      _this.header = header;
+    };
+
+    _this.updatePreviewContent = function () {
       var _assertThisInitialize = _assertThisInitialized(_assertThisInitialized(_this)),
           _assertThisInitialize2 = _assertThisInitialize.props,
           _assertThisInitialize3 = _assertThisInitialize2.story,
           metadata = _assertThisInitialize3.metadata,
           sections = _assertThisInitialize3.sections,
-          settings = _assertThisInitialize3.settings,
-          _assertThisInitialize4 = _assertThisInitialize2.previewMode,
-          previewMode = _assertThisInitialize4 === void 0 ? true : _assertThisInitialize4,
           usedDocument = _assertThisInitialize2.usedDocument,
           usedWindow = _assertThisInitialize2.usedWindow,
-          _assertThisInitialize5 = _assertThisInitialize.state,
-          inCover = _assertThisInitialize5.inCover,
-          toc = _assertThisInitialize5.toc,
-          indexOpen = _assertThisInitialize5.indexOpen,
-          glossary = _assertThisInitialize5.glossary,
-          citations = _assertThisInitialize5.citations,
-          coverImage = _assertThisInitialize5.coverImage,
-          _assertThisInitialize6 = _assertThisInitialize5.locale,
-          locale = _assertThisInitialize6 === void 0 ? {} : _assertThisInitialize6,
-          _assertThisInitialize7 = _assertThisInitialize5.viewType,
-          viewType = _assertThisInitialize7 === void 0 ? 'home' : _assertThisInitialize7,
-          _assertThisInitialize8 = _assertThisInitialize5.viewParams,
-          viewParams = _assertThisInitialize8 === void 0 ? {} : _assertThisInitialize8,
-          _assertThisInitialize9 = _assertThisInitialize.context,
-          dimensions = _assertThisInitialize9.dimensions,
-          getResourceDataUrl = _assertThisInitialize9.getResourceDataUrl,
+          _assertThisInitialize4 = _assertThisInitialize.state,
+          toc = _assertThisInitialize4.toc,
+          glossary = _assertThisInitialize4.glossary,
+          citations = _assertThisInitialize4.citations,
+          coverImage = _assertThisInitialize4.coverImage,
+          _assertThisInitialize5 = _assertThisInitialize4.locale,
+          locale = _assertThisInitialize5 === void 0 ? {} : _assertThisInitialize5,
+          _assertThisInitialize6 = _assertThisInitialize4.viewType,
+          viewType = _assertThisInitialize6 === void 0 ? 'home' : _assertThisInitialize6,
+          _assertThisInitialize7 = _assertThisInitialize4.viewParams,
+          viewParams = _assertThisInitialize7 === void 0 ? {} : _assertThisInitialize7,
+          _assertThisInitialize8 = _assertThisInitialize.context,
+          getResourceDataUrl = _assertThisInitialize8.getResourceDataUrl,
+          dimensions = _assertThisInitialize8.dimensions,
           scrollToElementId = _assertThisInitialize.scrollToElementId,
-          onNotePointerClick = _assertThisInitialize.onNotePointerClick;
-      /**
-       * ==========================================
-       * Local rendering-related variables
-       * ==========================================
-       */
-
-
-      var customCss = (0, _quinoaSchemas.getStyles)(_this.props.story).css || ''; // let noteCount = 1;
-      // const notes = sectionsOrder.reduce((nf, sectionId) => [
-      //   ...nf,
-      //   ...sections[sectionId].notesOrder
-      //       .map(noteId => ({
-      //         ...sections[sectionId].notes[noteId],
-      //         sectionId,
-      //         finalOrder: noteCount++,
-      //       }))
-      // ], []);
+          onNotePointerClick = _assertThisInitialize.onNotePointerClick,
+          bindHeaderRef = _assertThisInitialize.bindHeaderRef;
 
       var finalSections = Object.keys(sections).reduce(function (res, sectionId) {
         return _objectSpread({}, res, _defineProperty({}, sectionId, _objectSpread({}, sections[sectionId], {
@@ -276,71 +263,6 @@ function (_Component) {
       var notesPosition = options.notesPosition || 'foot'; // "responsive" notes positionning
 
       notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
-      var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale.default;
-      var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa.default;
-      /**
-       * Styles Variables (WYSIWYG)
-       */
-
-      var computedStylesVariables = settings.styles ? (0, _utils.stylesVariablesToCss)(settings.styles.pepper.stylesVariables) : '';
-      /**
-       * ==========================================
-       * Callbacks
-       * ==========================================
-       */
-
-      var onClickToggle = function onClickToggle() {
-        return _this.toggleIndex();
-      };
-
-      var onClickTitle = function onClickTitle() {
-        _this.scrollToContents();
-
-        _this.toggleIndex();
-      };
-      /**
-       * ==========================================
-       * References binding
-       * ==========================================
-       */
-
-
-      var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
-        _this.globalScrollbar = scrollbar;
-      };
-
-      var bindHeaderRef = function bindHeaderRef(header) {
-        _this.header = header;
-      };
-
-      var NavEl = function NavEl(props) {
-        return _react.default.createElement(_Nav.default, _extends({
-          indexOpen: indexOpen,
-          inCover: inCover,
-          coverImage: coverImage,
-          dimensions: dimensions,
-          onClickToggle: onClickToggle,
-          onClickTitle: onClickTitle,
-          viewType: viewType,
-          metadata: metadata,
-          scrollToElementId: scrollToElementId,
-          toggleIndex: _this.toggleIndex,
-          isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
-          toc: toc
-        }, props));
-      };
-
-      var FinalNav = function FinalNav() {
-        if (previewMode) {
-          return _react.default.createElement(NavEl, null);
-        }
-
-        var ConnectedEl = (0, _reactRouterDom.withRouter)(function (props) {
-          return _react.default.createElement(NavEl, props);
-        });
-        return _react.default.createElement(_reactRouterDom.HashRouter, null, _react.default.createElement(ConnectedEl, null));
-      };
-
       var PreviewContent = null;
       var navItems;
 
@@ -423,6 +345,129 @@ function (_Component) {
           });
         };
       }
+
+      _this.setState({
+        PreviewContent: PreviewContent
+      });
+    };
+
+    _this.render = function () {
+      var _assertThisInitialize9 = _assertThisInitialized(_assertThisInitialized(_this)),
+          _assertThisInitialize10 = _assertThisInitialize9.props,
+          _assertThisInitialize11 = _assertThisInitialize10.story,
+          metadata = _assertThisInitialize11.metadata,
+          sections = _assertThisInitialize11.sections,
+          settings = _assertThisInitialize11.settings,
+          _assertThisInitialize12 = _assertThisInitialize10.previewMode,
+          previewMode = _assertThisInitialize12 === void 0 ? true : _assertThisInitialize12,
+          usedDocument = _assertThisInitialize10.usedDocument,
+          usedWindow = _assertThisInitialize10.usedWindow,
+          _assertThisInitialize13 = _assertThisInitialize9.state,
+          inCover = _assertThisInitialize13.inCover,
+          toc = _assertThisInitialize13.toc,
+          indexOpen = _assertThisInitialize13.indexOpen,
+          glossary = _assertThisInitialize13.glossary,
+          citations = _assertThisInitialize13.citations,
+          coverImage = _assertThisInitialize13.coverImage,
+          _assertThisInitialize14 = _assertThisInitialize13.locale,
+          locale = _assertThisInitialize14 === void 0 ? {} : _assertThisInitialize14,
+          _assertThisInitialize15 = _assertThisInitialize13.viewType,
+          viewType = _assertThisInitialize15 === void 0 ? 'home' : _assertThisInitialize15,
+          _assertThisInitialize16 = _assertThisInitialize13.PreviewContent,
+          PreviewContent = _assertThisInitialize16 === void 0 ? function () {
+        return _react.default.createElement("div", null);
+      } : _assertThisInitialize16,
+          _assertThisInitialize17 = _assertThisInitialize9.context,
+          dimensions = _assertThisInitialize17.dimensions,
+          getResourceDataUrl = _assertThisInitialize17.getResourceDataUrl,
+          scrollToElementId = _assertThisInitialize9.scrollToElementId,
+          onNotePointerClick = _assertThisInitialize9.onNotePointerClick,
+          bindHeaderRef = _assertThisInitialize9.bindHeaderRef;
+      /**
+       * ==========================================
+       * Local rendering-related variables
+       * ==========================================
+       */
+
+
+      var customCss = (0, _quinoaSchemas.getStyles)(_this.props.story).css || '';
+      var finalSections = Object.keys(sections).reduce(function (res, sectionId) {
+        return _objectSpread({}, res, _defineProperty({}, sectionId, _objectSpread({}, sections[sectionId], {
+          notes: Object.keys(sections[sectionId].notes).reduce(function (tempNotes, noteId, noteIndex) {
+            return _objectSpread({}, tempNotes, _defineProperty({}, noteId, _objectSpread({}, sections[sectionId].notes[noteId], {
+              finalOrder: noteIndex + 1
+            })));
+          }, {})
+        })));
+      }, {});
+
+      var _getStyles2 = (0, _quinoaSchemas.getStyles)(_this.props.story),
+          _getStyles2$options = _getStyles2.options,
+          options = _getStyles2$options === void 0 ? {} : _getStyles2$options;
+
+      var notesPosition = options.notesPosition || 'foot'; // "responsive" notes positionning
+
+      notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
+      var citationLocale = settings.citationLocale && settings.citationLocale.data || _englishLocale.default;
+      var citationStyle = settings.citationStyle && settings.citationStyle.data || _apa.default;
+      /**
+       * Styles Variables (WYSIWYG)
+       */
+
+      var computedStylesVariables = settings.styles ? (0, _utils.stylesVariablesToCss)(settings.styles.pepper.stylesVariables) : '';
+      /**
+       * ==========================================
+       * Callbacks
+       * ==========================================
+       */
+
+      var onClickToggle = function onClickToggle() {
+        return _this.toggleIndex();
+      };
+
+      var onClickTitle = function onClickTitle() {
+        _this.scrollToContents();
+
+        _this.toggleIndex();
+      };
+      /**
+       * ==========================================
+       * References binding
+       * ==========================================
+       */
+
+
+      var bindGlobalScrollbarRef = function bindGlobalScrollbarRef(scrollbar) {
+        _this.globalScrollbar = scrollbar;
+      };
+
+      var NavEl = function NavEl(props) {
+        return _react.default.createElement(_Nav.default, _extends({
+          indexOpen: indexOpen,
+          inCover: inCover,
+          coverImage: coverImage,
+          dimensions: dimensions,
+          onClickToggle: onClickToggle,
+          onClickTitle: onClickTitle,
+          viewType: viewType,
+          metadata: metadata,
+          scrollToElementId: scrollToElementId,
+          toggleIndex: _this.toggleIndex,
+          isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
+          toc: toc
+        }, props));
+      };
+
+      var FinalNav = function FinalNav() {
+        if (previewMode) {
+          return _react.default.createElement(NavEl, null);
+        }
+
+        var ConnectedEl = (0, _reactRouterDom.withRouter)(function (props) {
+          return _react.default.createElement(NavEl, props);
+        });
+        return _react.default.createElement(_reactRouterDom.HashRouter, null, _react.default.createElement(ConnectedEl, null));
+      };
 
       return _react.default.createElement(_reactCiteproc.ReferencesManager, {
         style: citationStyle,
@@ -629,6 +674,10 @@ function (_Component) {
             _this2.setState({
               toc: toc
             });
+
+            if (_this2.props.previewMode !== false) {
+              _this2.updatePreviewContent();
+            }
           });
         }
       });
@@ -661,6 +710,8 @@ function (_Component) {
           _this3.setState({
             toc: toc
           });
+
+          _this3.updatePreviewContent();
         });
       }
     }
@@ -737,11 +788,6 @@ function (_Component) {
         indexOpen: to !== undefined ? to : !this.state.indexOpen
       });
     }
-    /**
-     * Renders the component
-     * @return {ReactElement} component - the component
-     */
-
   }]);
 
   return PepperLayout;

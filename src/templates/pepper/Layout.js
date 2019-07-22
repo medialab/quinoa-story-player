@@ -100,6 +100,7 @@ class PepperLayout extends Component {
       viewParams: {}
     };
   }
+
   /**
    * Updates data in the context when the state or props change
    */
@@ -159,6 +160,9 @@ class PepperLayout extends Component {
             }
           );
           this.setState({ toc });
+          if (this.props.previewMode !== false) {
+            this.updatePreviewContent();
+          }
         });
       }
     });
@@ -180,6 +184,7 @@ class PepperLayout extends Component {
       setTimeout(() => {
         const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
         this.setState({ toc });
+        this.updatePreviewContent();
       });
     }
   }
@@ -193,12 +198,18 @@ class PepperLayout extends Component {
       viewType,
       viewParams,
     });
-    if (viewParams.focusOnId) {
-      setTimeout(() => this.scrollToElementId(viewParams.focusOnId));
-    }
-    else {
-      this.globalScrollbar.scrollTop(0);
-    }
+    setTimeout(() => {
+      if (this.props.previewMode !== false) {
+        this.updatePreviewContent();
+      }
+      if (viewParams.focusOnId) {
+        this.scrollToElementId(viewParams.focusOnId);
+      }
+      else {
+        this.globalScrollbar.scrollTop(0);
+      }
+    });
+
     if (history) {
       history.push(`/${viewType}/`);
     }
@@ -339,28 +350,22 @@ class PepperLayout extends Component {
     });
   }
 
-  /**
-   * Renders the component
-   * @return {ReactElement} component - the component
-   */
-  render = () => {
+  bindHeaderRef = header => {
+    this.header = header;
+  };
+
+  updatePreviewContent = () => {
     const {
       props: {
         story: {
           metadata,
-          // sectionsOrder,
           sections,
-          settings,
         },
-        previewMode = true,
         usedDocument,
         usedWindow,
-        // usedWindow
       },
       state: {
-        inCover,
         toc,
-        indexOpen,
         glossary,
         citations,
         coverImage,
@@ -369,29 +374,15 @@ class PepperLayout extends Component {
         viewParams = {},
       },
       context: {
+        getResourceDataUrl,
         dimensions,
-        getResourceDataUrl
       },
       scrollToElementId,
       // scrollToContents,
       onNotePointerClick,
+      bindHeaderRef,
     } = this;
-    /**
-     * ==========================================
-     * Local rendering-related variables
-     * ==========================================
-     */
-    const customCss = getStyles(this.props.story).css || '';
-    // let noteCount = 1;
-    // const notes = sectionsOrder.reduce((nf, sectionId) => [
-    //   ...nf,
-    //   ...sections[sectionId].notesOrder
-    //       .map(noteId => ({
-    //         ...sections[sectionId].notes[noteId],
-    //         sectionId,
-    //         finalOrder: noteCount++,
-    //       }))
-    // ], []);
+
     const finalSections = Object.keys(sections).reduce((res, sectionId) => ({
       ...res,
       [sectionId]: {
@@ -412,62 +403,6 @@ class PepperLayout extends Component {
     let notesPosition = options.notesPosition || 'foot';
     // "responsive" notes positionning
     notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
-    const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
-    const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
-
-    /**
-     * Styles Variables (WYSIWYG)
-     */
-    const computedStylesVariables = settings.styles
-      ? stylesVariablesToCss(settings.styles.pepper.stylesVariables)
-      : '';
-
-    /**
-     * ==========================================
-     * Callbacks
-     * ==========================================
-     */
-    const onClickToggle = () => this.toggleIndex();
-    const onClickTitle = () => {
-      this.scrollToContents();
-      this.toggleIndex();
-    };
-    /**
-     * ==========================================
-     * References binding
-     * ==========================================
-     */
-    const bindGlobalScrollbarRef = scrollbar => {
-      this.globalScrollbar = scrollbar;
-    };
-    const bindHeaderRef = header => {
-      this.header = header;
-    };
-
-
-    const NavEl = (props) => (
-      <Nav
-        indexOpen={indexOpen}
-        inCover={inCover}
-        coverImage={coverImage}
-        dimensions={dimensions}
-        onClickToggle={onClickToggle}
-        onClickTitle={onClickTitle}
-        viewType={viewType}
-        metadata={metadata}
-        scrollToElementId={scrollToElementId}
-        toggleIndex={this.toggleIndex}
-        isDisplayed={((!coverImage && dimensions.width > 700) || !inCover)}
-        toc={toc}
-        {...props} />
-    );
-    const FinalNav = () => {
-      if (previewMode) {
-        return <NavEl />;
-      }
-      const ConnectedEl = withRouter(props => <NavEl {...props} />);
-      return <HashRouter><ConnectedEl /></HashRouter>;
-    };
 
     let PreviewContent = null;
     let navItems;
@@ -551,6 +486,128 @@ class PepperLayout extends Component {
           locale={locale} />
       );
     }
+    this.setState({
+      PreviewContent,
+    });
+  }
+
+  /**
+   * Renders the component
+   * @return {ReactElement} component - the component
+   */
+  render = () => {
+    const {
+      props: {
+        story: {
+          metadata,
+          // sectionsOrder,
+          sections,
+          settings,
+        },
+        previewMode = true,
+        usedDocument,
+        usedWindow,
+        // usedWindow
+      },
+      state: {
+        inCover,
+        toc,
+        indexOpen,
+        glossary,
+        citations,
+        coverImage,
+        locale = {},
+        viewType = 'home',
+        PreviewContent = () => <div />,
+      },
+      context: {
+        dimensions,
+        getResourceDataUrl
+      },
+      scrollToElementId,
+      // scrollToContents,
+      onNotePointerClick,
+      bindHeaderRef,
+    } = this;
+    /**
+     * ==========================================
+     * Local rendering-related variables
+     * ==========================================
+     */
+    const customCss = getStyles(this.props.story).css || '';
+    const finalSections = Object.keys(sections).reduce((res, sectionId) => ({
+      ...res,
+      [sectionId]: {
+        ...sections[sectionId],
+        notes: Object.keys(sections[sectionId].notes).reduce((tempNotes, noteId, noteIndex) => {
+          return {
+            ...tempNotes,
+            [noteId]: {
+              ...sections[sectionId].notes[noteId],
+              finalOrder: noteIndex + 1
+            }
+          };
+        }, {})
+      }
+    }), {});
+
+    const { options = {} } = getStyles(this.props.story);
+    let notesPosition = options.notesPosition || 'foot';
+    // "responsive" notes positionning
+    notesPosition = dimensions.width > 700 ? notesPosition : 'foot';
+    const citationLocale = (settings.citationLocale && settings.citationLocale.data) || defaultCitationLocale;
+    const citationStyle = (settings.citationStyle && settings.citationStyle.data) || defaultCitationStyle;
+
+    /**
+     * Styles Variables (WYSIWYG)
+     */
+    const computedStylesVariables = settings.styles
+      ? stylesVariablesToCss(settings.styles.pepper.stylesVariables)
+      : '';
+
+    /**
+     * ==========================================
+     * Callbacks
+     * ==========================================
+     */
+    const onClickToggle = () => this.toggleIndex();
+    const onClickTitle = () => {
+      this.scrollToContents();
+      this.toggleIndex();
+    };
+    /**
+     * ==========================================
+     * References binding
+     * ==========================================
+     */
+    const bindGlobalScrollbarRef = scrollbar => {
+      this.globalScrollbar = scrollbar;
+    };
+
+
+    const NavEl = (props) => (
+      <Nav
+        indexOpen={indexOpen}
+        inCover={inCover}
+        coverImage={coverImage}
+        dimensions={dimensions}
+        onClickToggle={onClickToggle}
+        onClickTitle={onClickTitle}
+        viewType={viewType}
+        metadata={metadata}
+        scrollToElementId={scrollToElementId}
+        toggleIndex={this.toggleIndex}
+        isDisplayed={((!coverImage && dimensions.width > 700) || !inCover)}
+        toc={toc}
+        {...props} />
+    );
+    const FinalNav = () => {
+      if (previewMode) {
+        return <NavEl />;
+      }
+      const ConnectedEl = withRouter(props => <NavEl {...props} />);
+      return <HashRouter><ConnectedEl /></HashRouter>;
+    };
 
     return (
       <ReferencesManager
