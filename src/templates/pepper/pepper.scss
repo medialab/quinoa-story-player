@@ -1482,13 +1482,13 @@ $timer-long: 1s;
 
         opacity: .8;
         padding-bottom: $gutter-medium;
-        // .content-p,
-        // .content-ul,
-        // .content-ol
-        // {
-            // font-size: $font-size-1;
-            // line-height: $font-size-1 * 1.66;
-        // }
+        .content-p,
+        .content-ul,
+        .content-ol
+        {
+            font-size: $font-size-0;
+            line-height: $font-size-0 * 1.66;
+        }
     }
 
     /**
