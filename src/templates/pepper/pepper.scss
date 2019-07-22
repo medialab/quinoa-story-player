@@ -821,10 +821,10 @@ $timer-long: 1s;
         .notes-container,
         .glossary-container,
         .references-container,
-        // .content-figure.embed,
+        .content-figure.embed,
         .content-figure.image,
         .content-figure.video,
-        .ReactTable
+        .content-figure.table
         {
             margin-right: $gutter-lateral-small-screens;
             margin-left: $gutter-lateral-small-screens;
