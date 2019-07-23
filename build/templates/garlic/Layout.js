@@ -102,6 +102,31 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(GarlicLayout).call(this, props));
 
+    _this.componentDidUpdate = function (prevProps) {
+      if (prevProps.story !== _this.props.story) {
+        var toc = (0, _utils.buildTOC)(_this.props.story, 0, _this.state, {
+          usedDocument: _this.props.usedDocument,
+          usedWindow: _this.props.usedWindow
+        });
+
+        _this.setState({
+          toc: toc
+        });
+      }
+    };
+
+    _this.getScrollElements = function () {
+      var rawElements = _this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
+
+      return Array.from(rawElements).map(function (element) {
+        return {
+          element: element,
+          type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
+          bbox: element.getBoundingClientRect()
+        };
+      });
+    };
+
     _this.onScrollUpdate = function (evt) {
       if (!_this.header) {
         return;
@@ -135,25 +160,28 @@ function (_Component) {
 
 
       if (scrollTop !== _this.state.scrollTop) {
-        var rawElements = _this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
+        var _getStyles = (0, _quinoaSchemas.getStyles)(_this.props.story),
+            _getStyles$options = _getStyles.options,
+            options = _getStyles$options === void 0 ? {} : _getStyles$options;
 
-        var elements = Array.from(rawElements).map(function (element) {
-          return {
-            element: element,
-            type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
-            bbox: element.getBoundingClientRect()
-          };
-        }); // pick last matching element
+        var figuresPosition = options.figuresPosition || 'body';
 
-        var activeBlock = elements.reverse().find(function (element) {
-          return element.bbox.top < evt.clientHeight * 0.66;
-        });
+        if (figuresPosition === 'aside') {
+          // pick last matching element
+          var activeBlock = _this.getScrollElements().reverse().find(function (element) {
+            return element.bbox.top < evt.clientHeight * 0.5;
+          });
 
-        if (activeBlock && activeBlock.type === 'atomic') {
-          var idBearer = activeBlock.element.querySelector('.content-figure');
+          if (activeBlock && activeBlock.type === 'atomic') {
+            var idBearer = activeBlock.element.querySelector('.content-figure');
 
-          if (idBearer) {
-            activeBlock.id = idBearer.id;
+            if (idBearer) {
+              activeBlock.id = idBearer.id;
+            }
+          }
+
+          if (!_this.state.activeBlock || _this.state.activeBlock.id !== activeBlock.id) {
+            stateChanges.activeBlock = activeBlock;
           }
         }
 
@@ -163,8 +191,7 @@ function (_Component) {
         });
         stateChanges = _objectSpread({}, stateChanges, {
           toc: toc,
-          scrollTop: scrollTop,
-          activeBlock: activeBlock
+          scrollTop: scrollTop
         });
       } // applying state changes if needed
 
@@ -240,9 +267,9 @@ function (_Component) {
         })));
       }, {});
 
-      var _getStyles = (0, _quinoaSchemas.getStyles)(_this.props.story),
-          _getStyles$options = _getStyles.options,
-          options = _getStyles$options === void 0 ? {} : _getStyles$options;
+      var _getStyles2 = (0, _quinoaSchemas.getStyles)(_this.props.story),
+          _getStyles2$options = _getStyles2.options,
+          options = _getStyles2$options === void 0 ? {} : _getStyles2$options;
 
       var notesPosition = options.notesPosition || 'foot';
       var figuresPosition = options.figuresPosition || 'body'; // "responsive" notes positionning
@@ -376,7 +403,7 @@ function (_Component) {
     _this.scrollToContents = _this.scrollToContents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.scrollToCover = _this.scrollToCover.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.scrollTop = _this.scrollTop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 50, {
+    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 40, {
       leading: true,
       trailing: true,
       maxWait: 100
@@ -497,8 +524,6 @@ function (_Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      var _this3 = this;
-
       // we perform expensive operations of building glossary
       // and citations data only when the story changes
       if (this.props.story !== nextProps.story) {
@@ -507,29 +532,22 @@ function (_Component) {
           citations: (0, _misc.buildCitations)(nextProps.story),
           coverImage: (0, _misc.buildCoverImage)(nextProps.story),
           locale: nextProps.locale && _locales.default[nextProps.locale] ? _locales.default[nextProps.locale] : _locales.default.en
-        });
-        setTimeout(function () {
-          var toc = (0, _utils.buildTOC)(_this3.props.story, 0, _this3.state, {
-            usedDocument: _this3.props.usedDocument,
-            usedWindow: _this3.props.usedWindow
-          });
-
-          _this3.setState({
-            toc: toc
-          });
-        });
+        }); // setTimeout(() => {
+        //   const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
+        //   this.setState({ toc });
+        // });
       }
     }
+  }, {
+    key: "scrollTop",
+
     /**
      * Programmatically modifies the scroll state of the component
      * so that it transitions to a specific point in the page
      * @param {number} top - the position to scroll to
      */
-
-  }, {
-    key: "scrollTop",
     value: function scrollTop(initialTop) {
-      var _this4 = this;
+      var _this3 = this;
 
       var scrollbars = this.globalScrollbar;
       var scrollTop = scrollbars.getScrollTop();
@@ -544,7 +562,7 @@ function (_Component) {
       var _loop = function _loop(t) {
         var to = (0, _d3Ease.easeCubic)(t);
         setTimeout(function () {
-          _this4.globalScrollbar.scrollTop(scrollTop + diff * to);
+          _this3.globalScrollbar.scrollTop(scrollTop + diff * to);
         }, ANIMATION_DURATION * t);
       };
 

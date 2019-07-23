@@ -50,7 +50,7 @@ class GarlicLayout extends Component {
     this.scrollToContents = this.scrollToContents.bind(this);
     this.scrollToCover = this.scrollToCover.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    this.onScrollUpdate = debounce(this.onScrollUpdate, 50, { leading: true, trailing: true, maxWait: 100 });
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 40, { leading: true, trailing: true, maxWait: 100 });
     // this.onScrollUpdate = this.onScrollUpdate.bind(this);
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
@@ -94,7 +94,7 @@ class GarlicLayout extends Component {
       /**
        * Cover image resource data
        */
-      coverImage: undefined
+      coverImage: undefined,
     };
   }
   /**
@@ -161,11 +161,33 @@ class GarlicLayout extends Component {
         coverImage: buildCoverImage(nextProps.story),
         locale: nextProps.locale && locales[nextProps.locale] ? locales[nextProps.locale] : locales.en
       });
-      setTimeout(() => {
-        const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
-        this.setState({ toc });
-      });
+      // setTimeout(() => {
+      //   const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
+      //   this.setState({ toc });
+      // });
     }
+  }
+
+  componentDidUpdate = prevProps => {
+    if (prevProps.story !== this.props.story) {
+      const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
+
+      this.setState({
+        toc,
+      });
+
+    }
+  }
+
+  getScrollElements = () => {
+    const rawElements = this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
+    return Array.from(rawElements).map(element => {
+      return {
+        element,
+        type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
+        bbox: element.getBoundingClientRect()
+      };
+    });
   }
 
   /**
@@ -243,24 +265,24 @@ class GarlicLayout extends Component {
     // at each update, we should split buildTOC in two functions
     // to handle the change of active element separately, for better performances)
     if (scrollTop !== this.state.scrollTop) {
-      const rawElements = this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
-      const elements = Array.from(rawElements).map(element => {
-        return {
-          element,
-          type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
-          bbox: element.getBoundingClientRect()
-        };
-      });
-      // pick last matching element
-      const activeBlock = elements.reverse().find(element => {
-        return (element.bbox.top < evt.clientHeight * 0.66);
-      });
-      if (activeBlock && activeBlock.type === 'atomic') {
-        const idBearer = activeBlock.element.querySelector('.content-figure');
-        if (idBearer) {
-          activeBlock.id = idBearer.id;
+      const { options = {} } = getStyles(this.props.story);
+      const figuresPosition = options.figuresPosition || 'body';
+      if (figuresPosition === 'aside') {
+        // pick last matching element
+        const activeBlock = this.getScrollElements().reverse().find(element => {
+          return (element.bbox.top < evt.clientHeight * 0.5);
+        });
+        if (activeBlock && activeBlock.type === 'atomic') {
+          const idBearer = activeBlock.element.querySelector('.content-figure');
+          if (idBearer) {
+            activeBlock.id = idBearer.id;
+          }
+        }
+        if (!this.state.activeBlock || (this.state.activeBlock.id !== activeBlock.id)) {
+          stateChanges.activeBlock = activeBlock;
         }
       }
+
       const toc = buildTOC(
         this.props.story,
         scrollTop,
@@ -271,7 +293,6 @@ class GarlicLayout extends Component {
         ...stateChanges,
         toc,
         scrollTop,
-        activeBlock,
       };
     }
     // applying state changes if needed
