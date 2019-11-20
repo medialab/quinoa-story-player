@@ -451,6 +451,7 @@ $timer-long: 1s;
         margin-bottom: $gutter-medium;
         margin-left: 0;
         margin-top: 0;
+        line-height: 0.7;
     }
 
 
@@ -473,6 +474,9 @@ $timer-long: 1s;
     /**
      * Content figure layout
      */
+    .content-atomic-container{
+        margin-top: $gutter-medium;
+    }
     .content-figure
     {
         position: relative;
@@ -569,7 +573,7 @@ $timer-long: 1s;
      */
     .quinoa-contextualization.image
     {
-        background: rgba(0,0,0,.05);
+        // background: rgba(0,0,0,.05);
         img
         {
             cursor: pointer;
@@ -610,6 +614,7 @@ $timer-long: 1s;
 
         flex-flow: row nowrap;
         align-items: flex-start;
+        justify-content: center;
     }
 
     /**
@@ -621,9 +626,9 @@ $timer-long: 1s;
         padding-right: $gutter-large;
         padding-bottom: $gutter-medium;
         padding-left: $gutter-medium * 2.5;
-        @media screen and (max-width: 700px) {
-            padding-left: 0;
-        }
+        // @media screen and (max-width: 700px) {
+        //     padding-left: 0;
+        // }
     }
     /**
      * Interctive table layout
@@ -918,15 +923,6 @@ $timer-long: 1s;
     }
 
     /**
-     * Figure caption content styling
-     */
-    // .figure-caption-content
-    // {
-    //     font-size: $font-size-1;
-
-    //     opacity: .7;
-    // }
-    /**
      * Info pill styling
      */
     .info-pill
@@ -953,6 +949,7 @@ $timer-long: 1s;
     .figure-caption-title
     {
         font-size: $font-size-1;
+        font-weight: 400;
     }
 
     /**
@@ -1287,6 +1284,9 @@ $timer-long: 1s;
         list-style: none;
 
         cursor: pointer;
+        
+        word-break: normal;
+
 
         opacity: .6;// todo: parametrize that
 
@@ -1324,6 +1324,7 @@ $timer-long: 1s;
     .is-level-1 .section-title
     {
         font-size: $font-size-4;
+        line-height: 1;
 
         &.notes-title{
             font-size: $font-size-3;
