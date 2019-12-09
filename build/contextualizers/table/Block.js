@@ -110,7 +110,9 @@ function (_Component) {
       var columns;
 
       if (data.json) {
-        columns = Object.keys(data.json[0]).map(function (key) {
+        columns = Object.keys(data.json[0]).filter(function (key) {
+          return key.length;
+        }).map(function (key) {
           return {
             Header: key,
             accessor: key
