@@ -76,7 +76,9 @@ export default class Table extends Component {
     const { data } = resource;
     let columns;
     if (data.json) {
-      columns = Object.keys(data.json[0]).map(key => ({
+      columns = Object.keys(data.json[0])
+      .filter(key => key.length)
+      .map(key => ({
         Header: key,
         accessor: key
       }));
