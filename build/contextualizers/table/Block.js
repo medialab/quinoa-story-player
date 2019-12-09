@@ -65,7 +65,9 @@ function (_Component) {
         });
 
         (0, _axios.default)(getResourceDataUrl(data)).then(function (res) {
-          var columns = Object.keys(res.data[0]).map(function (key) {
+          var columns = Object.keys(res.data[0]).filter(function (key) {
+            return key.length;
+          }).map(function (key) {
             return {
               Header: key,
               accessor: key

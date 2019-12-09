@@ -36,7 +36,9 @@ export default class Table extends Component {
       this.setState({ loading: true });
       get(getResourceDataUrl(data))
       .then(res => {
-        const columns = Object.keys(res.data[0]).map(key => ({
+        const columns = Object.keys(res.data[0])
+        .filter(key => key.length)
+        .map(key => ({
           Header: key,
           accessor: key
         }));
