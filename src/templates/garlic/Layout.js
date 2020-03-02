@@ -115,6 +115,9 @@ class GarlicLayout extends Component {
 
       activeBlock: this.state.activeBlock,
 
+      usedDocument: this.props.usedDocument || document,
+      usedWindow: this.props.usedWindow || window,
+
       citationLocale: (this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data) || defaultCitationLocale,
       citationStyle: (this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data) || defaultCitationStyle,
     };
@@ -603,6 +606,7 @@ class GarlicLayout extends Component {
           {customCss}
         </style>
         <Tooltip id="tooltip" effect="solid" />
+        <div id="modal-container" />
       </ReferencesManager>
     );
   }
@@ -658,6 +662,9 @@ GarlicLayout.childContextTypes = {
    citationLocale: PropTypes.string,
 
    activeBlock: PropTypes.object,
+
+   usedDocument: PropTypes.object,
+   usedWindow: PropTypes.object
 };
 
 

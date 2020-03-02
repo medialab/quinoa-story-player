@@ -4,11 +4,15 @@ import PropTypes from 'prop-types';
 
 
 class Modal extends React.Component {
+
+  static contextTypes = {
+    usedDocument: PropTypes.object,
+  }
+
   constructor(props) {
     super(props);
     this.el = document.createElement('div');
   }
-
 
   componentDidMount() {
     // The portal element is inserted in the DOM tree after
@@ -19,7 +23,7 @@ class Modal extends React.Component {
     // DOM node, or uses 'autoFocus' in a descendant, add
     // state to Modal and only render the children when Modal
     // is inserted in the DOM tree.
-    const modalRoot = document.getElementById('modal-root');
+    const modalRoot = this.context.usedDocument.getElementById('modal-container');
     if (modalRoot) {
       modalRoot.appendChild(this.el);
     }
@@ -28,7 +32,7 @@ class Modal extends React.Component {
   shouldComponentUpdate = () => true;
 
   componentWillUnmount() {
-    const modalRoot = document.getElementById('modal-root');
+    const modalRoot = this.context.usedDocument.getElementById('modal-container');
     if (modalRoot) {
       modalRoot.removeChild(this.el);
     }

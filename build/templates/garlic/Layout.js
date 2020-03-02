@@ -397,6 +397,8 @@ function (_Component) {
       })), _react.default.createElement("style", null, contextualizersStyles, _garlic.default, computedStylesVariables, customCss), _react.default.createElement(_reactTooltip.default, {
         id: "tooltip",
         effect: "solid"
+      }), _react.default.createElement("div", {
+        id: "modal-container"
       }));
     };
 
@@ -480,6 +482,8 @@ function (_Component) {
         onInternalLinkClick: this.onInternalLinkClick,
         locale: this.state.locale,
         activeBlock: this.state.activeBlock,
+        usedDocument: this.props.usedDocument || document,
+        usedWindow: this.props.usedWindow || window,
         citationLocale: this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data || _englishLocale.default,
         citationStyle: this.props.story && this.props.story.settings.citationStyle && this.props.story.settings.citationStyle.data || _apa.default
       };
@@ -737,7 +741,9 @@ GarlicLayout.childContextTypes = {
   locale: _propTypes.default.object,
   citationStyle: _propTypes.default.string,
   citationLocale: _propTypes.default.string,
-  activeBlock: _propTypes.default.object
+  activeBlock: _propTypes.default.object,
+  usedDocument: _propTypes.default.object,
+  usedWindow: _propTypes.default.object
 };
 var _default = GarlicLayout;
 exports.default = _default;

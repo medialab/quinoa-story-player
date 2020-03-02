@@ -53,7 +53,11 @@ var GlossaryMention = function GlossaryMention(_ref) {
     "data-tip": resource.data.description ? resource.data.description : undefined
   }, _react.default.createElement("span", {
     className: "link-content"
-  }, children));
+  }, children), _react.default.createElement("div", {
+    className: "tooltip"
+  }, "Hover Me to Preview", _react.default.createElement("div", {
+    className: "top"
+  }, _react.default.createElement("h3", null, "Lorem Ipsum"), _react.default.createElement("p", null, "Dolor sit amet, consectetur adipiscing elit."), _react.default.createElement("i", null))));
 };
 /**
  * Component's properties types

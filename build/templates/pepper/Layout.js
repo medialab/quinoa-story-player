@@ -118,6 +118,8 @@ function (_Component) {
           viewParams: _this.state.viewParams
         },
         previewMode: _this.props.previewMode === undefined ? true : _this.props.previewMode,
+        usedDocument: _this.props.usedDocument || document,
+        usedWindow: _this.props.usedWindow || window,
         citationLocale: _this.props.story && _this.props.story.settings.citationLocale && _this.props.story.settings.citationLocale.data || _englishLocale.default,
         citationStyle: _this.props.story && _this.props.story.settings.citationStyle && _this.props.story.settings.citationStyle.data || _apa.default
       };
@@ -846,7 +848,9 @@ PepperLayout.childContextTypes = {
     viewParams: _propTypes.default.obj
   }),
   scrollTop: _propTypes.default.func,
-  scrollToElementId: _propTypes.default.func
+  scrollToElementId: _propTypes.default.func,
+  usedDocument: _propTypes.default.object,
+  usedWindow: _propTypes.default.object
 };
 var _default = PepperLayout;
 exports.default = _default;

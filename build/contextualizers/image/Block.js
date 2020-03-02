@@ -64,7 +64,7 @@ function (_React$Component) {
       // DOM node, or uses 'autoFocus' in a descendant, add
       // state to Modal and only render the children when Modal
       // is inserted in the DOM tree.
-      var modalRoot = document.getElementById('modal-root');
+      var modalRoot = this.context.usedDocument.getElementById('modal-container');
 
       if (modalRoot) {
         modalRoot.appendChild(this.el);
@@ -73,7 +73,7 @@ function (_React$Component) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      var modalRoot = document.getElementById('modal-root');
+      var modalRoot = this.context.usedDocument.getElementById('modal-container');
 
       if (modalRoot) {
         modalRoot.removeChild(this.el);
@@ -88,6 +88,10 @@ function (_React$Component) {
 
   return Modal;
 }(_react.default.Component);
+
+Modal.contextTypes = {
+  usedDocument: _propTypes.default.object
+};
 
 var ImageBlock =
 /*#__PURE__*/
