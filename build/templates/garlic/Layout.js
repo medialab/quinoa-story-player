@@ -15,8 +15,6 @@ var _debounce = _interopRequireDefault(require("lodash/debounce"));
 
 var _reactCiteproc = require("react-citeproc");
 
-var _reactTooltip = _interopRequireDefault(require("react-tooltip"));
-
 var _quinoaSchemas = require("quinoa-schemas");
 
 var _d3Ease = require("d3-ease");
@@ -199,8 +197,6 @@ function (_Component) {
       if (Object.keys(stateChanges).length) {
         _this.setState(stateChanges);
       }
-
-      _reactTooltip.default.rebuild();
     };
 
     _this.onNotePointerClick = function (note) {
@@ -394,10 +390,7 @@ function (_Component) {
         toggleIndex: _this.toggleIndex,
         isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
         toc: toc
-      })), _react.default.createElement("style", null, contextualizersStyles, _garlic.default, computedStylesVariables, customCss), _react.default.createElement(_reactTooltip.default, {
-        id: "tooltip",
-        effect: "solid"
-      }), _react.default.createElement("div", {
+      })), _react.default.createElement("style", null, contextualizersStyles, _garlic.default, computedStylesVariables, customCss), _react.default.createElement("div", {
         id: "modal-container"
       }));
     };

@@ -1249,7 +1249,7 @@ $timer-long: 1s;
 
         color: inherit;
         // border-bottom: 1px solid $color-secondary;
-        border-bottom: 1px dashed currentColor;
+        // border-bottom: 1px dashed currentColor;
         outline: none;
 
         @include transition(all .5s ease);
@@ -1265,11 +1265,12 @@ $timer-long: 1s;
             // background: $color-secondary;
             // background: $color-secondary-intent;
         }
-        &.glossary{
+        &.glossary {
             border-bottom: 1px solid $color-glossary;
         }
         &.bib{
             border-bottom: none;
+            cursor: text;
         }
         &.webpage{
             border-bottom: 1px solid $color-external-link;
@@ -1338,14 +1339,6 @@ $timer-long: 1s;
         {
             background: $color-secondary-intent;
         }
-    }
-
-    /**
-     * tooltip content layout
-     */
-    .tooltip-content
-    {
-        font-size: $font-size-1 * .9;
     }
 
     /**
@@ -1514,11 +1507,6 @@ $timer-long: 1s;
                 font-size: 2em;
                 content: counter(page);
           }
-        }
-
-        .__react_component_tooltip
-        {
-            display: none;
         }
 
 
@@ -1948,21 +1936,20 @@ $timer-long: 1s;
  .tooltip {
     display:inline-block;
     position:relative;
-    border-bottom:1px dotted #666;
     text-align:left;
 }
 
 .tooltip .top {
     min-width:200px; 
-    top:-20px;
+    top:-10px;
     left:50%;
     transform:translate(-50%, -100%);
     padding:10px 20px;
     color:#FFFFFF;
     background-color:#000000;
     font-weight:normal;
-    font-size:13px;
     border-radius:8px;
+    font-size: $font-size-1 * .9;
     position:absolute;
     z-index:99999999;
     box-sizing:border-box;
@@ -1980,7 +1967,7 @@ $timer-long: 1s;
     left:50%;
     margin-left:-12px;
     width:24px;
-    height:12px;
+    height:9px;
     overflow:hidden;
 }
 

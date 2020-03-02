@@ -1,4 +1,5 @@
 import React from 'react';
+import Tooltip from './Tooltip';
 
 
 const Info = ({
@@ -7,13 +8,10 @@ const Info = ({
 }) => {
   return (
     <span
-      className="info-pill"
-      data-for="tooltip"
-      data-html
-      data-tip={message}
-      data-effect={'float'}
-      data-place={place}>
-      i
+      className="info-pill">
+      <Tooltip html content={message} place={place}>
+        i
+      </Tooltip>
     </span>
   );
 };

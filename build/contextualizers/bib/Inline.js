@@ -13,6 +13,8 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactCiteproc = require("react-citeproc");
 
+var _Tooltip = _interopRequireDefault(require("../../components/Tooltip"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -48,11 +50,11 @@ var CitationContainer = function CitationContainer(_ref, context) {
 
       return _react.default.createElement("cite", {
         className: "quinoa-contextualization inline bib",
-        "data-for": "tooltip",
-        "data-html": true,
-        "data-tip": (0, _server.renderToStaticMarkup)(Bib),
         id: id
-      }, CitComponent);
+      }, _react.default.createElement(_Tooltip.default, {
+        html: true,
+        content: (0, _server.renderToStaticMarkup)(Bib)
+      }, CitComponent));
     }
 
     return null;

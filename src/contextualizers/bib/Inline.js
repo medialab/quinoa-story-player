@@ -8,6 +8,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import PropTypes from 'prop-types';
 import { Bibliography } from 'react-citeproc';
+import Tooltip from '../../components/Tooltip';
 /**
  * Renders a citation container as a pure component
  * @param {object} props
@@ -36,11 +37,10 @@ const CitationContainer = ({
       return (
         <cite
           className="quinoa-contextualization inline bib"
-          data-for="tooltip"
-          data-html
-          data-tip={renderToStaticMarkup(Bib)}
           id={id}>
-          {CitComponent}
+          <Tooltip html content={renderToStaticMarkup(Bib)}>
+            {CitComponent}
+          </Tooltip>
         </cite>
       );
     }

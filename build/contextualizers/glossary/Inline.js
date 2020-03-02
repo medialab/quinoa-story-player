@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _Tooltip = _interopRequireDefault(require("../../components/Tooltip"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -48,16 +50,12 @@ var GlossaryMention = function GlossaryMention(_ref) {
     id: 'glossary-mention-' + contextualization.id,
     href: '#glossary-entry-' + resource.id,
     onClick: handleClick,
-    className: "quinoa-contextualization inline glossary glossary-mention",
-    "data-for": "tooltip",
-    "data-tip": resource.data.description ? resource.data.description : undefined
+    className: "quinoa-contextualization inline glossary glossary-mention"
+  }, _react.default.createElement(_Tooltip.default, {
+    content: resource.data.description ? resource.data.description : undefined
   }, _react.default.createElement("span", {
     className: "link-content"
-  }, children), _react.default.createElement("div", {
-    className: "tooltip"
-  }, "Hover Me to Preview", _react.default.createElement("div", {
-    className: "top"
-  }, _react.default.createElement("h3", null, "Lorem Ipsum"), _react.default.createElement("p", null, "Dolor sit amet, consectetur adipiscing elit."), _react.default.createElement("i", null))));
+  }, children)));
 };
 /**
  * Component's properties types

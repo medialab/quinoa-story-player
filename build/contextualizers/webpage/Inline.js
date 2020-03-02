@@ -7,6 +7,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _Tooltip = _interopRequireDefault(require("../../components/Tooltip"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -30,10 +32,10 @@ var Link = function Link(_ref) {
     target: "_blank",
     className: "quinoa-contextualization inline webpage content-a",
     alt: "href",
-    rel: "noopener noreferrer",
-    "data-for": "tooltip",
-    "data-tip": "".concat(resource.metadata.title, " (").concat(resource.data.url, ")")
-  }, children);
+    rel: "noopener noreferrer"
+  }, _react.default.createElement(_Tooltip.default, {
+    content: "".concat(resource.metadata.title, " (").concat(resource.data.url, ")")
+  }, children));
 };
 
 var _default = Link;

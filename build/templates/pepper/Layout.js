@@ -15,8 +15,6 @@ var _debounce = _interopRequireDefault(require("lodash/debounce"));
 
 var _reactCiteproc = require("react-citeproc");
 
-var _reactTooltip = _interopRequireDefault(require("react-tooltip"));
-
 var _quinoaSchemas = require("quinoa-schemas");
 
 var _d3Ease = require("d3-ease");
@@ -581,10 +579,7 @@ function (_Component) {
             to: "/"
           });
         }
-      })))))), _react.default.createElement(FinalNav, null)), _react.default.createElement("style", null, contextualizersStyles, _pepper.default, computedStylesVariables, customCss), _react.default.createElement(_reactTooltip.default, {
-        id: "tooltip",
-        effect: "solid"
-      }));
+      })))))), _react.default.createElement(FinalNav, null)), _react.default.createElement("style", null, contextualizersStyles, _pepper.default, computedStylesVariables, customCss));
     };
 
     _this.scrollToContents = _this.scrollToContents.bind(_assertThisInitialized(_assertThisInitialized(_this)));

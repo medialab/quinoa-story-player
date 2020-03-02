@@ -4,6 +4,7 @@
  * @module quinoa-story-player/components/Link
  */
 import React from 'react';
+import Tooltip from '../../components/Tooltip';
 
 /**
  * Renders a link as a pure component
@@ -21,11 +22,10 @@ const Link = ({
     target="_blank"
     className="quinoa-contextualization inline webpage content-a"
     alt="href"
-    rel="noopener noreferrer"
-
-    data-for="tooltip"
-    data-tip={`${resource.metadata.title} (${resource.data.url})`}>
-    {children}
+    rel="noopener noreferrer">
+    <Tooltip content={`${resource.metadata.title} (${resource.data.url})`}>
+      {children}
+    </Tooltip>
   </a>
 );
 

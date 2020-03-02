@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import debounce from 'lodash/debounce';
 import { ReferencesManager } from 'react-citeproc';
-import Tooltip from 'react-tooltip';
 import { getStyles } from 'quinoa-schemas';
 import { easeCubic } from 'd3-ease';
 import Bibliography from '../../components/Bibliography';
@@ -302,7 +301,6 @@ class GarlicLayout extends Component {
     if (Object.keys(stateChanges).length) {
       this.setState(stateChanges);
     }
-    Tooltip.rebuild();
   }
 
   /**
@@ -605,7 +603,6 @@ class GarlicLayout extends Component {
           {computedStylesVariables}
           {customCss}
         </style>
-        <Tooltip id="tooltip" effect="solid" />
         <div id="modal-container" />
       </ReferencesManager>
     );

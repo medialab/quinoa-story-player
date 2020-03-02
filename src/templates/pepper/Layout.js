@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import debounce from 'lodash/debounce';
 import { ReferencesManager } from 'react-citeproc';
-import Tooltip from 'react-tooltip';
 import { getStyles } from 'quinoa-schemas';
 import { easeCubic } from 'd3-ease';
 import { HashRouter, Switch, Route, Redirect, withRouter } from 'react-router-dom';
@@ -745,7 +744,6 @@ class PepperLayout extends Component {
           {computedStylesVariables}
           {customCss}
         </style>
-        <Tooltip id="tooltip" effect="solid" />
       </ReferencesManager>
     );
   }

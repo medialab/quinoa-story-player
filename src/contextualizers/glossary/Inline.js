@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Tooltip from '../../components/Tooltip';
+
 
 /**
  * Renders a block asset wrapper as a pure component
@@ -39,10 +41,10 @@ const GlossaryMention = ({
       id={'glossary-mention-' + contextualization.id}
       href={'#glossary-entry-' + resource.id}
       onClick={handleClick}
-      className="quinoa-contextualization inline glossary glossary-mention"
-      data-for="tooltip"
-      data-tip={resource.data.description ? resource.data.description : undefined}>
-      <span className="link-content">{children}</span>
+      className="quinoa-contextualization inline glossary glossary-mention">
+      <Tooltip content={resource.data.description ? resource.data.description : undefined}>
+        <span className="link-content">{children}</span>
+      </Tooltip>
     </a>
   );
 };
