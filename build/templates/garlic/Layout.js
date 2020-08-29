@@ -397,12 +397,9 @@ function (_Component) {
 
     _this.scrollToContents = _this.scrollToContents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.scrollToCover = _this.scrollToCover.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.scrollTop = _this.scrollTop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 40, {
-      leading: true,
-      trailing: true,
-      maxWait: 100
-    }); // this.onScrollUpdate = this.onScrollUpdate.bind(this);
+    _this.scrollTop = _this.scrollTop.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.onScrollUpdate = debounce(this.onScrollUpdate, 40, { leading: true, trailing: true, maxWait: 100 });
+
+    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 500); // this.onScrollUpdate = this.onScrollUpdate.bind(this);
 
     _this.scrollToElementId = _this.scrollToElementId.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));

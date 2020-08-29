@@ -27,6 +27,7 @@ import pepperTest from './Les deux corps de la flèche.json';
 import internalLinksPepper from './internal-links.json';
 import internalLinksGarlic from './internal-links-garlic.json';
 import testScrolly from './test-scrolly.json';
+import digitalMethods from './digital-methods-urban-policy.json';
 
 
 class Player extends Component {
@@ -89,6 +90,13 @@ const withFootnotes = {
     }
   }
 };
+
+storiesOf('Example story', module)
+  .add('Designing Digital Methods to monitor and inform Urban Policy', () => (
+    <Player
+      story={digitalMethods}
+    />
+  ))
 
 storiesOf('Quinoa story - garlic template', module)
   .add('Story with all plain styles', () => (
