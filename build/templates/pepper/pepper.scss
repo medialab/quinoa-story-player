@@ -1429,6 +1429,7 @@ $timer-long: 1s;
         &.bib{
             cursor: text;
             border-bottom: none;
+            font-style: inherit;
         }
         &.webpage{
             border-bottom: 1px solid $color-external-link;
@@ -1783,11 +1784,15 @@ $timer-long: 1s;
         .aside-edition-container,
         .button,
         .editor-footer,
-        .icon
+        .icon,
+        .tooltip > .top,
+        .tooltip > .bottom,
+        .tooltip > .right,
+        .tooltip > .left
         {
             display: none!important;
         }
-        div,
+        div:not(.tooltip),
         p,
         figure,
         section,

@@ -97,6 +97,11 @@ storiesOf('Example story', module)
       story={digitalMethods}
     />
   ))
+  .add('With pepper', () => (
+    <Player
+      story={{...digitalMethods, settings: pepperTest.settings}}
+    />
+  ))
 
 storiesOf('Quinoa story - garlic template', module)
   .add('Story with all plain styles', () => (
