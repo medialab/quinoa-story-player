@@ -22,6 +22,7 @@ var Nav = function Nav(_ref) {
       isDisplayed = _ref.isDisplayed,
       toggleIndex = _ref.toggleIndex,
       scrollToElementId = _ref.scrollToElementId,
+      activeTOCElementKey = _ref.activeTOCElementKey,
       toc = _ref.toc;
   var menuOpened = indexOpen || inCover;
   return _react.default.createElement("nav", {
@@ -53,6 +54,7 @@ var Nav = function Nav(_ref) {
     metadata: metadata,
     toggleIndex: toggleIndex,
     scrollToElementId: scrollToElementId,
+    activeTOCElementKey: activeTOCElementKey,
     toc: toc
   })));
 };

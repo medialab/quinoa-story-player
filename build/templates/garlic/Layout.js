@@ -51,6 +51,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -58,10 +62,6 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -102,145 +102,17 @@ function (_Component) {
 
     _this.componentDidUpdate = function (prevProps) {
       if (prevProps.story !== _this.props.story) {
-        var toc = (0, _utils.buildTOC)(_this.props.story, 0, _this.state, {
-          usedDocument: _this.props.usedDocument,
-          usedWindow: _this.props.usedWindow
-        });
-
-        _this.setState({
-          toc: toc
-        });
+        _this.updateScrollRelatedData();
       }
     };
 
-    _this.getScrollElements = function () {
-      var rawElements = _this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
-
-      return Array.from(rawElements).map(function (element) {
-        return {
-          element: element,
-          type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
-          bbox: element.getBoundingClientRect()
-        };
-      });
+    _this.componentWillUnmount = function () {
+      (_this.props.usedWindow || window).removeEventListener('resize', _this.updateScrollRelatedData);
     };
 
-    _this.onScrollUpdate = function (evt) {
-      if (!_this.header) {
-        return;
-      }
-
-      var scrollTop = evt.scrollTop;
-      var headerHeight = _this.header.offsetHeight || 20;
-      var stateChanges = {};
-      var inCover = scrollTop < headerHeight; // check if we are in the cover of the story
-
-      if (inCover && !_this.state.inCover) {
-        stateChanges = _objectSpread({}, stateChanges, {
-          inCover: true
-        });
-      } else if (!inCover && _this.state.inCover) {
-        stateChanges = _objectSpread({}, stateChanges, {
-          inCover: false
-        });
-      } // applying state changes if needed
-
-
-      if (Object.keys(stateChanges).length) {
-        _this.setState(stateChanges);
-
-        return;
-      } // if scroll has changed, update the table of contents
-      // (active element may have changed)
-      // (todo: right now we are rebuilding the toc from scratch
-      // at each update, we should split buildTOC in two functions
-      // to handle the change of active element separately, for better performances)
-
-
-      if (scrollTop !== _this.state.scrollTop) {
-        var _getStyles = (0, _quinoaSchemas.getStyles)(_this.props.story),
-            _getStyles$options = _getStyles.options,
-            options = _getStyles$options === void 0 ? {} : _getStyles$options;
-
-        var figuresPosition = options.figuresPosition || 'body';
-
-        if (figuresPosition === 'aside') {
-          // pick last matching element
-          var activeBlock = _this.getScrollElements().reverse().find(function (element) {
-            return element.bbox.top < evt.clientHeight * 0.5;
-          });
-
-          if (activeBlock && activeBlock.type === 'atomic') {
-            var idBearer = activeBlock.element.querySelector('.content-figure');
-
-            if (idBearer) {
-              activeBlock.id = idBearer.id;
-            }
-          }
-
-          if (!_this.state.activeBlock || _this.state.activeBlock.id !== activeBlock.id) {
-            stateChanges.activeBlock = activeBlock;
-          }
-        }
-
-        var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop, _this.state, {
-          usedDocument: _this.props.usedDocument,
-          usedWindow: _this.props.usedWindow
-        });
-        stateChanges = _objectSpread({}, stateChanges, {
-          toc: toc,
-          scrollTop: scrollTop
-        });
-      } // applying state changes if needed
-
-
-      if (Object.keys(stateChanges).length) {
-        _this.setState(stateChanges);
-      }
-    };
-
-    _this.onNotePointerClick = function (note) {
-      var noteElId = 'note-content-pointer-' + note.id;
-
-      var el = _this.props.usedDocument.getElementById(noteElId);
-
-      var offset = (0, _utils.getOffset)(el);
-      var top = offset.top - _this.context.dimensions.height / 2;
-
-      _this.scrollTop(top);
-    };
-
-    _this.render = function () {
-      var _assertThisInitialize = _assertThisInitialized(_assertThisInitialized(_this)),
-          _assertThisInitialize2 = _assertThisInitialize.props,
-          _assertThisInitialize3 = _assertThisInitialize2.story,
-          metadata = _assertThisInitialize3.metadata,
-          sectionsOrder = _assertThisInitialize3.sectionsOrder,
-          sections = _assertThisInitialize3.sections,
-          settings = _assertThisInitialize3.settings,
-          usedDocument = _assertThisInitialize2.usedDocument,
-          _assertThisInitialize4 = _assertThisInitialize.state,
-          inCover = _assertThisInitialize4.inCover,
-          toc = _assertThisInitialize4.toc,
-          indexOpen = _assertThisInitialize4.indexOpen,
-          glossary = _assertThisInitialize4.glossary,
-          citations = _assertThisInitialize4.citations,
-          coverImage = _assertThisInitialize4.coverImage,
-          _assertThisInitialize5 = _assertThisInitialize4.locale,
-          locale = _assertThisInitialize5 === void 0 ? {} : _assertThisInitialize5,
-          _assertThisInitialize6 = _assertThisInitialize.context,
-          dimensions = _assertThisInitialize6.dimensions,
-          getResourceDataUrl = _assertThisInitialize6.getResourceDataUrl,
-          scrollToElementId = _assertThisInitialize.scrollToElementId,
-          scrollToContents = _assertThisInitialize.scrollToContents;
-      /**
-       * ==========================================
-       * Local rendering-related variables
-       * ==========================================
-       */
-
-
-      var customCss = (0, _quinoaSchemas.getStyles)(_this.props.story).css || '';
+    _this.getFinalStoryData = function (story) {
+      var sectionsOrder = story.sectionsOrder,
+          sections = story.sections;
       var noteCount = 1;
       var notes = sectionsOrder.reduce(function (nf, sectionId) {
         return [].concat(_toConsumableArray(nf), _toConsumableArray(sections[sectionId].notesOrder.map(function (noteId) {
@@ -262,6 +134,165 @@ function (_Component) {
           }, {})
         })));
       }, {});
+      return {
+        notes: notes,
+        finalSections: finalSections
+      };
+    };
+
+    _this.updateScrollRelatedData = function () {
+      var scrollbars = _this.globalScrollbar;
+      var scrollTop = scrollbars && scrollbars.getScrollTop();
+
+      var scrollElements = _this.getScrollElements();
+
+      var toc = (0, _utils.buildTOC)(_this.props.story, scrollTop || 0, _this.state, {
+        usedDocument: _this.props.usedDocument,
+        usedWindow: _this.props.usedWindow
+      });
+
+      _this.setState({
+        toc: toc,
+        scrollElements: scrollElements
+      });
+    };
+
+    _this.getScrollElements = function () {
+      var rawElements = _this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
+
+      return Array.from(rawElements).map(function (element) {
+        return {
+          element: element,
+          type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
+          bbox: element.getBoundingClientRect()
+        };
+      });
+    };
+
+    _this.checkIfInCover = function (evt) {
+      if (!_this.header) {
+        return;
+      }
+
+      var scrollTop = evt.scrollTop;
+      var headerHeight = _this.header.offsetHeight || 20;
+      var inCover = scrollTop < headerHeight;
+
+      if (inCover !== _this.state.inCover) {
+        _this.setState({
+          inCover: inCover
+        });
+      }
+    };
+
+    _this.updateToc = function (evt) {
+      var activeTOCElementKey = (0, _utils.getActiveTocElementKey)(evt.scrollTop, _this.state.toc, _this.props.usedWindow.innerHeight / 2);
+
+      if (activeTOCElementKey !== _this.state.activeTOCElementKey) {
+        _this.setState({
+          activeTOCElementKey: activeTOCElementKey
+        });
+      }
+    };
+
+    _this.updateActiveFigure = function (evt) {
+      var scrollTop = evt.scrollTop; // if scroll has changed, update the table of contents
+      // (active element may have changed)
+      // (todo: right now we are rebuilding the toc from scratch
+      // at each update, we should split buildTOC in two functions
+      // to handle the change of active element separately, for better performances)
+
+      if (scrollTop !== _this.state.scrollTop) {
+        var activeBlockId; // pick last matching element
+
+        var activeBlock = _toConsumableArray(_this.state.scrollElements).reverse().find(function (element) {
+          // return (element.bbox.top < evt.clientHeight * 0.5);
+          return element.bbox.top < scrollTop + _this.props.usedWindow.innerHeight / 2;
+        });
+
+        if (activeBlock && activeBlock.type === 'atomic') {
+          var idBearer = activeBlock.element.querySelector('.content-figure');
+
+          if (idBearer) {
+            activeBlockId = idBearer.id;
+          }
+        } else {
+          activeBlockId = undefined;
+        } // if (!this.state.activeBlock || (this.state.activeBlock.id !== activeBlock.id)) {
+
+
+        if (_this.state.activeBlockId !== activeBlockId) {
+          _this.setState({
+            activeBlockId: activeBlockId
+          });
+        }
+      }
+    };
+
+    _this.onScrollUpdate = function (evt) {
+      if (!_this.header) {
+        return;
+      }
+
+      _this.checkIfInCover(evt);
+
+      _this.updateToc(evt);
+
+      var _getStyles = (0, _quinoaSchemas.getStyles)(_this.props.story),
+          _getStyles$options = _getStyles.options,
+          options = _getStyles$options === void 0 ? {} : _getStyles$options;
+
+      var figuresPosition = options.figuresPosition || 'body';
+
+      if (figuresPosition === 'aside') {
+        _this.updateActiveFigure(evt);
+      }
+    };
+
+    _this.onNotePointerClick = function (note) {
+      var noteElId = 'note-content-pointer-' + note.id;
+
+      var el = _this.props.usedDocument.getElementById(noteElId);
+
+      var offset = (0, _utils.getOffset)(el);
+      var top = offset.top - _this.context.dimensions.height / 2;
+
+      _this.scrollTop(top);
+    };
+
+    _this.render = function () {
+      var _assertThisInitialize = _assertThisInitialized(_assertThisInitialized(_this)),
+          _assertThisInitialize2 = _assertThisInitialize.props,
+          _assertThisInitialize3 = _assertThisInitialize2.story,
+          metadata = _assertThisInitialize3.metadata,
+          sectionsOrder = _assertThisInitialize3.sectionsOrder,
+          settings = _assertThisInitialize3.settings,
+          usedDocument = _assertThisInitialize2.usedDocument,
+          _assertThisInitialize4 = _assertThisInitialize.state,
+          inCover = _assertThisInitialize4.inCover,
+          toc = _assertThisInitialize4.toc,
+          indexOpen = _assertThisInitialize4.indexOpen,
+          glossary = _assertThisInitialize4.glossary,
+          citations = _assertThisInitialize4.citations,
+          coverImage = _assertThisInitialize4.coverImage,
+          _assertThisInitialize5 = _assertThisInitialize4.locale,
+          locale = _assertThisInitialize5 === void 0 ? {} : _assertThisInitialize5,
+          activeTOCElementKey = _assertThisInitialize4.activeTOCElementKey,
+          finalSections = _assertThisInitialize4.finalSections,
+          notes = _assertThisInitialize4.notes,
+          _assertThisInitialize6 = _assertThisInitialize.context,
+          dimensions = _assertThisInitialize6.dimensions,
+          getResourceDataUrl = _assertThisInitialize6.getResourceDataUrl,
+          scrollToElementId = _assertThisInitialize.scrollToElementId,
+          scrollToContents = _assertThisInitialize.scrollToContents;
+      /**
+       * ==========================================
+       * Local rendering-related variables
+       * ==========================================
+       */
+
+
+      var customCss = (0, _quinoaSchemas.getStyles)(_this.props.story).css || '';
 
       var _getStyles2 = (0, _quinoaSchemas.getStyles)(_this.props.story),
           _getStyles2$options = _getStyles2.options,
@@ -377,6 +408,7 @@ function (_Component) {
         metadata: metadata,
         scrollToElementId: scrollToElementId,
         toc: toc,
+        activeTOCElementKey: activeTOCElementKey,
         isDisplayed: coverImage && inCover
       }))), _react.default.createElement(_Nav.default, {
         indexOpen: indexOpen,
@@ -387,6 +419,7 @@ function (_Component) {
         onClickTitle: onClickTitle,
         metadata: metadata,
         scrollToElementId: scrollToElementId,
+        activeTOCElementKey: activeTOCElementKey,
         toggleIndex: _this.toggleIndex,
         isDisplayed: !coverImage && dimensions.width > 700 || !inCover,
         toc: toc
@@ -397,21 +430,27 @@ function (_Component) {
 
     _this.scrollToContents = _this.scrollToContents.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.scrollToCover = _this.scrollToCover.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.scrollTop = _this.scrollTop.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.onScrollUpdate = debounce(this.onScrollUpdate, 40, { leading: true, trailing: true, maxWait: 100 });
+    _this.scrollTop = _this.scrollTop.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 40, {
+      leading: true,
+      trailing: true,
+      maxWait: 100
+    }); // this.onScrollUpdate = debounce(this.onScrollUpdate, 500, { leading: true, trailing: true, maxWait: 505 });
+    // this.onScrollUpdate = debounce(this.onScrollUpdate, 500);
+    // this.onScrollUpdate = this.onScrollUpdate.bind(this);
 
-    _this.onScrollUpdate = (0, _debounce.default)(_this.onScrollUpdate, 500); // this.onScrollUpdate = this.onScrollUpdate.bind(this);
-
+    _this.updateToc = (0, _debounce.default)(_this.updateToc, 500);
+    _this.checkIfInCover = (0, _debounce.default)(_this.checkIfInCover, 500);
     _this.scrollToElementId = _this.scrollToElementId.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.onNoteContentPointerClick = _this.onNoteContentPointerClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.onGlossaryMentionClick = _this.onGlossaryMentionClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.onInternalLinkClick = _this.onInternalLinkClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.toggleIndex = _this.toggleIndex.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.onPresentationExit = _this.onPresentationExit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     /**
      * Initial state
      */
 
-    _this.state = {
+    _this.state = _objectSpread({
       /**
        * Wether the component's scroll is on top's cover of the page
        */
@@ -449,7 +488,7 @@ function (_Component) {
        * Cover image resource data
        */
       coverImage: undefined
-    };
+    }, _this.getFinalStoryData(props.story));
     return _this;
   }
   /**
@@ -461,17 +500,13 @@ function (_Component) {
     key: "getChildContext",
     value: function getChildContext() {
       return {
-        // id of the presentation-player displayed in full screen if any
-        fixedPresentationId: this.state.fixedPresentationId,
-        // callback to trigger when a presentation-player is exited
-        onExit: this.onPresentationExit,
         // calback to trigger when a note content pointer is clicked
         onNoteContentPointerClick: this.onNoteContentPointerClick,
         // callbacks when a glossary mention is clicked
         onGlossaryMentionClick: this.onGlossaryMentionClick,
         onInternalLinkClick: this.onInternalLinkClick,
         locale: this.state.locale,
-        activeBlock: this.state.activeBlock,
+        activeBlockId: this.state.activeBlockId,
         usedDocument: this.props.usedDocument || document,
         usedWindow: this.props.usedWindow || window,
         citationLocale: this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data || _englishLocale.default,
@@ -487,26 +522,18 @@ function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      // @todo: why did I have to wrap that in a setTimeout ?
+      (this.props.usedWindow || window).addEventListener('resize', this.updateScrollRelatedData); // @todo: why did I have to wrap that in a setTimeout ?
+
       setTimeout(function () {
         if (_this2.props.story) {
-          _this2.setState({
+          _this2.setState(_objectSpread({
             glossary: (0, _misc.buildGlossary)(_this2.props.story),
             citations: (0, _misc.buildCitations)(_this2.props.story),
             coverImage: (0, _misc.buildCoverImage)(_this2.props.story),
             locale: _this2.props.locale && _locales.default[_this2.props.locale] ? _locales.default[_this2.props.locale] : _locales.default.en
-          });
+          }, _this2.getFinalStoryData(_this2.props.story)));
 
-          setTimeout(function () {
-            var toc = (0, _utils.buildTOC)(_this2.props.story, 0, _this2.state, {
-              usedDocument: _this2.props.usedDocument,
-              usedWindow: _this2.props.usedWindow
-            });
-
-            _this2.setState({
-              toc: toc
-            });
-          });
+          _this2.updateScrollRelatedData();
         }
       });
     }
@@ -521,15 +548,12 @@ function (_Component) {
       // we perform expensive operations of building glossary
       // and citations data only when the story changes
       if (this.props.story !== nextProps.story) {
-        this.setState({
+        this.setState(_objectSpread({
           glossary: (0, _misc.buildGlossary)(nextProps.story),
           citations: (0, _misc.buildCitations)(nextProps.story),
           coverImage: (0, _misc.buildCoverImage)(nextProps.story),
           locale: nextProps.locale && _locales.default[nextProps.locale] ? _locales.default[nextProps.locale] : _locales.default.en
-        }); // setTimeout(() => {
-        //   const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
-        //   this.setState({ toc });
-        // });
+        }, this.getFinalStoryData(nextProps.story)));
       }
     }
   }, {
@@ -578,11 +602,6 @@ function (_Component) {
         this.scrollTop(title.offsetTop + title.offsetParent.offsetParent.offsetTop - this.context.dimensions.height / 2);
       }
     }
-    /**
-     * Updates the state when scroll is changed
-     * @param {object} evt - the scroll event to process
-     */
-
   }, {
     key: "scrollToContents",
 
@@ -628,24 +647,6 @@ function (_Component) {
      * @param {object} note - the note data
      */
 
-  }, {
-    key: "onPresentationExit",
-
-    /**
-     * Handles when a full-screen presentation is exited
-     * @param {string} - the direction of the exit (top or bottom)
-     */
-    value: function onPresentationExit(direction) {
-      var top = this.state.scrollTop; // user is scrolling in direction of the top of the screen
-
-      if (direction === 'top') {
-        this.globalScrollbar.scrollTop(top - 50);
-      } // user is scrolling in direction of the bottom of the screen
-      else {
-          var h = this.state.fixedPresentationHeight || this.context.dimensions.height;
-          this.globalScrollbar.scrollTop(top + h * 0.1);
-        }
-    }
   }, {
     key: "onGlossaryMentionClick",
     value: function onGlossaryMentionClick(id) {
@@ -708,20 +709,9 @@ GarlicLayout.contextTypes = {
 
 GarlicLayout.childContextTypes = {
   /**
-   * The presentation player to display full-screen if any
-   */
-  fixedPresentationId: _propTypes.default.string,
-
-  /**
    * Callback triggered when a note pointer is clicked
    */
   onNoteContentPointerClick: _propTypes.default.func,
-
-  /**
-   * Callback triggered when a presentation displayed in full
-   * screen is exited
-   */
-  onExit: _propTypes.default.func,
 
   /**
    * Callbacks when a glossary item is clicked
@@ -731,7 +721,7 @@ GarlicLayout.childContextTypes = {
   locale: _propTypes.default.object,
   citationStyle: _propTypes.default.string,
   citationLocale: _propTypes.default.string,
-  activeBlock: _propTypes.default.object,
+  activeBlockId: _propTypes.default.object,
   usedDocument: _propTypes.default.object,
   usedWindow: _propTypes.default.object
 };

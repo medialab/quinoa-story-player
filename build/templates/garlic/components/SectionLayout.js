@@ -59,6 +59,10 @@ function (_Component) {
       };
     };
 
+    _this.shouldComponentUpdate = function (nextProps, nextContext) {
+      return nextProps.section !== _this.props.section || _this.context.activeBlockId !== nextContext.activeBlockId;
+    };
+
     _this.state = {
       dimensions: undefined
     };
@@ -105,7 +109,8 @@ function (_Component) {
 }(_react.Component);
 
 SectionLayout.contextTypes = {
-  dimensions: _propTypes.default.object
+  dimensions: _propTypes.default.object,
+  activeBlockId: _propTypes.default.string
 };
 /**
  * Component's properties types

@@ -14,6 +14,7 @@ var TableOfContents = function TableOfContents(_ref) {
       metadata = _ref.metadata,
       toggleIndex = _ref.toggleIndex,
       scrollToElementId = _ref.scrollToElementId,
+      activeTOCElementKey = _ref.activeTOCElementKey,
       toc = _ref.toc;
   return _react.default.createElement("ul", {
     className: "table-of-contents",
@@ -34,7 +35,7 @@ var TableOfContents = function TableOfContents(_ref) {
 
     return _react.default.createElement("li", {
       key: index,
-      className: 'table-of-contents-item level-' + item.level + (item.active ? ' active' : '')
+      className: 'table-of-contents-item level-' + item.level + (item.key === activeTOCElementKey ? ' active' : '')
     }, _react.default.createElement("a", {
       className: "table-of-contents-link",
       href: '#' + item.key,
