@@ -665,9 +665,9 @@ $timer-long: 1s;
     .figure-caption-content
     {
         padding-top: $gutter-small;
-        padding-right: $gutter-large;
         padding-bottom: $gutter-medium;
-        padding-left: $gutter-medium * 2.5;
+        padding-left: $gutter-large * 1.2;
+        padding-right: $gutter-large * 1.2;
         // @media screen and (max-width: 700px) {
         //     padding-left: 0;
         // }
@@ -992,6 +992,7 @@ $timer-long: 1s;
     {
         font-size: $font-size-1;
         font-weight: 400;
+        line-height: 1.3;
     }
 
     /**
