@@ -42,9 +42,14 @@ const GlossaryMention = ({
       href={'#glossary-entry-' + resource.id}
       onClick={handleClick}
       className="quinoa-contextualization inline glossary glossary-mention">
-      <Tooltip content={resource.data.description ? resource.data.description : undefined}>
-        <span className="link-content">{children}</span>
-      </Tooltip>
+      {
+          resource.data.description ?
+            <Tooltip content={resource.data.description ? resource.data.description : undefined}>
+              <span className="link-content">{children}</span>
+            </Tooltip>
+          :
+            <span className="link-content">{children}</span>
+        }
     </a>
   );
 };
