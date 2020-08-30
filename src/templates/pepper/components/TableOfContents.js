@@ -5,7 +5,7 @@ const TableOfContents = ({
   // onClickTitle,
   metadata,
   inHeader = false,
-  // toggleIndex,
+  toggleIndex,
   // scrollToElementId,
   toc
 }, { InternalLinkProvider }) => {
@@ -19,7 +19,7 @@ const TableOfContents = ({
         metadata &&
         <li className="table-of-contents-title-container">
           <h2
-            className={'table-of-contents-title'}>
+            className={'table-of-contents-title'} onClick={() => toggleIndex(false)}>
             <InternalLinkProvider
               to={{
                 viewId: 'home'
@@ -34,7 +34,8 @@ const TableOfContents = ({
           return (
             <li
               key={index}
-              className={'table-of-contents-item level-' + (item.level || 0) + (item.active ? ' active' : '')}>
+              className={'table-of-contents-item level-' + (item.level || 0) + (item.active ? ' active' : '')}
+              onClick={() => toggleIndex(false)}>
               <InternalLinkProvider
                 className={'table-of-contents-link'}
                 to={{

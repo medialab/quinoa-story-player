@@ -10,17 +10,19 @@ const References = ({
   title,
   ...props
 }) => (
-  <div className="glossary-container">
+  <div className="references-container">
     <h1 className="section-title">
       <span className="section-title--modifier">
         {title}
       </span>
     </h1>
     <Bibliography {...props} />
-    <NavFooter
-      prevItem={prevItem}
-      nextItem={nextItem}
-      title={title} />
+    <div className="section-footer">
+      <NavFooter
+        prevItem={prevItem}
+        nextItem={nextItem}
+        title={title} />
+    </div>
   </div>
 );
 

@@ -62,10 +62,12 @@ const Glossary = ({
       })
      }
       </ul>
-      <NavFooter
-        prevItem={prevItem}
-        nextItem={nextItem}
-        title={title} />
+      <div className="section-footer">
+        <NavFooter
+          prevItem={prevItem}
+          nextItem={nextItem}
+          title={title} />
+      </div>
     </div>
   );
 };

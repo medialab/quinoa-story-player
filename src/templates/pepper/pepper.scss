@@ -141,7 +141,10 @@ $timer-long: 1s;
         @extend .absolute-fill;
 
         .section {
-            min-height: 100vh;
+            min-height: calc(100% - 5rem);
+            padding-bottom: 5rem;
+            box-sizing: border-box;
+            position: relative;
         }
     }
 
@@ -382,12 +385,16 @@ $timer-long: 1s;
     .section-footer{
         margin-top: $gutter-medium;
         margin-bottom: $gutter-medium;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50%;
     }
-    .section-body,
-    .glossary-mentions-container
-    {
-        min-height: calc(100vh - 10rem);
-    }
+    // .section-body,
+    // .glossary-mentions-container
+    // {
+    //     min-height: calc(100vh - 10rem);
+    // }
 
     
     /**
