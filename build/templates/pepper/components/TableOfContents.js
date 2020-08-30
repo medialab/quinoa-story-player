@@ -15,6 +15,7 @@ var TableOfContents = function TableOfContents(_ref, _ref2) {
   var metadata = _ref.metadata,
       _ref$inHeader = _ref.inHeader,
       inHeader = _ref$inHeader === void 0 ? false : _ref$inHeader,
+      toggleIndex = _ref.toggleIndex,
       toc = _ref.toc;
   var InternalLinkProvider = _ref2.InternalLinkProvider;
   return _react.default.createElement("ul", {
@@ -24,7 +25,10 @@ var TableOfContents = function TableOfContents(_ref, _ref2) {
   }, metadata && _react.default.createElement("li", {
     className: "table-of-contents-title-container"
   }, _react.default.createElement("h2", {
-    className: 'table-of-contents-title'
+    className: 'table-of-contents-title',
+    onClick: function onClick() {
+      return toggleIndex(false);
+    }
   }, _react.default.createElement(InternalLinkProvider, {
     to: {
       viewId: 'home'
@@ -34,7 +38,10 @@ var TableOfContents = function TableOfContents(_ref, _ref2) {
   }, metadata.title || 'Quinoa story')))), toc && toc.map(function (item, index) {
     return _react.default.createElement("li", {
       key: index,
-      className: 'table-of-contents-item level-' + (item.level || 0) + (item.active ? ' active' : '')
+      className: 'table-of-contents-item level-' + (item.level || 0) + (item.active ? ' active' : ''),
+      onClick: function onClick() {
+        return toggleIndex(false);
+      }
     }, _react.default.createElement(InternalLinkProvider, {
       className: 'table-of-contents-link',
       to: {

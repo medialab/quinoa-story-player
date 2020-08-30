@@ -15,6 +15,7 @@ import Measure from 'react-measure';
 
 import GarlicLayout from './templates/garlic/Layout';
 import PepperLayout from './templates/pepper/Layout';
+import MintLayout from './templates/mint/Layout';
 
 /**
  * QuinoaStoryPlayer class for building QuinoaStoryPlayer react component instances
@@ -104,6 +105,15 @@ class QuinoaStoryPlayer extends Component {
         case 'pepper':
           return (
             <PepperLayout
+              locale={this.props.locale}
+              story={this.state.story}
+              previewMode={this.props.previewMode}
+              usedDocument={this.props.usedDocument || document}
+              usedWindow={this.props.usedWindow || window} />
+          );
+        case 'mint':
+          return (
+            <MintLayout
               locale={this.props.locale}
               story={this.state.story}
               previewMode={this.props.previewMode}

@@ -121,6 +121,17 @@ $timer-long: 1s;
 
         width: 100%;
         height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: stretch;
+
+        @media screen and (max-width: 700px){
+            display: block;
+        }
+
+        > div {
+            flex: 1;
+        }
     }
     /**
      * body wrapper contains everything but the nav and the header background
@@ -140,7 +151,9 @@ $timer-long: 1s;
     {
         @extend .absolute-fill;
 
-        .section {
+        .section,
+        .glossary-container
+         {
             min-height: calc(100% - 5rem);
             padding-bottom: 5rem;
             box-sizing: border-box;
@@ -266,10 +279,11 @@ $timer-long: 1s;
         .story-global-info-container,
         .header-toc-container{
             flex: 1;
-            max-width: 50%;
+            max-width: 800px;
             padding: $gutter-medium;
             @media screen and (max-width: 700px){
                 max-width: 100%;
+                padding-left: $gutter-large;
             }
         }
 
@@ -340,18 +354,18 @@ $timer-long: 1s;
      */
     .nav
     {
-        z-index: 3;
+        z-index: 5;
 
         display: flex;
         overflow-x: hidden;
 
-        width: $gutter-lateral-large-screens * .8;
-        height: 100%;
+        width: 100%;
         padding: 0;
 
-        flex-flow: column nowrap;
-        justify-content: stretch;
-        @extend .absolute-fill;
+        flex-flow: row nowrap;
+        // @extend .absolute-fill;
+        left: 0;
+        top: 0;
     }
     /**
      * Nav content layout
@@ -361,10 +375,9 @@ $timer-long: 1s;
         display: flex;
         overflow: hidden;
 
-        padding: $gutter-medium;
+        // padding: $gutter-medium;
 
-        flex-flow: column nowrap;
-        justify-content: stretch;
+        flex-flow: row nowrap;
         flex: 1;
     }
 
@@ -393,7 +406,7 @@ $timer-long: 1s;
     // .section-body,
     // .glossary-mentions-container
     // {
-    //     min-height: calc(100vh - 10rem);
+    //     min-height: calc(100% - 15rem);
     // }
 
     
@@ -402,19 +415,47 @@ $timer-long: 1s;
      */
     .table-of-contents
     {
-        overflow: auto;
+        // overflow-x: auto;
+        // overflow-y: visible;
+        overflow: visible;
+        background: $color-background;
 
         margin: 0;
         padding: 0;
 
         flex: 1;
+
+        display: flex;
+        flex-flow: row nowrap;
+        list-style-type: none;
+        padding-top: 0;
+        padding-right: $gutter-medium;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transition: all .5s ease;
+        
+        box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
     }
+    .nav.placeholder {
+        opacity: 0;
+        pointer-events: none;
+        .table-of-contents {
+            position: relative;
+        }
+        @media screen and (max-width: 700px){
+            display: none;
+        }
+    }
+    
     /**
       * Table of contents title layout
       */
     .table-of-contents-title
     {
-        margin-top: .7rem;
+        margin: $gutter-small;
+        font-size: $font-size-1;
     }
     /**
      * Table of contents item layout
@@ -423,34 +464,74 @@ $timer-long: 1s;
     {
         margin: 0;
         padding: 0;
-        padding-bottom: $gutter-small / 2;
+        position: relative;
         &:hover
         {
             opacity: 1;
         }
-        &.level-1
-        {
-            padding-left: 0;
+
+        .toc-children-container {
+            opacity: 0;
+            transition: .5s ease all;
+            overflow: hidden;
+            max-height: 0;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            box-shadow: 5px 10px 10px rgba(0,0,0,0.1);
         }
-        &.level-2
-        {
-            padding-left: $gutter-small;
+        &:hover {
+            .toc-children-container {
+                opacity: 1;
+                max-height: 100vh;
+            }
         }
-        &.level-3
-        {
-            padding-left: $gutter-small * 2;
+
+        .table-of-contents-item-contents{
+            background: $color-background;
+            padding: $gutter-small;
         }
-        &.level-4
-        {
-            padding-left: $gutter-small * 3;
-        }
-        &.level-5
-        {
-            padding-left: $gutter-small * 4;
-        }
-        &.level-6
-        {
-            padding-left: $gutter-small * 5;
+    }
+
+    @media screen and (max-width: 700px){
+        .nav {
+            .toc-children-container {
+                max-height: 0;
+                oveflow: hidden;
+            }
+            &.active {
+                .table-of-contents {
+                    height: 100%;
+                    flex-direction: column;
+                    overflow-y: auto;
+                    padding: $gutter-medium;
+                    padding-left: $gutter-large;
+                    padding-top: 0;
+                    box-sizing: border-box;
+                    background: $color-background;
+                    z-index: 4;
+                    box-shadow: none;
+                    .table-of-contents-title {
+                        font-size: $font-size-2;
+                    }
+                    .table-of-contents-item-contents{
+                        padding-bottom: 0;
+                        font-size: $font-size-1;
+                    }
+                    .toc-children-container {
+                        opacity: 1;
+                        max-height: 100vh;
+                        position: relative;
+                        padding-left: $gutter-medium;
+                        top: unset;
+                        box-shadow: none;
+                    }
+                }
+            }
+            
         }
     }
     /**
@@ -707,8 +788,6 @@ $timer-long: 1s;
         display: flex;
         overflow: visible;
 
-        // margin-bottom: $gutter-medium;
-        // padding-bottom: $gutter-small;
 
         flex-flow: row nowrap;
         align-items: flex-start;
@@ -718,10 +797,6 @@ $timer-long: 1s;
             margin-left: $gutter-small;
 
             flex: 1;
-            //  > *
-            // {
-            //     display: inline;
-            // }
         }
         .content-h1,
         .content-h2,
@@ -772,6 +847,9 @@ $timer-long: 1s;
     {
         margin-bottom: $gutter-medium;
     }
+    .notes-container {
+        margin-top: $gutter-medium;
+    }
     /**
      * Citation entry layout
      */
@@ -789,6 +867,8 @@ $timer-long: 1s;
         padding: 0;
 
         pointer-events: none;
+        z-index: 5;
+        position: fixed;
     }
 
     /**
@@ -846,11 +926,6 @@ $timer-long: 1s;
         {
             margin-right: $gutter-lateral-small-screens;
             margin-left: $gutter-lateral-small-screens;
-        }
-
-        .nav
-        {
-            width: 66%;
         }
     }
 
@@ -989,11 +1064,12 @@ $timer-long: 1s;
             // color: $color-background;
             background: inherit; // $color-header-container;
 
-            justify-content: flex-start;
+            justify-content: center;
             display: flex;
             flex-flow: row nowrap;
             @media screen and (max-width: 700px) {
                 flex-direction: column;
+                justify-content: unset;
             }
             overflow-y: auto;
 
@@ -1198,6 +1274,9 @@ $timer-long: 1s;
                 .table-of-contents{
                     opacity: 0;
                     pointer-events: none;
+                    .table-of-contents-title-container {
+                        pointer-events: none;
+                    }
                 }
                 
             }
@@ -1218,6 +1297,8 @@ $timer-long: 1s;
             border: none;
             outline: none;
             background: transparent;
+
+            margin: $gutter-medium;
 
             @include transition(all $timer-medium ease);
             &:hover,
@@ -1494,7 +1575,9 @@ $timer-long: 1s;
         list-style-type: none;
 
         opacity: .8;
-        padding-bottom: $gutter-medium;
+        &:not(:last-of-type) {
+            padding-bottom: $gutter-medium;
+        }
         .content-p,
         .content-ul,
         .content-ol

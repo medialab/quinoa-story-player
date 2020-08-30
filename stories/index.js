@@ -116,6 +116,21 @@ storiesOf('Example story', module)
   .add('With pepper', () => (
     <Player
       story={{ ...digitalMethods, settings: pepperTest.settings }} />
+  ))
+  .add('With mint', () => (
+    <Player
+      story={{
+        ...digitalMethods,
+        settings: {
+          ...pepperTest.settings,
+          templateId: 'mint',
+          styles: {
+            mint: {
+              ...digitalMethods.settings.styles.pepper
+            }
+          }
+        },
+       }} />
   ));
 
 storiesOf('Quinoa story - garlic template', module)
@@ -261,3 +276,113 @@ storiesOf('Quinoa story - pepper template', module)
     <Player
       story={internalLinksPepper} />
   ));
+
+
+storiesOf('Quinoa story - mint template', module)
+  .add('Story with cover image', () => (
+    <Player
+      story={{
+      ...pepperTest,
+      settings: {
+        ...pepperTest.settings,
+        templateId: 'mint',
+        styles: {
+          mint: {
+            ...pepperTest.settings.styles.pepper
+          }
+        }
+      },
+     }} />
+  ))
+  .add('Story without cover', () => (
+    <Player
+      story={{
+        ...pepperTest,
+        metadata: {
+          ...pepperTest.metadata,
+          coverImage: undefined,
+        },
+        settings: {
+          ...pepperTest.settings,
+          templateId: 'mint',
+          styles: {
+            mint: {
+              ...pepperTest.settings.styles.pepper
+            }
+          }
+        },
+      }} />
+  ))
+  .add('Story with custom background', () => (
+    <Player
+      story={{
+        ...pepperTest,
+        metadata: {
+          ...pepperTest.metadata,
+          coverImage: undefined,
+        },
+
+        settings: {
+          ...pepperTest.settings,
+          templateId: 'mint',
+          styles: {
+            ...pepperTest.settings.styles,
+            mint: {
+              ...pepperTest.settings.styles.pepper,
+              stylesVariables: {
+                ...pepperTest.settings.styles.pepper.stylesVariables,
+                background:
+                  {
+                      color: 'pink'
+                  }
+              }
+            }
+          }
+        }
+      }} />
+  ))
+  .add('Story with all plain styles', () => (
+    <Player
+      story={{ 
+        ...stylesTest,
+        settings: {
+          ...stylesTest.settings,
+          templateId: 'mint',
+          styles: {
+            mint: {
+              ...pepperTest.settings.styles.pepper
+            }
+          }
+        },
+      }} />
+  ))
+  .add('Story with all contextualizations and variants', () => (
+    <Player
+      story={{ 
+        ...contextualizationsTest, 
+        settings: {
+          ...stylesTest.settings,
+          templateId: 'mint',
+          styles: {
+            mint: {
+              ...pepperTest.settings.styles.pepper
+            }
+          }
+        },
+      }} />
+  ))
+  .add('Radical', () => (
+    <Player
+      story={{ 
+        ...radical, 
+        settings: {
+          ...stylesTest.settings,
+          templateId: 'mint',
+          styles: {
+            mint: {
+              ...pepperTest.settings.styles.pepper
+            }
+          }
+        },
+      }} />
+  ))

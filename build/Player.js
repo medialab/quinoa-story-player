@@ -15,6 +15,8 @@ var _Layout = _interopRequireDefault(require("./templates/garlic/Layout"));
 
 var _Layout2 = _interopRequireDefault(require("./templates/pepper/Layout"));
 
+var _Layout3 = _interopRequireDefault(require("./templates/mint/Layout"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -147,6 +149,15 @@ function (_Component) {
 
           case 'pepper':
             return _react.default.createElement(_Layout2.default, {
+              locale: this.props.locale,
+              story: this.state.story,
+              previewMode: this.props.previewMode,
+              usedDocument: this.props.usedDocument || document,
+              usedWindow: this.props.usedWindow || window
+            });
+
+          case 'mint':
+            return _react.default.createElement(_Layout3.default, {
               locale: this.props.locale,
               story: this.state.story,
               previewMode: this.props.previewMode,

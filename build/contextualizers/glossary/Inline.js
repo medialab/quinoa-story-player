@@ -51,11 +51,13 @@ var GlossaryMention = function GlossaryMention(_ref) {
     href: '#glossary-entry-' + resource.id,
     onClick: handleClick,
     className: "quinoa-contextualization inline glossary glossary-mention"
-  }, _react.default.createElement(_Tooltip.default, {
+  }, resource.data.description ? _react.default.createElement(_Tooltip.default, {
     content: resource.data.description ? resource.data.description : undefined
   }, _react.default.createElement("span", {
     className: "link-content"
-  }, children)));
+  }, children)) : _react.default.createElement("span", {
+    className: "link-content"
+  }, children));
 };
 /**
  * Component's properties types
