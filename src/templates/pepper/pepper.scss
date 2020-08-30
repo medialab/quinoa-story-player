@@ -139,6 +139,10 @@ $timer-long: 1s;
     .contents-wrapper
     {
         @extend .absolute-fill;
+
+        .section {
+            min-height: 100vh;
+        }
     }
 
     /**
@@ -382,7 +386,7 @@ $timer-long: 1s;
     .section-body,
     .glossary-mentions-container
     {
-        min-height: 75vh;
+        min-height: calc(100vh - 10rem);
     }
 
     
