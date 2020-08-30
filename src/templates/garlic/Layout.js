@@ -23,7 +23,7 @@ import {
   buildGlossary,
   capitalize
 } from '../../utils/misc';
-import { buildTOC, getOffset, stylesVariablesToCss } from './utils';
+import { buildTOC, getActiveTocElementKey, getOffset, stylesVariablesToCss } from './utils';
 
 import defaultCitationStyle from 'raw-loader!../../assets/apa.csl';
 import defaultCitationLocale from 'raw-loader!../../assets/english-locale.xml';
@@ -49,9 +49,15 @@ class GarlicLayout extends Component {
     this.scrollToContents = this.scrollToContents.bind(this);
     this.scrollToCover = this.scrollToCover.bind(this);
     this.scrollTop = this.scrollTop.bind(this);
-    // this.onScrollUpdate = debounce(this.onScrollUpdate, 40, { leading: true, trailing: true, maxWait: 100 });
-    this.onScrollUpdate = debounce(this.onScrollUpdate, 500);
+    this.onScrollUpdate = debounce(this.onScrollUpdate, 40, { leading: true, trailing: true, maxWait: 100 });
+    // this.onScrollUpdate = debounce(this.onScrollUpdate, 500, { leading: true, trailing: true, maxWait: 505 });
+    // this.onScrollUpdate = debounce(this.onScrollUpdate, 500);
     // this.onScrollUpdate = this.onScrollUpdate.bind(this);
+
+    this.updateToc = debounce(this.updateToc, 500);
+    this.checkIfInCover = debounce(this.checkIfInCover, 500);
+
+
     this.scrollToElementId = this.scrollToElementId.bind(this);
     this.onNoteContentPointerClick = this.onNoteContentPointerClick.bind(this);
     this.onGlossaryMentionClick = this.onGlossaryMentionClick.bind(this);
@@ -59,7 +65,6 @@ class GarlicLayout extends Component {
 
     this.toggleIndex = this.toggleIndex.bind(this);
 
-    this.onPresentationExit = this.onPresentationExit.bind(this);
     /**
      * Initial state
      */
@@ -95,6 +100,8 @@ class GarlicLayout extends Component {
        * Cover image resource data
        */
       coverImage: undefined,
+
+      ...this.getFinalStoryData(props.story)
     };
   }
   /**
@@ -102,10 +109,6 @@ class GarlicLayout extends Component {
    */
   getChildContext() {
     return {
-      // id of the presentation-player displayed in full screen if any
-      fixedPresentationId: this.state.fixedPresentationId,
-      // callback to trigger when a presentation-player is exited
-      onExit: this.onPresentationExit,
       // calback to trigger when a note content pointer is clicked
       onNoteContentPointerClick: this.onNoteContentPointerClick,
       // callbacks when a glossary mention is clicked
@@ -113,7 +116,7 @@ class GarlicLayout extends Component {
       onInternalLinkClick: this.onInternalLinkClick,
       locale: this.state.locale,
 
-      activeBlock: this.state.activeBlock,
+      activeBlockId: this.state.activeBlockId,
 
       usedDocument: this.props.usedDocument || document,
       usedWindow: this.props.usedWindow || window,
@@ -126,6 +129,7 @@ class GarlicLayout extends Component {
    * Executes code on instance after the component is mounted
    */
   componentDidMount() {
+    (this.props.usedWindow || window).addEventListener('resize', this.updateScrollRelatedData);
     // @todo: why did I have to wrap that in a setTimeout ?
     setTimeout(() => {
       if (this.props.story) {
@@ -134,19 +138,9 @@ class GarlicLayout extends Component {
           citations: buildCitations(this.props.story),
           coverImage: buildCoverImage(this.props.story),
           locale: this.props.locale && locales[this.props.locale] ? locales[this.props.locale] : locales.en,
+          ...this.getFinalStoryData(this.props.story)
         });
-        setTimeout(() => {
-          const toc = buildTOC(
-            this.props.story,
-            0,
-            this.state,
-            {
-              usedDocument: this.props.usedDocument,
-              usedWindow: this.props.usedWindow
-            }
-          );
-          this.setState({ toc });
-        });
+        this.updateScrollRelatedData();
       }
     });
   }
@@ -162,24 +156,79 @@ class GarlicLayout extends Component {
         glossary: buildGlossary(nextProps.story),
         citations: buildCitations(nextProps.story),
         coverImage: buildCoverImage(nextProps.story),
-        locale: nextProps.locale && locales[nextProps.locale] ? locales[nextProps.locale] : locales.en
+        locale: nextProps.locale && locales[nextProps.locale] ? locales[nextProps.locale] : locales.en,
+        ...this.getFinalStoryData(nextProps.story)
       });
-      // setTimeout(() => {
-      //   const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
-      //   this.setState({ toc });
-      // });
     }
   }
 
   componentDidUpdate = prevProps => {
     if (prevProps.story !== this.props.story) {
-      const toc = buildTOC(this.props.story, 0, this.state, { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow });
-
-      this.setState({
-        toc,
-      });
-
+      this.updateScrollRelatedData();
     }
+  }
+
+  componentWillUnmount = () => {
+    (this.props.usedWindow || window).removeEventListener('resize', this.updateScrollRelatedData);
+  }
+
+  getFinalStoryData = story => {
+
+    const {
+      sectionsOrder,
+      sections
+    } = story;
+
+    let noteCount = 1;
+    const notes = sectionsOrder.reduce((nf, sectionId) => [
+      ...nf,
+      ...sections[sectionId].notesOrder
+          .map(noteId => ({
+            ...sections[sectionId].notes[noteId],
+            sectionId,
+            finalOrder: noteCount++,
+          }))
+    ], []);
+    const finalSections = Object.keys(sections).reduce((res, sectionId) => ({
+      ...res,
+      [sectionId]: {
+        ...sections[sectionId],
+        notes: Object.keys(sections[sectionId].notes).reduce((tempNotes, noteId) => {
+          const related = notes.find(n => n.id === noteId);
+          return {
+            ...tempNotes,
+            [noteId]: {
+              ...sections[sectionId].notes[noteId],
+              finalOrder: related ? related.finalOrder : sections[sectionId].notes[noteId].order
+            }
+          };
+        }, {})
+      }
+    }), {});
+    return {
+      notes,
+      finalSections
+    };
+  }
+
+  updateScrollRelatedData = () => {
+    const scrollbars = this.globalScrollbar;
+    const scrollTop = scrollbars && scrollbars.getScrollTop();
+
+    const scrollElements = this.getScrollElements();
+    const toc = buildTOC(
+      this.props.story,
+      scrollTop || 0,
+      this.state,
+      {
+        usedDocument: this.props.usedDocument,
+        usedWindow: this.props.usedWindow
+      }
+    );
+    this.setState({
+      toc,
+      scrollElements
+    });
   }
 
   getScrollElements = () => {
@@ -230,6 +279,57 @@ class GarlicLayout extends Component {
     }
   }
 
+  checkIfInCover = (evt) => {
+    if (!this.header) {
+      return;
+    }
+    const scrollTop = evt.scrollTop;
+    const headerHeight = this.header.offsetHeight || 20;
+
+    const inCover = scrollTop < headerHeight;
+
+    if (inCover !== this.state.inCover) {
+      this.setState({ inCover });
+    }
+  }
+
+  updateToc = evt => {
+    const activeTOCElementKey = getActiveTocElementKey(evt.scrollTop, this.state.toc, this.props.usedWindow.innerHeight / 2);
+    if (activeTOCElementKey !== this.state.activeTOCElementKey) {
+        this.setState({ activeTOCElementKey });
+    }
+  }
+
+  updateActiveFigure = evt => {
+    const scrollTop = evt.scrollTop;
+    // if scroll has changed, update the table of contents
+    // (active element may have changed)
+    // (todo: right now we are rebuilding the toc from scratch
+    // at each update, we should split buildTOC in two functions
+    // to handle the change of active element separately, for better performances)
+    if (scrollTop !== this.state.scrollTop) {
+        let activeBlockId;
+        // pick last matching element
+        const activeBlock = [...this.state.scrollElements].reverse().find(element => {
+          // return (element.bbox.top < evt.clientHeight * 0.5);
+          return (element.bbox.top < scrollTop + this.props.usedWindow.innerHeight / 2);
+        });
+        if (activeBlock && activeBlock.type === 'atomic') {
+          const idBearer = activeBlock.element.querySelector('.content-figure');
+          if (idBearer) {
+            activeBlockId = idBearer.id;
+          }
+        }
+ else {
+          activeBlockId = undefined;
+        }
+        // if (!this.state.activeBlock || (this.state.activeBlock.id !== activeBlock.id)) {
+        if (this.state.activeBlockId !== activeBlockId) {
+          this.setState({ activeBlockId });
+        }
+    }
+  }
+
   /**
    * Updates the state when scroll is changed
    * @param {object} evt - the scroll event to process
@@ -238,69 +338,13 @@ class GarlicLayout extends Component {
     if (!this.header) {
       return;
     }
-    const scrollTop = evt.scrollTop;
-    const headerHeight = this.header.offsetHeight || 20;
-    let stateChanges = {};
+    this.checkIfInCover(evt);
+    this.updateToc(evt);
 
-    const inCover = scrollTop < headerHeight;
-
-    // check if we are in the cover of the story
-    if (inCover && !this.state.inCover) {
-      stateChanges = {
-        ...stateChanges,
-        inCover: true,
-      };
-    }
-    else if (!inCover && this.state.inCover) {
-      stateChanges = {
-        ...stateChanges,
-        inCover: false,
-      };
-    }
-    // applying state changes if needed
-    if (Object.keys(stateChanges).length) {
-      this.setState(stateChanges);
-      return;
-    }
-    // if scroll has changed, update the table of contents
-    // (active element may have changed)
-    // (todo: right now we are rebuilding the toc from scratch
-    // at each update, we should split buildTOC in two functions
-    // to handle the change of active element separately, for better performances)
-    if (scrollTop !== this.state.scrollTop) {
-      const { options = {} } = getStyles(this.props.story);
-      const figuresPosition = options.figuresPosition || 'body';
-      if (figuresPosition === 'aside') {
-        // pick last matching element
-        const activeBlock = this.getScrollElements().reverse().find(element => {
-          return (element.bbox.top < evt.clientHeight * 0.5);
-        });
-        if (activeBlock && activeBlock.type === 'atomic') {
-          const idBearer = activeBlock.element.querySelector('.content-figure');
-          if (idBearer) {
-            activeBlock.id = idBearer.id;
-          }
-        }
-        if (!this.state.activeBlock || (this.state.activeBlock.id !== activeBlock.id)) {
-          stateChanges.activeBlock = activeBlock;
-        }
-      }
-
-      const toc = buildTOC(
-        this.props.story,
-        scrollTop,
-        this.state,
-        { usedDocument: this.props.usedDocument, usedWindow: this.props.usedWindow }
-      );
-      stateChanges = {
-        ...stateChanges,
-        toc,
-        scrollTop,
-      };
-    }
-    // applying state changes if needed
-    if (Object.keys(stateChanges).length) {
-      this.setState(stateChanges);
+    const { options = {} } = getStyles(this.props.story);
+    const figuresPosition = options.figuresPosition || 'body';
+    if (figuresPosition === 'aside') {
+      this.updateActiveFigure(evt);
     }
   }
 
@@ -350,24 +394,6 @@ class GarlicLayout extends Component {
     this.scrollTop(top);
   }
 
-  /**
-   * Handles when a full-screen presentation is exited
-   * @param {string} - the direction of the exit (top or bottom)
-   */
-  onPresentationExit (direction) {
-    const top = this.state.scrollTop;
-    // user is scrolling in direction of the top of the screen
-    if (direction === 'top') {
-      this.globalScrollbar.scrollTop(top - 50);
-    }
-    // user is scrolling in direction of the bottom of the screen
-    else {
-      const h = this.state.fixedPresentationHeight || this.context.dimensions.height;
-
-      this.globalScrollbar.scrollTop(top + h * 0.1);
-    }
-  }
-
   onGlossaryMentionClick(id) {
     const target = 'glossary-mention-backlink-' + id;
     this.scrollToElementId(target);
@@ -398,7 +424,6 @@ class GarlicLayout extends Component {
         story: {
           metadata,
           sectionsOrder,
-          sections,
           settings,
         },
         usedDocument,
@@ -412,6 +437,9 @@ class GarlicLayout extends Component {
         citations,
         coverImage,
         locale = {},
+        activeTOCElementKey,
+        finalSections,
+        notes
       },
       context: {
         dimensions,
@@ -426,32 +454,6 @@ class GarlicLayout extends Component {
      * ==========================================
      */
     const customCss = getStyles(this.props.story).css || '';
-    let noteCount = 1;
-    const notes = sectionsOrder.reduce((nf, sectionId) => [
-      ...nf,
-      ...sections[sectionId].notesOrder
-          .map(noteId => ({
-            ...sections[sectionId].notes[noteId],
-            sectionId,
-            finalOrder: noteCount++,
-          }))
-    ], []);
-    const finalSections = Object.keys(sections).reduce((res, sectionId) => ({
-      ...res,
-      [sectionId]: {
-        ...sections[sectionId],
-        notes: Object.keys(sections[sectionId].notes).reduce((tempNotes, noteId) => {
-          const related = notes.find(n => n.id === noteId);
-          return {
-            ...tempNotes,
-            [noteId]: {
-              ...sections[sectionId].notes[noteId],
-              finalOrder: related ? related.finalOrder : sections[sectionId].notes[noteId].order
-            }
-          };
-        }, {})
-      }
-    }), {});
 
     const { options = {} } = getStyles(this.props.story);
     let notesPosition = options.notesPosition || 'foot';
@@ -573,6 +575,7 @@ class GarlicLayout extends Component {
                 metadata={metadata}
                 scrollToElementId={scrollToElementId}
                 toc={toc}
+                activeTOCElementKey={activeTOCElementKey}
                 isDisplayed={coverImage && inCover} />
 
             </section>
@@ -592,6 +595,7 @@ class GarlicLayout extends Component {
             onClickTitle={onClickTitle}
             metadata={metadata}
             scrollToElementId={scrollToElementId}
+            activeTOCElementKey={activeTOCElementKey}
             toggleIndex={this.toggleIndex}
             isDisplayed={((!coverImage && dimensions.width > 700) || !inCover)}
             toc={toc} />
@@ -634,18 +638,9 @@ GarlicLayout.contextTypes = {
  */
 GarlicLayout.childContextTypes = {
   /**
-   * The presentation player to display full-screen if any
-   */
-  fixedPresentationId: PropTypes.string,
-  /**
    * Callback triggered when a note pointer is clicked
    */
   onNoteContentPointerClick: PropTypes.func,
-  /**
-   * Callback triggered when a presentation displayed in full
-   * screen is exited
-   */
-  onExit: PropTypes.func,
   /**
    * Callbacks when a glossary item is clicked
    */
@@ -659,7 +654,7 @@ GarlicLayout.childContextTypes = {
 
    citationLocale: PropTypes.string,
 
-   activeBlock: PropTypes.object,
+   activeBlockId: PropTypes.object,
 
    usedDocument: PropTypes.object,
    usedWindow: PropTypes.object

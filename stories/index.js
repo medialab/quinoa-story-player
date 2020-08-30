@@ -4,7 +4,7 @@
  * each story allows to visually assess the lib's component in the browser
  * run `npm storybook` to see them in action
  */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import RealPlayer from '../src/';
@@ -36,7 +36,7 @@ class Player extends Component {
     getResourceDataUrl: PropTypes.func,
   }
 
-  getChildContext = () =>  ({
+  getChildContext = () => ({
     getResourceDataUrl: (url) => `/assets/${url}`
   })
 
@@ -44,7 +44,7 @@ class Player extends Component {
     const handlePrint = () => {
       window.focus();
       window.print();
-    }
+    };
     return (
       <div>
         <RealPlayer {...this.props} />
@@ -52,13 +52,12 @@ class Player extends Component {
           style={{
             right: '1rem',
             bottom: '1rem',
-            position:'fixed'
-          }}
-        >
+            position: 'fixed'
+          }}>
           <button onClick={handlePrint}>Print</button>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -86,7 +85,7 @@ const withFootnotes = {
   ...stylesTest,
   settings: {
     options: {
-      notesPosition: 'foot'      
+      notesPosition: 'foot'
     }
   }
 };
@@ -94,55 +93,63 @@ const withFootnotes = {
 storiesOf('Example story', module)
   .add('Designing Digital Methods to monitor and inform Urban Policy', () => (
     <Player
-      story={digitalMethods}
-    />
+      story={digitalMethods} />
+  ))
+  .add('with scrollytelling', () => (
+    <Player
+      story={{
+        ...digitalMethods,
+        settings: {
+          ...digitalMethods.settings,
+          styles: {
+            garlic: {
+              ...digitalMethods.settings.styles.garlic,
+              options: {
+                ...digitalMethods.settings.styles.garlic.options,
+                figuresPosition: 'aside',
+              }
+            }
+          }
+        }
+      }} />
   ))
   .add('With pepper', () => (
     <Player
-      story={{...digitalMethods, settings: pepperTest.settings}}
-    />
-  ))
+      story={{ ...digitalMethods, settings: pepperTest.settings }} />
+  ));
 
 storiesOf('Quinoa story - garlic template', module)
   .add('Story with all plain styles', () => (
     <Player
-      story={stylesTest}
-    />
+      story={stylesTest} />
   ))
   .add('Story with all contextualizations and variants', () => (
     <Player
-      story={contextualizationsTest}
-    />
+      story={contextualizationsTest} />
   ))
   .add('Radical', () => (
     <Player
-      story={radical}
-    />
+      story={radical} />
   ))
   .add('Story With footnotes', () => (
     <Player
-      story={withFootnotes}
-    />
+      story={withFootnotes} />
   ))
   .add('Story with custom css', () => (
     <Player
-      story={withCustomCss}
-    />
+      story={withCustomCss} />
   ))
   .add('Story with cover', () => (
     <Player
-      story={testCover}
-    />
+      story={testCover} />
   ))
   .add('Faulty links', () => (
     <Player
-      story={faultyLinks}
-    />
+      story={faultyLinks} />
   ))
   .add('Title blinking', () => (
     <Player
-      story={titleBlinking}
-    />
+      story={titleBlinking} />
   ))
   .add('With Styles Variations (WYSIWYG)', () => (
     <Player story={stylesVariables} />
@@ -157,9 +164,8 @@ storiesOf('Quinoa story - garlic template', module)
         position: 'fixed',
         width: '100%',
         height: '100%'
-      }}
-    >
-      <div 
+      }}>
+      <div
         style={{
           background: 'red',
           position: 'absolute',
@@ -167,25 +173,21 @@ storiesOf('Quinoa story - garlic template', module)
           top: '10%',
           width: '80%',
           height: '80%'
-        }}
-      >
+        }}>
         <Player
-          story={contextualizationsTest}
-        />
+          story={contextualizationsTest} />
       </div>
     </div>
   ))
   .add('Internal links', () => (
     <Player
-      story={{...internalLinksGarlic}}
-    />
-  ))
+      story={{ ...internalLinksGarlic }} />
+  ));
 // add other templates here
 storiesOf('Quinoa story - pepper template', module)
   .add('Story with cover image', () => (
     <Player
-      story={pepperTest}
-    />
+      story={pepperTest} />
   ))
   .add('Story without cover', () => (
     <Player
@@ -195,14 +197,13 @@ storiesOf('Quinoa story - pepper template', module)
           ...pepperTest.metadata,
           coverImage: undefined,
         }
-      }}
-    />
+      }} />
   ))
   .add('Story with notes in footer', () => (
     <Player
       story={{
         ...pepperTest,
-        
+
         settings: {
           ...pepperTest.settings,
           styles: {
@@ -216,8 +217,7 @@ storiesOf('Quinoa story - pepper template', module)
             }
           }
         }
-      }}
-    />
+      }} />
   ))
   .add('Story with custom background', () => (
     <Player
@@ -226,7 +226,7 @@ storiesOf('Quinoa story - pepper template', module)
         metadata: {
           ...pepperTest.metadata,
           coverImage: undefined,
-        }, 
+        },
         settings: {
           ...pepperTest.settings,
           styles: {
@@ -235,34 +235,29 @@ storiesOf('Quinoa story - pepper template', module)
               ...pepperTest.settings.styles.pepper,
               stylesVariables: {
                 ...pepperTest.settings.styles.pepper.stylesVariables,
-                "background":
+                background:
                   {
-                      "color": "pink"
+                      color: 'pink'
                   }
               }
             }
           }
         }
-      }}
-    />
+      }} />
   ))
   .add('Story with all plain styles', () => (
     <Player
-      story={{...stylesTest, settings: pepperTest.settings}}
-    />
+      story={{ ...stylesTest, settings: pepperTest.settings }} />
   ))
   .add('Story with all contextualizations and variants', () => (
     <Player
-      story={{...contextualizationsTest, settings: pepperTest.settings}}
-    />
+      story={{ ...contextualizationsTest, settings: pepperTest.settings }} />
   ))
   .add('Radical', () => (
     <Player
-      story={{...radical, settings: pepperTest.settings}}
-    />
+      story={{ ...radical, settings: pepperTest.settings }} />
   ))
   .add('Internal links pepper issue', () => (
     <Player
-      story={internalLinksPepper}
-    />
-  ))
+      story={internalLinksPepper} />
+  ));

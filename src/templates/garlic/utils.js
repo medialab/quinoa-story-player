@@ -20,7 +20,6 @@ const offsetMax = el => {
  */
 export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} }, jsElements = {}) => {
   const usedDocument = jsElements.usedDocument;
-  const usedWindow = jsElements.usedWindow;
   const toc = story.sectionsOrder
   .map((sectionId, sectionIndex) => {
     const section = story.sections[sectionId];
@@ -31,13 +30,13 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
     // const headers = content && content.blocks && content.blocks
     // .filter(block => block.type.indexOf('header') === 0);
 
-    let sectionActive = false;
     // title of the section
     const title = usedDocument.getElementById(section.id);
+    let nextTitleOffsetTop;
+    let titleOffsetTop;
     if (title && title.offsetTop) {
-      let nextTitleOffsetTop;
       // we will check if scroll is in this section's part of the page height
-      const titleOffsetTop = title.offsetTop + offsetMax(title);
+      titleOffsetTop = title.offsetTop + offsetMax(title);
       // to do that we need the offset of the next element
       if (sectionIndex < story.sectionsOrder.length - 1) {
         const next = story.sectionsOrder[sectionIndex + 1];
@@ -46,20 +45,13 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
           nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
         }
       }
-      if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
-          (nextTitleOffsetTop === undefined ||
-            nextTitleOffsetTop >= scrollTop
-          )
-        ) {
-        sectionActive = true;
-      }
     }
     // eventually we format the headers for display
     return {
       level: sectionLevel,
       text: section.metadata.title || '',
       key: section.id,
-      active: sectionActive
+      range: [titleOffsetTop, nextTitleOffsetTop]
     };
   });
 
@@ -69,14 +61,14 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
   const notesPosition = (story.settings.options && story.settings.options.notesPosition) || 'foot';
   const hasNotes = story.sectionsOrder.find(key => story.sections[key].notesOrder.length > 0) !== undefined;
   if (notesPosition === 'foot' && hasNotes) {
-    let notesActive;
     let nextTitleOffsetTop;
+    let titleOffsetTop;
     // title of the section
     const title = usedDocument.getElementById('notes');
 
     if (title) {
       // we will check if scroll is after glossary title
-      const titleOffsetTop = title.offsetTop + offsetMax(title);
+      titleOffsetTop = title.offsetTop + offsetMax(title);
       let nextTitleId;
       if (hasReferences) {
         nextTitleId = 'references';
@@ -90,75 +82,66 @@ export const buildTOC = (story, scrollTop, { citations, glossary, locale = {} },
           nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
         }
       }
-      if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
-          (nextTitleOffsetTop === undefined ||
-            nextTitleOffsetTop >= scrollTop
-          )
-        ) {
-        notesActive = true;
-      }
       toc.push({
         level: 0,
         text: capitalize(locale.notes || 'notes'),
         key: 'notes',
-        active: notesActive
+        range: [titleOffsetTop, nextTitleOffsetTop]
       });
     }
   }
 
 
   if (hasReferences) {
-    let referencesActive;
     let nextTitleOffsetTop;
+    let titleOffsetTop;
     // title of the section
     const title = usedDocument.getElementById('references');
     if (title) {
       // we will check if scroll is after glossary title
-      const titleOffsetTop = title.offsetTop + offsetMax(title);
+      titleOffsetTop = title.offsetTop + offsetMax(title);
       const nextTitle = usedDocument.getElementById('glossary');
       if (nextTitle) {
         nextTitleOffsetTop = nextTitle.offsetTop + offsetMax(title);
-      }
-      if (titleOffsetTop <= scrollTop + window.innerHeight / 2 &&
-          (nextTitleOffsetTop === undefined ||
-            nextTitleOffsetTop >= scrollTop
-          )
-        ) {
-        referencesActive = true;
       }
       toc.push({
         level: 0,
         text: capitalize(locale.references || 'references'),
         key: 'references',
-        active: referencesActive
+        range: [titleOffsetTop, nextTitleOffsetTop],
       });
     }
   }
 
   if (hasGlossary) {
-    let glossaryActive;
-    let nextTitleOffsetTop;
+    let titleOffsetTop;
     // title of the section
     const title = usedDocument.getElementById('glossary');
     if (title) {
       // we will check if scroll is after glossary title
-      const titleOffsetTop = title.offsetTop + offsetMax(title);
-      if (titleOffsetTop <= scrollTop + usedWindow.innerHeight / 2 &&
-          (nextTitleOffsetTop === undefined ||
-            nextTitleOffsetTop >= scrollTop
-          )
-        ) {
-        glossaryActive = true;
-      }
+      titleOffsetTop = title.offsetTop + offsetMax(title);
       toc.push({
         level: 0,
         text: capitalize(locale.glossary || 'glossary'),
         key: 'glossary',
-        active: glossaryActive
+        range: [titleOffsetTop, undefined],
       });
     }
   }
   return toc;
+};
+
+export const getActiveTocElementKey = (scrollTop, toc, displacement) => {
+  const activeElement = toc.find((element, index) =>
+  element.range
+  && element.range[0] < scrollTop + displacement
+  && (
+    index === toc.length - 1 ||
+    element.range[1] > scrollTop + displacement
+  ));
+  if (activeElement) {
+    return activeElement.key;
+  }
 };
 
 

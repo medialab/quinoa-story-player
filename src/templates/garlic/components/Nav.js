@@ -13,6 +13,7 @@ const Nav = ({
   isDisplayed,
   toggleIndex,
   scrollToElementId,
+  activeTOCElementKey,
   toc
 }) => {
   const menuOpened = (indexOpen || inCover);
@@ -55,6 +56,7 @@ const Nav = ({
           metadata={metadata}
           toggleIndex={toggleIndex}
           scrollToElementId={scrollToElementId}
+          activeTOCElementKey={activeTOCElementKey}
           toc={toc} />
       </div>
     </nav>

@@ -30,9 +30,7 @@ const BlockAssetWrapper = ({
     contextualizer: context.story.contextualizers[contextualization.contextualizerId],
     resource: context.story.resources[contextualization.resourceId],
   };
-  const fixedPresentationId = context.fixedPresentationId;
-  const onExit = context.onExit;
-  const activeBlock = context.activeBlock;
+  const activeBlockId = context.activeBlockId;
   const inNote = context.inNote;
   if (asset && asset.resource.data && !inNote) {
     const { resource, contextualizer } = asset;
@@ -68,7 +66,7 @@ const BlockAssetWrapper = ({
     };
     const info = buildInfo();
     let isActive;
-    if (activeBlock && activeBlock.type === 'atomic' && activeBlock.id === assetId) {
+    if (activeBlockId === assetId) {
       isActive = true;
     }
     // todo: we could later on embed more data coming
@@ -86,10 +84,7 @@ const BlockAssetWrapper = ({
           contextualization={contextualization}
           options={{
             template: 'scroller'
-          }}
-          fixed={fixedPresentationId === assetId}
-          allowInteractions={inNote || fixedPresentationId === assetId}
-          onExit={onExit} />
+          }} />
         <figcaption className="figure-caption-container">
           <div className="figure-caption-content">
             {resource.metadata.title && <h4 className="figure-caption-title">
@@ -132,22 +127,14 @@ BlockAssetWrapper.contextTypes = {
    */
   story: PropTypes.object,
   /**
-   * Id of the presentation being displayed full screen if any
-   */
-  fixedPresentationId: PropTypes.string,
-  /**
    * Whether the block asset is displayed in a note (and not in main content)
    */
   inNote: PropTypes.bool,
-  /**
-   * Triggered when a full-screen asset is exited
-   */
-  onExit: PropTypes.func,
 
   /**
    * Active element when relevant
    */
-  activeBlock: PropTypes.object,
+  activeBlockId: PropTypes.string,
 };
 
 export default BlockAssetWrapper;

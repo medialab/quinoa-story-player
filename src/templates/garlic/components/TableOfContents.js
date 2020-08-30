@@ -5,6 +5,7 @@ const TableOfContents = ({
   metadata,
   toggleIndex,
   scrollToElementId,
+  activeTOCElementKey,
   toc
 }) => {
   return (
@@ -29,7 +30,7 @@ const TableOfContents = ({
           return (
             <li
               key={index}
-              className={'table-of-contents-item level-' + item.level + (item.active ? ' active' : '')}>
+              className={'table-of-contents-item level-' + item.level + (item.key === activeTOCElementKey ? ' active' : '')}>
               <a
                 className="table-of-contents-link"
                 href={'#' + item.key}
