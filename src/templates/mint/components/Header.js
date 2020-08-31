@@ -31,13 +31,19 @@ const Header = ({
         className="header-contents">
         <div className="story-global-info-container">
           <h1 className="header-story-title">
-            <InternalLinkProvider
-              to={{
-                  viewType: firstItem.viewType,
-                  viewParams: firstItem.viewParams
-                }}>
-              <span className="header-story-title--modifier">{metadata.title || 'Quinoa story'}</span>
-            </InternalLinkProvider>
+            {
+              firstItem ?
+                <InternalLinkProvider
+                  to={{
+                    viewType: firstItem.viewType,
+                    viewParams: firstItem.viewParams
+                  }}>
+                  <span className="header-story-title--modifier">{metadata.title || 'Quinoa story'}</span>
+                </InternalLinkProvider>
+              :
+                <span className="header-story-title--modifier">{metadata.title || 'Quinoa story'}</span>
+            }
+
           </h1>
           {
           metadata.subtitle &&
