@@ -152,10 +152,12 @@ $timer-long: 1s;
         @extend .absolute-fill;
 
         .section,
-        .glossary-container
+        .glossary-container,
+        .references-container
          {
             min-height: calc(100% - 5rem);
             padding-bottom: 5rem;
+            padding-top: $gutter-medium;
             box-sizing: border-box;
             position: relative;
         }

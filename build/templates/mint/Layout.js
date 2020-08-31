@@ -587,7 +587,9 @@ function (_Component) {
             to: "/"
           });
         }
-      }))))))), _react.default.createElement("style", null, contextualizersStyles, _mint.default, computedStylesVariables, customCss));
+      }))))))), _react.default.createElement("style", null, contextualizersStyles, _mint.default, computedStylesVariables, customCss), _react.default.createElement("div", {
+        id: "modal-container"
+      }));
     };
 
     _this.scrollToContents = _this.scrollToContents.bind(_assertThisInitialized(_assertThisInitialized(_this)));

@@ -744,6 +744,7 @@ class PepperLayout extends Component {
           {computedStylesVariables}
           {customCss}
         </style>
+        <div id="modal-container" />
       </ReferencesManager>
     );
   }

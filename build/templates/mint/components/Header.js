@@ -36,14 +36,16 @@ var Header = function Header(_ref, _ref2) {
     className: "story-global-info-container"
   }, _react.default.createElement("h1", {
     className: "header-story-title"
-  }, _react.default.createElement(InternalLinkProvider, {
+  }, firstItem ? _react.default.createElement(InternalLinkProvider, {
     to: {
       viewType: firstItem.viewType,
       viewParams: firstItem.viewParams
     }
   }, _react.default.createElement("span", {
     className: "header-story-title--modifier"
-  }, metadata.title || 'Quinoa story'))), metadata.subtitle && _react.default.createElement("h2", {
+  }, metadata.title || 'Quinoa story')) : _react.default.createElement("span", {
+    className: "header-story-title--modifier"
+  }, metadata.title || 'Quinoa story')), metadata.subtitle && _react.default.createElement("h2", {
     className: "header-story-subtitle"
   }, _react.default.createElement("span", {
     className: "header-story-subtitle--modifier"

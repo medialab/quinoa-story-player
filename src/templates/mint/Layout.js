@@ -743,6 +743,7 @@ class MintLayout extends Component {
           {computedStylesVariables}
           {customCss}
         </style>
+        <div id="modal-container" />
       </ReferencesManager>
     );
   }
