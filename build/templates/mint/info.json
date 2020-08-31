@@ -1,7 +1,7 @@
 {
-  "id": "pepper",
-  "name": "Pepper",
-  "description": "Multipage template",
+  "id": "mint",
+  "name": "Mint",
+  "description": "Multipage template with top-menu",
   "acceptsOptions" : [
     "notesPosition",
     "referenceTypes",
