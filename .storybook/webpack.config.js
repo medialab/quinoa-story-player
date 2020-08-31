@@ -9,6 +9,11 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            presets: [
+              // "@babel/env",
+              "@babel/preset-env",
+              "@babel/preset-react"
+            ],
             plugins: [
               '@babel/plugin-proposal-export-default-from',
               '@babel/plugin-proposal-export-namespace-from',
@@ -16,10 +21,6 @@ module.exports = {
               ['@babel/plugin-proposal-decorators', {legacy:true}],
               ['@babel/plugin-proposal-class-properties', {loose: true}]
             ],
-            "presets": [
-              "@babel/env",
-              "@babel/react"
-            ]
           }
         }
       },

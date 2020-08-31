@@ -36,9 +36,14 @@ var Header = function Header(_ref, _ref2) {
     className: "story-global-info-container"
   }, _react.default.createElement("h1", {
     className: "header-story-title"
+  }, _react.default.createElement(InternalLinkProvider, {
+    to: {
+      viewType: firstItem.viewType,
+      viewParams: firstItem.viewParams
+    }
   }, _react.default.createElement("span", {
     className: "header-story-title--modifier"
-  }, metadata.title || 'Quinoa story')), metadata.subtitle && _react.default.createElement("h2", {
+  }, metadata.title || 'Quinoa story'))), metadata.subtitle && _react.default.createElement("h2", {
     className: "header-story-subtitle"
   }, _react.default.createElement("span", {
     className: "header-story-subtitle--modifier"
@@ -52,7 +57,11 @@ var Header = function Header(_ref, _ref2) {
     className: "header-story-edition"
   }, _react.default.createElement("span", {
     className: "header-story-subtitle--modifier"
-  }, metadata.edition)), firstItem && _react.default.createElement("h2", {
+  }, metadata.edition)), metadata.abstract && metadata.abstract.length ? _react.default.createElement("div", {
+    className: "header-item-color--modifier"
+  }, _react.default.createElement("blockquote", {
+    className: "header-story-abstract"
+  }, metadata.abstract)) : null, firstItem && _react.default.createElement("h2", {
     className: "first-item-link header-item-color--modifier"
   }, _react.default.createElement(InternalLinkProvider, {
     to: {
@@ -61,11 +70,7 @@ var Header = function Header(_ref, _ref2) {
     }
   }, _react.default.createElement("span", {
     className: "link-content"
-  }, locale['Begin exploration'] || 'Begin exploration'))), metadata.abstract && metadata.abstract.length ? _react.default.createElement("div", {
-    className: "header-item-color--modifier"
-  }, _react.default.createElement("blockquote", {
-    className: "header-story-abstract"
-  }, metadata.abstract)) : null)));
+  }, locale['Begin exploration'] || 'Begin exploration'))))));
 };
 
 Header.contextTypes = {
