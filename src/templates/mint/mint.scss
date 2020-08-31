@@ -294,12 +294,23 @@ $timer-long: 1s;
         .first-item-link{
             margin-top: $gutter-medium;
             margin-bottom: $gutter-medium;
+            width: 100%;
+
             .internal-link,
             .internal-link:hover{
                 padding-bottom: 0;
                 color: inherit;
                 text-decoration:none;
                 background: inherit;
+                border: 1px solid currentColor;
+                width: 100%;
+                display: inline-block;
+                text-align: center;
+                padding: $gutter-small;
+                &:hover {
+                    background: $color-primary;
+                    color: $color-background;
+                }
             }
             // font-size: $font-size-3;
         }

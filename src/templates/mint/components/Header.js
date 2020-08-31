@@ -31,7 +31,13 @@ const Header = ({
         className="header-contents">
         <div className="story-global-info-container">
           <h1 className="header-story-title">
-            <span className="header-story-title--modifier">{metadata.title || 'Quinoa story'}</span>
+            <InternalLinkProvider
+              to={{
+                  viewType: firstItem.viewType,
+                  viewParams: firstItem.viewParams
+                }}>
+              <span className="header-story-title--modifier">{metadata.title || 'Quinoa story'}</span>
+            </InternalLinkProvider>
           </h1>
           {
           metadata.subtitle &&
@@ -53,27 +59,28 @@ const Header = ({
                 <span className="header-story-subtitle--modifier">{metadata.edition}</span>
               </h3>
           }
-          {firstItem &&
-          <h2 className="first-item-link header-item-color--modifier">
-            <InternalLinkProvider
-              to={{
-                viewType: firstItem.viewType,
-                viewParams: firstItem.viewParams
-              }}>
-              <span className="link-content">{locale['Begin exploration'] || 'Begin exploration'}</span>
-            </InternalLinkProvider>
-          </h2>
-        }
+
           {
-          metadata.abstract && metadata.abstract.length ?
-            <div className="header-item-color--modifier">
-              <blockquote className="header-story-abstract">
-                {metadata.abstract}
-              </blockquote>
-            </div>
-          :
-            null
-        }
+            metadata.abstract && metadata.abstract.length ?
+              <div className="header-item-color--modifier">
+                <blockquote className="header-story-abstract">
+                  {metadata.abstract}
+                </blockquote>
+              </div>
+            :
+              null
+          }
+          {firstItem &&
+            <h2 className="first-item-link header-item-color--modifier">
+              <InternalLinkProvider
+                to={{
+                  viewType: firstItem.viewType,
+                  viewParams: firstItem.viewParams
+                }}>
+                <span className="link-content">{locale['Begin exploration'] || 'Begin exploration'}</span>
+              </InternalLinkProvider>
+            </h2>
+          }
         </div>
         {/* <div className="header-toc-container">
           <h2 className="toc-title header-item-color--modifier">
