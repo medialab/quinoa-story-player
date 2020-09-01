@@ -19,7 +19,7 @@ const Nav = ({
   const menuOpened = (indexOpen || inCover);
   return (
     <nav
-      className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed')}
+      className={'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed') + (isDisplayed ? '' : ' hidden')}
       style={{
                     position: inCover && coverImage ? 'relative' : 'absolute',
                     left: 0,

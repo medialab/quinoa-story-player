@@ -26,7 +26,7 @@ var Nav = function Nav(_ref) {
       toc = _ref.toc;
   var menuOpened = indexOpen || inCover;
   return _react.default.createElement("nav", {
-    className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed'),
+    className: 'nav' + (indexOpen ? ' active' : '') + (inCover ? '' : ' fixed') + (isDisplayed ? '' : ' hidden'),
     style: {
       position: inCover && coverImage ? 'relative' : 'absolute',
       left: 0,

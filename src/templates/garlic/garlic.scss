@@ -329,6 +329,13 @@ $timer-long: 1s;
         flex-flow: column nowrap;
         justify-content: stretch;
         @extend .absolute-fill;
+
+        &.hidden {
+            pointer-events: none;
+            .table-of-contents li{
+                pointer-events: none;
+            }
+        }
     }
     /**
      * Nav content layout
@@ -1120,9 +1127,13 @@ $timer-long: 1s;
     {
         font-size: $font-size-1;
 
-        pointer-events: all;
+        pointer-events: none;
 
         @include transition($timer-medium all  ease);
+
+        li {
+            pointer-events: all;
+        }
     }
     /**
      * Table of contents title styling
