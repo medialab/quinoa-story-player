@@ -27,6 +27,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Link = function Link(_ref) {
   var resource = _ref.resource,
       children = _ref.children;
+  var tooltip = !resource.metadata.title.length || resource.metadata.title === resource.data.url ? resource.data.url : "".concat(resource.metadata.title, " (").concat(resource.data.url, ")");
   return _react.default.createElement("a", {
     href: resource.data.url,
     target: "_blank",
@@ -34,7 +35,7 @@ var Link = function Link(_ref) {
     alt: "href",
     rel: "noopener noreferrer"
   }, _react.default.createElement(_Tooltip.default, {
-    content: "".concat(resource.metadata.title, " (").concat(resource.data.url, ")")
+    content: tooltip
   }, children));
 };
 

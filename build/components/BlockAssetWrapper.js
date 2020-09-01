@@ -83,7 +83,7 @@ var BlockAssetWrapper = function BlockAssetWrapper(_ref, context) {
         template: 'scroller'
       }
     }), _react.default.createElement("figcaption", {
-      className: "figure-caption-container"
+      className: "figure-caption-container  background-color--modifier"
     }, _react.default.createElement("div", {
       className: "figure-caption-content"
     }, resource.metadata.title && _react.default.createElement("h4", {

@@ -117,6 +117,7 @@ class GarlicLayout extends Component {
       locale: this.state.locale,
 
       activeBlockId: this.state.activeBlockId,
+      activeBlockSectionId: this.state.activeBlockSectionId,
 
       usedDocument: this.props.usedDocument || document,
       usedWindow: this.props.usedWindow || window,
@@ -231,13 +232,25 @@ class GarlicLayout extends Component {
     });
   }
 
+  getSectionId = (element) => {
+    let parent = element.parentNode;
+    while(parent && (parent.className && !parent.className.includes('section '))) {
+      parent = parent.parentNode;
+    }
+    if (parent && parent.className.includes('section ')) {
+      const id = parent.id.split('section-container-').pop();
+      return id;
+    }
+  }
+
   getScrollElements = () => {
     const rawElements = this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
     return Array.from(rawElements).map(element => {
       return {
         element,
         type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
-        bbox: element.getBoundingClientRect()
+        bbox: element.getBoundingClientRect(),
+        sectionId: this.getSectionId(element)
       };
     });
   }
@@ -314,18 +327,19 @@ class GarlicLayout extends Component {
           // return (element.bbox.top < evt.clientHeight * 0.5);
           return (element.bbox.top < scrollTop + this.props.usedWindow.innerHeight / 2);
         });
+        const activeBlockSectionId = activeBlock.sectionId;
         if (activeBlock && activeBlock.type === 'atomic') {
           const idBearer = activeBlock.element.querySelector('.content-figure');
           if (idBearer) {
             activeBlockId = idBearer.id;
           }
         }
- else {
+        else {
           activeBlockId = undefined;
         }
         // if (!this.state.activeBlock || (this.state.activeBlock.id !== activeBlock.id)) {
-        if (this.state.activeBlockId !== activeBlockId) {
-          this.setState({ activeBlockId });
+        if (this.state.activeBlockId !== activeBlockId || this.state.activeBlockSectionId !== activeBlockSectionId) {
+          this.setState({ activeBlockId, activeBlockSectionId });
         }
     }
   }
@@ -654,7 +668,8 @@ GarlicLayout.childContextTypes = {
 
    citationLocale: PropTypes.string,
 
-   activeBlockId: PropTypes.object,
+   activeBlockId: PropTypes.string,
+   activeBlockSectionId: PropTypes.string,
 
    usedDocument: PropTypes.object,
    usedWindow: PropTypes.object

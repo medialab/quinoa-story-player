@@ -163,7 +163,7 @@ var stylesVariablesToCss = function stylesVariablesToCss() {
   }
 
   if (styles.background) {
-    compiledStyles = compiledStyles + "\n    .quinoa-story-player, .quinoa-story-player .nav,\n    .quinoa-story-player .background-color--modifier,\n    .quinoa-story-player .table-of-contents-item .table-of-contents-item-contents.background-color--modifier {\n      background: ".concat(styles.background.color, ";\n    }");
+    compiledStyles = compiledStyles + "\n    .quinoa-story-player, .quinoa-story-player .nav,\n    .quinoa-story-player .background-color--modifier,\n    .quinoa-story-player .background-color--modifier,\n    .quinoa-story-player .content-figure .quinoa-contextualization,\n    .quinoa-story-player .content-figure .figure-caption-container.background-color--modifier,\n    .quinoa-story-player .table-of-contents-item .table-of-contents-item-contents.background-color--modifier {\n      background: ".concat(styles.background.color, ";\n    }");
   }
 
   if (styles.blockquotes) {

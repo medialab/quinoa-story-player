@@ -157,6 +157,19 @@ function (_Component) {
       });
     };
 
+    _this.getSectionId = function (element) {
+      var parent = element.parentNode;
+
+      while (parent && parent.className && !parent.className.includes('section ')) {
+        parent = parent.parentNode;
+      }
+
+      if (parent && parent.className.includes('section ')) {
+        var id = parent.id.split('section-container-').pop();
+        return id;
+      }
+    };
+
     _this.getScrollElements = function () {
       var rawElements = _this.globalScrollbar.view.querySelectorAll('.content-atomic-container,.section-title,.content-title,.header-story-title');
 
@@ -164,7 +177,8 @@ function (_Component) {
         return {
           element: element,
           type: element.className.includes('content-atomic-container') ? 'atomic' : 'title',
-          bbox: element.getBoundingClientRect()
+          bbox: element.getBoundingClientRect(),
+          sectionId: _this.getSectionId(element)
         };
       });
     };
@@ -210,6 +224,8 @@ function (_Component) {
           return element.bbox.top < scrollTop + _this.props.usedWindow.innerHeight / 2;
         });
 
+        var activeBlockSectionId = activeBlock.sectionId;
+
         if (activeBlock && activeBlock.type === 'atomic') {
           var idBearer = activeBlock.element.querySelector('.content-figure');
 
@@ -221,9 +237,10 @@ function (_Component) {
         } // if (!this.state.activeBlock || (this.state.activeBlock.id !== activeBlock.id)) {
 
 
-        if (_this.state.activeBlockId !== activeBlockId) {
+        if (_this.state.activeBlockId !== activeBlockId || _this.state.activeBlockSectionId !== activeBlockSectionId) {
           _this.setState({
-            activeBlockId: activeBlockId
+            activeBlockId: activeBlockId,
+            activeBlockSectionId: activeBlockSectionId
           });
         }
       }
@@ -507,6 +524,7 @@ function (_Component) {
         onInternalLinkClick: this.onInternalLinkClick,
         locale: this.state.locale,
         activeBlockId: this.state.activeBlockId,
+        activeBlockSectionId: this.state.activeBlockSectionId,
         usedDocument: this.props.usedDocument || document,
         usedWindow: this.props.usedWindow || window,
         citationLocale: this.props.story && this.props.story.settings.citationLocale && this.props.story.settings.citationLocale.data || _englishLocale.default,
@@ -721,7 +739,8 @@ GarlicLayout.childContextTypes = {
   locale: _propTypes.default.object,
   citationStyle: _propTypes.default.string,
   citationLocale: _propTypes.default.string,
-  activeBlockId: _propTypes.default.object,
+  activeBlockId: _propTypes.default.string,
+  activeBlockSectionId: _propTypes.default.string,
   usedDocument: _propTypes.default.object,
   usedWindow: _propTypes.default.object
 };

@@ -85,7 +85,7 @@ const BlockAssetWrapper = ({
           options={{
             template: 'scroller'
           }} />
-        <figcaption className="figure-caption-container">
+        <figcaption className="figure-caption-container  background-color--modifier">
           <div className="figure-caption-content">
             {resource.metadata.title && <h4 className="figure-caption-title">
               {resource.metadata.title}{info && <Info message={info} />}

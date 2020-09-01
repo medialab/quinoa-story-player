@@ -16,17 +16,20 @@ import Tooltip from '../../components/Tooltip';
 const Link = ({
   resource,
   children
-}) => (
-  <a
-    href={resource.data.url}
-    target="_blank"
-    className="quinoa-contextualization inline webpage content-a"
-    alt="href"
-    rel="noopener noreferrer">
-    <Tooltip content={`${resource.metadata.title} (${resource.data.url})`}>
-      {children}
-    </Tooltip>
-  </a>
-);
+}) => {
+  const tooltip = (!resource.metadata.title.length || resource.metadata.title === resource.data.url) ? resource.data.url : `${resource.metadata.title} (${resource.data.url})`;
+  return (
+    <a
+      href={resource.data.url}
+      target="_blank"
+      className="quinoa-contextualization inline webpage content-a"
+      alt="href"
+      rel="noopener noreferrer">
+      <Tooltip content={tooltip}>
+        {children}
+      </Tooltip>
+    </a>
+  );
+}
 
 export default Link;

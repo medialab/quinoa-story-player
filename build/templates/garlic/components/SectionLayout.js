@@ -59,8 +59,8 @@ function (_Component) {
       };
     };
 
-    _this.shouldComponentUpdate = function (nextProps, nextContext) {
-      return nextProps.section !== _this.props.section || _this.context.activeBlockId !== nextContext.activeBlockId;
+    _this.shouldComponentUpdate = function (nextProps, nextState, nextContext) {
+      return nextProps.section !== _this.props.section || _this.context.activeBlockId !== nextContext.activeBlockId && nextContext.activeBlockSectionId === nextProps.section.id;
     };
 
     _this.state = {
@@ -110,7 +110,8 @@ function (_Component) {
 
 SectionLayout.contextTypes = {
   dimensions: _propTypes.default.object,
-  activeBlockId: _propTypes.default.string
+  activeBlockId: _propTypes.default.string,
+  activeBlockSectionId: _propTypes.default.string
 };
 /**
  * Component's properties types

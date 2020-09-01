@@ -155,8 +155,8 @@ $timer-long: 1s;
         .glossary-container,
         .references-container
          {
-            min-height: calc(100% - 5rem);
-            padding-bottom: 5rem;
+            min-height: 100%; // calc(100% - 6rem);
+            padding-bottom: 6rem;
             padding-top: $gutter-medium;
             box-sizing: border-box;
             position: relative;
@@ -1182,6 +1182,7 @@ $timer-long: 1s;
         flex-flow: row nowrap;
         justify-content: stretch;
         align-items: flex-start;
+        min-height: 3rem;
 
         .internal-link{
             font-size: $font-size-1;

@@ -142,6 +142,9 @@ export const stylesVariablesToCss = (styles = {}) => {
     compiledStyles = compiledStyles + `
     .quinoa-story-player, .quinoa-story-player .nav,
     .quinoa-story-player .background-color--modifier,
+    .quinoa-story-player .background-color--modifier,
+    .quinoa-story-player .content-figure .quinoa-contextualization,
+    .quinoa-story-player .content-figure .figure-caption-container.background-color--modifier,
     .quinoa-story-player .table-of-contents-item .table-of-contents-item-contents.background-color--modifier {
       background: ${styles.background.color};
     }`;

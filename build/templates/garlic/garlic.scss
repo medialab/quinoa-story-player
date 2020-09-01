@@ -468,6 +468,10 @@ $timer-long: 1s;
 
         flex-flow: column nowrap;
         align-items: center;
+        .figure-caption-container,
+        .quinoa-contextualization {
+            background: $color-background;
+        }
     }
     .contents-wrapper.figures-position-aside
     {
@@ -509,7 +513,8 @@ $timer-long: 1s;
 
                 figcaption {
                     opacity: 0;
-                    transition: opacity .5s ease;
+                    transform: scale(0.1);
+                    transition: all .5s ease;
                 }
 
                 .quinoa-contextualization {
@@ -527,6 +532,7 @@ $timer-long: 1s;
                     // opacity: 1;
                     figcaption {
                         opacity: 1;
+                        transform: scale(1);
                     }
                     .quinoa-contextualization {
                         transform: scale(1);

@@ -34,8 +34,11 @@ class SectionLayout extends Component {
     };
   }
 
-  shouldComponentUpdate = (nextProps, nextContext) => {
-    return nextProps.section !== this.props.section || this.context.activeBlockId !== nextContext.activeBlockId;
+  shouldComponentUpdate = (nextProps, nextState, nextContext) => {
+    return nextProps.section !== this.props.section ||
+    (this.context.activeBlockId !== nextContext.activeBlockId &&
+      nextContext.activeBlockSectionId === nextProps.section.id
+    );
   }
 
   /**
@@ -78,6 +81,7 @@ class SectionLayout extends Component {
 SectionLayout.contextTypes = {
   dimensions: PropTypes.object,
   activeBlockId: PropTypes.string,
+  activeBlockSectionId: PropTypes.string,
 };
 
 /**

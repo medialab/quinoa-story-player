@@ -140,11 +140,14 @@ $timer-long: 1s;
     {
         @extend .absolute-fill;
 
-        .section {
+        .section,
+        .glossary-container,
+        .references-container {
             min-height: calc(100% - 5rem);
             padding-bottom: 5rem;
             box-sizing: border-box;
             position: relative;
+            padding-bottom: 6rem;
         }
     }
 
@@ -1093,6 +1096,7 @@ $timer-long: 1s;
         flex-flow: row nowrap;
         justify-content: stretch;
         align-items: flex-start;
+        min-height: 3rem;
 
         .internal-link{
             font-size: $font-size-1;
