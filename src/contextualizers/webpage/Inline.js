@@ -30,6 +30,6 @@ const Link = ({
       </Tooltip>
     </a>
   );
-}
+};
 
 export default Link;

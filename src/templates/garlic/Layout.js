@@ -234,7 +234,7 @@ class GarlicLayout extends Component {
 
   getSectionId = (element) => {
     let parent = element.parentNode;
-    while(parent && (parent.className && !parent.className.includes('section '))) {
+    while (parent && (parent.className && !parent.className.includes('section '))) {
       parent = parent.parentNode;
     }
     if (parent && parent.className.includes('section ')) {
